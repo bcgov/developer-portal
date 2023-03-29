@@ -90,18 +90,11 @@ Login with the developer user and password at the login screen.
 
 ### Backstage deployment to OpenShift Local
 
-#### Build the project
-```shell
-$ yarn install --frozen-lockfile
-
-$ yarn tsc
-
-$ yarn build:backend
-```
-
 #### Build the image
+
+In the root of the project, run the following command. Replace the 1.0.0 tag with your tag.
 ```shell
-$ yarn build-image --tag backstage:1.0.0
+$ docker build . -f packages/backend/Dockerfile --tag backstage:1.0.0
 ```
 
 #### Install the image into the OpenShift Local Internal Registry
@@ -181,7 +174,6 @@ $ helm install backstage backstage/backstage -f values-openshift.yaml
 ```
 
 Update using helm:
-1. [Build the project](#build-the-project)
 1. [Build the image](#build-the-image)
 1. [Install the image into the OpenShift Local Internal Registry](#install-the-image-into-the-openshift-local-internal-registry)
 1. Update tag in `values-openshift.yaml`
