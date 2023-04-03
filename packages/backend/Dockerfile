@@ -64,4 +64,4 @@ COPY ./app-config.yaml .
 # The upstream backstage image does not account for this and it causes the container to fail at runtime.
 RUN fix-permissions ./
 
-CMD ["node", "packages/backend", "--config", "app-config.yaml"]
+CMD ["node", "packages/backend", "--config", "app-config.yaml",  "--config", "app-config.production.yaml"]
