@@ -37,4 +37,5 @@ jobs:
           context: .
           file: packages/backend/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }} 
