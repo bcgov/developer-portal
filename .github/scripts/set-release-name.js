@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const { EOL } = require('os');
 
 async function getBackstageVersion() {
-  const rootPath = path.resolve(__dirname, '../backstage.json');
+  const rootPath = path.resolve(__dirname, '../../backstage.json');
   return fs.readJson(rootPath).then(_ => _.version);
 }
 
