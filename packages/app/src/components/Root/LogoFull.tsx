@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     height: 30,
   },
   path: {
-    fill: '#7df3e1',
+    fill: '#f5be49',
   },
 });
 const LogoFull = () => {
