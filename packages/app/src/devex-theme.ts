@@ -119,7 +119,6 @@ const createCustomThemeOverrides = (
         color: alpha(theme.page.fontColor, 0.8),
       },
     },
-    // TODO: Remove after https://github.com/backstage/backstage/pull/16853 is available here
     BackstageHeaderLabel: {
       label: {
         color: theme.page.fontColor,

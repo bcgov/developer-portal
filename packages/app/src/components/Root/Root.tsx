@@ -79,17 +79,12 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
         {/* Global nav, not org-specific */}
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home">
+        <SidebarItem icon={HomeIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
-            <SidebarSubmenuItem
-              title="Domains"
-              to="catalog?filters[kind]=domain"
-              icon={useApp().getSystemIcon('kind:domain')}
-            />
-            <SidebarSubmenuItem
-              title="Systems"
-              to="catalog?filters[kind]=system"
-              icon={useApp().getSystemIcon('kind:system')}
+          <SidebarSubmenuItem
+              title="APIs"
+              to="catalog?filters[kind]=api"
+              icon={useApp().getSystemIcon('kind:api')}
             />
             <SidebarSubmenuItem
               title="Components"
@@ -97,15 +92,19 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
               icon={useApp().getSystemIcon('kind:component')}
             />
             <SidebarSubmenuItem
-              title="APIs"
-              to="catalog?filters[kind]=api"
-              icon={useApp().getSystemIcon('kind:api')}
+              title="Locations"
+              to="catalog?filters[kind]=location"
+              icon={useApp().getSystemIcon('kind:location')}
             />
-            <SidebarDivider />
             <SidebarSubmenuItem
-              title="Resources"
-              to="catalog?filters[kind]=resource"
-              icon={useApp().getSystemIcon('kind:resource')}
+              title="Systems"
+              to="catalog?filters[kind]=system"
+              icon={useApp().getSystemIcon('kind:system')}
+            />
+            <SidebarSubmenuItem
+              title="Templates"
+              to="catalog?filters[kind]=template"
+              icon={useApp().getSystemIcon('kind:api')}
             />
             <SidebarDivider />
             <SidebarSubmenuItem
