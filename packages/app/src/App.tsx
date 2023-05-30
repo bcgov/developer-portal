@@ -58,7 +58,7 @@ const app = createApp({
   themes: [
     {
       id: 'devex',
-      title: 'DevEx',
+      title: 'DevEx Theme',
       variant: 'light',
       Provider: ({ children }) => (
         <ThemeProvider theme={devExTheme}>
@@ -68,7 +68,7 @@ const app = createApp({
     },
     {
       id: 'light',
-      title: 'Light',
+      title: 'Light Theme',
       variant: 'light',
       Provider: ({ children }) => (
         <ThemeProvider theme={lightTheme}>
@@ -78,7 +78,7 @@ const app = createApp({
     },
     {
       id: 'dark',
-      title: 'Dark',
+      title: 'Dark Theme',
       variant: 'dark',
       Provider: ({ children }) => (
         <ThemeProvider theme={darkTheme}>
@@ -132,10 +132,10 @@ const routes = (
 
 export default app.createRoot(
   <>
-      <AlertDisplay />
-      <OAuthRequestDialog />
-      <AppRouter>
-        <Root>{routes}</Root>
-      </AppRouter>
+    <AlertDisplay />
+    <OAuthRequestDialog />
+    <AppRouter>
+      <Root>{routes}</Root>
+    </AppRouter>
   </>,
 );

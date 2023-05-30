@@ -226,7 +226,7 @@ const createCustomThemeOverrides = (
           color: '#FFFFFF',
         },
         '& svg': {
-          color: '#FFFFFF',
+          color: theme.palette.grey[50],
         },
       },
     },
