@@ -34,6 +34,10 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { darkTheme, lightTheme } from '@backstage/theme';
+import { devExTheme } from './devex-theme';
+
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -51,6 +55,38 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  themes: [
+    {
+      id: 'devex',
+      title: 'DevEx',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={devExTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
+      id: 'light',
+      title: 'Light',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
+      id: 'dark',
+      title: 'Dark',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+  ],
 });
 
 const routes = (
@@ -96,10 +132,10 @@ const routes = (
 
 export default app.createRoot(
   <>
-    <AlertDisplay />
-    <OAuthRequestDialog />
-    <AppRouter>
-      <Root>{routes}</Root>
-    </AppRouter>
+      <AlertDisplay />
+      <OAuthRequestDialog />
+      <AppRouter>
+        <Root>{routes}</Root>
+      </AppRouter>
   </>,
 );
