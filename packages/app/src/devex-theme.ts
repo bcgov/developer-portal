@@ -98,6 +98,36 @@ const createCustomThemeOverrides = (
   theme: BackstageTheme,
 ): BackstageOverrides & CatalogReactOverrides => {
   return {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [ 
+          {
+            fontFamily: 'BC Sans',
+            src: `url('/fonts/BcSansFont_Web/BCSans-Regular_2f.woff2') format('woff2'),
+                  url('/fonts/BcSansFont_Web/BCSans-Regular_2f.woff') format('woff')`,
+            fontWeight: 400,
+          },
+          {
+            fontFamily: 'BC Sans',
+            src: `url('/fonts/BcSansFont_Web/BCSans-Light_2f.woff2') format('woff2'),
+                  url('/fonts/BcSansFont_Web/BCSans-Light_2f.woff') format('woff')`,
+            fontWeight: 300,
+          },
+          {
+            fontFamily: 'BC Sans',
+            src: `url('/fonts/BcSansFont_Web/BCSans-Bold_2f.woff2') format('woff2'),
+                  url('/fonts/BcSansFont_Web/BCSans-Bold_2f.woff') format('woff')`,
+            fontWeight: 700,
+          },
+          {
+            fontFamily: 'BC Sans',
+            src: `url('/fonts/BcSansFont_Web/BCSans-Italic_2f.woff2') format('woff2'),
+                  url('/fonts/BcSansFont_Web/BCSans-Italic_2f.woff') format('woff')`,
+            fontStyle: 'italic',
+          },
+        ]
+      },
+    },
     BackstageHeader: {
       header: {
         backgroundImage: 'unset',
