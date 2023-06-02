@@ -1,5 +1,6 @@
-# From https://github.com/janus-idp/redhat-backstage-build 
-.yarn/*
+# From https://github.com/janus-idp/backstage-showcase/blob/main/.dockerignore
+.yarn/cache
+.yarn/install-state.gz
 **/dist
 **/node_modules
 plugins
