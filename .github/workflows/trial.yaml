@@ -5,8 +5,6 @@ env:
   TARGET_FILE: 'values.dev.yaml'
   NEW_TAG: 'dev'
   WORK_DIR: 'developer-portal'
-  MAIN_BRANCH_NAME: 'main'
-  CD_REPO: 'bcgov-c/tenant-gitops-f5ff48'
   
 on: 
   workflow_dispatch:
@@ -32,14 +30,7 @@ jobs:
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: ${{ env.TARGET_FILE }}
+          valueFile: ${{ env.WORK_DIR }}/ ${{ env.TARGET_FILE }}
           propertyPath: ${{ env.TAG_PATH }}
           value: ${{ env.NEW_TAG }}
-          repository: ${{ env.CD_REPO }}
-          message: 'Testing automated tag updating. Updating tag to ${{ env.NEW_TAG }}'
-          createPR: false
-          workDir: ${{ env.WORK_DIR }}
-          method: Update
-          masterBranchName: ${{ env.MAIN_BRANCH_NAME }}
-          branch: ${{ env.MAIN_BRANCH_NAME }}
-
+          commitChange: false
