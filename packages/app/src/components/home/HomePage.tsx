@@ -3,9 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useTheme } from '@material-ui/styles';
 import { LinkButton } from '@backstage/core-components';
+import { Theme } from '@material-ui/core/styles';
 
 const HomePage = () => {
-	const theme = useTheme();
+	const theme: Theme = useTheme();
 
 	const GlobalStyle = createGlobalStyle`
 		:root {
