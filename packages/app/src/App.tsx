@@ -38,6 +38,9 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
 import { devExTheme } from './devex-theme';
 
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import HomePage from './components/home/HomePage';
+
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -91,7 +94,10 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+    </Route>
+    <Route path="/Systems" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"

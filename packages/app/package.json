@@ -32,11 +32,13 @@
     "@backstage/plugin-catalog-import": "^0.9.8",
     "@backstage/plugin-catalog-react": "^1.6.0",
     "@backstage/plugin-github-actions": "^0.5.18",
+    "@backstage/plugin-home": "^0.5.2",
     "@backstage/plugin-org": "^0.6.8",
     "@backstage/plugin-permission-react": "^0.4.12",
     "@backstage/plugin-scaffolder": "^1.13.1",
     "@backstage/plugin-search": "^1.3.0",
     "@backstage/plugin-search-react": "^1.6.0",
+    "@backstage/plugin-stack-overflow": "^0.1.15",
     "@backstage/plugin-tech-radar": "^0.6.4",
     "@backstage/plugin-techdocs": "^1.6.2",
     "@backstage/plugin-techdocs-module-addons-contrib": "^1.0.13",
@@ -50,7 +52,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
-    "react-use": "^17.2.4"
+    "react-use": "^17.2.4",
+    "styled-components": "^6.0.0-rc.3"
   },
   "devDependencies": {
     "@backstage/test-utils": "^1.3.1",
