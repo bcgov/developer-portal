@@ -9,7 +9,7 @@ env:
   CD_REPO: 'bcgov-c/tenant-gitops-f5ff48'
   
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   update-tag:
