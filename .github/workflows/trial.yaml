@@ -2,7 +2,7 @@ name: Trial values update
 
 env:
   TAG_PATH: 'janus.upstream.backstage.image.tag'
-  TARGET_FILE: values.dev.yaml
+  TARGET_FILE: 'values.dev.yaml'
   NEW_TAG: 'dev'
   WORK_DIR: 'developer-portal'
   MAIN_BRANCH_NAME: 'main'
