@@ -4,7 +4,6 @@ env:
   TAG_PATH: 'janus.upstream.backstage.image.tag'
   TARGET_FILE: 'values.dev.yaml'
   NEW_TAG: 'dev'
-  WORK_DIR: 'developer-portal'
   
 on: 
   workflow_dispatch:
@@ -30,7 +29,7 @@ jobs:
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: ${{ env.WORK_DIR }}/ ${{ env.TARGET_FILE }}
+          valueFile: ${{ env.TARGET_FILE }}
           propertyPath: ${{ env.TAG_PATH }}
           value: ${{ env.NEW_TAG }}
           commitChange: false
