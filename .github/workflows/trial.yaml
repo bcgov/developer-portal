@@ -8,8 +8,7 @@ env:
   MAIN_BRANCH_NAME: 'main'
   CD_REPO: 'bcgov-c/tenant-gitops-f5ff48'
   
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   update-tag:
