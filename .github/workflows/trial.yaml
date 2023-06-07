@@ -1,9 +1,9 @@
 name: Trial values update
 
 env:
-  TAG_PATH: 'janus.upstream.backstage.image.tag'
   TARGET_FILE: 'values.dev.yaml'
   NEW_TAG: 'dev'
+  WORKING_DIR: 'developer-portal'
   
 on: 
   workflow_dispatch:
@@ -26,10 +26,9 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
-      - name: Update Image Version in the related HelmChart values.yaml
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          valueFile: ${{ env.TARGET_FILE }}
-          propertyPath: ${{ env.TAG_PATH }}
-          value: ${{ env.NEW_TAG }}
-          commitChange: false
+      - name: Update image tag in helm value file
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          sed -i '0,/tag: sha-[[:alnum:]]\+/s//tag: ${{ env.NEW_TAG }}/' ${{ env.TARGET_FILE }}
+          git commit -am "Update image tag for dev"
+          git push origin
