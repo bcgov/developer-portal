@@ -1,0 +1,42 @@
+name: Trial values update
+
+env:
+  TAG_PATH: 'janus.upstream.backstage.image.tag'
+  TARGET_FILE: values.dev.yaml
+  NEW_TAG: 'dev'
+  WORK_DIR: 'developer-portal'
+  MAIN_BRANCH_NAME: 'main'
+  CD_REPO: 'bcgov-c/tenant-gitops-f5ff48'
+  
+on:
+    workflow_dispatch:
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    
+    steps:    
+      - name: Setup deploy repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v3   
+        with:
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          repository: ${{ secrets.MANIFEST_REPO }}
+      - name: Update Image Version in the related HelmChart values.yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: ${{ env.TARGET_FILE }}
+          propertyPath: ${{ env.TAG_PATH }}
+          value: ${{ env.NEW_TAG }}
+          repository: ${{ env.CD_REPO }}
+          message: 'Testing automated tag updating. Updating tag to ${{ env.NEW_TAG }}'
+          createPR: false
+          workDir: ${{ env.WORK_DIR }}
+          method: Update
+          masterBranchName: ${{ env.MAIN_BRANCH_NAME }}
+          branch: ${{ env.MAIN_BRANCH_NAME }}
+
