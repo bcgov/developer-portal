@@ -26,6 +26,12 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
+
+      - name: Set global git config
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
       - name: Update image tag in helm value file
         run: |
           cd ${{ env.WORKING_DIR }}
