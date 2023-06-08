@@ -19,8 +19,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs: 
-      new_tag: ${{ steps.meta.outputs.tags }}
     
     steps:
       - name: Checkout
@@ -77,7 +75,7 @@ jobs:
       - name: Update image tag
         run: |
           cd ${{ env.WORKING_DIR }}
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ needs.build.outputs.new_tag }}"' ${{ env.TARGET_FILE }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ github.sha }}"' ${{ env.TARGET_FILE }}
     
       - name: Commit and push update
         run: |
