@@ -2,7 +2,7 @@ name: Trial values update
 
 env:
   TARGET_FILE: 'values.dev.yaml'
-  NEW_TAG: 'dev'
+  NEW_TAG: 'test-2'
   WORKING_DIR: 'developer-portal'
   
 on: 
@@ -27,14 +27,15 @@ jobs:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
 
-      - name: Set global git config
+      - name: Update image tag
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq -i '.janus.upstream.backstage.image.tag = "${{ env.NEW_TAG }}"' ${{ env.WORKING_DIR }}/${{ env.TARGET_FILE }}
+    
+      - name: Commit and push update
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-
-      - name: Update image tag in helm value file
-        run: |
-          cd ${{ env.WORKING_DIR }}
-          sed -i '0,/tag: sha-[[:alnum:]]\+/s//tag: ${{ env.NEW_TAG }}/' ${{ env.TARGET_FILE }}
           git commit -am "Update image tag for dev"
           git push origin
+
