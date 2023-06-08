@@ -73,7 +73,9 @@ jobs:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
 
-      # This assumes that sha was used as a tag in the above job    
+      # This assumes that sha was used as a tag in the above job 
+      # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
+      # of tags returned from metadata-action and using github.sha
       - name: Get short sha
         run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
 
