@@ -4,8 +4,12 @@ env:
   REGISTRY: ghcr.io
   REPOSITORY_NAME: developer-experience/developer-portal
   LICENSE_PLATE: f5ff48
+  TARGET_FILE: 'values.dev.yaml'
+  WORKING_DIR: 'developer-portal'
+  YAML_PROPERTY_PATH: '.janus.upstream.backstage.image.tag'
 
 on:
+  workflow_dispatch:
   push:
     paths-ignore:
         - '.github/**'
@@ -19,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          path: main
     
       - name: Docker meta
         id: meta
@@ -51,3 +57,28 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }} 
+      
+      - name: Setup deploy repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v3   
+        with:
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          repository: ${{ secrets.MANIFEST_REPO }}
+          path: deploy
+
+      - name: Update image tag
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ steps.meta.outputs.tags }}"' ${{ env.TARGET_FILE }}
+    
+      - name: Commit and push update
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Update image tag for dev"
+          git push origin
+
