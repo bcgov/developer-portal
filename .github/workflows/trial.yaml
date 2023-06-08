@@ -28,9 +28,9 @@ jobs:
           repository: ${{ secrets.MANIFEST_REPO }}
 
       - name: Update image tag
-        uses: mikefarah/yq@v4
-        with:
-          cmd: yq -i '.janus.upstream.backstage.image.tag = "${{ env.NEW_TAG }}"' ${{ env.WORKING_DIR }}/${{ env.TARGET_FILE }}
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          yq -i '.janus.upstream.backstage.image.tag = "${{ env.NEW_TAG }}"' ${{ env.TARGET_FILE }}
     
       - name: Commit and push update
         run: |
