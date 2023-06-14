@@ -9,7 +9,6 @@ env:
   YAML_PROPERTY_PATH: '.janus.upstream.backstage.image.tag'
 
 on:
-  workflow_dispatch:
   push:
     paths-ignore:
         - '.github/**'

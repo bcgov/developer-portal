@@ -9,3 +9,6 @@ coverage
 dist-types
 examples
 *.code-workspace
+*.github
+*.log
+*.git
