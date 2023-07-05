@@ -2,10 +2,10 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: developer-portal
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
+  description: A portal for the BC Government developer community.
+  annotations:
+     github.com/project-slug: bcgov/developer-portal
+     github.com/team-slug: bcgov/teams/exchange-lab-developer-portal-team
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: website
