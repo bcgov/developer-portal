@@ -11,6 +11,7 @@ export default async function createPlugin(
 	env: PluginEnvironment,
 ): Promise<Router> {
 	const builder = await CatalogBuilder.create(env);
+	builder.setProcessingIntervalSeconds(500);
 	builder.addProcessor(new ScaffolderEntitiesProcessor());
 	builder.addEntityProvider(
 		GithubEntityProvider.fromConfig(env.config, {
