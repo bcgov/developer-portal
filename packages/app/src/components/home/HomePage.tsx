@@ -89,43 +89,40 @@ const HomePage = () => {
 						InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
 						placeholder="Search"
 					/> </Grid>
-				<Grid item sm={12} md={4}>
+					<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg
 							src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/digitalFrameworkGrey.png"/>
-						<ContainerH2>Box Headline 1</ContainerH2>
-						<ContainerP>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis, est non
-							commodo luctus, nisi.</ContainerP>
+						<ContainerH2>Explore the catalog</ContainerH2>
+						<ContainerP>The catalog is where you can discover all of the software that is being developed by team across BC Gov.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="Catalog"
-							to="catalog?filters[kind]=all"
+							to="catalog"
 						>Catalog</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/04/tools-2.png"/>
-						<ContainerH2>Box Headline 2</ContainerH2>
-						<ContainerP>Maecenas sed diam eget risus varius blandit sit amet non magna. Morbi leo risus,
-							porta ac consectetur ac.</ContainerP>
+						<ContainerH2>Explore the API directory</ContainerH2>
+						<ContainerP>The API directory is where you can learn about APIs that have been published by teams across BC Gov</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="APIs"
-							to="catalog?filters[kind]=api"
+							to="api-docs"
 						>APIs</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/communityGrey.png"/>
-						<ContainerH2>Box Headline 3</ContainerH2>
-						<ContainerP>Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies
-							vehicula ut id elit.</ContainerP>
+						<ContainerH2>Explore the documentation library</ContainerH2>
+						<ContainerP>The docmentation library is where we've collected technical documentation about application development within BC Gov.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="Docs"
-							to="docs?filters[kind]=all"
+							to="docs"
 						>Docs</LinkButton>
 					</Container>
 				</Grid>

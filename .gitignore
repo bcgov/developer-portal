@@ -41,8 +41,9 @@ dist-types
 # MkDocs build output
 site
 
-# Local configuration files
+# Local configuration or documentation files
 *.local.yaml
+*.local.txt
 
 # Sensitive credentials
 *-credentials.yaml
