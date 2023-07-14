@@ -5,8 +5,8 @@ import {useTheme} from '@material-ui/styles';
 import {LinkButton} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {makeStyles} from "@material-ui/core";
-import {HomePageCompanyLogo} from "@backstage/plugin-home";
+import {makeStyles, Typography} from "@material-ui/core";
+import {HomePageCompanyLogo, HomePageToolkit, TemplateBackstageLogoIcon} from "@backstage/plugin-home";
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -78,52 +78,80 @@ const HomePage = () => {
 		width: 100%;
 	`;
 
+
+	const tools = [
+		{ url: 'http://https://stackoverflow.developer.gov.bc.ca',
+		label: 'Stack Overflow',
+		icon: <TemplateBackstageLogoIcon/>
+		},
+		{ url: 'https://chat.developer.gov.bc.ca',
+			label: 'RocketChat',
+			icon: <TemplateBackstageLogoIcon/>
+		},
+		{ url: 'https://github.com/bcogv',
+			label: 'GitHub',
+			icon: <TemplateBackstageLogoIcon/>
+		}
+]
+
 	return (
 		<>
 			<GlobalStyle/>
 			<Grid container spacing={3}>
 				<Grid container item xs={12} justifyContent='center'>
 					<HomePageCompanyLogo className={container}/>
+				</Grid>
+				<Grid container item xs={12} justifyContent={'center'}>
+					<Typography paragraph>
+						Welcome to the BC Gov Developer Portal!
+					</Typography>
+				</Grid>
+				<Grid item xs={12}>
 					<HomePageSearchBar
 						classes={{root: classes.searchBar}}
 						InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
 						placeholder="Search"
 					/> </Grid>
-					<Grid item sm={12} md={4}>
+				<Grid item xs={12} >
+					<HomePageToolkit title="Community Tools"
+						tools={tools}
+					/>
+				</Grid>
+				<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg
 							src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/digitalFrameworkGrey.png"/>
-						<ContainerH2>Explore the catalog</ContainerH2>
-						<ContainerP>The catalog is where you can discover all of the software that is being developed by team across BC Gov.</ContainerP>
+						<ContainerH2>Get started with mobile development.</ContainerH2>
+						<ContainerP>The BC Mobile Developer Guide provides guidance to developers on steps and practices to follow for developing mobile application for the BC government as well as the supports available to them.</ContainerP>
 						<LinkButton
 							className="default-button"
-							title="Catalog"
-							to="catalog"
-						>Catalog</LinkButton>
+							title="mobile"
+							to="docs/default/component/mobile-developer-guide"
+						>Read Now</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/04/tools-2.png"/>
-						<ContainerH2>Explore the API directory</ContainerH2>
-						<ContainerP>The API directory is where you can learn about APIs that have been published by teams across BC Gov</ContainerP>
+						<ContainerH2>Get up to speed on application development.</ContainerH2>
+						<ContainerP>The BC Developer Guide covers everything developers need to know in order to build quality, consistent, and compliant applications for the BC Government as well as the supports that available to them.</ContainerP>
 						<LinkButton
 							className="default-button"
-							title="APIs"
-							to="api-docs"
-						>APIs</LinkButton>
+							title="bcdg"
+							to="docs/default/componant/bcdg"
+						>Read Now</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4}>
 					<Container>
 						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/communityGrey.png"/>
-						<ContainerH2>Explore the documentation library</ContainerH2>
-						<ContainerP>The docmentation library is where we've collected technical documentation about application development within BC Gov.</ContainerP>
+						<ContainerH2>Find out about deploying applications in BC Government's private cloud.</ContainerH2>
+						<ContainerP>The Private Cloud Technical Documentation describes the services avaialable within BC Gov's OpenShift environments, as well as recommendations on making the most of them.</ContainerP>
 						<LinkButton
 							className="default-button"
-							title="Docs"
-							to="docs"
-						>Docs</LinkButton>
+							title="private-cloud-docs"
+							to="docs/default/component/private-cloud-docs"
+						>Read Now</LinkButton>
 					</Container>
 				</Grid>
 			</Grid>
