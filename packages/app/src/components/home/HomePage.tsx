@@ -6,7 +6,8 @@ import {LinkButton} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
 import {makeStyles, Typography} from "@material-ui/core";
-import {HomePageToolkit, TemplateBackstageLogoIcon} from "@backstage/plugin-home";
+import {HomePageToolkit} from "@backstage/plugin-home";
+import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -76,22 +77,21 @@ const HomePage = () => {
 		width: 100%;
 	`;
 
-
 	const tools = [
 		{
 			url: 'http://https://stackoverflow.developer.gov.bc.ca',
 			label: 'Stack Overflow',
-			icon: <TemplateBackstageLogoIcon/>
+			icon: <StackOverFlowIcon/>
 		},
 		{
 			url: 'https://chat.developer.gov.bc.ca',
 			label: 'RocketChat',
-			icon: <TemplateBackstageLogoIcon/>
+			icon: <RocketChatIcon/>
 		},
 		{
-			url: 'https://github.com/bcogv',
+			url: 'https://github.com/bcgov',
 			label: 'GitHub',
-			icon: <TemplateBackstageLogoIcon/>
+			icon: <GitHubSvgIcon/>
 		}
 	]
 
