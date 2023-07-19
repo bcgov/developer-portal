@@ -5,6 +5,6 @@ metadata:
 spec:
     type: url
     targets:
-        - http://github.com/brightcoast/platform-developer-docs/blob/main/catalog-info.yaml
+        - http://github.com/bcgov/private-cloud-techdocs/blob/main/catalog-info.yaml
         - http://github.com/bcgov/mobile-developer-guide/blob/main/catalog-info.yaml
         - http://github.com/bcgov/bcdg/blob/main/catalog-info.yaml
