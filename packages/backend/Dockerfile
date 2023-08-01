@@ -39,11 +39,6 @@ RUN $YARN build:backend
 FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1 AS runner
 USER 0
 
-# # Install gzip for tar and clean up
-# RUN microdnf install -y gzip python3 python3-pip && \
-#     pip3 install mkdocs-techdocs-core==1.2.1 && \
-#     microdnf clean all
-
 # Install gzip for tar and clean up
 RUN microdnf install -y gzip && microdnf clean all
 
@@ -66,7 +61,10 @@ COPY --from=build --chown=1001:1001 $REMOTE_SOURCES_DIR/packages/backend/dist/bu
 RUN tar xzf $REMOTE_SOURCES_DIR/bundle.tar.gz && rm $REMOTE_SOURCES_DIR/bundle.tar.gz
 
 # Copy any other files that we need at runtime
-COPY --chown=1001:1001 $REMOTE_SOURCES/app-config.yaml $REMOTE_SOURCES/app-config.production.yaml $REMOTE_SOURCES_DIR/
+COPY --chown=1001:1001 $REMOTE_SOURCES/app-config.yaml \
+$REMOTE_SOURCES/app-config.production.yaml \
+$REMOTE_SOURCES/catalog-info.yaml \
+$REMOTE_SOURCES/catalog-seed.yaml $REMOTE_SOURCES_DIR/
 
 # Install production dependencies
 RUN $YARN install --frozen-lockfile --production --network-timeout 600000 --ignore-scripts && $YARN cache clean
