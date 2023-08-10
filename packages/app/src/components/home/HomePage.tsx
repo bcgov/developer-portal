@@ -113,14 +113,14 @@ const HomePage = () => {
 			<Box sx={{ pb: 1 }}>
 				<Grid container spacing={4} justifyContent='space-between'>
 					<Grid item sm={12} md={8}>
-						<Typography variant="h2">B.C. Government DevHub</Typography>
+						<Typography variant="h2">B.C. government DevHub</Typography>
 					</Grid>
 				</Grid>
 			</Box>
 			<Grid container spacing={0} justifyContent='flex-start'>
 				<Grid item xs={12}>
 					<Typography paragraph>
-						The B.C. Government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
+						The B.C. government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
 					</Typography>
 				</Grid>
 			</Grid>
@@ -129,7 +129,7 @@ const HomePage = () => {
 				<HomePageSearchBar
 					classes={{root: classes.searchBar}}
 					InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
-					placeholder="Search"
+					placeholder="Search our catalog, including technical documentation and Stack Overflow answers"
 				/>
 			</Box>
 
@@ -148,12 +148,12 @@ const HomePage = () => {
 								Application development guide
 							</Link>
 						</ContainerH2>
-						<ContainerP>Everything you need to know to build a quality, consistent and compliant application for the B.C. government.</ContainerP>
+						<ContainerP>Everything you need to know to build a quality, consistent and compliant application.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="bcdg"
 							to="docs/default/component/bcdg"
-						>Read Now</LinkButton>
+						>Build a quality application</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4} style={{display: 'flex'}}>
@@ -164,12 +164,12 @@ const HomePage = () => {
 								Mobile development guide
 							</Link>
 						</ContainerH2>
-						<ContainerP>Detailed guidance on the steps and practices you must follow when developing a mobile application for the B.C. government.</ContainerP>
+						<ContainerP>Detailed guidance on the steps and practices you must follow when developing a mobile application.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="mobile"
 							to="docs/default/component/mobile-developer-guide"
-						>Read Now</LinkButton>
+						>Review the mobile development guide</LinkButton>
 					</Container>
 				</Grid>
 				<Grid item sm={12} md={4} style={{display: 'flex'}}>
@@ -185,7 +185,7 @@ const HomePage = () => {
 							className="default-button"
 							title="platform-developer-docs"
 							to="docs/default/component/platform-developer-docs"
-						>Read Now</LinkButton>
+						>Get ready to deploy</LinkButton>
 					</Container>
 				</Grid>
 			</Grid>
@@ -206,7 +206,7 @@ const HomePage = () => {
 					</Typography>
 				</Box>
 				<Typography paragraph>
-					The B.C. Government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <a href='#'>providing feedback</a> or participating in user research.
+					The B.C. government DevHub is managed by the Developer Experience team. <a href='mailto:jen.reiher@gov.bc.ca'>Join us</a> as we work together to create impactful solutions by <a href='#'>providing feedback</a> or participating in user research.
 				</Typography>
 			</Box>
 		</>

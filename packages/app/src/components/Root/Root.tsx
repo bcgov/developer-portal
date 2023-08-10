@@ -83,7 +83,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
         <SidebarItem icon={HomeIcon} to="/" text="Home" /> 
         {/* Global nav, not org-specific */}
-        <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
+        {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
           <SidebarSubmenuItem
               title="APIs"
@@ -123,14 +123,14 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
             />
           </SidebarSubmenu>
         </SidebarItem>
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" /> */}
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+        {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
         {/* End global nav */}
-        <SidebarDivider />
+        {/* <SidebarDivider />
         <SidebarScrollWrapper>
           <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-        </SidebarScrollWrapper>
+        </SidebarScrollWrapper> */}
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
