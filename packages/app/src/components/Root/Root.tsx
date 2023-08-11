@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import CatalogIcon from '@material-ui/icons/LocalLibrary';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
+// import CatalogIcon from '@material-ui/icons/LocalLibrary';
+// import ExtensionIcon from '@material-ui/icons/Extension';
+// import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+// import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
@@ -20,14 +20,14 @@ import {
   SidebarGroup,
   SidebarItem,
   SidebarPage,
-  SidebarScrollWrapper,
-  SidebarSubmenu,
-  SidebarSubmenuItem,
+  // SidebarScrollWrapper,
+  // SidebarSubmenu,
+  // SidebarSubmenuItem,
   SidebarSpace,
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import { useApp } from '@backstage/core-plugin-api';
+// import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
