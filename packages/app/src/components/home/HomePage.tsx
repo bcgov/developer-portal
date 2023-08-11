@@ -206,7 +206,7 @@ const HomePage = () => {
 					</Typography>
 				</Box>
 				<Typography paragraph>
-					The B.C. government DevHub is managed by the Developer Experience team. <a href='mailto:jen.reiher@gov.bc.ca'>Join us</a> as we work together to create impactful solutions by <a href='#'>providing feedback</a> or participating in user research.
+					The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <a href='mailto:developer.experience@gov.bc.ca'>providing feedback</a> or participating in user research.
 				</Typography>
 			</Box>
 		</>
