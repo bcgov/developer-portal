@@ -1,5 +1,5 @@
 app:
-    title: BC Gov Developer Portal
+    title: B.C. government DevHub
     baseUrl: http://localhost:3000
 
 organization:

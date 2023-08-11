@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import styled, {createGlobalStyle} from 'styled-components';
 import {useTheme} from '@material-ui/styles';
 import {LinkButton} from '@backstage/core-components';
@@ -8,11 +9,12 @@ import {HomePageSearchBar} from "@backstage/plugin-search";
 import {makeStyles, Typography} from "@material-ui/core";
 import {HomePageToolkit} from "@backstage/plugin-home";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
 		display: 'flex',
-		maxWidth: '60vw',
+		width: '65%',
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[1],
 		padding: '8px 0',
@@ -47,10 +49,20 @@ const HomePage = () => {
 		}
 
 		body {
-			padding: 1rem 3rem;
+			padding: 2.1rem 9%;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
 		}
 
 		.default-button {
+			margin-top: auto;
+			width: fit-content;
 			border-color: currentcolor;
 			border-bottom: 2px solid;
 			border-radius: 0;
@@ -98,102 +110,105 @@ const HomePage = () => {
 	return (
 		<>
 			<GlobalStyle/>
-			<Grid container spacing={3} justifyContent='space-between'>
-				<Grid item sm={12} md={8}>
-					<Typography variant="h2">BC government developer portal</Typography>
+			<Box sx={{ pb: 1 }}>
+				<Grid container spacing={4} justifyContent='space-between'>
+					<Grid item sm={12} md={8}>
+						<Typography variant="h2">B.C. government DevHub</Typography>
+					</Grid>
 				</Grid>
-				<Grid item sm={12} md={4}>
-					<HomePageSearchBar
-						classes={{root: classes.searchBar}}
-						InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
-						placeholder="Search"
-					/> </Grid>
-			</Grid>
-			<Grid container spacing={3} justifyContent='flex-start'>
+			</Box>
+			<Grid container spacing={0} justifyContent='flex-start'>
 				<Grid item xs={12}>
 					<Typography paragraph>
-						Explore our centralized hub to access common resources, tools, documentation and API’s that
-						enable
-						applications and services for the benefit of the developer community. Join us on this journey as
-						we
-						work
-						together to create impactful solutions for people.
-					</Typography>
-					<Typography paragraph>
-						The developer portal is a product of the BC Government Developer Experience team. Help us
-						improve
-						this
-						portal and our other services and tools by <a
-						href="https://github.com/bcgov/developer-portal/issues">providing
-						feedback</a> or <a
-						href="mailto:developer.experience@gov.bc.ca?subject=Developer portal user research">volunteering</a> to
-						participating in user research.
+						The B.C. government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
 					</Typography>
 				</Grid>
 			</Grid>
 
-			<Grid item sm={12}>
+			<Box sx={{ pt: 4, pb: 6 }}>
+				<HomePageSearchBar
+					classes={{root: classes.searchBar}}
+					InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
+					placeholder="Search our catalog, including technical documentation and Stack Overflow answers"
+				/>
+			</Box>
+
+			<Box sx={{ pb: 1 }}>
 				<Typography variant="h3">
 					Documentation library
 				</Typography>
-			</Grid>
+			</Box>
+
 			<Grid container spacing={3}>
-				<Grid item sm={12} md={4}>
-					<Container>
-						<ContainerImg
-							src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/digitalFrameworkGrey.png"/>
-						<ContainerH2>Get started with mobile development.</ContainerH2>
-						<ContainerP>The BC Mobile Developer Guide provides guidance to developers on steps and practices
-							to
-							follow for developing mobile application for the BC government as well as the supports
-							available to
-							them.</ContainerP>
-						<LinkButton
-							className="default-button"
-							title="mobile"
-							to="docs/default/component/mobile-developer-guide"
-						>Read Now</LinkButton>
-					</Container>
-				</Grid>
-				<Grid item sm={12} md={4}>
-					<Container>
-						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/04/tools-2.png"/>
-						<ContainerH2>Get up to speed on application development.</ContainerH2>
-						<ContainerP>The BC Developer Guide covers everything developers need to know in order to build
-							quality,
-							consistent, and compliant applications for the BC government as well as the supports
-							available to
-							them.</ContainerP>
+				<Grid item sm={12} md={4} style={{display: 'flex'}}>
+					<Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+						<ContainerImg src="" />
+						<ContainerH2>
+							<Link to="docs/default/component/bcdg">
+								Application development guide
+							</Link>
+						</ContainerH2>
+						<ContainerP>Everything you need to know to build a quality, consistent and compliant application.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="bcdg"
 							to="docs/default/component/bcdg"
-						>Read Now</LinkButton>
+						>Build a quality application</LinkButton>
 					</Container>
 				</Grid>
-				<Grid item sm={12} md={4}>
-					<Container>
-						<ContainerImg src="https://digital.gov.bc.ca/wp-content/uploads/2023/03/communityGrey.png"/>
-						<ContainerH2>Find out about deploying applications in BC Government's private
-							cloud.</ContainerH2>
-						<ContainerP>The Private Cloud Technical Documentation describes the services avaialable within
-							BC
-							government OpenShift environments, as well as recommendations on making the most of
-							them.</ContainerP>
+				<Grid item sm={12} md={4} style={{display: 'flex'}}>
+					<Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+					<ContainerImg src="" />
+						<ContainerH2>
+							<Link to="docs/default/component/mobile-developer-guide">
+								Mobile development guide
+							</Link>
+						</ContainerH2>
+						<ContainerP>Detailed guidance on the steps and practices you must follow when developing a mobile application.</ContainerP>
+						<LinkButton
+							className="default-button"
+							title="mobile"
+							to="docs/default/component/mobile-developer-guide"
+						>Review the mobile development guide</LinkButton>
+					</Container>
+				</Grid>
+				<Grid item sm={12} md={4} style={{display: 'flex'}}>
+					<Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+						<ContainerImg src="" />
+						<ContainerH2>
+							<Link to="docs/default/component/platform-developer-docs">
+								Private cloud application deployment
+							</Link>
+						</ContainerH2>
+						<ContainerP>Learn how to deploy applications on the private cloud OpenShift environment.</ContainerP>
 						<LinkButton
 							className="default-button"
 							title="platform-developer-docs"
 							to="docs/default/component/platform-developer-docs"
-						>Read Now</LinkButton>
+						>Get ready to deploy</LinkButton>
 					</Container>
 				</Grid>
 			</Grid>
-			<Grid item xs={12}>
-				<HomePageToolkit title="Community Tools"
-								 tools={tools}
-				/>
-			</Grid>
 
+			<Box sx={{ pt: 6 }}>
+				<Grid item xs={12}>
+					<HomePageToolkit
+						title="Get support from the developer community"
+						tools={tools}
+					/>
+				</Grid>
+			</Box>
+
+			<Box sx={{ pt: 5 }}>
+				<Box sx={{ pb: 1 }}>
+					<Typography variant="h3">
+						Provide feedback
+					</Typography>
+				</Box>
+				<Typography paragraph>
+					The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <a href='mailto:developer.experience@gov.bc.ca'>providing feedback</a> or participating in user research.
+				</Typography>
+			</Box>
 		</>
 	)
 		;
