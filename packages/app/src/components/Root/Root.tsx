@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import CatalogIcon from '@material-ui/icons/LocalLibrary';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
+// import CatalogIcon from '@material-ui/icons/LocalLibrary';
+// import ExtensionIcon from '@material-ui/icons/Extension';
+// import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+// import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
@@ -20,14 +20,14 @@ import {
   SidebarGroup,
   SidebarItem,
   SidebarPage,
-  SidebarScrollWrapper,
-  SidebarSubmenu,
-  SidebarSubmenuItem,
+  // SidebarScrollWrapper,
+  // SidebarSubmenu,
+  // SidebarSubmenuItem,
   SidebarSpace,
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import { useApp } from '@backstage/core-plugin-api';
+// import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -48,7 +48,9 @@ const useSidebarLogoStyles = makeStyles({
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    marginBottom: -14,
+    marginBottom: 40,
+    paddingTop: 42,
+    marginLeft: -10
   },
   link: {
     width: sidebarConfig.drawerWidthClosed,
@@ -81,7 +83,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
         <SidebarItem icon={HomeIcon} to="/" text="Home" /> 
         {/* Global nav, not org-specific */}
-        <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
+        {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
           <SidebarSubmenuItem
               title="APIs"
@@ -121,14 +123,14 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
             />
           </SidebarSubmenu>
         </SidebarItem>
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" /> */}
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+        {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
         {/* End global nav */}
-        <SidebarDivider />
+        {/* <SidebarDivider />
         <SidebarScrollWrapper>
           <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-        </SidebarScrollWrapper>
+        </SidebarScrollWrapper> */}
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />

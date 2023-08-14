@@ -4711,6 +4711,11 @@
   resolved "https://registry.yarnpkg.com/@balena/dockerignore/-/dockerignore-1.0.2.tgz#9ffe4726915251e8eb69f44ef3547e0da2c03e0d"
   integrity sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==
 
+"@bcgov/bc-sans@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@bcgov/bc-sans/-/bc-sans-2.0.0.tgz#a67156c697c57e1401682129e6b6b4f25539f8a3"
+  integrity sha512-hgCYDEwVWZ0t/yzmo802D1oF3hhzDjsjpgB82EZcDEiLPxjV2x9qALv4mBNKAiWDK4ezvBL1VrD99NnIbxG5Vw==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -9376,6 +9381,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-techdocs-react" "^1.1.6"
     "@backstage/plugin-user-settings" "^0.7.3"
     "@backstage/theme" "^0.3.0"
+    "@bcgov/bc-sans" "^2.0.0"
     "@material-ui/core" "^4.12.4"
     "@material-ui/icons" "^4.11.3"
     "@material-ui/lab" "^4.0.0-alpha.61"
