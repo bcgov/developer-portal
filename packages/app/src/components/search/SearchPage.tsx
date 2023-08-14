@@ -58,7 +58,6 @@ const SearchPage = () => {
           <Grid item xs={3}>
             <SearchType.Accordion
               name="Result Type"
-              defaultValue="software-catalog"
               types={[
                 {
                   value: 'software-catalog',
