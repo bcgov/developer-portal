@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Backstage is an open platform for building developer portals"
+      content="BC government developer portal"
     />
     <link rel="apple-touch-icon" href="<%= publicPath %>/logo192.png" />
     <!--
@@ -43,6 +43,9 @@
       color="#5bbad5"
     />
     <title><%= config.getString('app.title') %></title>
+    <% if (config.getOptionalConfig('app.analytics') && config.getBoolean('app.analytics.snowplow.enabled') ) { %>
+     <script async src="scripts/snowplow.js"></script>
+    <% } %>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
