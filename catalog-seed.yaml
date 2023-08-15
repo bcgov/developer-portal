@@ -8,3 +8,6 @@ spec:
         - http://github.com/bcgov/private-cloud-techdocs/blob/main/catalog-info.yaml
         - http://github.com/bcgov/mobile-developer-guide/blob/main/catalog-info.yaml
         - http://github.com/bcgov/bcdg/blob/main/catalog-info.yaml
+        - https://github.com/bcgov/sso-docs-backstage/blob/main/catalog-info.yml
+        - https://github.com/bcgov/sso-keycloak-backstage/blob/master/catalog-info.yaml
+        
