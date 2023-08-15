@@ -1,6 +1,10 @@
 app:
     title: B.C. government DevHub
     baseUrl: http://localhost:3000
+    analytics:
+        snowplow:
+            enabled: true
+            collectorUrl: https://spm.apps.gov.bc.ca
 
 organization:
     name: BCDevExchange

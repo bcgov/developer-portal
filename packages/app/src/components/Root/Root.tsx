@@ -31,6 +31,52 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import {useApi, configApiRef} from '@backstage/core-plugin-api';
+
+
+// snowplow analytics
+import {newTracker, trackPageView, enableActivityTracking} from '@snowplow/browser-tracker';
+import {
+    enableLinkClickTracking,
+    LinkClickTrackingPlugin as linkTrackingPlugin
+} from '@snowplow/browser-plugin-link-click-tracking';
+
+
+const MyReactComponent = () => {
+    const config = useApi(configApiRef);
+
+    console.log("**********Setting up analytics (or not...)********");
+    console.log(`Config: ${JSON.stringify(config)}`);
+
+    if (config.getOptionalConfig('app.analytics') && config.getBoolean('app.analytics.snowplow.enabled')) {
+        console.log("**********Analytics enabled...********");
+
+        // const collectorUrl = "spm.apps.gov.bc.ca"
+        const collectorUrl = config.getString("app.analytics.snowplow.collectorUrl");
+
+        newTracker('rt', `${collectorUrl}`, {
+            appId: 'Snowplow_standalone_OCIO',
+            cookieLifetime: 86400 * 548,
+            platform: "web",
+            contexts: {
+                webPage: true
+            },
+            plugins: [linkTrackingPlugin()]
+        });
+
+        enableActivityTracking({
+            minimumVisitLength: 30,
+            heartbeatDelay: 30
+        });
+
+        enableLinkClickTracking();
+
+        trackPageView();
+    }
+    return null;
+}
+
+
 const storedTheme = localStorage.getItem('theme');
 
 // Set the default theme to custom DevEx theme if no stored preference is found
@@ -74,6 +120,7 @@ const SidebarLogo = () => {
 
 export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>
+        <MyReactComponent/>
     <Sidebar>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
@@ -81,7 +128,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="/" text="Home" /> 
+        <SidebarItem icon={HomeIcon} to="/" text="Home" />
         {/* Global nav, not org-specific */}
         {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
