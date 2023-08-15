@@ -1,6 +1,9 @@
 app:
     title: B.C. government DevHub
     baseUrl: http://localhost:3000
+    analytics:
+        snowplow: 
+            enabled: false
 
 organization:
     name: BCDevExchange
