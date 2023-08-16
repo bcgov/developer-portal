@@ -1,9 +1,6 @@
 app:
     title: B.C. government DevHub
     baseUrl: http://localhost:3000
-    analytics:
-        snowplow: 
-            enabled: false
 
 organization:
     name: BCDevExchange
@@ -23,6 +20,7 @@ backend:
     csp:
         connect-src: [ "'self'", 'http:', 'https:' ]
         img-src: [ "'self'", "*.gov.bc.ca", "data:" ]
+        script-src: [ "'self'", "*.gov.bc.ca" ]
         # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
         # Default Helmet Content-Security-Policy values can be removed by setting the key to false
     cors:

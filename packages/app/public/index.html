@@ -43,9 +43,7 @@
       color="#5bbad5"
     />
     <title><%= config.getString('app.title') %></title>
-    <% if (config.getOptionalConfig('app.analytics') && config.getBoolean('app.analytics.snowplow.enabled') ) { %>
-     <script async src="scripts/snowplow.js"></script>
-    <% } %>
+    <script async src="scripts/snowplow.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
