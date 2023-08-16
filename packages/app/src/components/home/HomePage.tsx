@@ -91,7 +91,7 @@ const HomePage = () => {
 
 	const tools = [
 		{
-			url: 'http://https://stackoverflow.developer.gov.bc.ca',
+			url: 'https://stackoverflow.developer.gov.bc.ca',
 			label: 'Stack Overflow',
 			icon: <StackOverFlowIcon/>
 		},
