@@ -199,7 +199,7 @@ const HomePage = () => {
 				</Grid>
 			</Box>
 
-			<Box sx={{ pt: 5 }}>
+			<Box sx={{ pt: 5, pb: 4 }}>
 				<Box sx={{ pb: 1 }}>
 					<Typography variant="h3">
 						Provide feedback
