@@ -26,6 +26,9 @@ import {
 import { useApi } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  search: {
+    margin: theme.spacing(1, 0),
+  },
   bar: {
     padding: theme.spacing(1, 0),
   },
@@ -52,7 +55,7 @@ const SearchPage = () => {
         <Grid container direction="row">
           <Grid item xs={12}>
             <Paper className={classes.bar}>
-              <SearchBar />
+              <SearchBar className={classes.search} />
             </Paper>
           </Grid>
           <Grid item xs={3}>

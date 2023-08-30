@@ -11,6 +11,7 @@ import {
 import { alpha } from '@material-ui/core/styles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
+import { OutlinedInputClassKey } from '@material-ui/core';
 import '@bcgov/bc-sans/css/BCSans.css';
 
 // Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
@@ -18,6 +19,7 @@ declare module '@material-ui/core/styles/overrides' {
   export interface ComponentNameToClassKey {
     MuiAlert: AlertClassKey;
     MuiAutocomplete: AutocompleteClassKey;
+    MuiOutlinedInput: OutlinedInputClassKey;
   }
 }
 
@@ -200,6 +202,22 @@ const createCustomThemeOverrides = (
         '&[aria-expanded=true] path': {
           fill: '#FFFFFF',
         },
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        "& $notchedOutline": {
+          borderColor: '#606060'
+        },
+        "&:hover $notchedOutline": {
+          borderColor: theme.palette.grey[50]
+        },
+        "&$focused $notchedOutline": {
+          borderColor: theme.palette.primary.main,
+        },
+        '& [class^="MuiSvgIcon-root"]': {
+          fill: '#606060'
+        }
       },
     },
     MuiBackdrop: {

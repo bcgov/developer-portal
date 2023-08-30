@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 		padding: '8px 0',
 		borderRadius: '50px',
 		margin: 'auto',
+		border: '1px solid #606060',
 	},
 	searchBarOutline: {
 		borderStyle: 'none',
