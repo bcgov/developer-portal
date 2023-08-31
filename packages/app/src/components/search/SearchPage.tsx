@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
+import { makeStyles, Theme, Grid, Paper, List } from '@material-ui/core';
 
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
@@ -15,6 +15,7 @@ import {
   SearchResult,
   SearchPagination,
   useSearch,
+  DefaultResultListItem
 } from '@backstage/plugin-search-react';
 import {
   CatalogIcon,
@@ -24,6 +25,7 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { StackOverflowSearchResultListItem, StackOverflowIcon } from '@backstage/plugin-stack-overflow';
 
 const useStyles = makeStyles((theme: Theme) => ({
   search: {
@@ -72,6 +74,11 @@ const SearchPage = () => {
                   name: 'Documentation',
                   icon: <DocsIcon />,
                 },
+                {
+                  value: 'stack-overflow',
+                  name: 'Stack Overflow',
+                  icon: <StackOverflowIcon />,
+                },
               ]}
             />
             <Paper className={classes.filters}>
@@ -113,8 +120,54 @@ const SearchPage = () => {
           <Grid item xs={9}>
             <SearchPagination />
             <SearchResult>
-              <CatalogSearchResultListItem icon={<CatalogIcon />} />
+              {({ results }) => (
+                <List>
+                  {results.map(({ type, document, highlight, rank }) => {
+                    switch (type) {
+                      case 'software-catalog':
+                        return (
+                          <CatalogSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                            icon={<CatalogIcon />}
+                          />
+                        );
+                      case 'techdocs':
+                        return (
+                          <TechDocsSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                            icon={<DocsIcon />}
+                          />
+                        );
+                      case 'stack-overflow':
+                        return (
+                          <StackOverflowSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            icon={<StackOverflowIcon />}
+                          />
+                        );
+                      default:
+                        return (
+                          <DefaultResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                          />
+                        );
+                    }
+                  })}
+                </List>
+              )}
+              {/* <CatalogSearchResultListItem icon={<CatalogIcon />} />
               <TechDocsSearchResultListItem icon={<DocsIcon />} />
+              <StackOverflowSearchResultListItem icon={<StackOverflowIcon />} /> */}
             </SearchResult>
           </Grid>
         </Grid>
