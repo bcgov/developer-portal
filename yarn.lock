@@ -1792,28 +1792,6 @@
     tslib "^2.2.0"
     uuid "^8.3.0"
 
-"@azure/identity@^3.2.1":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@azure/identity/-/identity-3.3.0.tgz#0166cfdfa892d73eeb69c390dac91796c6f85f79"
-  integrity sha512-gISa/dAAxrWt6F2WiDXZY0y2xY4MLlN2wkNW4cPuq5OgPQKLSkxLc4I2WR04puTfZyQZnpXbAapAMEj1b96fgg==
-  dependencies:
-    "@azure/abort-controller" "^1.0.0"
-    "@azure/core-auth" "^1.5.0"
-    "@azure/core-client" "^1.4.0"
-    "@azure/core-rest-pipeline" "^1.1.0"
-    "@azure/core-tracing" "^1.0.0"
-    "@azure/core-util" "^1.0.0"
-    "@azure/logger" "^1.0.0"
-    "@azure/msal-browser" "^2.37.1"
-    "@azure/msal-common" "^13.1.0"
-    "@azure/msal-node" "^1.17.3"
-    events "^3.0.0"
-    jws "^4.0.0"
-    open "^8.0.0"
-    stoppable "^1.1.0"
-    tslib "^2.2.0"
-    uuid "^8.3.0"
-
 "@azure/logger@^1.0.0":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@azure/logger/-/logger-1.0.4.tgz#28bc6d0e5b3c38ef29296b32d35da4e483593fa1"
@@ -1856,15 +1834,6 @@
   integrity sha512-eGXPp65i++mAIvziafbCH970TCeECB6iaQP7aRzZEjtU238cW4zKm40U8YxkiCn9rR1G2VeMHENB5h6WRk7ZCQ==
   dependencies:
     "@azure/msal-common" "^11.0.0"
-    jsonwebtoken "^9.0.0"
-    uuid "^8.3.0"
-
-"@azure/msal-node@^1.17.3":
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@azure/msal-node/-/msal-node-1.18.2.tgz#9f3bdac9f2e07476c66a5b7e0b84f470c337e915"
-  integrity sha512-bLbuhF9Q5cgwj9tt8R7EV9MbCwGuFgZiv6Gw0VvHx5AcWHhh2m8hYginGagB4EucxKueFDwZP6aZVAxfuD/lUQ==
-  dependencies:
-    "@azure/msal-common" "13.3.0"
     jsonwebtoken "^9.0.0"
     uuid "^8.3.0"
 
@@ -4071,14 +4040,6 @@
     "@backstage/types" "^1.1.0"
     lodash "^4.17.21"
 
-"@backstage/config@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@backstage/config/-/config-1.0.8.tgz#283a4900c7aae216bd4e3dce4389ce060f989884"
-  integrity sha512-Y7JLnBrXX0G7z+Zj4vRwp/Mb8fLhCc1K/LqRRQUHMmnTDb3T7xMgpM3+0ZPpedWqslWrC2OYRrOE5PQxpFnmdg==
-  dependencies:
-    "@backstage/types" "^1.1.0"
-    lodash "^4.17.21"
-
 "@backstage/core-app-api@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.8.0.tgz#b027cb069954041714be6bb0fba2802c10fa073a"
@@ -4263,15 +4224,6 @@
   integrity sha512-aKkYniwo3dkd8a5dIZhnfoSLqsFzBqzQC2yhw/XfOUbfEkej6XZVsPKws/zZODUAPF1ZKNMUBbt1NTVG14Bahw==
   dependencies:
     "@backstage/types" "^1.0.2"
-    cross-fetch "^3.1.5"
-    serialize-error "^8.0.1"
-
-"@backstage/errors@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@backstage/errors/-/errors-1.2.1.tgz#07e794c5c48488bade6df7759c3d8f3124594199"
-  integrity sha512-h/sMf/scTmlImVHToXTHatb1jRR1BRkdbFxRC3APNg/16TlnVgmgyNzrkYFm/hFyDHqrdyfhU+bs9l6+LNjD3w==
-  dependencies:
-    "@backstage/types" "^1.1.0"
     cross-fetch "^3.1.5"
     serialize-error "^8.0.1"
 
@@ -4845,18 +4797,6 @@
     express-promise-router "^4.1.0"
     zod "^3.21.4"
     zod-to-json-schema "^3.20.4"
-
-"@backstage/plugin-permission-common@^0.7.7":
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-common/-/plugin-permission-common-0.7.7.tgz#82459ddf92751930a8facf81f7ff4a4cafc2e004"
-  integrity sha512-8nZlCzmiU4fjT6MKjJf9SXRoYgsDcbf4bR751Z66KXVEgede9sRHThVHvoXg0l0CnNEoQrzxxUTUvSqinORBMg==
-  dependencies:
-    "@backstage/config" "^1.0.8"
-    "@backstage/errors" "^1.2.1"
-    "@backstage/types" "^1.1.0"
-    cross-fetch "^3.1.5"
-    uuid "^8.0.0"
-    zod "^3.21.4"
 
 "@backstage/plugin-permission-node@^0.7.8":
   version "0.7.8"
@@ -9910,7 +9850,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@*", "@types/react-dom@<18.0.0":
+"@types/react-dom@*", "@types/react-dom@<18.0.0", "@types/react-dom@^17":
   version "17.0.20"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.20.tgz#e0c8901469d732b36d8473b40b679ad899da1b53"
   integrity sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==
