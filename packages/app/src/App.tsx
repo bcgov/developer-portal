@@ -40,9 +40,7 @@ import {devExTheme} from './devex-theme';
 
 import {HomepageCompositionRoot} from '@backstage/plugin-home';
 import HomePage from './components/home/HomePage';
-import { TocFix } from '@interna/plugin-toc-fix2';
-
-
+import { TocFix } from '@app/plugin-toc-fix2';
 
 const app = createApp({
 	apis,
