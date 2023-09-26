@@ -11,7 +11,7 @@ export interface Config {
 	   *
 	   * @visibility frontend
 	   */
-	  	// collectorUrl: string;
+	  	collectorUrl: string;
       }
     }
   }
