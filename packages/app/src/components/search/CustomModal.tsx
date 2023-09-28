@@ -7,14 +7,6 @@ import { searchResultCustomList } from './SearchResultCustomList';
 
 
 export const CustomModal = (toggleModal : any, classes : any, searchBarRef : any, handleSearchBarSubmit : any)  => {
-    // const handleSearchBarSubmit = () => {
-    //     const query = searchBarRef.current?.value ?? '';
-    //     // update to use route ref?
-    //     // navigate(`${searchRootRoute}?query=${query}`);
-    //     navigate(`/search?query=${query}`);
-    //     handleSearchResultClick();
-    // };
-
     return (
         <>
             <DialogTitle>
