@@ -6,7 +6,6 @@ import { SearchResult, DefaultResultListItem } from '@backstage/plugin-search-re
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import { StackOverflowSearchResultListItem, StackOverflowIcon } from '@backstage/plugin-stack-overflow';
 import { CatalogIcon, DocsIcon } from '@backstage/core-components';
-import { OpenShiftSvgIcon } from "../utils/icons";
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
 
 const SearchResultCustomList = () => {
@@ -34,12 +33,7 @@ const SearchResultCustomList = () => {
                             highlight={highlight}
                             rank={rank}
                             asListItem={true}
-                            icon={() => {
-                              if (document.location.includes('platform-developer-docs'))
-                                return <OpenShiftSvgIcon />
-                              else
-                                return <DocsIcon />
-                            }}
+                            icon={<DocsIcon />}
                           />
                         );
                       case 'stack-overflow':

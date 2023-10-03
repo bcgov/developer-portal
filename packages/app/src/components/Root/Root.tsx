@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, useCallback, useEffect, useRef } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core';
+import React, { PropsWithChildren } from 'react';
+import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 // import CatalogIcon from '@material-ui/icons/LocalLibrary';
 // import ExtensionIcon from '@material-ui/icons/Extension';
@@ -12,7 +12,7 @@ import {
   Settings as SidebarSettings,
   UserSettingsSignInAvatar,
 } from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
+import { SearchModalProvider, useSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
   sidebarConfig,
@@ -26,13 +26,11 @@ import {
   SidebarSpace,
   useSidebarOpenState,
   Link,
-  useContent,
 } from '@backstage/core-components';
 // import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import CustomModal from '../search/CustomModal';
-import { useNavigate } from 'react-router-dom';
+import { CustomSearchModal } from '../search/CustomModal';
 
 const storedTheme = localStorage.getItem('theme');
 
@@ -62,30 +60,6 @@ const useSidebarLogoStyles = makeStyles({
   },
 });
 
-const useModalStyles = makeStyles(theme => ({
-  dialogTitle: {
-    gap: theme.spacing(1),
-    display: 'grid',
-    alignItems: 'center',
-    gridTemplateColumns: '1fr auto',
-    '&> button': {
-      marginTop: theme.spacing(1),
-    },
-  },
-  input: {
-    flex: 1,
-  },
-  button: {
-    '&:hover': {
-      background: 'none',
-    },
-  },
-  // Reduces default height of the modal, keeping a gap of 128px between the top and bottom of the page.
-  paperFullWidth: { height: 'calc(100% - 128px)' },
-  dialogActionsContainer: { padding: theme.spacing(1, 3) },
-  viewResultsLink: { verticalAlign: '0.5em' },
-}));
-
 const SidebarLogo = () => {
   const classes = useSidebarLogoStyles();
   const { isOpen } = useSidebarOpenState();
@@ -100,35 +74,25 @@ const SidebarLogo = () => {
 };
 
 export const Root = ({ children }: PropsWithChildren<{}>) => {
-  const classes = useModalStyles();
-  const navigate = useNavigate();
-  const searchBarRef = useRef<HTMLInputElement | null>(null);
-  
-  const { transitions } = useTheme();
-  const { focusContent } = useContent();
-  
-  useEffect(() => {
-      searchBarRef?.current?.focus();
-  });
-
-  const handleSearchResultClick = useCallback(() => {
-    setTimeout(focusContent, transitions.duration.leavingScreen);
-  }, [focusContent, transitions]);
-
-  const handleSearchBarSubmit = useCallback(() => {
-    const query = searchBarRef.current?.value ?? '';
-    navigate(`/search?query=${query}`);
-    handleSearchResultClick();
-  }, [navigate, handleSearchResultClick]);
+  const { state, toggleModal } = useSearchModal();
 
   return (
   <SidebarPage>
     <Sidebar>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-      <SidebarSearchModal>
-        {({ toggleModal }) => CustomModal(toggleModal, classes, searchBarRef, handleSearchBarSubmit)}
-      </SidebarSearchModal>
+      <SearchModalProvider>
+        <SidebarItem
+          className="search-icon"
+          icon={SearchIcon}
+          text="Search"
+          onClick={toggleModal}
+        />
+        <CustomSearchModal
+          {...state}
+          toggleModal={toggleModal}
+        />
+      </SearchModalProvider>
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
