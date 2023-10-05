@@ -252,7 +252,7 @@ const createCustomThemeOverrides = (
     MuiChip: {
       root: {
         borderRadius: 3,
-        backgroundColor: theme.palette.grey[50],
+        backgroundColor: 'rgba(0, 0, 0, .11)',
         color: theme.palette.primary.dark,
         margin: 4,
       },

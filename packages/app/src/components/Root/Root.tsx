@@ -12,7 +12,7 @@ import {
   Settings as SidebarSettings,
   UserSettingsSignInAvatar,
 } from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
+import { SearchModalProvider, useSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
   sidebarConfig,
@@ -30,6 +30,7 @@ import {
 // import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { CustomSearchModal } from '../search/CustomModal';
 
 import {useApi, configApiRef} from '@backstage/core-plugin-api';
 
@@ -118,13 +119,27 @@ const SidebarLogo = () => {
   );
 };
 
-export const Root = ({ children }: PropsWithChildren<{}>) => (
+export const Root = ({ children }: PropsWithChildren<{}>) => {
+  const { state, toggleModal } = useSearchModal();
+
+  return (
   <SidebarPage>
         <MyReactComponent/>
     <Sidebar>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
+      <SearchModalProvider>
+        <SidebarItem
+          className="search-icon"
+          icon={SearchIcon}
+          text="Search"
+          onClick={toggleModal}
+        />
+        <CustomSearchModal
+          {...state}
+          toggleModal={toggleModal}
+        />
+      </SearchModalProvider>
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
@@ -191,4 +206,4 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
     </Sidebar>
     {children}
   </SidebarPage>
-);
+)};

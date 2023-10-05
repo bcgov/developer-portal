@@ -1,21 +1,17 @@
 import React from 'react';
-import { makeStyles, Theme, Grid, Paper, List } from '@material-ui/core';
+import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
 
-import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
   catalogApiRef,
   CATALOG_FILTER_EXISTS,
 } from '@backstage/plugin-catalog-react';
-import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 
 import { SearchType } from '@backstage/plugin-search';
 import {
   SearchBar,
   SearchFilter,
-  SearchResult,
   SearchPagination,
-  useSearch,
-  DefaultResultListItem
+  useSearch
 } from '@backstage/plugin-search-react';
 import {
   CatalogIcon,
@@ -25,7 +21,8 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { StackOverflowSearchResultListItem, StackOverflowIcon } from '@backstage/plugin-stack-overflow';
+import { StackOverflowIcon } from '@backstage/plugin-stack-overflow';
+import { searchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
   search: {
@@ -119,56 +116,7 @@ const SearchPage = () => {
           </Grid>
           <Grid item xs={9}>
             <SearchPagination />
-            <SearchResult>
-              {({ results }) => (
-                <List>
-                  {results.map(({ type, document, highlight, rank }) => {
-                    switch (type) {
-                      case 'software-catalog':
-                        return (
-                          <CatalogSearchResultListItem
-                            key={document.location}
-                            result={document}
-                            highlight={highlight}
-                            rank={rank}
-                            icon={<CatalogIcon />}
-                          />
-                        );
-                      case 'techdocs':
-                        return (
-                          <TechDocsSearchResultListItem
-                            key={document.location}
-                            result={document}
-                            highlight={highlight}
-                            rank={rank}
-                            icon={<DocsIcon />}
-                          />
-                        );
-                      case 'stack-overflow':
-                        return (
-                          <StackOverflowSearchResultListItem
-                            key={document.location}
-                            result={document}
-                            icon={<StackOverflowIcon />}
-                          />
-                        );
-                      default:
-                        return (
-                          <DefaultResultListItem
-                            key={document.location}
-                            result={document}
-                            highlight={highlight}
-                            rank={rank}
-                          />
-                        );
-                    }
-                  })}
-                </List>
-              )}
-              {/* <CatalogSearchResultListItem icon={<CatalogIcon />} />
-              <TechDocsSearchResultListItem icon={<DocsIcon />} />
-              <StackOverflowSearchResultListItem icon={<StackOverflowIcon />} /> */}
-            </SearchResult>
+            {searchResultCustomList}
           </Grid>
         </Grid>
       </Content>
