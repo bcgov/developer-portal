@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
 		color: 'black',
 		backgroundColor: '#0E3468',
 		backgroundImage: 'none',
-		// backgroundImage: `linear-gradient(to bottom right, #0E3468 70%, ${theme.palette.background.paper})`,
 	},
 	card: {
 		display:'flex',
