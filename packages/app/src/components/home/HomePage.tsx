@@ -3,10 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import styled, {createGlobalStyle} from 'styled-components';
 import {useTheme} from '@material-ui/styles';
-import {LinkButton} from '@backstage/core-components';
+import {ItemCardGrid, ItemCardHeader, LinkButton} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {makeStyles, Typography} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography} from "@material-ui/core";
 import {HomePageToolkit} from "@backstage/plugin-home";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import { Link } from 'react-router-dom';
@@ -25,6 +25,21 @@ const useStyles = makeStyles(theme => ({
 	searchBarOutline: {
 		borderStyle: 'none',
 	},
+	cardGrid: {
+		gridTemplateColumns: 'repeat(auto-fill)',
+		gridGap: theme.spacing(3),
+	},
+	cardHeader: {
+		color: 'black',
+		backgroundColor: '#0E3468',
+		backgroundImage: 'none',
+		// backgroundImage: `linear-gradient(to bottom right, #0E3468 70%, ${theme.palette.background.paper})`,
+	},
+	card: {
+		display:'flex',
+		justiyContent:'space-between',
+		flexDirection:'column'	
+	}
 }));
 makeStyles(theme => ({
 	container: {
@@ -191,7 +206,65 @@ const HomePage = () => {
 				</Grid>
 			</Grid>
 
-			<Box sx={{ pt: 6 }}>
+			<Box sx={{ pt: 6, pb: 1 }}>
+				<Typography variant="h3">
+					Events
+				</Typography>
+			</Box>
+			<ItemCardGrid classes={{ root: classes.cardGrid }}>
+				<Card key='1' classes={{ root: classes.card }}>
+					<CardMedia>
+						<ItemCardHeader
+							title={`Private Cloud Community Meetup`}
+							subtitle="October 17th"
+							classes={{ root: classes.cardHeader }}
+						/>
+					</CardMedia>
+					<CardContent>
+						<Typography paragraph>
+						At meetups, we share information about new tools and services on the platform and discuss application development and security best practices.
+						</Typography>
+						<Typography paragraph>
+						The usual Meetup but in person!
+						</Typography>
+						<Typography paragraph>
+						<br /><b>What: </b>Platform Community Meetup 
+						<br /><b>Where: </b> 2nd Floor, 808 Douglas St, Victoria BC and MS Teams 
+						<br /><b>When: </b> Tuesday Oct 17, 2023 at 1pm
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<LinkButton color="primary" to="https://docs.google.com/forms/d/e/1FAIpQLSefWvd5NP_UTRGKz2JxEw1iTuh2ODAY5FFMLYAI2Unn91Du5Q/viewform">
+						Join the Platform Community Meetup
+						</LinkButton>
+					</CardActions>
+				</Card>
+				<Card key='2' classes={{ root: classes.card }}>
+					<CardMedia>
+						<ItemCardHeader
+							title={`Monitoring Workshop with Sysdig`}
+							subtitle="October 17th"
+							classes={{ root: classes.cardHeader }}
+						/>
+					</CardMedia>
+					<CardContent>
+						<Typography paragraph>
+						Join us for a hands-on Site Reliability Engineering (SRE) monitoring event in partnership with Sysdig, a leading industry tool. Enhance your monitoring skills in person or online.						</Typography>
+						<Typography paragraph>
+						<br /><b>What: </b>Sysdig Monitoring Workshop 
+						<br /><b>Where: </b> 2nd Floor, 808 Douglas St, Victoria BC - Work Lounge 
+						<br /><b>When: </b> Tuesday Oct 17, 2023 at 9am to 12pm
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<LinkButton color="primary" to="https://forms.gle/DDDMFAjg94SUEZsu9">
+						Register for the workshop
+						</LinkButton>
+					</CardActions>
+				</Card>
+			</ItemCardGrid>
+
+			<Box sx={{ pt: 7 }}>
 				<Grid item xs={12}>
 					<HomePageToolkit
 						title="Get support from the developer community"
@@ -207,7 +280,7 @@ const HomePage = () => {
 					</Typography>
 				</Box>
 				<Typography paragraph>
-					The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <a href='mailto:developer.experience@gov.bc.ca'>providing feedback</a> or participating in user research.
+					The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
 				</Typography>
 			</Box>
 		</>
