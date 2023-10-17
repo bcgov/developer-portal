@@ -214,50 +214,72 @@ const HomePage = () => {
 				<Card key='1' classes={{ root: classes.card }}>
 					<CardMedia>
 						<ItemCardHeader
-							title={`Private Cloud Community Meetup`}
-							subtitle="October 17th"
+							title={`Application Modernization`}
+							subtitle="November 14th"
 							classes={{ root: classes.cardHeader }}
 						/>
 					</CardMedia>
 					<CardContent>
 						<Typography paragraph>
-						At meetups, we share information about new tools and services on the platform and discuss application development and security best practices.
+						Attend a special event with experts from AWS, Red Hat, Deloitte, Dynatrace and DXCAS to learn how intelligent observability can accelerate your application modernization.
 						</Typography>
 						<Typography paragraph>
-						The usual Meetup but in person!
-						</Typography>
-						<Typography paragraph>
-						<br /><b>What: </b>Platform Community Meetup 
-						<br /><b>Where: </b> 2nd Floor, 808 Douglas St, Victoria BC and MS Teams 
-						<br /><b>When: </b> Tuesday Oct 17, 2023 at 1pm
+						<br /><b>What: </b> Application Modernization & Intelligent Observability
+						<br /><b>Where: </b> Delta Hotels Victoria Ocean Pointe Resort 
+						<br /><b>When: </b> Tuesday, November 14 · 8am - 3pm PT
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<LinkButton color="primary" to="https://docs.google.com/forms/d/e/1FAIpQLSefWvd5NP_UTRGKz2JxEw1iTuh2ODAY5FFMLYAI2Unn91Du5Q/viewform">
-						Join the Platform Community Meetup
+						<LinkButton color="primary" to="https://info.dynatrace.com/noram-great-lakes-dh-canada-west-government-day-23061-registration.html">
+						Join the event
 						</LinkButton>
 					</CardActions>
 				</Card>
 				<Card key='2' classes={{ root: classes.card }}>
 					<CardMedia>
 						<ItemCardHeader
-							title={`Monitoring Workshop with Sysdig`}
-							subtitle="October 17th"
+							title={`OpenShift 201 Workshop & Lab`}
+							subtitle="November 14th"
 							classes={{ root: classes.cardHeader }}
 						/>
 					</CardMedia>
 					<CardContent>
 						<Typography paragraph>
-						Join us for a hands-on Site Reliability Engineering (SRE) monitoring event in partnership with Sysdig, a leading industry tool. Enhance your monitoring skills in person or online.						</Typography>
+						This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.
+						</Typography>
 						<Typography paragraph>
-						<br /><b>What: </b>Sysdig Monitoring Workshop 
-						<br /><b>Where: </b> 2nd Floor, 808 Douglas St, Victoria BC - Work Lounge 
-						<br /><b>When: </b> Tuesday Oct 17, 2023 at 9am to 12pm
+						<br /><b>What: </b>The OpenShift 201 course
+						<br /><b>Where: </b> Online 
+						<br /><b>When: </b> Tuesday, November 14 · 9am - 4pm PT
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<LinkButton color="primary" to="https://forms.gle/DDDMFAjg94SUEZsu9">
-						Register for the workshop
+						<LinkButton color="primary" to="https://openshift201.eventbrite.com/">
+						Register for OpenShift 201
+						</LinkButton>
+					</CardActions>
+				</Card>
+				<Card key='3' classes={{ root: classes.card }}>
+					<CardMedia>
+						<ItemCardHeader
+							title={`OpenShift 101 Workshop & Lab`}
+							subtitle="November 21st"
+							classes={{ root: classes.cardHeader }}
+						/>
+					</CardMedia>
+					<CardContent>
+						<Typography paragraph>
+						This four-session technical training covers the DevOps platform and application operational tasks.
+						</Typography>
+						<Typography paragraph>
+						<br /><b>What: </b>The OpenShift 101 course
+						<br /><b>Where: </b>Online 
+						<br /><b>When: </b>Tuesday, November 21 · 9am - 4pm PT
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<LinkButton color="primary" to="https://openshift101.eventbrite.com/">
+						Register for OpenShift 101
 						</LinkButton>
 					</CardActions>
 				</Card>
