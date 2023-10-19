@@ -8,6 +8,7 @@ import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
 import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography} from "@material-ui/core";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
+import LockIcon from '@material-ui/icons/Lock';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -111,7 +112,7 @@ const HomePage = () => {
 			url: 'https://stackoverflow.developer.gov.bc.ca',
 			label: 'Stack Overflow',
 			icon: <StackOverFlowIcon/>,
-			buttonText: 'Ask a question',
+			buttonText: ['Ask a question', <LockIcon style={{ fill: '#606060' }} />],
 			desc: 'Ask, answer, and discuss technical questions on our own BC government instance of the popular Q & A platform.'
 		},
 		{
@@ -310,14 +311,23 @@ const HomePage = () => {
 				Get support from the developer community
 				</Typography>
 				<Typography paragraph>
-				We're here to help! Ask questions on Stack Overflow, message product teams and developers on RocketChat and find code on GitHub.  
+				We're all here to help! Connect with other developers across the BC government, ask questions, and improve your knowledge.
 				</Typography>
 			</Box>
 			<ItemCardGrid classes={{ root: classes.cardToolGrid }}>
 				{tools.map(t => (
 					<Card key={t.label} classes={{ root: classes.card }}>
 						<CardMedia>
-							<ItemCardHeader title={t.icon} children={t.label} classes={{ root: classes.cardToolHeader }} />
+							<ItemCardHeader
+								title={<Box style={{display: 'flex',
+											alignItems: 'center',
+											flexWrap: 'wrap',
+											color: 'black'}}
+										>
+											{t.icon}&nbsp;&nbsp;{t.label}
+										</Box>}
+								classes={{ root: classes.cardToolHeader }}
+							/>
 						</CardMedia>
 						<CardContent>
 							<Typography paragraph>
