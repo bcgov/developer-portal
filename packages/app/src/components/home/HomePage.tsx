@@ -113,21 +113,21 @@ const HomePage = () => {
 			label: 'Stack Overflow',
 			icon: <StackOverFlowIcon/>,
 			buttonText: ['Ask a question', <LockIcon style={{ fill: '#606060' }} />],
-			desc: 'Ask, answer, and discuss technical questions on our own BC government instance of the popular Q & A platform.'
+			desc: 'Ask, answer and discuss technical questions specific to the B.C. government on the popular Q & A platform.'
 		},
 		{
 			url: 'https://chat.developer.gov.bc.ca',
 			label: 'RocketChat',
 			icon: <RocketChatIcon/>,
 			buttonText: 'Message teams',
-			desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing, and collaboration features.'
+			desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.'
 		},
 		{
 			url: 'https://github.com/bcgov',
 			label: 'GitHub',
 			icon: <GitHubSvgIcon/>,
 			buttonText: 'Find code',
-			desc: 'Work together on a web-based version control platform that enables developers to host, review, and manage code repositories.'
+			desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.'
 		}
 	]
 
@@ -311,7 +311,7 @@ const HomePage = () => {
 				Get support from the developer community
 				</Typography>
 				<Typography paragraph>
-				We're all here to help! Connect with other developers across the BC government, ask questions, and improve your knowledge.
+				We're all here to help! Connect with other developers across the B.C. government, ask questions and improve your knowledge.
 				</Typography>
 			</Box>
 			<ItemCardGrid classes={{ root: classes.cardToolGrid }}>
