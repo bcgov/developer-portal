@@ -29,11 +29,6 @@ const useStyles = makeStyles(theme => ({
 		gridTemplateColumns: 'repeat(auto-fill)',
 		gridGap: theme.spacing(3),
 	},
-	cardEventHeader: {
-		color: 'white',
-		backgroundColor: '#0E3468',
-		backgroundImage: 'none',
-	},
 	card: {
 		color: theme.palette.primary.main,
 		display:'flex',
@@ -46,19 +41,25 @@ const useStyles = makeStyles(theme => ({
 		gridTemplateColumns: 'repeat(auto-fill)',
 		gridGap: theme.spacing(3),
 	},
-	cardToolHeader: {
-		color: 'black',
-		backgroundColor: theme.palette.background.paper,
-		backgroundImage: `linear-gradient(to bottom right, ${theme.palette.background.paper} 30%, rgba(0, 0, 0, .11))`
-	},
 	cardDocsHeader: {
 		color: theme.palette.primary.main,
 		backgroundColor: theme.palette.background.paper,
-		backgroundImage: 'none'
+		backgroundImage: 'none',
+		paddingBottom: theme.spacing(1),
+	},
+	cardEventHeader: {
+		color: 'white',
+		backgroundColor: theme.palette.primary.main,
+		backgroundImage: 'none',
+	},
+	cardToolHeader: {
+		color: theme.palette.primary.main,
+		backgroundColor: theme.palette.background.paper,
+		backgroundImage: `linear-gradient(to bottom right, ${theme.palette.background.paper} 30%, rgba(0, 0, 0, .11))`
 	},
 	cardActions: {
 		justifyContent: 'flex-start',
-		padding: '1rem'
+		paddingLeft: '1rem'
 	}
 }));
 makeStyles(theme => ({
@@ -77,7 +78,6 @@ makeStyles(theme => ({
 const HomePage = () => {
 	const classes = useStyles();
 	const theme: Theme = useTheme();
-
 
 	const GlobalStyle = createGlobalStyle`
 		:root {
@@ -167,14 +167,12 @@ const HomePage = () => {
 				<Grid item sm={12} md={4} style={{display: 'flex'}}>
 					<Card key='bcdg' classes={{ root: classes.card }} >
 						<CardMedia>
-							<ItemCardHeader classes={{ root: classes.cardDocsHeader }} 
-								children={<Link to="docs/default/component/bcdg"><Typography variant='h5'>Application development guide</Typography></Link>} 
+							<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
+								title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/bcdg">Application development guide</Link>}
 							/>
 						</CardMedia>
 						<CardContent>
-							<Typography paragraph>
 							Everything you need to know to build a quality, consistent and compliant application.
-							</Typography>
 						</CardContent>
 						<CardActions classes={{ root: classes.cardActions }}>
 							<LinkButton to="docs/default/component/bcdg"
@@ -187,14 +185,12 @@ const HomePage = () => {
 				<Grid item sm={12} md={4} style={{display: 'flex'}}>
 					<Card key='mobile-developer-guide' classes={{ root: classes.card }} >
 						<CardMedia>
-							<ItemCardHeader classes={{ root: classes.cardDocsHeader }} 
-								children={<Link to="docs/default/component/mobile-developer-guide"><Typography variant='h5'>Mobile development guide</Typography></Link>} 
+							<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
+								title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/mobile-developer-guide">Mobile development guide</Link>}
 							/>
 						</CardMedia>
 						<CardContent>
-							<Typography paragraph>
 							Detailed guidance on the steps and practices you must follow when developing a mobile application.
-							</Typography>
 						</CardContent>
 						<CardActions classes={{ root: classes.cardActions }}>
 							<LinkButton to="docs/default/component/mobile-developer-guide"
@@ -207,14 +203,12 @@ const HomePage = () => {
 				<Grid item sm={12} md={4} style={{display: 'flex'}}>
 					<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 						<CardMedia>
-							<ItemCardHeader classes={{ root: classes.cardDocsHeader }} 
-								children={<Link to="docs/default/component/platform-developer-docs"><Typography variant='h5'>Private cloud application deployment</Typography></Link>} 
+							<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
+								title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud application deployment</Link>}
 							/>
 						</CardMedia>
 						<CardContent>
-							<Typography paragraph>
 							Learn how to deploy applications on the private cloud OpenShift environment.
-							</Typography>
 						</CardContent>
 						<CardActions classes={{ root: classes.cardActions }}>
 							<LinkButton to="docs/default/component/platform-developer-docs"
@@ -241,14 +235,12 @@ const HomePage = () => {
 						/>
 					</CardMedia>
 					<CardContent>
-						<Typography paragraph>
+						<p>
 						Attend a special event with experts from AWS, Red Hat, Deloitte, Dynatrace and DXCAS to learn how intelligent observability can accelerate your application modernization.
-						</Typography>
-						<Typography paragraph>
+						</p>
 						<br /><b>What: </b> Application Modernization & Intelligent Observability
 						<br /><b>Where: </b> Delta Hotels Victoria Ocean Pointe Resort 
 						<br /><b>When: </b> Tuesday, November 14 · 8am - 3pm PT
-						</Typography>
 					</CardContent>
 					<CardActions classes={{ root: classes.cardActions }}>
 						<LinkButton to="https://info.dynatrace.com/noram-great-lakes-dh-canada-west-government-day-23061-registration.html" className="default-button">
@@ -265,14 +257,12 @@ const HomePage = () => {
 						/>
 					</CardMedia>
 					<CardContent>
-						<Typography paragraph>
+						<p>
 						This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.
-						</Typography>
-						<Typography paragraph>
+						</p>
 						<br /><b>What: </b>The OpenShift 201 course
 						<br /><b>Where: </b> Online 
 						<br /><b>When: </b> Tuesday, November 14 · 9am - 4pm PT
-						</Typography>
 					</CardContent>
 					<CardActions classes={{ root: classes.cardActions }}>
 						<LinkButton color="primary" to="https://openshift201.eventbrite.com/" className="default-button">
@@ -289,14 +279,12 @@ const HomePage = () => {
 						/>
 					</CardMedia>
 					<CardContent>
-						<Typography paragraph>
+						<p>
 						This four-session technical training covers the DevOps platform and application operational tasks.
-						</Typography>
-						<Typography paragraph>
+						</p>
 						<br /><b>What: </b>The OpenShift 101 course
 						<br /><b>Where: </b>Online 
 						<br /><b>When: </b>Tuesday, November 21 · 9am - 4pm PT
-						</Typography>
 					</CardContent>
 					<CardActions classes={{ root: classes.cardActions }}>
 						<LinkButton color="primary" to="https://openshift101.eventbrite.com/" className="default-button">
@@ -322,7 +310,7 @@ const HomePage = () => {
 								title={<Box style={{display: 'flex',
 											alignItems: 'center',
 											flexWrap: 'wrap',
-											color: 'black'}}
+											color: theme.palette.primary.main}}
 										>
 											{t.icon}&nbsp;&nbsp;{t.label}
 										</Box>}
@@ -330,9 +318,7 @@ const HomePage = () => {
 							/>
 						</CardMedia>
 						<CardContent>
-							<Typography paragraph>
 								{t.desc}
-							</Typography>
 						</CardContent>
 						<CardActions classes={{ root: classes.cardActions }}>
 							<LinkButton color='primary' to={t.url} className="default-button">{t.buttonText}</LinkButton>
