@@ -21,13 +21,13 @@
 
 import React, { useCallback, useEffect, useRef } from 'react';
 import { SearchBar, SearchContextProvider, SearchResultPager } from "@backstage/plugin-search-react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, makeStyles, useTheme } from "@material-ui/core";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, makeStyles } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { searchResultCustomList } from './SearchResultCustomList';
-import { SearchModalChildrenProps, SearchModalProps } from '@backstage/plugin-search';
+import { searchPlugin, SearchModalChildrenProps, SearchModalProps } from '@backstage/plugin-search';
 import { useNavigate } from 'react-router-dom';
-import { useContent } from '@backstage/core-components';
+import { useRouteRef } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles(theme => ({
     dialogTitle: {
@@ -53,28 +53,25 @@ const useStyles = makeStyles(theme => ({
     viewResultsLink: { verticalAlign: '0.5em' },
   }));
 
+  const rootRouteRef = searchPlugin.routes.root;
+
 export const CustomModal = ({ toggleModal }: SearchModalChildrenProps) => {
         const classes = useStyles();
         const navigate = useNavigate();
-        const { transitions } = useTheme();
-        const { focusContent } = useContent();
+        const searchRootRoute = useRouteRef(rootRouteRef)();
         const searchBarRef = useRef<HTMLInputElement | null>(null);
       
         useEffect(() => {
           searchBarRef?.current?.focus();
         });
       
-        const handleSearchResultClick = useCallback(() => {
-          setTimeout(focusContent, transitions.duration.leavingScreen);
-        }, [focusContent, transitions]);
-      
         // This handler is called when "enter" is pressed
         const handleSearchBarSubmit = useCallback(() => {
+          toggleModal()
           // Using ref to get the current field value without waiting for a query debounce
-            const query = searchBarRef.current?.value ?? '';
-            navigate(`/search?query=${query}`);
-            handleSearchResultClick();
-        }, [navigate, handleSearchResultClick]);
+          const query = searchBarRef.current?.value ?? '';
+          navigate(`${searchRootRoute}?query=${query}`);
+        }, [navigate, toggleModal, searchBarRef]);
       
         return (
           <>
