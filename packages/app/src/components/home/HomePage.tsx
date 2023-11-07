@@ -219,28 +219,6 @@ const HomePage = () => {
 						<Card key='1' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
-									title={`Modern application development`}
-									subtitle="November 7th"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								Attend a hands-on workshop that showcases how organizations rely on OpenShift to develop and modernize applications on a hybrid cloud platform. 
-								</p>
-								<br /><b>What: </b> Modern application development workshop
-								<br /><b>Where: </b> Exchange Lab - 808 Douglas St, Suite 200, Victoria, BC
-								<br /><b>When: </b> Tuesday, November 7 · 9am - 3:30pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton to="https://events.redhat.com/profile/form/index.cfm?PKformID=0x945707abcd&sc_cid=7013a000003SrQYAA0" classes={{ root: classes.defaultButton }}>
-								Join the event
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='2' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
 									title={`OpenShift 201 workshop & lab`}
 									subtitle="November 14th"
 									classes={{ root: classes.cardEventHeader }}
@@ -260,7 +238,7 @@ const HomePage = () => {
 								</LinkButton>
 							</CardActions>
 						</Card>
-						<Card key='3' classes={{ root: classes.card }}>
+						<Card key='2' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
 									title={`OpenShift 101 workshop & lab`}
