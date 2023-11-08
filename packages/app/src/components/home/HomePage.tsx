@@ -44,7 +44,8 @@ const useStyles = makeStyles(theme => ({
 	cardEventHeader: {
 		color: 'white',
 		backgroundColor: theme.palette.primary.main,
-		backgroundImage: 'none',
+		backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.main} 30%, rgba(0, 0, 0, .3))`
+
 	},
 	cardToolHeader: {
 		color: theme.palette.primary.main,
@@ -67,6 +68,44 @@ const useStyles = makeStyles(theme => ({
 	},
 	root: {
 		padding: 'calc(2.1rem - 24px) 9%',
+	},
+	cardReconHeader: {
+		color: 'white',
+		backgroundImage: 'none',
+		position: 'relative',
+		paddingBottom: 0,
+	},
+	cardRecon: {
+		color: 'white',
+		display:'flex',
+		justiyContent:'space-between',
+		flexDirection:'column',
+		borderRadius: '1rem',
+		// backgroundColor: "#ff7f02",
+		backgroundColor: "#f55501",
+		position: 'relative',
+		boxShadow: 'rgba(0, 0, 0, .2) 0 20px 25px -5px, rgba(0, 0, 0, .04) 0 10px 10px -5px',
+		'&::before': {
+			content: `''`,
+			position: 'absolute',
+			backgroundImage: 'url("/BcCoast.png")',
+			backgroundSize: '100% 100%',
+			top: '0px',
+			right: '0px',
+			bottom: '0px',
+			left: '0px',
+			opacity: '.18',
+		},
+	},
+	ReconButton: {
+		marginTop: 'auto',
+		width: 'fit-content',
+		borderColor: 'currentcolor',
+		borderBottom: '2px solid rgba(0, 0, 0, .2)',
+		borderRadius: '0',
+		color: 'white',
+		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
+		boxShadow: 'rgba(0, 0, 0, .1) 0 20px 25px -5px, rgba(0, 0, 0, .14) 0 10px 10px -5px',
 	},
 }));
 makeStyles(theme => ({
@@ -326,6 +365,56 @@ const HomePage = () => {
 						<Typography paragraph>
 							The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
 						</Typography>
+					</Box>
+
+					<Box sx={{ pb: 4 }}>
+						<Card key='truth' classes={{ root: classes.cardRecon }}>
+							<CardMedia>
+								<ItemCardHeader
+									title="We Support Truth and Reconciliation"
+									classes={{ root: classes.cardReconHeader }}
+									children={
+										<>
+											<Typography style={{ position: 'relative' }} variant='body2' paragraph>
+												The B.C. Public Service acknowledges the territories of First Nations around B.C. and is grateful to carry out our work on these lands.
+												<br />We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
+											</Typography>
+											<Typography style={{ position: 'relative' }} variant='body2'>
+											The Developer Experience team works from the unceded, ancestral and traditional lands of the:
+											</Typography>
+										</>
+									}
+								/>
+							</CardMedia>
+							<CardContent>
+								<Grid container spacing={0} style={{display: 'flex', justifyContent: 'flex-start', position: 'relative' }} >
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://www.esquimaltnation.ca/"><Typography display='inline' variant='body2'>Xwsepsum (Esquimalt)</Typography></Link></li>
+											<li><Link to="https://wsanec.com/"><Typography display='inline' variant='body2'>W̱SÁNEĆ</Typography></Link></li>
+											<li><Link to="https://malahatnation.com/"><Typography display='inline' variant='body2'>MÁLEXEȽ (Malahat)</Typography></Link></li>
+										</ul>
+									</Grid>
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://www.songheesnation.ca/"><Typography display='inline' variant='body2'>Lək̓ʷəŋən (Songhees)</Typography></Link></li>
+											<li><Link to="https://www.kwikwetlem.com/"><Typography display='inline' variant='body2'>Kʷikʷəƛ̓əm</Typography></Link></li>
+											<li><Link to="https://www.facebook.com/qayqayt/"><Typography display='inline' variant='body2'>Qayqayt</Typography></Link></li>
+										</ul>
+									</Grid>
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://beecherbay.ca/"><Typography display='inline' variant='body2'>Sc’ianew (Beecher Bay)</Typography></Link></li>
+											<li><Link to="https://www.stolonation.bc.ca/"><Typography display='inline' variant='body2'>S’ólh Téméxw (Stó:lō)</Typography></Link></li>
+											<li><Link to="https://twnation.ca/"><Typography display='inline' variant='body2'>Səl̓ilwətaɁɬ Təməxʷ (Tsleil-Waututh)</Typography></Link></li>
+										</ul>
+									</Grid>
+								</Grid>
+							</CardContent>
+							<CardActions classes={{ root: classes.cardActions }}>
+								<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
+							</CardActions>
+						</Card>
 					</Box>
 				</div>
 			</Content>
