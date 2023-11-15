@@ -1,13 +1,15 @@
 import React from 'react';
 import {createGlobalStyle} from 'styled-components';
-import {useTheme} from '@material-ui/styles';
+import {styled, useTheme} from '@material-ui/styles';
 import {Content, ItemCardGrid, ItemCardHeader, LinkButton, Page} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid, Collapse} from "@material-ui/core";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import LockIcon from '@material-ui/icons/Lock';
 import { Link } from 'react-router-dom';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -44,7 +46,8 @@ const useStyles = makeStyles(theme => ({
 	cardEventHeader: {
 		color: 'white',
 		backgroundColor: theme.palette.primary.main,
-		backgroundImage: 'none',
+		backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.main} 30%, rgba(0, 0, 0, .3))`
+
 	},
 	cardToolHeader: {
 		color: theme.palette.primary.main,
@@ -68,6 +71,26 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		padding: 'calc(2.1rem - 24px) 9%',
 	},
+	cardRecon: {
+		color: 'white',
+		backgroundColor: theme.palette.primary.main,
+		display:'flex',
+		justiyContent:'space-between',
+		flexDirection:'column',
+		borderRadius: '1rem',
+		position: 'relative',
+		boxShadow: 'rgba(0, 0, 0, .2) 0 20px 25px -5px, rgba(0, 0, 0, .04) 0 10px 10px -5px',
+	},
+	ReconButton: {
+		marginTop: 'auto',
+		width: 'fit-content',
+		borderColor: 'currentcolor',
+		borderBottom: '2px solid rgba(0, 0, 0, .2)',
+		borderRadius: '0',
+		color: 'white',
+		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
+		boxShadow: 'rgba(0, 0, 0, .1) 0 20px 25px -5px, rgba(0, 0, 0, .14) 0 10px 10px -5px',
+	},
 }));
 makeStyles(theme => ({
 	container: {
@@ -82,28 +105,46 @@ makeStyles(theme => ({
 	},
 }));
 
+const GlobalStyle = createGlobalStyle`
+	a {
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}`;
+
+interface ExpandMoreProps extends IconButtonProps {
+	expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+	const { expand, ...other } = props;
+		return <IconButton {...other} />;
+	})(({ /*theme,*/ expand }) => ({
+		transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+		marginLeft: 'auto',
+		// transition: theme.transitions.create('transform', {
+		// 	duration: theme.transitions.duration.shortest,
+		// }),
+	})
+);
+
 const HomePage = () => {
 	const classes = useStyles();
 	const theme: Theme = useTheme();
 
-	const GlobalStyle = createGlobalStyle`
-			a {
-				text-decoration: none;
-			}
-
-			a:hover {
-				text-decoration: underline;
-			}`;
-
 	const tools = [
 		{
+			key: 't1',
 			url: 'https://stackoverflow.developer.gov.bc.ca',
 			label: 'Stack Overflow',
 			icon: <StackOverFlowIcon/>,
-			buttonText: ['Ask a question', <LockIcon style={{ fill: '#606060' }} />],
+			buttonText: ['Ask a question', <LockIcon key='t1-icon' style={{ fill: '#606060' }} />],
 			desc: 'Ask, answer and discuss technical questions specific to the B.C. government on the popular Q & A platform.'
 		},
 		{
+			key: 't2',
 			url: 'https://chat.developer.gov.bc.ca',
 			label: 'RocketChat',
 			icon: <RocketChatIcon/>,
@@ -111,6 +152,7 @@ const HomePage = () => {
 			desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.'
 		},
 		{
+			key: 't3',
 			url: 'https://github.com/bcgov',
 			label: 'GitHub',
 			icon: <GitHubSvgIcon/>,
@@ -118,6 +160,12 @@ const HomePage = () => {
 			desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.'
 		}
 	]
+
+	const [expanded, setExpanded] = React.useState(false);
+
+	const handleExpandClick = () => {
+	  setExpanded(!expanded);
+	};
 
 	return (
 		<Page themeId="home">
@@ -141,7 +189,7 @@ const HomePage = () => {
 
 					<Box sx={{ pt: 4, pb: 6 }}>
 						<HomePageSearchBar
-							classes={{root: classes.searchBar}}
+							classes={{ root: classes.searchBar }}
 							InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
 							placeholder="Search our catalog, including technical documentation and Stack Overflow answers"
 						/>
@@ -216,7 +264,7 @@ const HomePage = () => {
 						</Typography>
 					</Box>
 					<ItemCardGrid classes={{ root: classes.cardGrid }}>
-						<Card key='1' classes={{ root: classes.card }}>
+						<Card key='e1' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
 									title={`OpenShift 101 workshop & lab`}
@@ -250,7 +298,7 @@ const HomePage = () => {
 					</Box>
 					<ItemCardGrid classes={{ root: classes.cardGrid }}>
 						{tools.map(t => (
-							<Card key={t.label} classes={{ root: classes.card }}>
+							<Card key={t.key} classes={{ root: classes.card }}>
 								<CardMedia>
 									<ItemCardHeader
 										title={<Box style={{display: 'flex',
@@ -282,6 +330,60 @@ const HomePage = () => {
 						<Typography paragraph>
 							The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
 						</Typography>
+					</Box>
+
+					<Box sx={{ pb: 4 }}>
+						<Card key='truth' classes={{ root: classes.cardRecon }}>
+							<CardContent style={{ paddingBottom: 0 }}>
+								<Typography variant='body2'>
+									The B.C. Public Service acknowledges the territories of First Nations around B.C. and is grateful to carry out our work on these lands.
+									We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
+								</Typography>
+							</CardContent>
+							<CardActions classes={{ root: classes.cardActions }} disableSpacing>
+								<ExpandMore
+									expand={expanded}
+									onClick={handleExpandClick}
+									aria-expanded={expanded}
+									aria-label="show more"
+									>
+									<ExpandMoreIcon style={ {fill: 'white' }} />
+								</ExpandMore>
+							</CardActions>
+							<Collapse in={expanded} timeout="auto" unmountOnExit>
+								<CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
+									<Typography variant='body2' paragraph>
+									The Developer Experience team works from the unceded, ancestral and traditional lands of the:<br/>
+									</Typography>
+									<Grid container spacing={0} style={{display: 'flex', justifyContent: 'flex-start' }} >
+										<Grid item sm={12} md={4}>
+											<ul style={{ margin: 0 }}>
+												<li><Link to="https://www.esquimaltnation.ca/"><Typography display='inline' variant='body2'>Xwsepsum (Esquimalt)</Typography></Link></li>
+												<li><Link to="https://wsanec.com/"><Typography display='inline' variant='body2'>W̱SÁNEĆ</Typography></Link></li>
+												<li><Link to="https://malahatnation.com/"><Typography display='inline' variant='body2'>MÁLEXEȽ (Malahat)</Typography></Link></li>
+											</ul>
+										</Grid>
+										<Grid item sm={12} md={4}>
+											<ul style={{ margin: 0 }}>
+												<li><Link to="https://www.songheesnation.ca/"><Typography display='inline' variant='body2'>Lək̓ʷəŋən (Songhees)</Typography></Link></li>
+												<li><Link to="https://www.kwikwetlem.com/"><Typography display='inline' variant='body2'>Kʷikʷəƛ̓əm</Typography></Link></li>
+												<li><Link to="https://www.facebook.com/qayqayt/"><Typography display='inline' variant='body2'>Qayqayt</Typography></Link></li>
+											</ul>
+										</Grid>
+										<Grid item sm={12} md={4}>
+											<ul style={{ margin: 0 }}>
+												<li><Link to="https://beecherbay.ca/"><Typography display='inline' variant='body2'>Sc’ianew (Beecher Bay)</Typography></Link></li>
+												<li><Link to="https://www.stolonation.bc.ca/"><Typography display='inline' variant='body2'>S’ólh Téméxw (Stó:lō)</Typography></Link></li>
+												<li><Link to="https://twnation.ca/"><Typography display='inline' variant='body2'>Səl̓ilwətaɁɬ Təməxʷ (Tsleil-Waututh)</Typography></Link></li>
+											</ul>
+										</Grid>
+									</Grid>
+								</CardContent>
+								<CardActions classes={{ root: classes.cardActions }}>
+									<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
+								</CardActions>
+							</Collapse>
+						</Card>
 					</Box>
 				</div>
 			</Content>
