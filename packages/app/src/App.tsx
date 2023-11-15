@@ -101,6 +101,9 @@ const routes = (
 			{entityPage}
 		</Route>
 		<Route path="/docs" element={<TechDocsIndexPage/>}/>
+		{/* redirect in case anyone has bookmarked bcdg*/}
+		<Route path="/docs/default/component/bcdg" element={<Navigate to='/docs/default/component/bc-developer-guide' />}/>
+
 		<Route
 			path="/docs/:namespace/:kind/:name/*"
 			element={<TechDocsReaderPage/>}

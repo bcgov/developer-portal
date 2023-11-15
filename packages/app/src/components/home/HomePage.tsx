@@ -267,51 +267,7 @@ const HomePage = () => {
 						<Card key='e1' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
-									title={`Application Modernization`}
-									subtitle="November 14th"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								Attend a special event with experts from AWS, Red Hat, Deloitte, Dynatrace and DXCAS to learn how intelligent observability can accelerate your application modernization.
-								</p>
-								<br /><b>What: </b> Application Modernization & Intelligent Observability
-								<br /><b>Where: </b> Delta Hotels Victoria Ocean Pointe Resort
-								<br /><b>When: </b> Tuesday, November 14 · 8am - 3pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton to="https://info.dynatrace.com/noram-great-lakes-dh-canada-west-government-day-23061-registration.html" classes={{ root: classes.defaultButton }}>
-								Join the event
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='e2' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
-									title={`OpenShift 201 Workshop & Lab`}
-									subtitle="November 14th"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.
-								</p>
-								<br /><b>What: </b>The OpenShift 201 course
-								<br /><b>Where: </b> Online
-								<br /><b>When: </b> Tuesday, November 14 · 9am - 4pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://openshift201.eventbrite.com/" classes={{ root: classes.defaultButton }}>
-								Register for OpenShift 201
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='e3' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
-									title={`OpenShift 101 Workshop & Lab`}
+									title={`OpenShift 101 workshop & lab`}
 									subtitle="November 21st"
 									classes={{ root: classes.cardEventHeader }}
 								/>
