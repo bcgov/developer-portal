@@ -9,3 +9,14 @@ backend:
       password: ${POSTGRES_PASSWORD}
       port: ${POSTGRES_PORT}
       user: ${POSTGRES_USER}
+catalog:
+    import:
+        entityFilename: catalog-info.yaml
+        pullRequestBranchName: backstage-integration
+    rules:
+        -   allow: [ Component, System, API, Resource, Location ]
+    locations:
+        -   type: file
+            target: catalog-seed.yaml
+            rules:
+                -   allow: [ Component ]

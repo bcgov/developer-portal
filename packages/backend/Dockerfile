@@ -1,81 +1,78 @@
 # From https://github.com/janus-idp/backstage-showcase/
-# Stage 1 - Install dependencies
-FROM registry.access.redhat.com/ubi9/nodejs-18:latest AS deps
+# Stage 1 - Build nodejs skeleton
+ 
+FROM registry.access.redhat.com/ubi9/nodejs-18:1-80.1699550448 AS skeleton
 USER 0
+
+RUN dnf install -y -q --allowerasing --nobest \
+  python3 gcc gcc-c++ zlib-devel brotli-devel openssl-devel && \
+  dnf update -y && dnf clean all
+
 
 # Env vars
 ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
-ENV REMOTE_SOURCES=.
-ENV REMOTE_SOURCES_DIR=/opt/app-root/src
+ENV EXTERNAL_SOURCE=.
+ENV CONTAINER_SOURCE=/opt/app-root/src
 
-WORKDIR $REMOTE_SOURCES_DIR/
-COPY $REMOTE_SOURCES $REMOTE_SOURCES_DIR
-RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
+WORKDIR $CONTAINER_SOURCE/
+COPY $EXTERNAL_SOURCE/.yarn ./.yarn
+COPY $EXTERNAL_SOURCE/.yarnrc.yml ./
+RUN chmod +x $YARN
 
-# Remove all files except package.json
-RUN find packages -mindepth 2 -maxdepth 2 \! -name "package.json" -exec rm -rf {} \+
+# Stage 2 - Install dependencies
+FROM skeleton AS deps
 
-RUN $YARN install --frozen-lockfile --network-timeout 600000 --ignore-scripts
+COPY $EXTERNAL_SOURCE/package.json $EXTERNAL_SOURCE/yarn.lock ./
+COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
+COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
+COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-# Stage 2 - Build packages
-FROM registry.access.redhat.com/ubi9/nodejs-18:latest AS build
-USER 0
+RUN $YARN install --frozen-lockfile --network-timeout 600000 
 
-# Env vars
-ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
-ENV REMOTE_SOURCES=.
-ENV REMOTE_SOURCES_DIR=/opt/app-root/src
+# Stage 3 - Build packages
+FROM deps AS build
 
-WORKDIR $REMOTE_SOURCES_DIR/
-COPY $REMOTE_SOURCES $REMOTE_SOURCES_DIR
-COPY --from=deps $REMOTE_SOURCES_DIR $REMOTE_SOURCES_DIR
-RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
-RUN git config --global --add safe.directory $REMOTE_SOURCES_DIR/
+COPY $EXTERNAL_SOURCE ./
 
 RUN $YARN tsc
 RUN $YARN build:backend
 
-# Stage 3 - Build the actual backend image and install production dependencies
-FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1 AS runner
-USER 0
-
-# # Install gzip for tar and clean up
-# RUN microdnf install -y gzip python3 python3-pip && \
-#     pip3 install mkdocs-techdocs-core==1.2.1 && \
-#     microdnf clean all
-
-# Install gzip for tar and clean up
-RUN microdnf install -y gzip && microdnf clean all
-
-# Env vars
-ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
-ENV REMOTE_SOURCES=.
-ENV REMOTE_SOURCES_DIR=/opt/app-root/src
-
-WORKDIR $REMOTE_SOURCES_DIR/
-COPY --from=build --chown=1001:1001 $REMOTE_SOURCES_DIR/.yarn $REMOTE_SOURCES_DIR/.yarn
-COPY --from=build --chown=1001:1001 $REMOTE_SOURCES_DIR/.yarnrc.yml $REMOTE_SOURCES_DIR/
-RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
+# Stage 4 - Build the actual backend image and install production dependencies
+FROM skeleton AS cleanup
 
 # Copy the install dependencies from the build stage and context
-COPY --from=build --chown=1001:1001 $REMOTE_SOURCES_DIR/yarn.lock $REMOTE_SOURCES_DIR/package.json $REMOTE_SOURCES_DIR/packages/backend/dist/skeleton.tar.gz $REMOTE_SOURCES_DIR/
+COPY --from=build $CONTAINER_SOURCE/yarn.lock $CONTAINER_SOURCE/package.json $CONTAINER_SOURCE/packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 
 # Copy the built packages from the build stage
-COPY --from=build --chown=1001:1001 $REMOTE_SOURCES_DIR/packages/backend/dist/bundle.tar.gz $REMOTE_SOURCES_DIR/
-RUN tar xzf $REMOTE_SOURCES_DIR/bundle.tar.gz && rm $REMOTE_SOURCES_DIR/bundle.tar.gz
+COPY --from=build $CONTAINER_SOURCE/packages/backend/dist/bundle.tar.gz ./
+RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
-# Copy any other files that we need at runtime
-COPY --chown=1001:1001 $REMOTE_SOURCES/app-config.yaml $REMOTE_SOURCES/app-config.production.yaml $REMOTE_SOURCES_DIR/
+# Copy app-config files needed in runtime
+COPY $EXTERNAL_SOURCE/app-config.yaml  \
+  $EXTERNAL_SOURCE/app-config.production.yaml \
+  $EXTERNAL_SOURCE/catalog-info.yaml \
+  $EXTERNAL_SOURCE/catalog-seed.yaml ./
 
 # Install production dependencies
-RUN $YARN install --frozen-lockfile --production --network-timeout 600000 --ignore-scripts && $YARN cache clean
+RUN $YARN install --frozen-lockfile --production --network-timeout 600000 && $YARN cache clean
+
+# Stage 5 - Build the runner image
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1-85.1699549021 AS runner
+USER 0
+
+# Env vars
+ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
+ENV EXTERNAL_SOURCE=.
+ENV CONTAINER_SOURCE=/opt/app-root/src
+
+WORKDIR $CONTAINER_SOURCE/
+COPY --from=cleanup --chown=1001:1001 $CONTAINER_SOURCE/ ./
 
 # The fix-permissions script is important when operating in environments that dynamically use a random UID at runtime, such as OpenShift.
 # The upstream backstage image does not account for this and it causes the container to fail at runtime.
-RUN fix-permissions $REMOTE_SOURCES_DIR/
-
+  
+RUN fix-permissions ./
 # Switch to nodejs user
 USER 1001
-
 ENTRYPOINT ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]

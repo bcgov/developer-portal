@@ -47,7 +47,13 @@ const app = createApp({
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
       viewTechDoc: techdocsPlugin.routes.docRoot,
+      createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
     });
+
+    bind(scaffolderPlugin.externalRoutes, {
+      viewTechDoc: techdocsPlugin.routes.docRoot,
+    });
+
     bind(orgPlugin.externalRoutes, {
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
