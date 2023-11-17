@@ -77,9 +77,9 @@ const useStyles = makeStyles(theme => ({
 		display:'flex',
 		justiyContent:'space-between',
 		flexDirection:'column',
-		borderRadius: '1rem',
-		position: 'relative',
-		boxShadow: 'rgba(0, 0, 0, .2) 0 20px 25px -5px, rgba(0, 0, 0, .04) 0 10px 10px -5px',
+		borderRadius: '0',
+		paddingRight: '9%',
+		paddingLeft: '9%',
 	},
 	ReconButton: {
 		marginTop: 'auto',
@@ -91,6 +91,13 @@ const useStyles = makeStyles(theme => ({
 		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
 		boxShadow: 'rgba(0, 0, 0, .1) 0 20px 25px -5px, rgba(0, 0, 0, .14) 0 10px 10px -5px',
 	},
+	footer: {
+		width: 'auto',
+		marginLeft: '-24px',
+		marginRight: '-24px',
+		borderTop: '4px solid #FCBA19',
+		borderBottom: '4px solid #FCBA19',
+	}
 }));
 makeStyles(theme => ({
 	container: {
@@ -321,7 +328,7 @@ const HomePage = () => {
 						))}
 					</ItemCardGrid>
 
-					<Box sx={{ pt: 5, pb: 4 }}>
+					<Box sx={{ pt: 5, pb: 3 }}>
 						<Box sx={{ pb: 1 }}>
 							<Typography variant="h3">
 								Provide feedback
@@ -331,61 +338,60 @@ const HomePage = () => {
 							The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
 						</Typography>
 					</Box>
-
-					<Box sx={{ pb: 4 }}>
-						<Card key='truth' classes={{ root: classes.cardRecon }}>
-							<CardContent style={{ paddingBottom: 0 }}>
-								<Typography variant='body2'>
-									The B.C. Public Service acknowledges the territories of First Nations around B.C. and is grateful to carry out our work on these lands.
-									We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
-								</Typography>
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }} disableSpacing>
-								<ExpandMore
-									expand={expanded}
-									onClick={handleExpandClick}
-									aria-expanded={expanded}
-									aria-label="show more"
-									>
-									<ExpandMoreIcon style={ {fill: 'white' }} />
-								</ExpandMore>
-							</CardActions>
-							<Collapse in={expanded} timeout="auto" unmountOnExit>
-								<CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
-									<Typography variant='body2' paragraph>
-									The Developer Experience team works from the unceded, ancestral and traditional lands of the:<br/>
-									</Typography>
-									<Grid container spacing={0} style={{display: 'flex', justifyContent: 'flex-start' }} >
-										<Grid item sm={12} md={4}>
-											<ul style={{ margin: 0 }}>
-												<li><Link to="https://www.esquimaltnation.ca/"><Typography display='inline' variant='body2'>Xwsepsum (Esquimalt)</Typography></Link></li>
-												<li><Link to="https://wsanec.com/"><Typography display='inline' variant='body2'>W̱SÁNEĆ</Typography></Link></li>
-												<li><Link to="https://malahatnation.com/"><Typography display='inline' variant='body2'>MÁLEXEȽ (Malahat)</Typography></Link></li>
-											</ul>
-										</Grid>
-										<Grid item sm={12} md={4}>
-											<ul style={{ margin: 0 }}>
-												<li><Link to="https://www.songheesnation.ca/"><Typography display='inline' variant='body2'>Lək̓ʷəŋən (Songhees)</Typography></Link></li>
-												<li><Link to="https://www.kwikwetlem.com/"><Typography display='inline' variant='body2'>Kʷikʷəƛ̓əm</Typography></Link></li>
-												<li><Link to="https://www.facebook.com/qayqayt/"><Typography display='inline' variant='body2'>Qayqayt</Typography></Link></li>
-											</ul>
-										</Grid>
-										<Grid item sm={12} md={4}>
-											<ul style={{ margin: 0 }}>
-												<li><Link to="https://beecherbay.ca/"><Typography display='inline' variant='body2'>Sc’ianew (Beecher Bay)</Typography></Link></li>
-												<li><Link to="https://www.stolonation.bc.ca/"><Typography display='inline' variant='body2'>S’ólh Téméxw (Stó:lō)</Typography></Link></li>
-												<li><Link to="https://twnation.ca/"><Typography display='inline' variant='body2'>Səl̓ilwətaɁɬ Təməxʷ (Tsleil-Waututh)</Typography></Link></li>
-											</ul>
-										</Grid>
-									</Grid>
-								</CardContent>
-								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
-								</CardActions>
-							</Collapse>
-						</Card>
-					</Box>
 				</div>
+				<Box className={classes.footer} sx={{ mb: 4 }}>
+					<Card key='truth' classes={{ root: classes.cardRecon }}>
+						<CardContent style={{ paddingBottom: 0 }}>
+							<Typography variant='body2'>
+								The B.C. Public Service acknowledges the territories of First Nations around B.C. and is grateful to carry out our work on these lands.
+								We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
+							</Typography>
+						</CardContent>
+						<CardActions classes={{ root: classes.cardActions }} disableSpacing>
+							<ExpandMore
+								expand={expanded}
+								onClick={handleExpandClick}
+								aria-expanded={expanded}
+								aria-label="show more"
+								>
+								<ExpandMoreIcon style={ {fill: 'white' }} />
+							</ExpandMore>
+						</CardActions>
+						<Collapse in={expanded} timeout="auto" unmountOnExit>
+							<CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
+								<Typography variant='body2' paragraph>
+								The Developer Experience team works from the unceded, ancestral and traditional lands of the:<br/>
+								</Typography>
+								<Grid container spacing={0} style={{display: 'flex', justifyContent: 'flex-start' }} >
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://www.esquimaltnation.ca/"><Typography display='inline' variant='body2'>Xwsepsum (Esquimalt)</Typography></Link></li>
+											<li><Link to="https://wsanec.com/"><Typography display='inline' variant='body2'>W̱SÁNEĆ</Typography></Link></li>
+											<li><Link to="https://malahatnation.com/"><Typography display='inline' variant='body2'>MÁLEXEȽ (Malahat)</Typography></Link></li>
+										</ul>
+									</Grid>
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://www.songheesnation.ca/"><Typography display='inline' variant='body2'>Lək̓ʷəŋən (Songhees)</Typography></Link></li>
+											<li><Link to="https://www.kwikwetlem.com/"><Typography display='inline' variant='body2'>Kʷikʷəƛ̓əm</Typography></Link></li>
+											<li><Link to="https://www.facebook.com/qayqayt/"><Typography display='inline' variant='body2'>Qayqayt</Typography></Link></li>
+										</ul>
+									</Grid>
+									<Grid item sm={12} md={4}>
+										<ul style={{ margin: 0 }}>
+											<li><Link to="https://beecherbay.ca/"><Typography display='inline' variant='body2'>Sc’ianew (Beecher Bay)</Typography></Link></li>
+											<li><Link to="https://www.stolonation.bc.ca/"><Typography display='inline' variant='body2'>S’ólh Téméxw (Stó:lō)</Typography></Link></li>
+											<li><Link to="https://twnation.ca/"><Typography display='inline' variant='body2'>Səl̓ilwətaɁɬ Təməxʷ (Tsleil-Waututh)</Typography></Link></li>
+										</ul>
+									</Grid>
+								</Grid>
+							</CardContent>
+							<CardActions classes={{ root: classes.cardActions }}>
+								<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
+							</CardActions>
+						</Collapse>
+					</Card>
+				</Box>
 			</Content>
 		</Page>
 	)
