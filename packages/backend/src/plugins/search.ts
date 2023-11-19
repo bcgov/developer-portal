@@ -9,6 +9,8 @@ import {DefaultCatalogCollatorFactory} from '@backstage/plugin-catalog-backend';
 import {DefaultTechDocsCollatorFactory} from '@backstage/plugin-techdocs-backend';
 import {Router} from 'express';
 import {PgSearchEngine} from "@backstage/plugin-search-backend-module-pg";
+import {StackOverflowQuestionsCollatorFactory} from '@backstage/plugin-stack-overflow-backend';
+
 
 export default async function createPlugin(
 	env: PluginEnvironment,
@@ -48,6 +50,17 @@ export default async function createPlugin(
 			discovery: env.discovery,
 			logger: env.logger,
 			tokenManager: env.tokenManager,
+		}),
+	});
+
+	indexBuilder.addCollator({
+		schedule,
+		factory: StackOverflowQuestionsCollatorFactory.fromConfig(env.config, {
+		  logger: env.logger,
+		  requestParams: {
+			site: 'stackoverflow',
+			pagesize: 100,
+		  },
 		}),
 	});
 

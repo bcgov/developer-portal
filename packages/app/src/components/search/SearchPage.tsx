@@ -1,20 +1,17 @@
 import React from 'react';
 import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
 
-import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
   catalogApiRef,
   CATALOG_FILTER_EXISTS,
 } from '@backstage/plugin-catalog-react';
-import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 
 import { SearchType } from '@backstage/plugin-search';
 import {
   SearchBar,
   SearchFilter,
-  SearchResult,
   SearchPagination,
-  useSearch,
+  useSearch
 } from '@backstage/plugin-search-react';
 import {
   CatalogIcon,
@@ -24,8 +21,13 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { StackOverflowIcon } from '@backstage/plugin-stack-overflow';
+import { searchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  search: {
+    margin: theme.spacing(1, 0),
+  },
   bar: {
     padding: theme.spacing(1, 0),
   },
@@ -52,13 +54,12 @@ const SearchPage = () => {
         <Grid container direction="row">
           <Grid item xs={12}>
             <Paper className={classes.bar}>
-              <SearchBar />
+              <SearchBar className={classes.search} />
             </Paper>
           </Grid>
           <Grid item xs={3}>
             <SearchType.Accordion
               name="Result Type"
-              defaultValue="software-catalog"
               types={[
                 {
                   value: 'software-catalog',
@@ -69,6 +70,11 @@ const SearchPage = () => {
                   value: 'techdocs',
                   name: 'Documentation',
                   icon: <DocsIcon />,
+                },
+                {
+                  value: 'stack-overflow',
+                  name: 'Stack Overflow',
+                  icon: <StackOverflowIcon />,
                 },
               ]}
             />
@@ -110,10 +116,7 @@ const SearchPage = () => {
           </Grid>
           <Grid item xs={9}>
             <SearchPagination />
-            <SearchResult>
-              <CatalogSearchResultListItem icon={<CatalogIcon />} />
-              <TechDocsSearchResultListItem icon={<DocsIcon />} />
-            </SearchResult>
+            {searchResultCustomList}
           </Grid>
         </Grid>
       </Content>

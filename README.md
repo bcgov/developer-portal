@@ -3,6 +3,11 @@
 [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Package Status](https://github.com/bcgov/developer-portal/actions/workflows/on-push.yaml/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/on-push.yaml)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=bugs)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
 
 This is the developer portal for the Province of British Columbia built using [backstage](https://backstage.io). 
 

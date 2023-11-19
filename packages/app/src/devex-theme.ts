@@ -11,12 +11,15 @@ import {
 import { alpha } from '@material-ui/core/styles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
+import { OutlinedInputClassKey } from '@material-ui/core';
+import '@bcgov/bc-sans/css/BCSans.css';
 
 // Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
 declare module '@material-ui/core/styles/overrides' {
   export interface ComponentNameToClassKey {
     MuiAlert: AlertClassKey;
     MuiAutocomplete: AutocompleteClassKey;
+    MuiOutlinedInput: OutlinedInputClassKey;
   }
 }
 
@@ -89,7 +92,7 @@ const baseTheme = createTheme({
       default: '#FFFFFF',
     },
   },
-  fontFamily: 'BC Sans, Noto Sans, Roboto, sans-serif',
+  fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
   pageTheme: pageThemesFontColorOverride,
   defaultPageTheme: 'home',
 });
@@ -98,36 +101,6 @@ const createCustomThemeOverrides = (
   theme: BackstageTheme,
 ): BackstageOverrides & CatalogReactOverrides => {
   return {
-    MuiCssBaseline: {
-      '@global': {
-        '@font-face': [ 
-          {
-            fontFamily: 'BC Sans',
-            src: `url('/fonts/BcSansFont_Web/BCSans-Regular_2f.woff2') format('woff2'),
-                  url('/fonts/BcSansFont_Web/BCSans-Regular_2f.woff') format('woff')`,
-            fontWeight: 400,
-          },
-          {
-            fontFamily: 'BC Sans',
-            src: `url('/fonts/BcSansFont_Web/BCSans-Light_2f.woff2') format('woff2'),
-                  url('/fonts/BcSansFont_Web/BCSans-Light_2f.woff') format('woff')`,
-            fontWeight: 300,
-          },
-          {
-            fontFamily: 'BC Sans',
-            src: `url('/fonts/BcSansFont_Web/BCSans-Bold_2f.woff2') format('woff2'),
-                  url('/fonts/BcSansFont_Web/BCSans-Bold_2f.woff') format('woff')`,
-            fontWeight: 700,
-          },
-          {
-            fontFamily: 'BC Sans',
-            src: `url('/fonts/BcSansFont_Web/BCSans-Italic_2f.woff2') format('woff2'),
-                  url('/fonts/BcSansFont_Web/BCSans-Italic_2f.woff') format('woff')`,
-            fontStyle: 'italic',
-          },
-        ]
-      },
-    },
     BackstageHeader: {
       header: {
         backgroundImage: 'unset',
@@ -231,6 +204,22 @@ const createCustomThemeOverrides = (
         },
       },
     },
+    MuiOutlinedInput: {
+      root: {
+        "& $notchedOutline": {
+          borderColor: '#606060'
+        },
+        "&:hover $notchedOutline": {
+          borderColor: theme.palette.grey[50]
+        },
+        "&$focused $notchedOutline": {
+          borderColor: theme.palette.primary.main,
+        },
+        '& [class^="MuiSvgIcon-root"]': {
+          fill: '#606060'
+        }
+      },
+    },
     MuiBackdrop: {
       root: {
         backgroundColor: 'rgba(9,30,69,0.54)',
@@ -263,7 +252,7 @@ const createCustomThemeOverrides = (
     MuiChip: {
       root: {
         borderRadius: 3,
-        backgroundColor: theme.palette.grey[50],
+        backgroundColor: 'rgba(0, 0, 0, .11)',
         color: theme.palette.primary.dark,
         margin: 4,
       },

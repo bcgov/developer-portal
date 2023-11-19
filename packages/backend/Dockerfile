@@ -17,7 +17,7 @@ ENV CONTAINER_SOURCE=/opt/app-root/src
 WORKDIR $CONTAINER_SOURCE/
 COPY $EXTERNAL_SOURCE/.yarn ./.yarn
 COPY $EXTERNAL_SOURCE/.yarnrc.yml ./
-RUN chmod +x $YARN
+RUN chmod +x "$YARN"
 
 # Stage 2 - Install dependencies
 FROM skeleton AS deps
@@ -27,12 +27,13 @@ COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-RUN $YARN install --frozen-lockfile --network-timeout 600000 
+RUN "$YARN" install --frozen-lockfile --network-timeout 600000 
 
 # Stage 3 - Build packages
 FROM deps AS build
 
 COPY $EXTERNAL_SOURCE ./
+RUN git config --global --add safe.directory ./
 
 RUN $YARN tsc
 RUN $YARN build:backend
@@ -67,7 +68,7 @@ ENV EXTERNAL_SOURCE=.
 ENV CONTAINER_SOURCE=/opt/app-root/src
 
 WORKDIR $CONTAINER_SOURCE/
-COPY --from=cleanup --chown=1001:1001 $CONTAINER_SOURCE/ ./
+COPY --from=cleanup $CONTAINER_SOURCE/ ./
 
 # The fix-permissions script is important when operating in environments that dynamically use a random UID at runtime, such as OpenShift.
 # The upstream backstage image does not account for this and it causes the container to fail at runtime.

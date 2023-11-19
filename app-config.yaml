@@ -1,6 +1,10 @@
 app:
-    title: BC Gov Developer Portal
+    title: B.C. government DevHub
     baseUrl: http://localhost:3000
+    analytics:
+        snowplow:
+            enabled: true
+            collectorUrl: https://spm.apps.gov.bc.ca
 
 organization:
     name: BCDevExchange
@@ -20,6 +24,8 @@ backend:
     csp:
         connect-src: [ "'self'", 'http:', 'https:' ]
         img-src: [ "'self'", "*.gov.bc.ca", "data:" ]
+        script-src: [ "'self'", "*.gov.bc.ca" ]
+        frame-src: ["www.youtube.com"]
         # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
         # Default Helmet Content-Security-Policy values can be removed by setting the key to false
     cors:
@@ -45,6 +51,9 @@ integrations:
 # - host: ghe.example.net
 #   apiBaseUrl: https://ghe.example.net/api/v3
 #   token: ${GHE_TOKEN}
+# stackoverflow:
+#   baseUrl: ${STACK_OVERFLOW_URL}
+#   apiKey: ${STACK_OVERFLOW_API_KEY}
 
 proxy:
 ### Example for how to add a proxy endpoint for the frontend.
@@ -63,6 +72,9 @@ techdocs:
         runIn: 'docker' # Alternatives - 'local'
     publisher:
         type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+    sanitizer:
+        allowedIframeHosts:
+            - www.youtube.com
 
 auth:
     # see https://backstage.io/docs/auth/ to learn about auth providers

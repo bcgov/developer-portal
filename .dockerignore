@@ -11,3 +11,4 @@ examples
 *.github
 *.log
 *.git
+**/.swc

@@ -1,18 +1,18 @@
 import React, { PropsWithChildren } from 'react';
 import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import CatalogIcon from '@material-ui/icons/LocalLibrary';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
+// import CatalogIcon from '@material-ui/icons/LocalLibrary';
+// import ExtensionIcon from '@material-ui/icons/Extension';
+// import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+// import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
   Settings as SidebarSettings,
   UserSettingsSignInAvatar,
 } from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
+import { SearchModalProvider, useSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
   sidebarConfig,
@@ -20,16 +20,63 @@ import {
   SidebarGroup,
   SidebarItem,
   SidebarPage,
-  SidebarScrollWrapper,
-  SidebarSubmenu,
-  SidebarSubmenuItem,
+  // SidebarScrollWrapper,
+  // SidebarSubmenu,
+  // SidebarSubmenuItem,
   SidebarSpace,
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import { useApp } from '@backstage/core-plugin-api';
+// import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { CustomSearchModal } from '../search/CustomModal';
+
+import {useApi, configApiRef} from '@backstage/core-plugin-api';
+
+
+// snowplow analytics
+import {newTracker, trackPageView, enableActivityTracking} from '@snowplow/browser-tracker';
+import {
+    enableLinkClickTracking,
+    LinkClickTrackingPlugin as linkTrackingPlugin
+} from '@snowplow/browser-plugin-link-click-tracking';
+
+
+const MyReactComponent = () => {
+    const config = useApi(configApiRef);
+
+    console.log("**********Setting up analytics (or not...)********");
+    console.log(`Config: ${JSON.stringify(config)}`);
+
+    if (config.getOptionalConfig('app.analytics') && config.getBoolean('app.analytics.snowplow.enabled')) {
+        console.log("**********Analytics enabled...********");
+
+        // const collectorUrl = "spm.apps.gov.bc.ca"
+        const collectorUrl = config.getString("app.analytics.snowplow.collectorUrl");
+
+        newTracker('rt', `${collectorUrl}`, {
+            appId: 'Snowplow_standalone_OCIO',
+            cookieLifetime: 86400 * 548,
+            platform: "web",
+            contexts: {
+                webPage: true
+            },
+            plugins: [linkTrackingPlugin()]
+        });
+
+        enableActivityTracking({
+            minimumVisitLength: 30,
+            heartbeatDelay: 30
+        });
+
+        enableLinkClickTracking();
+
+        trackPageView();
+    }
+    return null;
+}
+
 
 const storedTheme = localStorage.getItem('theme');
 
@@ -48,7 +95,9 @@ const useSidebarLogoStyles = makeStyles({
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    marginBottom: -14,
+    marginBottom: 40,
+    paddingTop: 42,
+    marginLeft: -10
   },
   link: {
     width: sidebarConfig.drawerWidthClosed,
@@ -70,18 +119,33 @@ const SidebarLogo = () => {
   );
 };
 
-export const Root = ({ children }: PropsWithChildren<{}>) => (
+export const Root = ({ children }: PropsWithChildren<{}>) => {
+  const { state, toggleModal } = useSearchModal();
+
+  return (
   <SidebarPage>
+        <MyReactComponent/>
     <Sidebar>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
+      <SearchModalProvider>
+        <SidebarItem
+          className="search-icon"
+          icon={SearchIcon}
+          text="Search"
+          onClick={toggleModal}
+        />
+        <CustomSearchModal
+          {...state}
+          toggleModal={toggleModal}
+        />
+      </SearchModalProvider>
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="/" text="Home" /> 
+        <SidebarItem icon={HomeIcon} to="/" text="Home" />
         {/* Global nav, not org-specific */}
-        <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
+        {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
           <SidebarSubmenuItem
               title="APIs"
@@ -121,14 +185,14 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
             />
           </SidebarSubmenu>
         </SidebarItem>
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" /> */}
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+        {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
         {/* End global nav */}
-        <SidebarDivider />
+        {/* <SidebarDivider />
         <SidebarScrollWrapper>
           <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-        </SidebarScrollWrapper>
+        </SidebarScrollWrapper> */}
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
@@ -142,4 +206,4 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
     </Sidebar>
     {children}
   </SidebarPage>
-);
+)};
