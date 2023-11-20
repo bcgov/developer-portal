@@ -54,3 +54,4 @@ site
 # vscode workspace
 *.code-workspace
 .vscode/*
+.swc/
