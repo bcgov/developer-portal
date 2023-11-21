@@ -24,7 +24,7 @@ backend:
     csp:
         connect-src: [ "'self'", 'http:', 'https:' ]
         img-src: [ "'self'", "*.gov.bc.ca", "data:" ]
-        script-src: [ "'self'", "*.gov.bc.ca" ]
+        # script-src: [ "'self'", "*.gov.bc.ca" ]
         frame-src: ["www.youtube.com"]
         # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
         # Default Helmet Content-Security-Policy values can be removed by setting the key to false
