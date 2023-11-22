@@ -17,7 +17,7 @@ ENV CONTAINER_SOURCE=/opt/app-root/src
 WORKDIR $CONTAINER_SOURCE/
 COPY $EXTERNAL_SOURCE/.yarn ./.yarn
 COPY $EXTERNAL_SOURCE/.yarnrc.yml ./
-RUN chmod +x $YARN
+RUN chmod +x "$YARN"
 
 # Stage 2 - Install dependencies
 FROM skeleton AS deps
@@ -27,7 +27,7 @@ COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-RUN $YARN install --frozen-lockfile --network-timeout 600000 
+RUN "$YARN" install --frozen-lockfile --network-timeout 600000 
 
 # Stage 3 - Build packages
 FROM deps AS build
@@ -56,7 +56,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
   $EXTERNAL_SOURCE/catalog-seed.yaml ./
 
 # Install production dependencies
-RUN $YARN install --frozen-lockfile --production --network-timeout 600000 && $YARN cache clean
+RUN "$YARN" install --frozen-lockfile --production --network-timeout 600000 && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
 FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1-85.1699549021 AS runner
@@ -64,7 +64,6 @@ USER 0
 
 # Env vars
 ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
-ENV EXTERNAL_SOURCE=.
 ENV CONTAINER_SOURCE=/opt/app-root/src
 
 WORKDIR $CONTAINER_SOURCE/
