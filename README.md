@@ -9,7 +9,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=bcgov_developer-portal&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=bcgov_developer-portal)
 
-This is the developer portal for the Province of British Columbia built using [backstage](https://backstage.io). 
+This is the [developer portal for the Province of British Columbia](https://mvp.developer.gov.bc.ca) built using [backstage](https://backstage.io). 
 
 ## Local Development
 
