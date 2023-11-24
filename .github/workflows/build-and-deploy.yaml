@@ -55,7 +55,7 @@ jobs:
       - 
         # Support for multiplatform build. Using for dev debugging
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
               
       - # Support for multiplatform build. Using for dev debugging
         name: Set up Docker Buildx
