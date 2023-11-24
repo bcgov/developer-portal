@@ -59,7 +59,7 @@ jobs:
               
       - # Support for multiplatform build. Using for dev debugging
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         
       - name: Build container
         uses: docker/build-push-action@v4
