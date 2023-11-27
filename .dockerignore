@@ -12,3 +12,4 @@ examples
 *.log
 *.git
 **/.swc
+e2e-test-report

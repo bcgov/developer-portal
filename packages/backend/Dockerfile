@@ -75,4 +75,5 @@ COPY --from=cleanup --chown=1001:1001 $CONTAINER_SOURCE/ ./
 RUN fix-permissions ./
 # Switch to nodejs user
 USER 1001
+ENV LEGACY_BACKEND_START=true
 ENTRYPOINT ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
