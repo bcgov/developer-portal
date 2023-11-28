@@ -275,7 +275,7 @@ const HomePage = () => {
 							<CardMedia>
 								<ItemCardHeader
 									title={`OpenShift 101 workshop & lab`}
-									subtitle="November 21st"
+									subtitle="January 3rd"
 									classes={{ root: classes.cardEventHeader }}
 								/>
 							</CardMedia>
@@ -285,11 +285,33 @@ const HomePage = () => {
 								</p>
 								<br /><b>What: </b>The OpenShift 101 course
 								<br /><b>Where: </b>Online
-								<br /><b>When: </b>Tuesday, November 21 · 9am - 4pm PT
+								<br /><b>When: </b>Wednesday, January 3 · 9am - 4pm PT
 							</CardContent>
 							<CardActions classes={{ root: classes.cardActions }}>
 								<LinkButton color="primary" to="https://openshift101.eventbrite.com/" classes={{ root: classes.defaultButton }}>
 								Register for OpenShift 101
+								</LinkButton>
+							</CardActions>
+						</Card>
+						<Card key='e2' classes={{ root: classes.card }}>
+							<CardMedia>
+								<ItemCardHeader
+									title={`OpenShift 201 workshop & lab`}
+									subtitle="January 23rd"
+									classes={{ root: classes.cardEventHeader }}
+								/>
+							</CardMedia>
+							<CardContent>
+								<p>
+								This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.
+								</p>
+								<br /><b>What: </b>The OpenShift 201 course
+								<br /><b>Where: </b>Online
+								<br /><b>When: </b>Tuesday, January 23 · 9am - 4pm PT
+							</CardContent>
+							<CardActions classes={{ root: classes.cardActions }}>
+								<LinkButton color="primary" to="https://openshift201.eventbrite.com/" classes={{ root: classes.defaultButton }}>
+								Register for OpenShift 201
 								</LinkButton>
 							</CardActions>
 						</Card>
