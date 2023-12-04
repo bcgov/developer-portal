@@ -7,12 +7,13 @@ import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import { StackOverflowSearchResultListItem, StackOverflowIcon } from '@backstage/plugin-stack-overflow';
 import { CatalogIcon, DocsIcon } from '@backstage/core-components';
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
+import { refreshLinkClickTracking } from '@snowplow/browser-plugin-link-click-tracking';
 
 const SearchResultCustomList = () => {
     return (
         <SearchResult>
             {({ results }) => (
-                <List>
+                <List onMouseOver={() => refreshLinkClickTracking()}>
                   {results.map(({ type, document, highlight, rank }) => {
                     switch (type) {
                       case 'software-catalog':

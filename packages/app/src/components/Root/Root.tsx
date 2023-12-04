@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 // import CatalogIcon from '@material-ui/icons/LocalLibrary';
@@ -39,12 +39,21 @@ import {useApi, configApiRef} from '@backstage/core-plugin-api';
 import {newTracker, trackPageView, enableActivityTracking} from '@snowplow/browser-tracker';
 import {
     enableLinkClickTracking,
+    refreshLinkClickTracking,
     LinkClickTrackingPlugin as linkTrackingPlugin
 } from '@snowplow/browser-plugin-link-click-tracking';
+import {useLocation} from "react-router-dom";
 
 
 const MyReactComponent = () => {
     const config = useApi(configApiRef);
+
+    const location = useLocation();
+
+    // refresh link tracking whenever local navigation occurs
+    useEffect(() => {
+      setTimeout(refreshLinkClickTracking, 250)
+    }, [location]);
 
     console.log("**********Setting up analytics (or not...)********");
     console.log(`Config: ${JSON.stringify(config)}`);
