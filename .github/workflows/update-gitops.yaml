@@ -1,0 +1,59 @@
+name: Build and update gitops repo
+
+env:
+  TARGET_FILE: 'values.dev.yaml'
+  WORKING_DIR: 'developer-portal'
+  YAML_PROPERTY_PATH: '.upstream.backstage.image.tag'
+
+on:
+  push:
+    paths-ignore:
+        - '.github/**'
+        - 'README.md'
+    branches: [ "pr-deploys" ]
+  workflow_dispatch:  
+
+jobs:
+  call-build-workflow:
+    uses: ./.github/workflows/build.yaml
+    
+  update-gitops-file:
+    runs-on: ubuntu-latest
+    needs: call-build-workflow
+      
+    steps:
+      - name: Setup gitops repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v4   
+        with:
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          repository: ${{ secrets.MANIFEST_REPO }}
+          ref: pull-requests
+
+      - name: 'Configure git'
+      # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      # This assumes that sha was used as a tag in the above job 
+      # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
+      # of tags returned from metadata-action and using github.sha
+      - name: Get short sha
+        run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
+
+      - name: Update image tag
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
+    
+      - name: Commit and push update
+        run: |
+          git commit -am "Update image tag for dev"
+          git push origin
+

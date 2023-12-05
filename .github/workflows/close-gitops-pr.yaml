@@ -1,0 +1,39 @@
+name: Close gitops repo PR (if it exists)
+
+on:
+  pull_request_target:
+    types: [unlabeled, closed]
+    branches: [ "pr-deploys" ]
+  
+jobs:
+  close-gitops-pr:
+    if: ${{ (github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview')) || ( github.event.action == 'unlabeled' && github.event.label.name == 'preview' ) }}
+    runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: 'auto-updates-${{ github.event.pull_request.number }}'
+
+    steps:
+      - name: Check if PR exists
+        id: check_pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base main --json number --jq 'length')
+          if ((pr > 0)); then
+            echo "EXISTS=true" >> "$GITHUB_OUTPUT"
+            echo "PR exists"
+          else
+            echo "PR does NOT exist"
+          fi
+      
+      - name: Close PR
+        if: '(steps.check_pr.outputs.EXISTS)'
+        run: |
+          echo "${{ secrets.MANIFEST_REPO_PAT }}" > token.txt
+          gh auth login --with-token < token.txt
+          gh pr close $BRANCH_NAME \
+          --comment "This PR was automatically closed by a Github workflow in ${{ github.repository }}. It was closed because the associated PR in that repository was either closed or it's 'preview' label was removed." \
+          --repo ${{ secrets.MANIFEST_REPO }} \
+          --delete-branch
+
+
