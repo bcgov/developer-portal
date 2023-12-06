@@ -23,7 +23,6 @@ import {
 import { useApi } from '@backstage/core-plugin-api';
 import { StackOverflowIcon } from '@backstage/plugin-stack-overflow';
 import { searchResultCustomList } from './SearchResultCustomList';
-import { refreshLinkClickTracking } from '@snowplow/browser-plugin-link-click-tracking';
 
 const useStyles = makeStyles((theme: Theme) => ({
   search: {
@@ -58,7 +57,7 @@ const SearchPage = () => {
               <SearchBar className={classes.search} />
             </Paper>
           </Grid>
-          <Grid item xs={3} onClick={() => setTimeout(refreshLinkClickTracking, 250)}>
+          <Grid item xs={3}>
             <SearchType.Accordion
               name="Result Type"
               types={[
