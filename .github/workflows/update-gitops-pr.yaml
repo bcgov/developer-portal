@@ -9,22 +9,17 @@ env:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
+    types: [synchronize, reopened, labeled]
     branches: [ "pr-deploys" ]
 
-# The workflow can sometimes be triggered twice by adding the label when the PR is created
-# If that happens cancel any running workflows and continue with this one    
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
   
 jobs:
   call-build-workflow:
-    if: contains(github.event.pull_request.labels.*.name, 'preview')
+    if: contains(github.event.pull_request.labels.*.name, 'preview')  && github.event.pull_request.state == 'open'
     uses: ./.github/workflows/build.yaml
     
   update-gitops-pr-file:
-    if: contains(github.event.pull_request.labels.*.name, 'preview')
+    if: contains(github.event.pull_request.labels.*.name, 'preview')  && github.event.pull_request.state == 'open'
     runs-on: ubuntu-latest
     needs: call-build-workflow
     env:
