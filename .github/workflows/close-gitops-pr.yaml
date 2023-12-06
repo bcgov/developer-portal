@@ -15,10 +15,9 @@ jobs:
     steps:
       - name: Check if PR exists
         id: check_pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base main --json number --jq 'length')
+          gh auth login --with-token < token.txt
+          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --json number --jq 'length')
           if ((pr > 0)); then
             echo "EXISTS=true" >> "$GITHUB_OUTPUT"
             echo "PR exists"
