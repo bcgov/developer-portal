@@ -1,5 +1,8 @@
 name: Close gitops repo PR (if it exists)
 
+env:
+  GITOPS_REPO_TARGET_BRANCH: pull-requests # switch to main when merge to main
+
 on:
   pull_request_target:
     types: [unlabeled, closed]
@@ -18,7 +21,7 @@ jobs:
         run: |
           echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
           gh auth login --with-token < token.txt
-          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --json number --jq 'length')
+          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base ${{ env.GITOPS_REPO_TARGET_BRANCH }} --json number --jq 'length')
           if ((pr > 0)); then
             echo "EXISTS=true" >> "$GITHUB_OUTPUT"
             echo "PR exists"

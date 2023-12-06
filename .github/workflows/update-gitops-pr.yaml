@@ -4,6 +4,7 @@ env:
   TARGET_FILE: 'values.dev.pr.yaml'
   WORKING_DIR: 'developer-portal'
   YAML_PROPERTY_PATH: '.upstream.backstage.image.tag'
+  GITOPS_REPO_TARGET_BRANCH: pull-requests # switch to main when merge to main
   
 
 on:
@@ -46,7 +47,7 @@ jobs:
           # new branch and then getting an error when it pushes to the remote and sees there
           # is an existing branch
           fetch-depth: 0
-          ref: pull-requests
+          ref: ${{ env.GITOPS_REPO_TARGET_BRANCH }}
 
       # This assumes that sha was used as a tag in the above job 
       # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
@@ -93,7 +94,7 @@ jobs:
         run: |
           echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
           gh auth login --with-token < token.txt
-          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --json number --jq 'length')
+          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base ${{ env.GITOPS_REPO_TARGET_BRANCH }} --json number --jq 'length')
           if ((pr > 0)); then
             echo "EXISTS=true" >> "$GITHUB_OUTPUT"
             echo "PR exists"
@@ -107,7 +108,7 @@ jobs:
           echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
           gh auth login --with-token < token.txt
           gh pr create \
-          -B main \
+          -B ${{ env.GITOPS_REPO_TARGET_BRANCH }} \
           -H $BRANCH_NAME \
           --title 'Deployment PR created from developer-portal-pr-${{ github.event.pull_request.number }}' \
           --body 'This PR was created automatically by a Github workflow in ${{ github.repository }}. It was created for PR ${{ github.repository }}#${{ github.event.pull_request.number }}. Closing that PR or removing the 'preview' label from it will automatically close this PR.' \
