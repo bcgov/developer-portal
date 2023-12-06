@@ -1,7 +1,7 @@
 name: Build and update gitops repo for pull-request
 
 env:
-  TARGET_FILE: 'values.dev.pr.yaml'
+  TARGET_FILE: 'values.pr.yaml'
   WORKING_DIR: 'developer-portal'
   YAML_PROPERTY_PATH: '.upstream.backstage.image.tag'
   
