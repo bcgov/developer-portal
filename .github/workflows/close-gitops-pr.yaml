@@ -16,6 +16,7 @@ jobs:
       - name: Check if PR exists
         id: check_pr
         run: |
+          echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
           gh auth login --with-token < token.txt
           pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --json number --jq 'length')
           if ((pr > 0)); then
