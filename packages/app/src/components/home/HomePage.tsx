@@ -173,7 +173,7 @@ const HomePage = () => {
 
 	const handleExpandClick = () => {
 	  setExpanded(!expanded);
-	  setTimeout(refreshLinkClickTracking, 250)
+	  setTimeout(refreshLinkClickTracking, 250);
 	};
 
 	return (

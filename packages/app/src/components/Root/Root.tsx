@@ -52,7 +52,7 @@ const MyReactComponent = () => {
 
     // refresh link tracking whenever local navigation occurs
     useEffect(() => {
-      setTimeout(refreshLinkClickTracking, 250)
+      setTimeout(refreshLinkClickTracking, 250);
     }, [location]);
 
     console.log("**********Setting up analytics (or not...)********");
