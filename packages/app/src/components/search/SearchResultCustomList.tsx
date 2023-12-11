@@ -13,7 +13,7 @@ const SearchResultCustomList = () => {
     return (
         <SearchResult>
             {({ results }) => (
-                <List onMouseOver={() => refreshLinkClickTracking()}>
+                <List onMouseEnter={() => refreshLinkClickTracking()}>
                   {results.map(({ type, document, highlight, rank }) => {
                     switch (type) {
                       case 'software-catalog':
