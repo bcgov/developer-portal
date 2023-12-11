@@ -10,21 +10,49 @@ env:
 on:
   pull_request:
     types: [synchronize, reopened, labeled]
-    branches: [ "pr-deploys" ]
+    branches: [ "pr-deploys" ] # switch to main when merge to main
 
-  
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+    
 jobs:
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          should_run=false
+          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') && github.event.pull_request.state == 'open' }} ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+
   call-build-workflow:
-    if: contains(github.event.pull_request.labels.*.name, 'preview')  && github.event.pull_request.state == 'open'
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
     uses: ./.github/workflows/build.yaml
+
+  get-short-sha:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-short-sha.yaml
+
+  get-pr-branch-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-pr-branch-name.yaml
+  
     
   update-gitops-pr-file:
-    if: contains(github.event.pull_request.labels.*.name, 'preview')  && github.event.pull_request.state == 'open'
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
     runs-on: ubuntu-latest
-    needs: call-build-workflow
-    env:
-      BRANCH_NAME: 'auto-updates-${{ github.event.pull_request.number }}'
-
+    needs: [call-build-workflow, get-short-sha, get-pr-branch-name, should-run]
+    
     steps:
       - name: Setup gitops repo access
         uses: webfactory/ssh-agent@v0.8.0
@@ -44,11 +72,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ env.GITOPS_REPO_TARGET_BRANCH }}
 
-      # This assumes that sha was used as a tag in the above job 
-      # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
-      # of tags returned from metadata-action and using github.sha
-      - name: Get short sha
-        run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
 
       - name: 'Configure git'
       # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
@@ -59,12 +82,13 @@ jobs:
 
       - name: 'Create or checkout branch'
         run: |
-          git checkout $BRANCH_NAME || git checkout -b $BRANCH_NAME        
+          branch_name=${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
+          git checkout $branch_name || git checkout -b $branch_name          
 
       - name: Update image tag
         run: |
           cd ${{ env.WORKING_DIR }}
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ needs.get-short-sha.outputs.SHORT_SHA }}"' ${{ env.TARGET_FILE }}
 
       - name: 'Check for changes'
         id: check_for_changes
@@ -81,31 +105,7 @@ jobs:
       - name: Commit and push update
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         run: |
-          git commit -am "Update image tag for dev"
-          git push origin $BRANCH_NAME
+          git commit -am "Update image tag for pull request deployment"
+          git push origin ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
 
-      - name: Check if PR exists
-        id: check_pr
-        run: |
-          echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
-          gh auth login --with-token < token.txt
-          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base ${{ env.GITOPS_REPO_TARGET_BRANCH }} --json number --jq 'length')
-          if ((pr > 0)); then
-            echo "EXISTS=true" >> "$GITHUB_OUTPUT"
-            echo "PR exists"
-          else
-            echo "PR does NOT exist"
-          fi
       
-      - name: Create PR
-        if: '!(steps.check_pr.outputs.EXISTS)'
-        run: |
-          echo "${{ secrets.MANIFEST_REPO_PAT}}" > token.txt
-          gh auth login --with-token < token.txt
-          gh pr create \
-          -B ${{ env.GITOPS_REPO_TARGET_BRANCH }} \
-          -H $BRANCH_NAME \
-          --title 'Deployment PR created from developer-portal-pr-${{ github.event.pull_request.number }}' \
-          --body 'This PR was created automatically by a Github workflow in ${{ github.repository }}. It was created for PR ${{ github.repository }}#${{ github.event.pull_request.number }}. Closing that PR or removing the 'preview' label from it will automatically close this PR.' \
-          --label 'preview'
-

@@ -13,13 +13,21 @@ on:
     branches: [ "pr-deploys" ]
   workflow_dispatch:  
 
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+
 jobs:
   call-build-workflow:
     uses: ./.github/workflows/build.yaml
+
+  get-short-sha:
+    uses: ./.github/workflows/get-short-sha.yaml
     
   update-gitops-file:
     runs-on: ubuntu-latest
-    needs: call-build-workflow
+    needs: [call-build-workflow, get-short-sha]
       
     steps:
       - name: Setup gitops repo access
@@ -41,16 +49,10 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      # This assumes that sha was used as a tag in the above job 
-      # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
-      # of tags returned from metadata-action and using github.sha
-      - name: Get short sha
-        run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
-
       - name: Update image tag
         run: |
           cd ${{ env.WORKING_DIR }}
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ needs.get-short-sha.outputs.SHORT_SHA }}"' ${{ env.TARGET_FILE }}
     
       - name: Commit and push update
         run: |
