@@ -8,6 +8,11 @@ on:
     types: [unlabeled, closed]
     branches: [ "pr-deploys" ] # switch to main when merge to main
   
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+      
 jobs:
 
   should-run:
