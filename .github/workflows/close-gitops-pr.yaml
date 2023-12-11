@@ -1,39 +1,63 @@
-name: Close gitops repo PR (if it exists)
+name: Delete gitops deployment branch 
+
+env:
+  GITOPS_REPO_TARGET_BRANCH: pull-requests # switch to main when merge to main
 
 on:
-  pull_request_target:
+  pull_request:
     types: [unlabeled, closed]
-    branches: [ "pr-deploys" ]
+    branches: [ "pr-deploys" ] # switch to main when merge to main
   
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+      
 jobs:
-  close-gitops-pr:
-    if: ${{ (github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview')) || ( github.event.action == 'unlabeled' && github.event.label.name == 'preview' ) }}
+
+  should-run:
     runs-on: ubuntu-latest
-    env:
-      BRANCH_NAME: 'auto-updates-${{ github.event.pull_request.number }}'
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          does_closed_pr_have_preview_label=${{ github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview') }}
+          was_preview_label_removed=${{ github.event.action == 'unlabeled' && github.event.label.name == 'preview' }}
+          should_run=false
+          if $does_closed_pr_have_preview_label || $was_preview_label_removed ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+
+  get-pr-branch-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-pr-branch-name.yaml
+
+  delete-gitops-branch:
+    runs-on: ubuntu-latest
+    needs: [get-pr-branch-name, should-run]
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
 
     steps:
-      - name: Check if PR exists
-        id: check_pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup gitops repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v4   
+        with:
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          repository: ${{ secrets.MANIFEST_REPO }}
+          ref: pull-requests
+          token: ${{ secrets.MANIFEST_REPO_PAT }}
+          
+      - name: Delete branch in gitops
         run: |
-          pr=$(gh pr list --repo ${{ secrets.MANIFEST_REPO }} --head ${{ env.BRANCH_NAME }} --base main --json number --jq 'length')
-          if ((pr > 0)); then
-            echo "EXISTS=true" >> "$GITHUB_OUTPUT"
-            echo "PR exists"
-          else
-            echo "PR does NOT exist"
-          fi
-      
-      - name: Close PR
-        if: '(steps.check_pr.outputs.EXISTS)'
-        run: |
-          echo "${{ secrets.MANIFEST_REPO_PAT }}" > token.txt
-          gh auth login --with-token < token.txt
-          gh pr close $BRANCH_NAME \
-          --comment "This PR was automatically closed by a Github workflow in ${{ github.repository }}. It was closed because the associated PR in that repository was either closed or it's 'preview' label was removed." \
-          --repo ${{ secrets.MANIFEST_REPO }} \
-          --delete-branch
+          git push origin --delete ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
 
 
