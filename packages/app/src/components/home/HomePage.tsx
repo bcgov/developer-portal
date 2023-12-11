@@ -189,7 +189,7 @@ const HomePage = () => {
 					<Grid container spacing={0} justifyContent='flex-start'>
 						<Grid item xs={12}>
 							<Typography paragraph>
-								The B.C. government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
+								Monica test changes - The B.C. government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
 							</Typography>
 						</Grid>
 					</Grid>
