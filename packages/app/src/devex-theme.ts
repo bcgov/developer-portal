@@ -196,11 +196,10 @@ const createCustomThemeOverrides = (
     MuiAutocomplete: {
       root: {
         '&[aria-expanded=true]': {
-          backgroundColor: '#26385A',
           color: '#FFFFFF',
         },
         '&[aria-expanded=true] path': {
-          fill: '#FFFFFF',
+          fill: theme.palette.primary.main,
         },
       },
     },
