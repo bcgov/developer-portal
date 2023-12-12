@@ -1,12 +1,9 @@
 name: Delete gitops deployment branch 
 
-env:
-  GITOPS_REPO_TARGET_BRANCH: pull-requests # switch to main when merge to main
-
 on:
   pull_request:
     types: [unlabeled, closed]
-    branches: [ "pr-deploys" ] # switch to main when merge to main
+    branches: [ "main" ] 
   
 # save resources. Don't take up a queue space doing a duplicate build
 concurrency:
@@ -53,7 +50,6 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
-          ref: pull-requests
           token: ${{ secrets.MANIFEST_REPO_PAT }}
           
       - name: Delete branch in gitops

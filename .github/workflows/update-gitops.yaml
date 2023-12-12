@@ -10,8 +10,7 @@ on:
     paths-ignore:
         - '.github/**'
         - 'README.md'
-    branches: [ "pr-deploys" ]
-  workflow_dispatch:  
+    branches: [ "main" ]
 
 # save resources. Don't take up a queue space doing a duplicate build
 concurrency:
@@ -40,8 +39,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
-          ref: pull-requests
-
+          
       - name: 'Configure git'
       # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
         run: |
