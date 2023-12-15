@@ -191,7 +191,7 @@ const HomePage = () => {
 					<Grid container spacing={0} justifyContent='flex-start'>
 						<Grid item xs={12}>
 							<Typography paragraph>
-								The B.C. government DevHub is a place for developers and product teams to access common resources, tools, technical documentation and APIs.
+								The B.C. government DevHub is a place to access common technical documentation, community knowledge bases, code samples and APIs.
 							</Typography>
 						</Grid>
 					</Grid>
@@ -200,7 +200,7 @@ const HomePage = () => {
 						<HomePageSearchBar
 							classes={{ root: classes.searchBar }}
 							InputProps={{classes: {notchedOutline: classes.searchBarOutline}}}
-							placeholder="Search our catalog, including technical documentation and Stack Overflow answers"
+							placeholder="Search all DevHub resources"
 						/>
 					</Box>
 
@@ -276,50 +276,6 @@ const HomePage = () => {
 						<Card key='e1' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
-									title={`Embedding Accessibility Into Agile: Non-Technical`}
-									subtitle="December 6th"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								Join us for this incredible two-hour workshop with Elle Waters! Learn how to integrate accessibility practices into non-technical agile work.
-								</p>
-								<br /><b>What: </b>Embedding Accessibility Into Agile: Non-Technical Roles
-								<br /><b>Where: </b>Online
-								<br /><b>When: </b>Wednesday, December 6 · 1:30pm - 3:30pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://events.teams.microsoft.com/event/85449ccb-63b2-4cec-b789-f7c50209c745@6fdb5200-3d0d-4a8a-b036-d3685e359adc" classes={{ root: classes.defaultButton }}>
-								Non-Technical Registration
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='e2' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
-									title={`Embedding Accessibility Into Agile: Technical`}
-									subtitle="December 7th"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								Join us for this incredible two-hour workshop with Elle Waters! Learn how to integrate accessibility practices into technical agile work.
-								</p>
-								<br /><b>What: </b>Embedding Accessibility Into Agile: Technical Roles
-								<br /><b>Where: </b>Online
-								<br /><b>When: </b>Thursday, December 7 · 1:30pm - 3:30pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://events.teams.microsoft.com/event/a2d16255-a334-4bab-949c-7a0bd4d08c02@6fdb5200-3d0d-4a8a-b036-d3685e359adc" classes={{ root: classes.defaultButton }}>
-								Technical Registration
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='e3' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
 									title={`OpenShift 101 workshop & lab`}
 									subtitle="January 3rd"
 									classes={{ root: classes.cardEventHeader }}
@@ -339,7 +295,7 @@ const HomePage = () => {
 								</LinkButton>
 							</CardActions>
 						</Card>
-						<Card key='e4' classes={{ root: classes.card }}>
+						<Card key='e2' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
 									title={`OpenShift 201 workshop & lab`}
