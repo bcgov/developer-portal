@@ -10,6 +10,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Link } from 'react-router-dom';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { refreshLinkClickTracking } from '@snowplow/browser-plugin-link-click-tracking';
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -172,6 +173,7 @@ const HomePage = () => {
 
 	const handleExpandClick = () => {
 	  setExpanded(!expanded);
+	  setTimeout(refreshLinkClickTracking, 250);
 	};
 
 	return (
