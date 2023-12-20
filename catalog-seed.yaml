@@ -10,3 +10,4 @@ spec:
         - http://github.com/bcgov/bcdg/blob/main/catalog-info.yaml
         - https://github.com/bcgov/aps-infra-platform-techdocs/blob/main/catalog-info.yaml
         - https://github.com/bcgov/sso-keycloak/tree/wiki/catalog-info.yaml
+        - https://github.com/bcgov/common-hosted-form-service-techdocs/blob/main/catalog-info.yml
