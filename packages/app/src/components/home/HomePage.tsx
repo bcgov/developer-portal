@@ -1,16 +1,13 @@
 import React from 'react';
 import {createGlobalStyle} from 'styled-components';
-import {styled, useTheme} from '@material-ui/styles';
+import {useTheme} from '@material-ui/styles';
 import {Content, ItemCardGrid, ItemCardHeader, LinkButton, Page} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid, Collapse} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid} from "@material-ui/core";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import LockIcon from '@material-ui/icons/Lock';
 import { Link } from 'react-router-dom';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { refreshLinkClickTracking } from '@snowplow/browser-plugin-link-click-tracking';
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -122,21 +119,6 @@ const GlobalStyle = createGlobalStyle`
 		text-decoration: underline;
 	}`;
 
-interface ExpandMoreProps extends IconButtonProps {
-	expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-	const { expand, ...other } = props;
-		return <IconButton {...other} />;
-	})(({ /*theme,*/ expand }) => ({
-		transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-		marginLeft: 'auto',
-		// transition: theme.transitions.create('transform', {
-		// 	duration: theme.transitions.duration.shortest,
-		// }),
-	})
-);
 
 const HomePage = () => {
 	const classes = useStyles();
@@ -168,13 +150,6 @@ const HomePage = () => {
 			desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.'
 		}
 	]
-
-	const [expanded, setExpanded] = React.useState(false);
-
-	const handleExpandClick = () => {
-	  setExpanded(!expanded);
-	  setTimeout(refreshLinkClickTracking, 250);
-	};
 
 	return (
 		<Page themeId="home">
@@ -371,49 +346,9 @@ const HomePage = () => {
 								We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
 							</Typography>
 						</CardContent>
-						<CardActions classes={{ root: classes.cardActions }} disableSpacing>
-							<ExpandMore
-								expand={expanded}
-								onClick={handleExpandClick}
-								aria-expanded={expanded}
-								aria-label="show more"
-								>
-								<ExpandMoreIcon style={ {fill: 'white' }} />
-							</ExpandMore>
+						<CardActions classes={{ root: classes.cardActions }}>
+							<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
 						</CardActions>
-						<Collapse in={expanded} timeout="auto" unmountOnExit>
-							<CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
-								<Typography variant='body2' paragraph>
-								The Developer Experience team works from the unceded, ancestral and traditional lands of the:<br/>
-								</Typography>
-								<Grid container spacing={0} style={{display: 'flex', justifyContent: 'flex-start' }} >
-									<Grid item sm={12} md={4}>
-										<ul style={{ margin: 0 }}>
-											<li><Link to="https://www.esquimaltnation.ca/"><Typography display='inline' variant='body2'>Xwsepsum (Esquimalt)</Typography></Link></li>
-											<li><Link to="https://wsanec.com/"><Typography display='inline' variant='body2'>W̱SÁNEĆ</Typography></Link></li>
-											<li><Link to="https://malahatnation.com/"><Typography display='inline' variant='body2'>MÁLEXEȽ (Malahat)</Typography></Link></li>
-										</ul>
-									</Grid>
-									<Grid item sm={12} md={4}>
-										<ul style={{ margin: 0 }}>
-											<li><Link to="https://www.songheesnation.ca/"><Typography display='inline' variant='body2'>Lək̓ʷəŋən (Songhees)</Typography></Link></li>
-											<li><Link to="https://www.kwikwetlem.com/"><Typography display='inline' variant='body2'>Kʷikʷəƛ̓əm</Typography></Link></li>
-											<li><Link to="https://www.facebook.com/qayqayt/"><Typography display='inline' variant='body2'>Qayqayt</Typography></Link></li>
-										</ul>
-									</Grid>
-									<Grid item sm={12} md={4}>
-										<ul style={{ margin: 0 }}>
-											<li><Link to="https://beecherbay.ca/"><Typography display='inline' variant='body2'>Sc’ianew (Beecher Bay)</Typography></Link></li>
-											<li><Link to="https://www.stolonation.bc.ca/"><Typography display='inline' variant='body2'>S’ólh Téméxw (Stó:lō)</Typography></Link></li>
-											<li><Link to="https://twnation.ca/"><Typography display='inline' variant='body2'>Səl̓ilwətaɁɬ Təməxʷ (Tsleil-Waututh)</Typography></Link></li>
-										</ul>
-									</Grid>
-								</Grid>
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color='primary' to="https://www2.gov.bc.ca/gov/content/governments/indigenous-people/new-relationship/truth-and-reconciliation-commission-calls-to-action" classes={{ root: classes.ReconButton }}>Learn more about the Calls to Action</LinkButton>
-							</CardActions>
-						</Collapse>
 					</Card>
 				</Box>
 			</Content>
