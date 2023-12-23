@@ -5,6 +5,7 @@ import HomeIcon from '@material-ui/icons/Home';
 // import ExtensionIcon from '@material-ui/icons/Extension';
 // import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import CloudOff from '@material-ui/icons/CloudOff';
 // import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
@@ -205,6 +206,12 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
+      <SidebarGroup
+        label="Offsite Links"
+        // icon={<UserSettingsSignInAvatar />}
+      >
+        <SidebarItem icon={CloudOff} to="https://developer.gov.bc.ca" text="Legacy Site" />
+      </SidebarGroup>
       <SidebarGroup
         label="Settings"
         icon={<UserSettingsSignInAvatar />}
