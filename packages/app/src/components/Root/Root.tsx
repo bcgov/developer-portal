@@ -97,6 +97,11 @@ if (storedTheme !== theme) {
   localStorage.setItem('theme', theme);
 }
 
+// Similarly, default the sidebar pinned state to false if no stored pref is found
+if (!localStorage.getItem('sidebarPinState')) {
+  localStorage.setItem('sidebarPinState', 'false');
+}
+
 const useSidebarLogoStyles = makeStyles({
   root: {
     width: sidebarConfig.drawerWidthClosed,
@@ -108,9 +113,14 @@ const useSidebarLogoStyles = makeStyles({
     paddingTop: 42,
     marginLeft: -10
   },
-  link: {
+  linkOpen: {
     width: sidebarConfig.drawerWidthClosed,
     marginLeft: 20,
+    marginTop: -16,
+  },
+  linkClose: {
+    width: sidebarConfig.drawerWidthClosed,
+    marginLeft: 30,
     marginTop: -16,
   },
 });
@@ -121,7 +131,7 @@ const SidebarLogo = () => {
 
   return (
     <div className={classes.root}>
-      <Link to="/" underline="none" className={classes.link} aria-label="Home">
+      <Link to="/" underline="none" className={isOpen ? classes.linkOpen : classes.linkClose} aria-label="Home">
         {isOpen ? <LogoFull /> : <LogoIcon />}
       </Link>
     </div>
