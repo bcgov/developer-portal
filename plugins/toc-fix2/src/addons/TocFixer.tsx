@@ -46,7 +46,7 @@ export const TocFixer = () => {
 
 	useEffect(() => {
 		tocHeading.forEach(match => {
-			match.textContent = 'On This Page';
+			match.textContent = 'On this page';
 		});
 	}, [tocHeading]);
 
