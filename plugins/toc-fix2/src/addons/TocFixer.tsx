@@ -21,6 +21,7 @@ export const TocFixer = () => {
 	const onThisPageList = useShadowRootElements<HTMLImageElement>(['h2#on-this-page + ul']);
 	// to test in browser, something like this can be used: document.querySelector("[data-testid='techdocs-native-shadowroot']").shadowRoot.querySelectorAll('div[data-md-type="toc"] a[href*="on-this-page"]')
 	const onThisPageHeadingInToc = useShadowRootElements<HTMLImageElement>(['div[data-md-type="toc"] a[href*="on-this-page"]'] );
+	const tocHeading = useShadowRootElements<HTMLLabelElement>(['label[for="__toc"]']);
 
 	useEffect(() => {
 		onThisPageHeading.forEach(match => {
@@ -42,6 +43,12 @@ export const TocFixer = () => {
 			tocList?.removeChild(match);
 		});
 	}, [onThisPageHeadingInToc]);
+
+	useEffect(() => {
+		tocHeading.forEach(match => {
+			match.textContent = 'On This Page';
+		});
+	}, [tocHeading]);
 
 	// Nothing to render directly, so we can just return null.
 	return null;
