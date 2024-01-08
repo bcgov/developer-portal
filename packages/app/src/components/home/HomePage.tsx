@@ -251,28 +251,6 @@ const HomePage = () => {
 						<Card key='e1' classes={{ root: classes.card }}>
 							<CardMedia>
 								<ItemCardHeader
-									title={`OpenShift 101 workshop & lab`}
-									subtitle="January 3rd"
-									classes={{ root: classes.cardEventHeader }}
-								/>
-							</CardMedia>
-							<CardContent>
-								<p>
-								This four-session technical training covers the DevOps platform and application operational tasks.
-								</p>
-								<br /><b>What: </b>The OpenShift 101 course
-								<br /><b>Where: </b>Online
-								<br /><b>When: </b>Wednesday, January 3 · 9am - 4pm PT
-							</CardContent>
-							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://openshift101.eventbrite.com/" classes={{ root: classes.defaultButton }}>
-								Register for OpenShift 101
-								</LinkButton>
-							</CardActions>
-						</Card>
-						<Card key='e2' classes={{ root: classes.card }}>
-							<CardMedia>
-								<ItemCardHeader
 									title={`OpenShift 201 workshop & lab`}
 									subtitle="January 23rd"
 									classes={{ root: classes.cardEventHeader }}
