@@ -1,0 +1,109 @@
+name: Build and update gitops repo for pull-request
+
+env:
+  TARGET_FILE: 'values.pr.yaml'
+  WORKING_DIR: 'developer-portal'
+  YAML_PROPERTY_PATH: '.upstream.backstage.image.tag'
+  
+
+on:
+  pull_request:
+    types: [synchronize, reopened, labeled]
+    branches: [ "main" ] 
+
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+    
+jobs:
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          should_run=false
+          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') && github.event.pull_request.state == 'open' }} ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+
+  call-build-workflow:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/build.yaml
+
+  get-short-sha:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-short-sha.yaml
+
+  get-pr-branch-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-pr-branch-name.yaml
+  
+    
+  update-gitops-pr-file:
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    runs-on: ubuntu-latest
+    needs: [call-build-workflow, get-short-sha, get-pr-branch-name, should-run]
+    
+    steps:
+      - name: Setup gitops repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v4   
+        with:
+          repository: ${{ secrets.MANIFEST_REPO }}
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          # fetch depth 0 gets all branches and histories. The workflow needs to get the
+          # branches because the workflow may run if there were multiple commits to the PR.
+          # It needs to checkout the existing branch and update it, rather than creating a 
+          # new branch and then getting an error when it pushes to the remote and sees there
+          # is an existing branch
+          fetch-depth: 0
+
+
+      - name: 'Configure git'
+      # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: 'Create or checkout branch'
+        run: |
+          branch_name=${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
+          git checkout $branch_name || git checkout -b $branch_name          
+
+      - name: Update image tag
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ needs.get-short-sha.outputs.SHORT_SHA }}"' ${{ env.TARGET_FILE }}
+
+      - name: 'Check for changes'
+        id: check_for_changes
+        run: |
+          CHANGES=$(git status --porcelain)
+          if [ -z "$CHANGES" ]; then
+              echo "No changes"
+              echo "HAS_CHANGES=0" >> $GITHUB_OUTPUT
+          else
+              echo "Has changes"
+              echo "HAS_CHANGES=1" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Commit and push update
+        if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
+        run: |
+          git commit -am "Update image tag for pull request deployment"
+          git push origin ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
+
+      
