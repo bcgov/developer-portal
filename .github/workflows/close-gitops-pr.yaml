@@ -1,0 +1,59 @@
+name: Delete gitops deployment branch 
+
+on:
+  pull_request:
+    types: [unlabeled, closed]
+    branches: [ "main" ] 
+  
+# save resources. Don't take up a queue space doing a duplicate build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+      
+jobs:
+
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          does_closed_pr_have_preview_label=${{ github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview') }}
+          was_preview_label_removed=${{ github.event.action == 'unlabeled' && github.event.label.name == 'preview' }}
+          should_run=false
+          if $does_closed_pr_have_preview_label || $was_preview_label_removed ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+
+  get-pr-branch-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    uses: ./.github/workflows/get-pr-branch-name.yaml
+
+  delete-gitops-branch:
+    runs-on: ubuntu-latest
+    needs: [get-pr-branch-name, should-run]
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+
+    steps:
+
+      - name: Setup gitops repo access
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+
+      - name: Checkout CD repo
+        uses: actions/checkout@v4   
+        with:
+          ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
+          repository: ${{ secrets.MANIFEST_REPO }}
+          token: ${{ secrets.MANIFEST_REPO_PAT }}
+          
+      - name: Delete branch in gitops
+        run: |
+          git push origin --delete ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
+
+

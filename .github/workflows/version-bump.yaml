@@ -4,17 +4,6 @@
 name: 'Version Bump'
 on:
   workflow_dispatch:
-    inputs:
-      # By default the bump command will upgrade @backstage packages to the latest main release line which is released monthly. 
-      # Alternatively, use the 'next' release line which releases weekly by using the --release next option.  
-      release_line:
-        description: 'Release Line'
-        required: true
-        default: main
-        type: choice
-        options:
-        - next
-        - main
   
   # Run at midnight every Monday
   schedule:
@@ -24,6 +13,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+
 jobs:
   version-bump:
     runs-on: ubuntu-latest
@@ -31,7 +21,7 @@ jobs:
       - name: 'Checkout backstage'
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       # Beginning of yarn setup
       - name: Setup Node
@@ -39,16 +29,19 @@ jobs:
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/ # Needed for auth
+
       - name: cache all node_modules
         id: cache-modules
         uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
+
       - name: find location of global yarn cache
         id: yarn-cache
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
       - name: cache global yarn cache
         uses: actions/cache@v3
         if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -57,6 +50,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
       - name: yarn install
         run: yarn install --frozen-lockfile
       # End of yarn setup
@@ -64,22 +58,41 @@ jobs:
       - name: 'Set release name'
         id: set_release_name
         run: node ./.github/scripts/set-release-name.js
+
       - name: 'Configure git'
         # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-      - name: 'Create topic branch'
-        run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          BRANCH=$(git branch --list topic/v${{ steps.set_release_name.outputs.release_version }})
+
+      - name: 'Does branch exist'
+        id: branch_exists
+        run: |
+          BRANCH=$(git branch -r --list origin/topic/v${{ steps.set_release_name.outputs.release_version }})
+          echo "Existing branch is: $BRANCH"
           if [ ! -z "$BRANCH" ]; then
-              git branch -D topic/v${{ steps.set_release_name.outputs.release_version }}
+              echo "Branch exists"
+              echo "BRANCH_EXISTS=1" >> $GITHUB_OUTPUT
+          else
+            echo "branch does NOT exist"
+            echo "BRANCH_EXISTS=0" >> $GITHUB_OUTPUT
           fi
+          
+         
+      - name: 'Create branch'
+        id: branch_created
+        if: ${{ steps.branch_exists.outputs.BRANCH_EXISTS == 0 }}  
+        run: |
           git checkout -b topic/v${{ steps.set_release_name.outputs.release_version }}
-      - name: Run backstage-cli versions:bump --release ${{ inputs.release_line || 'main' }} command
-        run: yarn backstage-cli versions:bump --release ${{ inputs.release_line || 'main' }}
+          echo "CREATED_BRANCH=1" >> $GITHUB_OUTPUT
+
+      - name: 'Run backstage-cli versions command'
+        if: ${{ steps.branch_created.outputs.CREATED_BRANCH == 1 }}  
+        run: yarn backstage-cli versions:bump --release 'main'
+
       - name: 'Check for changes'
+        if: ${{ steps.branch_created.outputs.CREATED_BRANCH == 1 }}  
         id: check_for_changes
         run: |
           CHANGES=$(git status --porcelain)
@@ -90,6 +103,7 @@ jobs:
               echo "Has changes"
               echo "HAS_CHANGES=1" >> $GITHUB_OUTPUT
           fi
+
       - name: 'Commit changes'
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         run: |
@@ -97,6 +111,8 @@ jobs:
           git add -A -- :!.npmrc
           git commit -m "v${{ steps.set_release_name.outputs.release_version }} version bump"
           git push origin topic/v${{ steps.set_release_name.outputs.release_version }}
+
+     
       - name: 'Create Pull Request'
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         uses: actions/github-script@v7
@@ -121,3 +137,4 @@ jobs:
                 ' '
               ].join('\n')
             });
+      
