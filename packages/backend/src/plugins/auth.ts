@@ -21,12 +21,7 @@ export default async function createPlugin(
       // This replaces the default GitHub auth provider with a customized one.
       // The `signIn` option enables sign-in for this provider, using the
       // identity resolution logic that's provided in the `resolver` callback.
-      //
-      // This particular resolver makes all users share a single "guest" identity.
-      // It should only be used for testing and trying out Backstage.
-      //
-      // If you want to use a production ready resolver you can switch to
-      // the one that is commented out below, it looks up a user entity in the
+      // The resolver below looks up a user entity in the
       // catalog using the GitHub username of the authenticated user.
       // That resolver requires you to have user entities populated in the catalog,
       // for example using https://backstage.io/docs/integrations/github/org
@@ -37,16 +32,7 @@ export default async function createPlugin(
       //   https://backstage.io/docs/auth/identity-resolver
       github: providers.github.create({
         signIn: {
-          resolver(_, ctx) {
-            const userRef = 'user:default/guest'; // Must be a full entity reference
-            return ctx.issueToken({
-              claims: {
-                sub: userRef, // The user's own identity
-                ent: [userRef], // A list of identities that the user claims ownership through
-              },
-            });
-          },
-          // resolver: providers.github.resolvers.usernameMatchingUserEntityName(),
+          resolver: providers.github.resolvers.usernameMatchingUserEntityName(),
         },
       }),
     },
