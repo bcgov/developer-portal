@@ -1,12 +1,12 @@
 backend:
-  # config options: https://node-postgres.com/api/client
-  database:
-    client: pg
-    connection:
-      host: ${POSTGRES_HOST}
-      password: ${POSTGRES_PASSWORD}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
+    # config options: https://node-postgres.com/api/client
+    database:
+        client: pg
+        connection:
+            host: ${POSTGRES_HOST}
+            password: ${POSTGRES_PASSWORD}
+            port: ${POSTGRES_PORT}
+            user: ${POSTGRES_USER}
 catalog:
     import:
         entityFilename: catalog-info.yaml
@@ -14,10 +14,10 @@ catalog:
     rules:
         -   allow: [ Component, System, API, Resource, Location ]
     locations:
-        -   type: file
-            target: catalog-seed.yaml
+        -   type: url
+            target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/catalog-seed-production.yml
             rules:
                 -   allow: [ Component ]
 stackoverflow:
-  baseUrl: ${STACK_OVERFLOW_URL}
-  apiKey: ${STACK_OVERFLOW_API_KEY}
+    baseUrl: ${STACK_OVERFLOW_URL}
+    apiKey: ${STACK_OVERFLOW_API_KEY}

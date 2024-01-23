@@ -1,6 +1,6 @@
 # From https://github.com/janus-idp/backstage-showcase/
 # Stage 1 - Build nodejs skeleton
- 
+
 FROM registry.access.redhat.com/ubi9/nodejs-18:1-80.1699550448 AS skeleton
 USER 0
 
@@ -27,7 +27,7 @@ COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-RUN "$YARN" install --frozen-lockfile --network-timeout 600000 
+RUN "$YARN" install --frozen-lockfile --network-timeout 600000
 
 # Stage 3 - Build packages
 FROM deps AS build
@@ -52,8 +52,7 @@ RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 # Copy app-config files needed in runtime
 COPY $EXTERNAL_SOURCE/app-config.yaml  \
   $EXTERNAL_SOURCE/app-config.production.yaml \
-  $EXTERNAL_SOURCE/catalog-info.yaml \
-  $EXTERNAL_SOURCE/catalog-seed.yaml ./
+  $EXTERNAL_SOURCE/catalog-info.yaml ./
 
 # Install production dependencies
 RUN "$YARN" install --frozen-lockfile --production --network-timeout 600000 && "$YARN" cache clean
@@ -71,7 +70,7 @@ COPY --from=cleanup --chown=1001:1001 $CONTAINER_SOURCE/ ./
 
 # The fix-permissions script is important when operating in environments that dynamically use a random UID at runtime, such as OpenShift.
 # The upstream backstage image does not account for this and it causes the container to fail at runtime.
-  
+
 RUN fix-permissions ./
 # Switch to nodejs user
 USER 1001

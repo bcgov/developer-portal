@@ -43,6 +43,7 @@ site
 
 # Local configuration or documentation files
 *.local.yaml
+*.local.yml
 *.local.txt
 
 # Sensitive credentials
@@ -58,3 +59,4 @@ e2e-test-report/
 *.code-workspace
 .vscode/*
 .swc/
+
