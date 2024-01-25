@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
 	},
 	card: {
 		color: theme.palette.primary.main,
-		display:'flex',
+		display: 'flex',
+		flex: 1,
 		justiyContent:'space-between',
 		flexDirection:'column',
 		borderRadius: '1rem',
