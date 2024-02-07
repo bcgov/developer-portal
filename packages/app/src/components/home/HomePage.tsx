@@ -4,9 +4,10 @@ import {useTheme} from '@material-ui/styles';
 import {Content, ItemCardGrid, ItemCardHeader, LinkButton, Page} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid, IconButton} from "@material-ui/core";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import LockIcon from '@material-ui/icons/Lock';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -180,11 +181,15 @@ const HomePage = () => {
 						/>
 					</Box>
 
-					<Box sx={{ pb: 1 }}>
+					<Grid container spacing={1} justifyContent="space-between">
 						<Typography variant="h3">
 							Documentation library
 						</Typography>
-					</Box>
+						<Link style={{color: theme.palette.primary.main, display: "flex", alignItems: "center" }} to="docs">
+							View all docs
+							<ChevronRightIcon />
+						</Link>
+					</Grid>
 
 					<Grid container spacing={3}>
 						<Grid item sm={12} md={4} style={{display: 'flex'}}>
@@ -241,6 +246,7 @@ const HomePage = () => {
 								</CardActions>
 							</Card>
 						</Grid>
+						
 					</Grid>
 
 					<Box sx={{ pt: 6, pb: 1 }}>
