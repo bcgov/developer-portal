@@ -206,7 +206,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/bcdg"
 										classes={{ root: classes.defaultButton }}
 										title="bcdg"
-									>Explore more</LinkButton>
+									>Build a quality application</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -224,7 +224,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/mobile-developer-guide"
 										classes={{ root: classes.defaultButton }}
 										title="mobile-developer-guide"
-									>Explore more</LinkButton>
+									>Review the mobile guide</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -232,7 +232,7 @@ const HomePage = () => {
 							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud development guide</Link>}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud documentation</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
@@ -242,7 +242,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
 										title="platform-developer-docs"
-									>Explore more</LinkButton>
+									>Explore the Private cloud docs</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -250,7 +250,7 @@ const HomePage = () => {
 							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud development guide</Link>}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud documentation</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
@@ -259,7 +259,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
 										title="platform-developer-docs"
-									>Explore more</LinkButton>
+									>Explore the Public cloud docs</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
