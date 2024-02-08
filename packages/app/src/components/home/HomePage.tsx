@@ -206,7 +206,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/bcdg"
 										classes={{ root: classes.defaultButton }}
 										title="bcdg"
-									>Build a quality application</LinkButton>
+									>Explore more</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -224,7 +224,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/mobile-developer-guide"
 										classes={{ root: classes.defaultButton }}
 										title="mobile-developer-guide"
-									>Review the mobile development guide</LinkButton>
+									>Explore more</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -242,7 +242,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
 										title="platform-developer-docs"
-									>Get ready to deploy</LinkButton>
+									>Explore more</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -259,7 +259,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
 										title="platform-developer-docs"
-									>Get ready to deploy</LinkButton>
+									>Explore more</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
