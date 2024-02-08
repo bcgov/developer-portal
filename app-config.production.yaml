@@ -18,6 +18,11 @@ catalog:
             target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/catalog-seed-production.yml
             rules:
                 -   allow: [ Component ]
+search:
+  collators:
+    catalog:
+      filter:
+        kind: ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User']
 stackoverflow:
     baseUrl: ${STACK_OVERFLOW_URL}
     apiKey: ${STACK_OVERFLOW_API_KEY}
