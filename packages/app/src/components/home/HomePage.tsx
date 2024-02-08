@@ -232,12 +232,29 @@ const HomePage = () => {
 							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud application deployment</Link>}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud development guide</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
-									Learn how to deploy applications on the private cloud OpenShift environment.
+								Learn how to build, deploy, maintain, and retire applications on OpenShift.
 								</CardContent>
+								<CardActions classes={{ root: classes.cardActions }}>
+									<LinkButton to="docs/default/component/platform-developer-docs"
+										classes={{ root: classes.defaultButton }}
+										title="platform-developer-docs"
+									>Get ready to deploy</LinkButton>
+								</CardActions>
+							</Card>
+						</Grid>
+						<Grid item sm={12} md={4} style={{display: 'flex'}}>
+							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
+								<CardMedia>
+									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud development guide</Link>}
+									/>
+								</CardMedia>
+								<CardContent>
+								Learn about building and deploying applications through B.C. government AWS landing zone.								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
