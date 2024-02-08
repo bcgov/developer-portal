@@ -208,9 +208,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
       <SidebarDivider />
       <SidebarGroup
         label="Offsite Links"
-        // icon={<UserSettingsSignInAvatar />}
       >
-        <SidebarItem icon={CloudOff} to="https://developer.gov.bc.ca" text="Legacy Site" />
+        <SidebarItem icon={CloudOff} to="https://classic.developer.gov.bc.ca" text="Classic DevHub" />
       </SidebarGroup>
       <SidebarGroup
         label="Settings"
