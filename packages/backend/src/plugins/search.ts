@@ -40,6 +40,10 @@ export default async function createPlugin(
 		factory: DefaultCatalogCollatorFactory.fromConfig(env.config, {
 			discovery: env.discovery,
 			tokenManager: env.tokenManager,
+			filter: {
+				// Filter out Location
+				kind: ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User'],
+			},
 		}),
 	});
 
