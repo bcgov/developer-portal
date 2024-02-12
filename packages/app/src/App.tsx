@@ -42,6 +42,7 @@ import {HomepageCompositionRoot} from '@backstage/plugin-home';
 import HomePage from './components/home/HomePage';
 import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
+import {Mermaid} from "backstage-plugin-techdocs-addon-mermaid";
 
 const app = createApp({
 	apis,
@@ -120,6 +121,7 @@ const routes = (
 				<TocFix/>
 				<ExpandableNavigation />
 				<TechdocExpandableToc />
+				<Mermaid config={{ theme: 'forest', themeVariables: { lineColor: '#000000' } }} />
 			</TechDocsAddons>
 		</Route>
 		<Route path="/create" element={<ScaffolderPage/>}/>
