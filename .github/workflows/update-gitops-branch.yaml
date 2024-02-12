@@ -13,7 +13,7 @@ on:
 
 # save resources. Don't take up a queue space doing a duplicate build
 concurrency:
-  group: ci-${{ github.ref }}
+  group: update-${{ github.event.pull_request.number }}
   cancel-in-progress: true    
     
 jobs:
