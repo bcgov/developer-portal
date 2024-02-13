@@ -4,9 +4,10 @@ import {useTheme} from '@material-ui/styles';
 import {Content, ItemCardGrid, ItemCardHeader, LinkButton, Page} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardMedia, makeStyles, Typography, Box, Grid, IconButton} from "@material-ui/core";
 import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import LockIcon from '@material-ui/icons/Lock';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -180,11 +181,15 @@ const HomePage = () => {
 						/>
 					</Box>
 
-					<Box sx={{ pb: 1 }}>
+					<Grid container spacing={1} justifyContent="space-between">
 						<Typography variant="h3">
 							Documentation library
 						</Typography>
-					</Box>
+						<Link style={{color: theme.palette.primary.main, display: "flex", alignItems: "center" }} to="docs">
+							View all docs
+							<ChevronRightIcon />
+						</Link>
+					</Grid>
 
 					<Grid container spacing={3}>
 						<Grid item sm={12} md={4} style={{display: 'flex'}}>
@@ -219,7 +224,7 @@ const HomePage = () => {
 									<LinkButton to="docs/default/component/mobile-developer-guide"
 										classes={{ root: classes.defaultButton }}
 										title="mobile-developer-guide"
-									>Review the mobile development guide</LinkButton>
+									>Review the mobile guide</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -227,20 +232,38 @@ const HomePage = () => {
 							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud application deployment</Link>}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Private cloud technical docs</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
-									Learn how to deploy applications on the private cloud OpenShift environment.
+								Learn how to build, deploy, maintain, and retire applications on OpenShift.
 								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
 									<LinkButton to="docs/default/component/platform-developer-docs"
 										classes={{ root: classes.defaultButton }}
 										title="platform-developer-docs"
-									>Get ready to deploy</LinkButton>
+									>Explore the Private cloud docs</LinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
+						<Grid item sm={12} md={4} style={{display: 'flex'}}>
+							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
+								<CardMedia>
+									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud technical docs</Link>}
+									/>
+								</CardMedia>
+								<CardContent>
+								Learn about building and deploying applications through B.C. government AWS landing zone.								</CardContent>
+								<CardActions classes={{ root: classes.cardActions }}>
+									<LinkButton to="docs/default/component/platform-developer-docs"
+										classes={{ root: classes.defaultButton }}
+										title="platform-developer-docs"
+									>Explore the Public cloud docs</LinkButton>
+								</CardActions>
+							</Card>
+						</Grid>
+						
 					</Grid>
 
 					<Box sx={{ pt: 6, pb: 1 }}>
