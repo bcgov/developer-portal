@@ -250,7 +250,7 @@ const HomePage = () => {
 							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud documentation</Link>}
+										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud technical docs</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
