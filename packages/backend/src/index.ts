@@ -101,11 +101,14 @@ async function main() {
 
     const appRouter = await app(appEnv);
 
-    apiRouter.use((_, res, next) => {
-        console.log("Setting header!!!")
+    const robotRouter = Router();
+    robotRouter.use((_, res, next) => {
+        getRootLogger().info("Setting X-Robots-Tag header.");
         res.setHeader('X-Robots-Tag', 'noindex');
         next();
     });
+
+    appRouter.use(robotRouter);
 
     const service = createServiceBuilder(module)
         .loadConfig(config)
