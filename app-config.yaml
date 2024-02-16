@@ -25,6 +25,7 @@ backend:
         connect-src: [ "'self'", 'http:', 'https:' ]
         img-src: [ "'self'", "*.gov.bc.ca", "data:" ]
         frame-src: ["www.youtube.com"]
+        script-src: [ "'self'"]
         # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
         # Default Helmet Content-Security-Policy values can be removed by setting the key to false
     cors:
