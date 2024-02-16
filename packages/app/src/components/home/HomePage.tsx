@@ -247,18 +247,18 @@ const HomePage = () => {
 							</Card>
 						</Grid>
 						<Grid item sm={12} md={4} style={{display: 'flex'}}>
-							<Card key='platform-developer-docs' classes={{ root: classes.card }} >
+							<Card key='public-cloud-techdocs' classes={{ root: classes.card }} >
 								<CardMedia>
 									<ItemCardHeader classes={{ root: classes.cardDocsHeader }}
-										title={<Link style={{color: theme.palette.primary.main}} to="docs/default/component/platform-developer-docs">Public cloud technical docs</Link>}
+										title={<Link style={{ color: theme.palette.primary.main }} to="docs/default/component/public-cloud-techdocs">Public cloud technical docs</Link>}
 									/>
 								</CardMedia>
 								<CardContent>
 								Learn about building and deploying applications through B.C. government AWS landing zone.								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton to="docs/default/component/platform-developer-docs"
+									<LinkButton to="docs/default/component/public-cloud-techdocs"
 										classes={{ root: classes.defaultButton }}
-										title="platform-developer-docs"
+										title="public-cloud-techdocs"
 									>Explore the Public cloud docs</LinkButton>
 								</CardActions>
 							</Card>
