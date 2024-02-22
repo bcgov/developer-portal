@@ -5,6 +5,7 @@ import HomeIcon from '@material-ui/icons/Home';
 // import ExtensionIcon from '@material-ui/icons/Extension';
 // import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import LaunchIcon from '@material-ui/icons/Launch';
 // import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
@@ -215,6 +216,11 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
+      <SidebarGroup
+        label="Offsite Links"
+      >
+        <SidebarItem icon={LaunchIcon} to="https://classic.developer.gov.bc.ca" text="Classic DevHub" />
+      </SidebarGroup>
       <SidebarGroup
         label="Settings"
         icon={<UserSettingsSignInAvatar />}
