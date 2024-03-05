@@ -1,6 +1,13 @@
 app:
     title: B.C. government DevHub
     baseUrl: http://localhost:3000
+    support:
+        url: 'https://github.com/bcgov/developer-portal/issues'
+        items:
+            - title: 'Something went wrong.'
+              links:
+                  - url: 'https://github.com/bcgov/developer-portal/issues'
+                    title: 'Our GitHub issues.'
     analytics:
         snowplow:
             enabled: true
