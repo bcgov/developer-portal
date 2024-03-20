@@ -124,7 +124,13 @@ const routes = (
 				<Mermaid config={{ theme: 'forest', themeVariables: { lineColor: '#000000' } }} />
 			</TechDocsAddons>
 		</Route>
-		<Route path="/create" element={<ScaffolderPage/>}/>
+		<Route path="/create" element={<ScaffolderPage
+				headerOptions={{
+					title: "DevHub quick starts", 
+					subtitle: "Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies"
+				}}
+			/>}
+		/>
 		<Route path="/api-docs" element={<ApiExplorerPage/>}/>
 		<Route
 			path="/tech-radar"
