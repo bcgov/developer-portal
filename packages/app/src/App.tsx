@@ -95,6 +95,12 @@ const app = createApp({
 	],
 });
 
+const ExternalRedirect = ({ to }: { to: string }) => {
+	window.location.href = to;
+
+	return null;
+};
+
 const routes = (
 	<FlatRoutes>
 		<Route path="/" element={<HomepageCompositionRoot/>}>
@@ -149,6 +155,10 @@ const routes = (
 		</Route>
 		<Route path="/settings" element={<UserSettingsPage/>}/>
 		<Route path="/catalog-graph" element={<CatalogGraphPage/>}/>
+
+		{/* redirect several popular "classic" devhub urls */}
+		<Route path="/Design-System/About-the-Design-System" element={<Navigate to='/docs/default/component/bc-developer-guide/design-system/about-the-design-system/' />}/>
+		<Route path="/Data-and-APIs/BC-Government-API-Guidelines" element={<ExternalRedirect to='https://classic.developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines' />}/>
 	</FlatRoutes>
 );
 
