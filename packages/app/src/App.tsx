@@ -164,8 +164,6 @@ const routes = (
 		<Route path="/Design-System/About-the-Design-System" element={<Navigate to='/docs/default/component/bc-developer-guide/design-system/about-the-design-system/' />}/>
 		<Route path="/Data-and-APIs/BC-Government-API-Guidelines" element={<ExternalRedirect to='https://classic.developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines' />}/>
 		<Route path="/BC-Government-API-Guidelines" element={<ExternalRedirect to='https://classic.developer.gov.bc.ca/BC-Government-API-Guidelines' />}/>
-
-		<Route path="*" element={<Custom404Page />} /> 
 	</FlatRoutes>
 );
 
