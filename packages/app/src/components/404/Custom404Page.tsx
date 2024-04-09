@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const rootRouteRef = searchPlugin.routes.root;
 
 const rmTrailingSlash = (str: string) => {
-  return str.replace(/\/+$/, '');
+  return str.replace(/\/{1,5}$/, '');
 }
 
 export function Custom404Page() {
