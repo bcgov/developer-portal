@@ -71,13 +71,8 @@ export function Custom404Page() {
           <Box padding="calc(2.1rem - 24px) 9%">
             <Typography variant="h1">Page not found</Typography>
             <Divider orientation="horizontal" variant="middle" />
-            <Box pt={3}>
-              <Typography variant="h6">
-                Please <Link className={classes.link} to="https://github.com/bcgov/developer-portal/issues">contact support</Link> if you think this is a bug
-              </Typography>
-            </Box>
 
-            <Box pt={3} className={classes.title}>
+            <Box pt={5} className={classes.title}>
               <SearchBar
                 className={classes.input}
                 inputProps={{ ref: searchBarRef }}
@@ -110,9 +105,10 @@ export function Custom404Page() {
                 {searchResultCustomList}
               </Grid>
             </Grid>
-            <Box pt={3}>
+            <Box pt={5}>
               <Typography variant="h6">
                   <Link className={classes.link} to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}>Search Classic DevHub</Link>
+                  &nbsp;- please <Link className={classes.link} to="https://github.com/bcgov/developer-portal/issues">contact support</Link> if you think this is a bug
               </Typography>
             </Box>
           </Box>
