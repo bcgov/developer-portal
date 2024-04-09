@@ -33,6 +33,10 @@ const useStyles = makeStyles(theme => ({
 
 const rootRouteRef = searchPlugin.routes.root;
 
+const rmTrailingSlash = (str: string) => {
+  return str.replace(/\/+$/, '');
+}
+
 export function Custom404Page() {
   const classes = useStyles();
   const location = useLocation();
@@ -41,7 +45,7 @@ export function Custom404Page() {
   const searchBarRef = useRef<HTMLInputElement | null>(null);
 
   // grab the url slug
-  const pagePath = location.pathname.split('/').pop();
+  const pagePath = rmTrailingSlash(location.pathname).split('/').pop();
 
   const preFiltered = {
     term: pagePath?.replaceAll('-', ' ')?.replaceAll('_', ' ') ?? '',
