@@ -73,9 +73,7 @@ export function Custom404Page() {
             <Divider orientation="horizontal" variant="middle" />
             <Box pt={3}>
               <Typography variant="h6">
-                <Link className={classes.link} to="#" onClick={() => navigate(-1)}>Go back</Link> or&nbsp;
-                <Link className={classes.link} to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}>Search Classic DevHub</Link> - please&nbsp;
-                <Link className={classes.link} to="https://github.com/bcgov/developer-portal/issues">contact support</Link> if you think this is a bug
+                Please <Link className={classes.link} to="https://github.com/bcgov/developer-portal/issues">contact support</Link> if you think this is a bug
               </Typography>
             </Box>
 
@@ -112,7 +110,11 @@ export function Custom404Page() {
                 {searchResultCustomList}
               </Grid>
             </Grid>
-
+            <Box pt={3}>
+              <Typography variant="h6">
+                  <Link className={classes.link} to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}>Search Classic DevHub</Link>
+              </Typography>
+            </Box>
           </Box>
         </SearchContextProvider>
       </Content>
