@@ -58,7 +58,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
 RUN "$YARN" install --frozen-lockfile --production --network-timeout 600000 && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
-FROM registry.access.redhat.com/ubi9/nodejs-20:1-34.1712566506 AS runner
+FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:1-37.1712566503 AS runner
 USER 0
 
 # Env vars
