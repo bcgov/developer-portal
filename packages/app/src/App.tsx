@@ -43,6 +43,7 @@ import HomePage from './components/home/HomePage';
 import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import {Mermaid} from "backstage-plugin-techdocs-addon-mermaid";
+import { Custom404Page } from './components/404/Custom404Page';
 
 const app = createApp({
 	apis,
@@ -93,6 +94,9 @@ const app = createApp({
 			),
 		},
 	],
+	components: { NotFoundErrorPage: () => (
+		<Custom404Page />
+	)},
 });
 
 const ExternalRedirect = ({ to }: { to: string }) => {
