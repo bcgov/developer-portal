@@ -75,4 +75,5 @@ RUN fix-permissions ./
 # Switch to nodejs user
 USER 1001
 ENV LEGACY_BACKEND_START=true
+ENV NODE_OPTIONS=--no-node-snapshot
 ENTRYPOINT ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
