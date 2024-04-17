@@ -50,12 +50,12 @@ export const ExpandableTocAddon = () => {
         { defaultValue },
     );
 
-    const tocList = useShadowRootElements<HTMLLabelElement>([TOC_LIST]);
+    const tocList = useShadowRootElements<HTMLUListElement>([TOC_LIST]);
     const isEmpty = (tocList.length === 0);
 
     useEffect(() => {
     tocList.forEach(match => {
-        match.hidden = !expanded?.expandToc;
+      match.style.display = expanded?.expandToc ? 'block' : 'none';
     });
     }, [expanded, tocList]);
 
