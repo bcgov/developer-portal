@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocalStorageValue } from '@react-hookz/web';
-import { Button, withStyles } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -11,15 +11,15 @@ const TOC_LIST = 'ul[data-md-component="toc"]';
 const EXPANDABLE_TOC_LOCAL_STORAGE =
   '@backstage/techdocs-addons/toc-expanded';
 
-const StyledButton = withStyles({
-  root: {
+const useStyles = makeStyles({
+  span: {
     position: 'absolute',
     left: '220px',
     top: '19px',
     padding: 0,
     minWidth: 0,
   },
-})(Button);
+});
 
 const CollapsedIcon = withStyles({
   root: {
@@ -43,6 +43,7 @@ type expandableTocLocalStorage = {
  * Show expand/collapse button next to ToC header
  */
 export const ExpandableTocAddon = () => {
+    const classes = useStyles();
     const defaultValue = { expandToc: false };
     const { value: expanded, set: setExpanded } =
     useLocalStorageValue<expandableTocLocalStorage>(
@@ -68,13 +69,13 @@ export const ExpandableTocAddon = () => {
     return (
         <>
             { !isEmpty ? (
-                <StyledButton
-                    size="small"
+                <span
+                    className={classes.span}
                     onClick={handleState}
                     aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
                 >
                     {expanded?.expandToc ? <ExpandedIcon /> : <CollapsedIcon />}
-                </StyledButton>
+                </span>
             ) : null}
         </>
     );
