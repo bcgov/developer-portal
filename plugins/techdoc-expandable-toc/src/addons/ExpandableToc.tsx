@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { makeStyles, withStyles } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useShadowRootElements } from '@backstage/plugin-techdocs-react';
 
@@ -21,19 +20,13 @@ const useStyles = makeStyles({
   },
 });
 
-const CollapsedIcon = withStyles({
-  root: {
-    height: '20px',
-    width: '20px',
-  },
-})(ChevronRightIcon);
-
 const ExpandedIcon = withStyles({
   root: {
     height: '20px',
     width: '20px',
+    transition: 'transform .25s'
   },
-})(ExpandMoreIcon);
+})(ChevronRightIcon);
 
 type expandableTocLocalStorage = {
   expandToc: boolean;
@@ -74,7 +67,10 @@ export const ExpandableTocAddon = () => {
                     onClick={handleState}
                     aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
                 >
-                    {expanded?.expandToc ? <ExpandedIcon /> : <CollapsedIcon />}
+                    <ExpandedIcon 
+                      style={{ transform: expanded?.expandToc ? 'rotate(90deg)' : 'rotate(0)' }} 
+                      cursor='pointer'
+                    />
                 </span>
             ) : null}
         </>
