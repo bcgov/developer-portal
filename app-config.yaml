@@ -31,7 +31,7 @@ backend:
     csp:
         connect-src: [ "'self'", 'http:', 'https:' ]
         img-src: [ "'self'", "*.gov.bc.ca", "data:" ]
-        frame-src: ["www.youtube.com"]
+        frame-src: ["www.youtube.com", "www.miro.com"]
         # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
         # Default Helmet Content-Security-Policy values can be removed by setting the key to false
     cors:
@@ -81,3 +81,4 @@ techdocs:
     sanitizer:
         allowedIframeHosts:
             - www.youtube.com
+            - www.miro.com
