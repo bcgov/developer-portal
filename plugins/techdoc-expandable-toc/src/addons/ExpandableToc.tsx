@@ -65,6 +65,7 @@ export const ExpandableTocAddon = () => {
                 <span
                     className={classes.span}
                     onClick={handleState}
+                    onKeyDown={handleState}
                     aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
                 >
                     <ExpandedIcon 
