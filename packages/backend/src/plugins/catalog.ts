@@ -2,7 +2,7 @@ import {CatalogBuilder} from '@backstage/plugin-catalog-backend';
 import {ScaffolderEntitiesProcessor} from '@backstage/plugin-catalog-backend-module-scaffolder-entity-model';
 import {Router} from 'express';
 import {PluginEnvironment} from '../types';
-import { GithubOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-github';
+import { GithubMultiOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-github';
 
 
 
@@ -16,9 +16,10 @@ export default async function createPlugin(
 	// The org URL below needs to match a configured integrations.github entry
 	// specified in your app-config.
 	builder.addEntityProvider(
-		GithubOrgEntityProvider.fromConfig(env.config, {
+		GithubMultiOrgEntityProvider.fromConfig(env.config, {
 			id: 'production',
-			orgUrl: 'https://github.com/bcgov',
+			githubUrl: 'https://github.com',
+			orgs: ['bcgov', 'bcgov-public'],
 			logger: env.logger,
 			schedule: env.scheduler.createScheduledTaskRunner({
 				frequency: { minutes: 60 },
