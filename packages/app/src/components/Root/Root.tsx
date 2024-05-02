@@ -215,12 +215,12 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
         </SidebarScrollWrapper> */}
       </SidebarGroup>
       <SidebarSpace />
-      <SidebarDivider />
       <SidebarGroup
         label="Offsite Links"
       >
         <SidebarItem icon={LaunchIcon} to="https://classic.developer.gov.bc.ca" text="Classic DevHub" />
       </SidebarGroup>
+      <SidebarDivider />
       <SidebarGroup
         label="Settings"
         icon={<UserSettingsSignInAvatar />}
