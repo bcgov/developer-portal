@@ -1,6 +1,6 @@
 import React from 'react';
 import {createGlobalStyle} from 'styled-components';
-import {useTheme} from '@material-ui/styles';
+import {useTheme, withStyles} from '@material-ui/styles';
 import {Content, ItemCardGrid, ItemCardHeader, LinkButton, Page} from '@backstage/core-components';
 import {Theme} from '@material-ui/core/styles';
 import {HomePageSearchBar} from "@backstage/plugin-search";
@@ -9,6 +9,27 @@ import {GitHubSvgIcon, RocketChatIcon, StackOverFlowIcon} from "../utils/icons";
 import LockIcon from '@material-ui/icons/Lock';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
+import * as tokens from "@bcgov/design-tokens/js";
+
+const DesignLinkButton = withStyles({
+	root: {
+		marginTop: 'auto',
+		width: 'fit-content',
+		backgroundColor: tokens.surfaceColorTertiaryButtonDefault,
+        color: tokens.typographyColorLink,
+		borderBottom: '2px solid rgba(0, 0, 0, .2)',
+		borderRight: '1px solid rgba(0, 0, 0, .14)',
+		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
+		boxShadow: 'rgba(0, 0, 0, .1) 0 20px 25px -5px, rgba(0, 0, 0, .04) 0 10px 10px -5px',
+		'&:hover': {
+			background: tokens.surfaceColorSecondaryButtonHover,
+		},
+		'&:active': {
+			background: tokens.surfaceColorTertiaryButtonDefault,
+			borderColor: tokens.surfaceColorBorderActive,
+		},
+	}
+})(LinkButton);
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -58,18 +79,9 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: 'flex-start',
 		paddingLeft: '1rem'
 	},
-	defaultButton: {
-		marginTop: 'auto',
-		width: 'fit-content',
-		borderColor: 'currentcolor',
-		borderBottom: '2px solid rgba(0, 0, 0, .2)',
-		borderRadius: '0',
-		color: theme.palette.primary.main,
-		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
-		boxShadow: 'rgba(0, 0, 0, .1) 0 20px 25px -5px, rgba(0, 0, 0, .04) 0 10px 10px -5px',
-	},
 	root: {
 		padding: 'calc(2.1rem - 24px) 9%',
+		paddingBottom: '9%'
 	},
 	cardRecon: {
 		color: 'white',
@@ -203,10 +215,9 @@ const HomePage = () => {
 									Everything you need to know to build a quality, consistent and compliant application.
 								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton to="docs/default/component/bcdg"
-										classes={{ root: classes.defaultButton }}
+									<DesignLinkButton to="docs/default/component/bcdg"
 										title="bcdg"
-									>Build a quality application</LinkButton>
+									>Build a quality application</DesignLinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -221,10 +232,9 @@ const HomePage = () => {
 									Detailed guidance on the steps and practices you must follow when developing a mobile application.
 								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton to="docs/default/component/mobile-developer-guide"
-										classes={{ root: classes.defaultButton }}
+									<DesignLinkButton to="docs/default/component/mobile-developer-guide"
 										title="mobile-developer-guide"
-									>Review the mobile guide</LinkButton>
+									>Review the mobile guide</DesignLinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -239,10 +249,9 @@ const HomePage = () => {
 								Learn how to build, deploy, maintain, and retire applications on OpenShift.
 								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton to="docs/default/component/platform-developer-docs"
-										classes={{ root: classes.defaultButton }}
+									<DesignLinkButton to="docs/default/component/platform-developer-docs"
 										title="platform-developer-docs"
-									>Explore the Private cloud docs</LinkButton>
+									>Explore the Private cloud docs</DesignLinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -256,10 +265,9 @@ const HomePage = () => {
 								<CardContent>
 								Learn about building and deploying applications through B.C. government AWS landing zone.								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton to="docs/default/component/public-cloud-techdocs"
-										classes={{ root: classes.defaultButton }}
+									<DesignLinkButton to="docs/default/component/public-cloud-techdocs"
 										title="public-cloud-techdocs"
-									>Explore the Public cloud docs</LinkButton>
+									>Explore the Public cloud docs</DesignLinkButton>
 								</CardActions>
 							</Card>
 						</Grid>
@@ -288,9 +296,9 @@ const HomePage = () => {
 								<br /><b>When: </b>Recurring monthly
 							</CardContent>
 							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://openshift101.eventbrite.com/" classes={{ root: classes.defaultButton }}>
+								<DesignLinkButton color="primary" to="https://openshift101.eventbrite.com/">
 								Register for OpenShift 101
-								</LinkButton>
+								</DesignLinkButton>
 							</CardActions>
 						</Card>
 						<Card key='e2' classes={{ root: classes.card }}>
@@ -309,9 +317,9 @@ const HomePage = () => {
 								<br /><b>When: </b>Recurring every other month
 							</CardContent>
 							<CardActions classes={{ root: classes.cardActions }}>
-								<LinkButton color="primary" to="https://openshift201.eventbrite.com/" classes={{ root: classes.defaultButton }}>
+								<DesignLinkButton color="primary" to="https://openshift201.eventbrite.com/">
 								Register for OpenShift 201
-								</LinkButton>
+								</DesignLinkButton>
 							</CardActions>
 						</Card>
 					</ItemCardGrid>
@@ -343,7 +351,7 @@ const HomePage = () => {
 										{t.desc}
 								</CardContent>
 								<CardActions classes={{ root: classes.cardActions }}>
-									<LinkButton color='primary' to={t.url} classes={{ root: classes.defaultButton }}>{t.buttonText}</LinkButton>
+									<DesignLinkButton color='primary' to={t.url}>{t.buttonText}</DesignLinkButton>
 								</CardActions>
 							</Card>
 						))}
