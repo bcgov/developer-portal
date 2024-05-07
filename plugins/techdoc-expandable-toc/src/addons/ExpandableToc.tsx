@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useShadowRootElements } from '@backstage/plugin-techdocs-react';
 
-const TOC_LIST = 'ul[data-md-component="toc"]';
+const TOC_LIST = 'ul[data-md-component="toc"]>li';
 
 const EXPANDABLE_TOC_LOCAL_STORAGE =
   '@backstage/techdocs-addons/toc-expanded';
@@ -50,13 +50,13 @@ export const ExpandableTocAddon = () => {
         { defaultValue },
     );
 
-    const tocList = useShadowRootElements<HTMLUListElement>([TOC_LIST]);
+    const tocList = useShadowRootElements<HTMLLIElement>([TOC_LIST]);
     const isEmpty = (tocList.length === 0);
 
     useEffect(() => {
-    tocList.forEach(match => {
-      match.style.display = expanded?.expandToc ? 'block' : 'none';
-    });
+      tocList.forEach(match => {
+        match.style.display = expanded?.expandToc ? 'block' : 'none';
+      });
     }, [expanded, tocList]);
 
     const handleState = () => {
@@ -75,7 +75,7 @@ export const ExpandableTocAddon = () => {
                 >
                     {expanded?.expandToc ? <ExpandedIcon /> : <CollapsedIcon />}
                 </StyledButton>
-            ) : null}
+            ) : null }
         </>
     );
 };
