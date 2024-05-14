@@ -136,7 +136,7 @@ const routes = (
 		</Route>
 		<Route path="/create" element={<ScaffolderPage
 				headerOptions={{
-					title: "DevHub quick starts", 
+					title: "🧙‍♂️ DevHub wizards", 
 					subtitle: "Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies"
 				}}
 			/>}
