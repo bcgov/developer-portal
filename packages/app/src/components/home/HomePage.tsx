@@ -16,7 +16,7 @@ const DesignLinkButton = withStyles({
 		marginTop: 'auto',
 		width: 'fit-content',
 		backgroundColor: tokens.surfaceColorTertiaryButtonDefault,
-        color: tokens.typographyColorLink,
+		color: tokens.typographyColorLink,
 		borderBottom: '2px solid rgba(0, 0, 0, .2)',
 		borderRight: '1px solid rgba(0, 0, 0, .14)',
 		padding: 'calc(0.667em + 4px) 4px calc(0.33em + 4px)',
