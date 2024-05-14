@@ -59,6 +59,10 @@ import {TechDocsAddons} from '@backstage/plugin-techdocs-react';
 import {ReportIssue} from '@backstage/plugin-techdocs-module-addons-contrib';
 import {Mermaid} from "backstage-plugin-techdocs-addon-mermaid";
 
+import { EntitySecurityInsightsContent } from '@roadiehq/backstage-plugin-security-insights';
+
+
+
 const techdocsContent = (
 	<EntityTechdocsContent>
 		<TechDocsAddons>
@@ -177,6 +181,12 @@ const serviceEntityPage = (
 		<EntityLayout.Route path="/docs" title="Docs">
 			{techdocsContent}
 		</EntityLayout.Route>
+
+		<EntityLayout.Route
+			path="/security-insights"
+			title="Security Insights">
+			<EntitySecurityInsightsContent />
+		</EntityLayout.Route>
 	</EntityLayout>
 );
 
@@ -203,6 +213,12 @@ const websiteEntityPage = (
 
 		<EntityLayout.Route path="/docs" title="Docs">
 			{techdocsContent}
+		</EntityLayout.Route>
+
+		<EntityLayout.Route
+			path="/security-insights"
+			title="Security Insights">
+			<EntitySecurityInsightsContent />
 		</EntityLayout.Route>
 	</EntityLayout>
 );
