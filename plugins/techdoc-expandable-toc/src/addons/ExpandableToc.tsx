@@ -5,7 +5,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { useShadowRootElements } from '@backstage/plugin-techdocs-react';
 
-const TOC_LIST = 'ul[data-md-component="toc"]';
+const TOC_LIST = 'ul[data-md-component="toc"]>li';
 
 const EXPANDABLE_TOC_LOCAL_STORAGE =
   '@backstage/techdocs-addons/toc-expanded';
@@ -44,13 +44,13 @@ export const ExpandableTocAddon = () => {
         { defaultValue },
     );
 
-    const tocList = useShadowRootElements<HTMLUListElement>([TOC_LIST]);
+    const tocList = useShadowRootElements<HTMLLIElement>([TOC_LIST]);
     const isEmpty = (tocList.length === 0);
 
     useEffect(() => {
-    tocList.forEach(match => {
-      match.style.display = expanded?.expandToc ? 'block' : 'none';
-    });
+      tocList.forEach(match => {
+        match.style.display = expanded?.expandToc ? 'block' : 'none';
+      });
     }, [expanded, tocList]);
 
     const handleState = () => {
@@ -68,12 +68,12 @@ export const ExpandableTocAddon = () => {
                     onKeyDown={handleState}
                     aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
                 >
-                    <ExpandedIcon 
-                      style={{ transform: expanded?.expandToc ? 'rotate(90deg)' : 'rotate(0)' }} 
-                      cursor='pointer'
-                    />
+                  <ExpandedIcon 
+                    style={{ transform: expanded?.expandToc ? 'rotate(90deg)' : 'rotate(0)' }} 
+                    cursor='pointer'
+                  />
                 </span>
-            ) : null}
+            ) : null }
         </>
     );
 };
