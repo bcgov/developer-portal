@@ -38,6 +38,7 @@
     "@backstage/plugin-search-backend-node": "^1.2.11",
     "@backstage/plugin-stack-overflow-backend": "^0.2.11",
     "@backstage/plugin-techdocs-backend": "^1.9.0",
+    "@roadiehq/scaffolder-backend-module-http-request": "4.1.1",
     "app": "link:../app",
     "dockerode": "^3.3.1",
     "express": "^4.17.1",

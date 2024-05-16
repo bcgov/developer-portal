@@ -6887,6 +6887,18 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
+"@roadiehq/scaffolder-backend-module-http-request@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@roadiehq/scaffolder-backend-module-http-request/-/scaffolder-backend-module-http-request-4.1.1.tgz#e9262ecbceb6b019bcb81350eed6daa7cc5b0eaa"
+  integrity sha512-zr9skcORlHvoV78V6yf4HuDpo4zXCF0yTocQImPx6+3/j3mZ/8LtFP12xZ3dUYOA4Ybiixv5IZvD07+bH6cvFQ==
+  dependencies:
+    "@backstage/backend-common" "^0.19.9"
+    "@backstage/core-app-api" "^1.11.1"
+    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/plugin-scaffolder-backend" "^1.19.1"
+    cross-fetch "^3.1.4"
+    winston "^3.2.1"
+
 "@rollup/plugin-commonjs@^23.0.0":
   version "23.0.7"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-23.0.7.tgz#7d26d879caa54283086de1974b66f512ef60abdc"
@@ -11634,7 +11646,7 @@ cross-env@^7.0.0:
   dependencies:
     cross-spawn "^7.0.1"
 
-cross-fetch@^3.1.5:
+cross-fetch@^3.1.4, cross-fetch@^3.1.5:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.8.tgz#0327eba65fd68a7d119f8fb2bf9334a1a7956f82"
   integrity sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==
