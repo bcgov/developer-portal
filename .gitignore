@@ -44,6 +44,9 @@ site
 # Local configuration or documentation files
 *.local.*
 
+# bak up files
+*.bak
+
 # Sensitive credentials
 *-credentials.yaml
 
