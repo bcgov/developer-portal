@@ -9,7 +9,7 @@ import {DefaultCatalogCollatorFactory} from '@backstage/plugin-search-backend-mo
 import {DefaultTechDocsCollatorFactory} from '@backstage/plugin-search-backend-module-techdocs';
 import {Router} from 'express';
 import {PgSearchEngine} from "@backstage/plugin-search-backend-module-pg";
-import {StackOverflowQuestionsCollatorFactory} from '@backstage/plugin-stack-overflow-backend';
+import {StackOverflowQuestionsCollatorFactory} from '@backstage-community/plugin-stack-overflow-backend';
 
 
 export default async function createPlugin(
