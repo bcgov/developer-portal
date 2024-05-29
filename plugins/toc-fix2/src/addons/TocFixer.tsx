@@ -22,6 +22,7 @@ export const TocFixer = () => {
 	// to test in browser, something like this can be used: document.querySelector("[data-testid='techdocs-native-shadowroot']").shadowRoot.querySelectorAll('div[data-md-type="toc"] a[href*="on-this-page"]')
 	const onThisPageHeadingInToc = useShadowRootElements<HTMLImageElement>(['div[data-md-type="toc"] a[href*="on-this-page"]'] );
 	const tocHeading = useShadowRootElements<HTMLLabelElement>(['label[for="__toc"]']);
+	const sidebarScrollWrap = useShadowRootElements<HTMLDivElement>(['div[class=md-sidebar__scrollwrap]']);
 
 	useEffect(() => {
 		onThisPageHeading.forEach(match => {
@@ -49,6 +50,12 @@ export const TocFixer = () => {
 			match.textContent = 'On this page';
 		});
 	}, [tocHeading]);
+
+	useEffect(() => {
+		sidebarScrollWrap.forEach(match => {
+			match.style.overflowY = 'hidden';
+		});
+	}, [sidebarScrollWrap]);
 
 	// Nothing to render directly, so we can just return null.
 	return null;
