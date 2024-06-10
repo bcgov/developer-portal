@@ -6,6 +6,8 @@ import {
   lightTheme,
   pageTheme as defaultPageThemes,
   PageTheme,
+  genPageTheme,
+  shapes,
 } from '@backstage/theme';
 
 import { alpha } from '@material-ui/core/styles';
@@ -93,7 +95,13 @@ const baseTheme = createTheme({
     },
   },
   fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
-  pageTheme: pageThemesFontColorOverride,
+  pageTheme: {
+    ...pageThemesFontColorOverride,
+    documentation: genPageTheme({
+        colors: ['#013366', '#7AB8F9'],
+        shape: shapes.round,
+    })
+  },
   defaultPageTheme: 'home',
 });
 
@@ -245,6 +253,11 @@ const createCustomThemeOverrides = (
         },
         '& svg': {
           color: theme.palette.grey[50],
+        },
+        '& button[aria-label="favorite"]': {
+          '& svg': {
+            color: '#FFFFFF',
+          },
         },
       },
     },
