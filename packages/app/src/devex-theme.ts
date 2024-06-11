@@ -15,6 +15,7 @@ import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
 import { OutlinedInputClassKey } from '@material-ui/core';
 import '@bcgov/bc-sans/css/BCSans.css';
+import * as tokens from "@bcgov/design-tokens/js";
 
 // Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
 declare module '@material-ui/core/styles/overrides' {
@@ -98,8 +99,8 @@ const baseTheme = createTheme({
   pageTheme: {
     ...pageThemesFontColorOverride,
     documentation: genPageTheme({
-        colors: ['#013366', '#7AB8F9'],
-        shape: shapes.round,
+        colors: [tokens.themePrimaryBlue, tokens.themeBlue80],
+        shape: shapes.wave,
     })
   },
   defaultPageTheme: 'home',
@@ -256,7 +257,7 @@ const createCustomThemeOverrides = (
         },
         '& button[aria-label="favorite"]': {
           '& svg': {
-            color: '#FFFFFF',
+            color: tokens.iconsColorPrimaryInvert,
           },
         },
       },
