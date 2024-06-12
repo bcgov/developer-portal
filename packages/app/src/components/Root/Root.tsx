@@ -8,7 +8,7 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import LaunchIcon from '@material-ui/icons/Launch';
 // import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import LogoFull from './LogoFull';
-import LogoIcon from './LogoIcon';
+import { LogoIcon } from './LogoIcon';
 import {
   Settings as SidebarSettings,
   UserSettingsSignInAvatar,
@@ -121,7 +121,7 @@ const useSidebarLogoStyles = makeStyles({
   },
   linkClose: {
     width: sidebarConfig.drawerWidthClosed,
-    marginLeft: 30,
+    marginLeft: 14,
     marginTop: -16,
   },
 });
