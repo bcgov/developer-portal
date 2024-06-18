@@ -7,7 +7,6 @@ import {
   pageTheme as defaultPageThemes,
   PageTheme,
   genPageTheme,
-  shapes,
 } from '@backstage/theme';
 
 import { alpha } from '@material-ui/core/styles';
@@ -30,7 +29,7 @@ const pageThemesFontColorOverride: Record<string, PageTheme> = {};
 Object.keys(defaultPageThemes).map(key => {
   pageThemesFontColorOverride[key] = {
     ...defaultPageThemes[key],
-    fontColor: '#0E3468',
+    fontColor: tokens.typographyColorPrimary,
   };
 });
 
@@ -38,69 +37,69 @@ const baseTheme = createTheme({
   palette: {
     ...lightTheme.palette,
     primary: {
-      main: '#0E3468',
-      light: '#4C9AFF',
-      dark: '#0E3468',
+      main: tokens.themePrimaryBlue,
+      light: tokens.themeBlue60,
+      dark: tokens.themePrimaryBlue,
     },
-    secondary: {
-      main: '#FF5630',
-      light: '#FFAB00',
-      dark: '#6554C0',
+    secondary: { // I dont think I get these color selections
+      main: tokens.supportSurfaceColorDanger,
+      light: tokens.themePrimaryGold,
+      dark: tokens.surfaceColorBorderActive,
     },
     grey: {
-      50: '#C1C7D0',
-      100: '#7A869A',
-      200: '#6B778C',
-      300: '#5E6C84',
-      400: '#505F79',
-      500: '#42526E',
-      600: '#344563',
-      700: '#253858',
-      800: '#0E3468',
-      900: '#091E42',
+      50: tokens.themeGray10,
+      100: tokens.themeGray20,
+      200: tokens.themeGray30,
+      300: tokens.themeGray40,
+      400: tokens.themeGray50,
+      500: tokens.themeGray60,
+      600: tokens.themeGray70,
+      700: tokens.themeGray80,
+      800: tokens.themeGray90,
+      900: tokens.themeGray100,
     },
     error: {
-      main: '#FF5630',
-      light: '#FF8F73',
-      dark: '#DE350B',
+      main: '#CE3E39',
+      light: tokens.supportSurfaceColorDanger,
+      dark: '#A2312D',
     },
     warning: {
-      main: '#FFAB00',
-      light: '#FFE380',
-      dark: '#FF8B00',
+      main: '#F8BB47',
+      light: tokens.supportSurfaceColorWarning,
+      dark: tokens.themeGold100,
     },
     success: {
-      main: '#36B37E',
-      light: '#79F2C0',
+      main: '#42814A',
+      light: tokens.supportSurfaceColorSuccess,
       dark: '#006644',
     },
     info: {
-      main: '#0065FF',
-      light: '#4C9AFF',
+      main: '#053662',
+      light: tokens.supportSurfaceColorInfo,
       dark: '#0747A6',
     },
     navigation: {
       ...lightTheme.palette.navigation,
-      background: '#0E3468',
-      color: '#FFFFFF',
-      indicator: '#2684FF',
+      background: tokens.themePrimaryBlue,
+      color: tokens.typographyColorPrimaryInvert,
+      indicator: tokens.themePrimaryGold,
       navItem: {
-        hoverBackground: 'rgba(116,118,121,0.6)',
+        hoverBackground: tokens.surfaceColorPrimaryButtonHover,
       },
     },
     text: {
-      primary: '#222222',
+      primary: tokens.themeGray110,
     },
     background: {
-      default: '#FFFFFF',
+      default: tokens.surfaceColorBackgroundWhite,
     },
   },
   fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
   pageTheme: {
     ...pageThemesFontColorOverride,
     documentation: genPageTheme({
-        colors: [tokens.themePrimaryBlue, tokens.themeBlue80],
-        shape: shapes.wave,
+        colors: [tokens.surfaceColorBackgroundWhite],
+        shape: 'none',
     })
   },
   defaultPageTheme: 'home',
@@ -113,9 +112,9 @@ const createCustomThemeOverrides = (
     BackstageHeader: {
       header: {
         backgroundImage: 'unset',
-        borderBottom: '2px solid #c7c7c7',
-        boxShadow: '0 -3px 12px rgba(0,0,0,.5)',
-        paddingBottom: theme.spacing(2),
+        borderBottom: `${tokens.layoutBorderWidthMedium} solid ${tokens.surfaceColorBorderDefault}`,
+        boxShadow: tokens.surfaceShadowSmall,
+        paddingBottom: tokens.layoutPaddingMedium,
         '& h1': {
           fontSize: '1.5rem',
         },
@@ -148,14 +147,14 @@ const createCustomThemeOverrides = (
     BackstageOpenedDropdown: {
       icon: {
         '& path': {
-          fill: '#FFFFFF',
+          fill: tokens.iconsColorPrimaryInvert,
         },
       },
     },
     BackstageTable: {
       root: {
         '&> :first-child': {
-          borderBottom: '1px solid #D5D5D5',
+          borderBottom: `${tokens.layoutBorderWidthSmall} solid ${tokens.surfaceColorBorderDefault}`,
           boxShadow: 'none',
         },
         '& th': {
@@ -163,6 +162,16 @@ const createCustomThemeOverrides = (
           textTransform: 'none !important',
         },
       },
+    },
+    BackstageItemCardHeader: {
+        root: {
+          // color: tokens.typographyColorLink,
+          backgroundImage: 'none',
+          paddingBottom: 0,
+      //   '&:hover': {
+      //     background: tokens.surfaceColorMenusHover,
+      // }
+    }
     },
     CatalogReactUserListPicker: {
       title: {
@@ -174,24 +183,24 @@ const createCustomThemeOverrides = (
         borderRadius: 0,
       },
       standardError: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.error.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardInfo: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.primary.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardSuccess: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.success.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardWarning: {
@@ -205,7 +214,7 @@ const createCustomThemeOverrides = (
     MuiAutocomplete: {
       root: {
         '&[aria-expanded=true]': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimaryInvert,
         },
         '&[aria-expanded=true] path': {
           fill: theme.palette.primary.main,
@@ -215,16 +224,13 @@ const createCustomThemeOverrides = (
     MuiOutlinedInput: {
       root: {
         "& $notchedOutline": {
-          borderColor: '#606060'
-        },
-        "&:hover $notchedOutline": {
-          borderColor: theme.palette.grey[50]
+          borderColor: tokens.surfaceColorBorderDefault,
         },
         "&$focused $notchedOutline": {
           borderColor: theme.palette.primary.main,
         },
         '& [class^="MuiSvgIcon-root"]': {
-          fill: '#606060'
+          fill: tokens.iconsColorSecondary,
         }
       },
     },
@@ -245,53 +251,59 @@ const createCustomThemeOverrides = (
     MuiCard: {
       root: {
         backgroundImage: 'unset',
-        paddingBottom: theme.spacing(1),
+        paddingBottom: tokens.layoutPaddingSmall,
+        borderRadius: tokens.layoutBorderRadiusMedium,
+        boxShadow: tokens.surfaceShadowSmall,
         '& h3': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimary,
         },
         '& h4': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimary,
         },
-        '& svg': {
-          color: theme.palette.grey[50],
+        '&:hover': {
+          boxShadow: tokens.surfaceShadowMedium,
+        },
+        '& svg': { // also the searchPage drop down icons
+          color: tokens.themeGray80,
         },
         '& button[aria-label="favorite"]': {
           '& svg': {
-            color: tokens.iconsColorPrimaryInvert,
+            color: tokens.iconsColorPrimary,
+            background: 'inherit',
           },
         },
       },
     },
     MuiChip: {
       root: {
-        borderRadius: 3,
+        borderRadius: tokens.layoutBorderRadiusMedium,
         backgroundColor: 'rgba(0, 0, 0, .11)',
         color: theme.palette.primary.dark,
-        margin: 4,
+        margin: tokens.layoutMarginXsmall,
       },
     },
     MuiSelect: {
       root: {
         '&[aria-expanded]': {
-          backgroundColor: '#26385A',
-          color: '#FFFFFF',
+          backgroundColor: tokens.surfaceColorBackgroundDarkBlue,
+          color: tokens.typographyColorPrimaryInvert,
         },
       },
     },
     MuiSwitch: {
       root: {
-        padding: 10,
+        padding: tokens.layoutPaddingSmall,
       },
       switchBase: {
-        padding: 12,
+        padding: tokens.layoutPaddingMedium,
       },
       thumb: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: tokens.surfaceColorBackgroundWhite,
         height: 14,
         width: 14,
       },
       track: {
-        borderRadius: 9,
+        borderRadius: tokens.layoutBorderRadiusLarge,
       },
     },
     MuiTabs: {
