@@ -10,7 +10,6 @@ import { SiteTrackingPlugin, trackSiteSearch } from '@snowplow/browser-plugin-si
 export class SnowplowAnalytics implements AnalyticsApi {
     private readonly enabled: boolean;
     private readonly baseUrl: string;
-    private stack: AnalyticsEvent[];
     private readonly debounceTime: number;
     private cancelProc: NodeJS.Timeout | null;
 
@@ -35,7 +34,6 @@ export class SnowplowAnalytics implements AnalyticsApi {
 
         this.enabled = enabled;
         this.baseUrl = baseUrl;
-        this.stack = [];
         this.cancelProc = null;
         this.debounceTime = debounceTime;
         
@@ -88,7 +86,7 @@ export class SnowplowAnalytics implements AnalyticsApi {
                     this.captureSearch(event);
                     break;
                 case "navigate":
-                    this.trackPageView();
+                    trackPageView();
                     break;
                 case "click":
                 case "discover":
@@ -98,16 +96,13 @@ export class SnowplowAnalytics implements AnalyticsApi {
         }
     }
 
-    private trackPageView(): void {
-        trackPageView();
-    }
-
     private trackClick(event: AnalyticsEvent): void {
-        let to: string = event.attributes?.to as string;
-        const isDomain = to.startsWith('https:');
+        let to: string = event.attributes?.to as string ?? '';
+        const hasDomain = new RegExp(/(([A-Za-z0-9-])+\.)+[A-Za-z]/).test(to);
         const isMailto = to.startsWith('mailto:');
 
-        if (!isDomain && !isMailto) {
+        // add the baseUrl to relative path links (this is largely to remain consistent with previous analytics)
+        if (!hasDomain && !isMailto) {
             to = (to.startsWith('/'))? this.baseUrl + to : this.baseUrl + '/' + to;
         }
 
@@ -119,43 +114,16 @@ export class SnowplowAnalytics implements AnalyticsApi {
     }
 
     private captureSearch(event: AnalyticsEvent): void {
-        // push new events on the stack so the most recent is first
-        this.stack.unshift(event);
-
-        // cancel any pending process call
+        // cancel any pending trackSearch call
         if (this.cancelProc) {
             clearTimeout(this.cancelProc);
         }
 
-        // process events, and reset stack once the debounceTime has elapsed
+        // track event once the debounceTime has elapsed
         this.cancelProc = setTimeout(() => {
-            this.process(this.stack);
-            this.stack = [];
+            this.trackSearch(event);
             this.cancelProc = null;
         }, this.debounceTime);
-    }
-
-    private process(events: AnalyticsEvent[]): void {
-        if (events) {
-            const sendList: AnalyticsEvent[] = [];
-
-             // walk event list starting with most recent
-            events.forEach(e => {
-                // skip substrings. ex. events that fired while the user was typing
-                if (!sendList.some( query => query.subject.startsWith(e.subject) )) {
-                    // if a previous event is a substring then swap. ex. the user backspaced off typos
-                    let index = sendList.findIndex( query => e.subject.startsWith(query.subject) );
-                    if (index >= 0) {
-                        sendList[index] = e;
-                    } else {
-                        sendList.unshift(e);
-                    }
-                }
-            });
-
-            // track pruned event list
-            sendList.forEach(this.trackSearch);
-        }
     }
 
 }
