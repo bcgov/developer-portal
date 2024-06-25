@@ -11,27 +11,27 @@ export interface Config {
        *
        * @visibility frontend
        */
-        appId: string;
-      /**
-       *
-       * @visibility frontend
-       */
         collectorUrl: string;
       /**
        *
        * @visibility frontend
        */
-        trackerId: string;
+        appId?: string;
       /**
        *
        * @visibility frontend
        */
-        cookieLifetime: number;
+        trackerId?: string;
       /**
        *
        * @visibility frontend
        */
-        debounceTime: number;
+        cookieLifetime?: number;
+      /**
+       *
+       * @visibility frontend
+       */
+        debounceTime?: number;
       }
     }
   }
