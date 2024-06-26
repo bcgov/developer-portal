@@ -50,6 +50,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styles": "^4.11.5",
     "@snowplow/browser-plugin-link-click-tracking": "^3.15.0",
+    "@snowplow/browser-plugin-site-tracking": "^3.23.1",
     "@snowplow/browser-tracker": "^3.15.0",
     "backstage-plugin-techdocs-addon-mermaid": "^0.11.0",
     "history": "^5.0.0",

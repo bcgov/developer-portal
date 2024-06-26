@@ -1,0 +1,1 @@
+export { SnowplowAnalytics } from './SnowplowAnalytics';

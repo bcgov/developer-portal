@@ -73,7 +73,7 @@ export const TechDocsSearchResultCustomListItem = (
 
   const LinkWrapper = ({ children }: PropsWithChildren<{}>) =>
     asLink ? (
-      <Link noTrack to={result.location}>
+      <Link to={result.location}>
         {children}
       </Link>
     ) : (
