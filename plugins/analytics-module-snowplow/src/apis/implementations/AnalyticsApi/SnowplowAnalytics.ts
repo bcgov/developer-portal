@@ -110,7 +110,8 @@ export class SnowplowAnalytics implements AnalyticsApi {
     }
 
     private trackSearch(event: AnalyticsEvent): void {
-        trackSiteSearch({ terms: event.subject.split(" ") });
+        // trim whitespace, split into non-empty terms
+        trackSiteSearch({ terms: event.subject.trim().split(" ").filter( t => t ) });
     }
 
     private captureSearch(event: AnalyticsEvent): void {
