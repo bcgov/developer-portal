@@ -98,7 +98,7 @@ export class SnowplowAnalytics implements AnalyticsApi {
 
     private trackClick(event: AnalyticsEvent): void {
         let to: string = event.attributes?.to as string ?? '';
-        const hasDomain = new RegExp(/(([A-Za-z0-9-])+\.)+[A-Za-z]/).test(to);
+        const hasDomain = new RegExp(/[A-Za-z0-9-]{1,63}\.[A-Za-z]{2,6}/).test(to);
         const isMailto = to.startsWith('mailto:');
 
         // add the baseUrl to relative path links (this is largely to remain consistent with previous analytics)
