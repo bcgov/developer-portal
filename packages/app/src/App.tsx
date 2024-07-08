@@ -44,6 +44,7 @@ import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import {Mermaid} from "backstage-plugin-techdocs-addon-mermaid";
 import { Custom404Page } from './components/404/Custom404Page';
+import { StoryBook } from './components/storybook/storybook';
 
 const app = createApp({
 	apis,
@@ -112,6 +113,7 @@ const routes = (
 		</Route>
 		<Route path="/Systems" element={<Navigate to="catalog"/>}/>
 		<Route path="/catalog" element={<CatalogIndexPage/>}/>
+		<Route path="/storybook" element={<StoryBook />}/>
 		<Route
 			path="/catalog/:namespace/:kind/:name"
 			element={<CatalogEntityPage/>}
