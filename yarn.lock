@@ -25157,20 +25157,6 @@ types-ramda@^0.30.0:
   dependencies:
     ts-toolbelt "^9.6.0"
 
-typescript-json-schema@^0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/typescript-json-schema/-/typescript-json-schema-0.62.0.tgz#774b06b0c9d86d7f3580ea9136363a6eafae1470"
-  integrity sha512-qRO6pCgyjKJ230QYdOxDRpdQrBeeino4v5p2rYmSD72Jf4rD3O+cJcROv46sQukm46CLWoeusqvBgKpynEv25g==
-  dependencies:
-    "@types/json-schema" "^7.0.9"
-    "@types/node" "^16.9.2"
-    glob "^7.1.7"
-    path-equal "^1.2.5"
-    safe-stable-stringify "^2.2.0"
-    ts-node "^10.9.1"
-    typescript "~5.1.0"
-    yargs "^17.1.1"
-
 typescript-json-schema@^0.63.0:
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/typescript-json-schema/-/typescript-json-schema-0.63.0.tgz#55ef6c4dde71625425b169d37e0de3d2ea14e093"
