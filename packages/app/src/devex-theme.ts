@@ -98,6 +98,8 @@ const baseTheme = createTheme({
   fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
   pageTheme: {
     ...pageThemesFontColorOverride,
+    // apply to all? ideally
+
     documentation: genPageTheme({
         colors: [ tokens.themeGray30, tokens.surfaceColorBackgroundWhite ],
         shape: shapes.round,

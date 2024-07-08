@@ -40,27 +40,33 @@ const CardLinkButton = withStyles({
 	root: {
 		display: 'flex',
         paddingLeft: tokens.layoutPaddingNone,
-		'& .icon': {
-			fill: tokens.iconsColorLink,
-			marginLeft: tokens.layoutMarginXsmall,
-			transition: 'transform .25s ease',
-		},
-		'&:hover .icon': {
-			transform: 'translateX(6px)'
-		},
-		'&:hover': {
-			background: 'none',
-		},
-		'& a:hover': {
-			textDecoration: 'none',
-		},
+        '& .link-text': {
+            color: tokens.typographyColorLink,
+            transition: 'transform .25s ease',
+        },
+        '& .icon': {
+            fill: tokens.typographyColorLink,
+            marginLeft: tokens.layoutMarginXsmall,
+            transition: 'transform .25s ease',
+        },
+        '&:hover': {
+            background: 'none',
+            '& .link-text': {
+                textDecoration: 'none',
+                color: tokens.themeBlue80,
+            },
+            '& .icon': {
+                transform: 'translateX(6px)',
+                fill: tokens.themeBlue80,
+            },
+        },
 	},
 })(Button);
 
 const CardButton = (props: PropsWithChildren<LinkProps>) => {
 	return (
 		<CardLinkButton variant='text'> 
-			<Link to={props.to} title={props.title}>{props.children}</Link>
+			<Link className="link-text" to={props.to} title={props.title}>{props.children}</Link>
 			<ChevronRightIcon className="icon" />
 		</CardLinkButton>
 	);
