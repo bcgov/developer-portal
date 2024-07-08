@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 		borderStyle: 'none',
 	},
 	root: {
-		padding: `calc(2.1rem - ${tokens.layoutPaddingLarge}) 9% 0px`,
+		padding: `calc(2.1rem - ${tokens.layoutPaddingLarge}) 9% ${tokens.layoutPaddingNone}`,
 	},
 	feedback: {
 		padding: `${tokens.layoutMarginXxxlarge} 9%`,
@@ -87,14 +87,12 @@ const HomePage = () => {
 				<HomePageCards />
 
 				<div className={classes.feedback}>
-					<Box>
-						<BCGovHeaderText variant="h3" paragraph>
-							Provide feedback
-						</BCGovHeaderText>
-						<Typography>
-							The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
-						</Typography>
-					</Box>
+					<BCGovHeaderText variant="h3" paragraph>
+						Provide feedback
+					</BCGovHeaderText>
+					<Typography>
+						The B.C. government DevHub is managed by the Developer Experience team. Join us as we work together to create impactful solutions by <Link style={{ textDecoration: 'underline' }} to='mailto:developer.experience@gov.bc.ca'>providing feedback</Link> or participating in user research.
+					</Typography>
 				</div>
 
 				<Box className={classes.footer}>
@@ -108,8 +106,7 @@ const HomePage = () => {
 
 			</Content>
 		</Page>
-	)
-		;
+	);
 };
 
 export default HomePage;
