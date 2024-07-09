@@ -38,10 +38,7 @@ export class SnowplowAnalytics implements AnalyticsApi {
         this.debounceTime = debounceTime;
         
         // create the Snowplow tracker
-        console.log("**********Setting up analytics (or not...)********");
         if (this.enabled) {
-            console.log("**********Analytics enabled...********");
-
             newTracker(trackerId, endpoint, {
                 appId: appId,
                 cookieLifetime: cookieLifetime,
