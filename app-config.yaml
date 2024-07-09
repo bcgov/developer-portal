@@ -93,3 +93,4 @@ techdocs:
         allowedIframeHosts:
             - www.youtube.com
             - miro.com
+            - design-system-react-components-storybook-ed91fb-prod.apps.silver.devops.gov.bc.ca
