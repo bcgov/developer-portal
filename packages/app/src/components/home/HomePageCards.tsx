@@ -38,7 +38,7 @@ const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTileProps>)
 
 const CardLinkButton = withStyles({
 	root: {
-		display: 'flex',
+        display: 'flex',
         paddingLeft: tokens.layoutPaddingNone,
         '& .link-text': {
             color: tokens.typographyColorLink,
@@ -78,17 +78,17 @@ const useStyles = makeStyles({
     },
     cardGrid: {
         gridTemplateColumns: 'repeat(auto-fit)',
-		gridGap: tokens.layoutMarginXlarge,
+        gridGap: tokens.layoutMarginXlarge,
 	},
-	card: {
-		display: 'flex',
-		flex: 1,
-		justifyContent:'space-between',
-		flexDirection:'column',
-		'&:hover': {
-			background: tokens.surfaceColorMenusHover,
-		}
-	},
+    card: {
+        display: 'flex',
+        flex: 1,
+        justifyContent:'space-between',
+        flexDirection:'column',
+        '&:hover': {
+            background: tokens.surfaceColorMenusHover,
+        }
+    },
     cardHeader: {
         backgroundImage: 'none',
         paddingBottom: tokens.layoutPaddingNone,
@@ -99,7 +99,7 @@ const useStyles = makeStyles({
         marginLeft: `-${tokens.layoutMarginLarge}`,
         marginRight: `-${tokens.layoutMarginLarge}`,
         background: tokens.surfaceColorBackgroundLightGray,
-	}
+    }
 });
 
 export const HomePageCards = () => {

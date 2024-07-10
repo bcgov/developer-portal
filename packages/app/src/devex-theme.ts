@@ -26,25 +26,17 @@ declare module '@material-ui/core/styles/overrides' {
   }
 }
 
-const pageThemesFontColorOverride: Record<string, PageTheme> = {};
-Object.keys(defaultPageThemes).map(key => {
-  pageThemesFontColorOverride[key] = {
-    ...defaultPageThemes[key],
-    fontColor: tokens.typographyColorPrimary,
-  };
-});
-
 const baseTheme = createTheme({
   palette: {
     ...lightTheme.palette,
     primary: {
       main: tokens.themePrimaryBlue,
-      light: tokens.themeBlue60,
+      light: tokens.themeBlue60, // this is a graph node color for catalog components
       dark: tokens.themePrimaryBlue,
     },
     secondary: {
       main: tokens.themePrimaryGold,
-      light: tokens.themePrimaryGold, // this is the graph node color for catalog components
+      light: tokens.themePrimaryGold, // this is a graph node color for catalog components
       dark: tokens.surfaceColorBorderActive,
     },
     grey: {
@@ -96,14 +88,19 @@ const baseTheme = createTheme({
     },
   },
   fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
+  // Generate page header + font color & card header. Currently we have page header backgrounds turned off
+  // HomePage card header backgrounds are also turned off, so this mainly controls page header font color
+  // and the card headers on /create
   pageTheme: {
-    ...pageThemesFontColorOverride,
-    // apply to all? ideally
-
-    documentation: genPageTheme({
-        colors: [ tokens.themeGray30, tokens.surfaceColorBackgroundWhite ],
-        shape: shapes.round,
-    })
+    // set all the builtin page themes to the same header background and font color
+    ...Object.keys(defaultPageThemes).reduce((acc: {[key: string]: PageTheme}, themeName) => {
+        acc[themeName] = genPageTheme({
+          colors: [ tokens.themeGray30, tokens.surfaceColorBackgroundWhite ],
+          shape: shapes.round,
+          options: { fontColor: tokens.themePrimaryBlue },
+        });
+        return acc;
+    }, {}),
   },
   defaultPageTheme: 'home',
 });
@@ -267,7 +264,7 @@ const createCustomThemeOverrides = (
     },
     MuiCardContent: {
       root: {
-        padding: `calc(${tokens.layoutPaddingLarge} / 2) ${tokens.layoutPaddingLarge} 0`,
+        padding: `${tokens.layoutPaddingMedium} ${tokens.layoutPaddingLarge} 0`,
       }
     },
     MuiCardActions: {
