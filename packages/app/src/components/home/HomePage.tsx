@@ -2,7 +2,7 @@ import React from 'react';
 import {createGlobalStyle} from 'styled-components';
 import {Content, Page} from '@backstage/core-components';
 import {HomePageSearchBar} from "@backstage/plugin-search";
-import {makeStyles, Typography, Box} from "@material-ui/core";
+import {makeStyles, Typography} from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import { BCGovBannerText, BCGovHeaderText } from './HomeHeaderText';
 import { HomePageCards } from './HomePageCards';
@@ -95,14 +95,14 @@ const HomePage = () => {
 					</Typography>
 				</div>
 
-				<Box className={classes.footer}>
+				<div className={classes.footer}>
 					<div className={classes.cardRecon}>
 						<Typography variant='body2'>
 							The B.C. Public Service acknowledges the territories of First Nations around B.C. and is grateful to carry out our work on these lands.
 							We acknowledge the rights, interests, priorities and concerns of all Indigenous Peoples - First Nations, Métis and Inuit - respecting and acknowledging their distinct cultures, histories, rights, laws and governments.
 						</Typography>
 					</div>
-				</Box>
+				</div>
 
 			</Content>
 		</Page>

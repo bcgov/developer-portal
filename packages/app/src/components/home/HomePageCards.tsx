@@ -20,12 +20,12 @@ const CardTitleIcon = withStyles({
     },
 })(Box);
 
-interface CardTileProps {
+interface CardTitleProps {
     icon: React.ReactNode,
     linkProps: PropsWithChildren<LinkProps>
 };
 
-const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTileProps>) => {
+const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTitleProps>) => {
     return (
         <CardTitleIcon>
             <div className='icon'>{icon}</div>
