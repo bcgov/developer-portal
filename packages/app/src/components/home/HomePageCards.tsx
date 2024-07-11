@@ -38,7 +38,6 @@ const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTitleProps>
 
 const CardLinkButton = withStyles({
 	root: {
-        display: 'flex',
         paddingLeft: tokens.layoutPaddingNone,
         '& .link-text': {
             color: tokens.typographyColorLink,
@@ -105,6 +104,70 @@ const useStyles = makeStyles({
 export const HomePageCards = () => {
     const classes = useStyles();
 
+    const docs = [
+		{
+			key: 'd1',
+			url: 'docs/default/component/bcdg',
+			label: 'Application development guide',
+			icon: <DocsIcon />,
+			buttonText: 'Build a quality application',
+			desc: 'Everything you need to know to build a quality, consistent and compliant application.'
+		},
+		{
+			key: 'd2',
+			url: 'docs/default/component/mobile-developer-guide',
+			label: 'Mobile development guide',
+			icon: <DocsIcon />,
+			buttonText: 'Review the mobile guide',
+			desc: 'Detailed guidance on the steps and practices you must follow when developing a mobile application.'
+		},
+		{
+			key: 'd3',
+			url: 'docs/default/component/platform-developer-docs',
+			label: 'Private cloud technical docs',
+			icon: <DocsIcon />,
+			buttonText: 'Explore the Private cloud docs',
+			desc: 'Learn how to build, deploy, maintain, and retire applications on OpenShift.'
+		},
+        {
+			key: 'd4',
+			url: 'docs/default/component/public-cloud-techdocs',
+			label: 'Public cloud technical docs',
+			icon: <DocsIcon />,
+			buttonText: 'Explore the Public cloud docs',
+			desc: 'Learn about building and deploying applications through B.C. government AWS landing zone.'
+		}
+	]
+
+    const events = [
+		{
+			key: 'e1',
+			url: 'https://openshift101.eventbrite.com/',
+			label: 'OpenShift 101',
+			icon: <EventIcon />,
+			buttonText: 'Register for OpenShift 101',
+			desc: <>
+                    <Typography variant='body2' paragraph>This four-session technical training covers the DevOps platform and application operational tasks.</Typography>
+                    <Typography variant='body2'><b>What: </b>The OpenShift 101 course</Typography>
+                    <Typography variant='body2'><b>Where: </b>Online</Typography>
+                    <Typography variant='body2'><b>When: </b>Recurring monthly</Typography>
+                </>
+		},
+		{
+			key: 'e2',
+			url: 'https://openshift201.eventbrite.com/',
+			label: 'OpenShift 201',
+			icon: <EventIcon />,
+			buttonText: 'Register for OpenShift 201',
+			desc: <>
+                    <Typography variant='body2' paragraph>This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.</Typography>
+                    <Typography variant='body2'><b>What: </b>The OpenShift 201 course</Typography>
+                    <Typography variant='body2'><b>Where: </b>Online</Typography>
+                    <Typography variant='body2'><b>When: </b>Recurring every other month</Typography>
+                </>
+		},
+    ]
+
     const tools = [
 		{
 			key: 't1',
@@ -143,66 +206,23 @@ export const HomePageCards = () => {
                 </Grid>
 
                 <Grid container spacing={4}>
-                    <Grid item sm={12} md={4} style={{display: 'flex'}}>
-                        <Card key='bcdg' classes={{ root: classes.card }} >
-                            <CardMedia>
-                                <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: "docs/default/component/bcdg", title: "bcdg" }} icon={<DocsIcon />}>Application development guide</CardTitle>}
-                                />
-                            </CardMedia>
-                            <CardContent>
-                                Everything you need to know to build a quality, consistent and compliant application.
-                            </CardContent>
-                            <CardActions>
-                                <CardButton to="docs/default/component/bcdg" title="bcdg">Build a quality application</CardButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item sm={12} md={4} style={{display: 'flex'}}>
-                        <Card key='mobile-developer-guide' classes={{ root: classes.card }} >
-                            <CardMedia>
-                                <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: "docs/default/component/mobile-developer-guide", title: "mobile-developer-guide" }} icon={<DocsIcon />}>Mobile development guide</CardTitle>}
-                                />
-                            </CardMedia>
-                            <CardContent>
-                                Detailed guidance on the steps and practices you must follow when developing a mobile application.
-                            </CardContent>
-                            <CardActions>
-                                <CardButton to="docs/default/component/mobile-developer-guide" title="mobile-developer-guide">Review the mobile guide</CardButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item sm={12} md={4} style={{display: 'flex'}}>
-                        <Card key='platform-developer-docs' classes={{ root: classes.card }} >
-                            <CardMedia>
-                                <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: "docs/default/component/platform-developer-docs", title: "platform-developer-docs" }} icon={<DocsIcon />}>Private cloud technical docs</CardTitle>}
-                                />
-                            </CardMedia>
-                            <CardContent>
-                            Learn how to build, deploy, maintain, and retire applications on OpenShift.
-                            </CardContent>
-                            <CardActions>
-                                <CardButton to="docs/default/component/platform-developer-docs" title="platform-developer-docs">Explore the Private cloud docs</CardButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item sm={12} md={4} style={{display: 'flex'}}>
-                        <Card key='public-cloud-techdocs' classes={{ root: classes.card }} >
-                            <CardMedia>
-                                <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: "docs/default/component/public-cloud-techdocs", title: "public-cloud-techdocs" }} icon={<DocsIcon />}>Public cloud technical docs</CardTitle>}
-                                />
-                            </CardMedia>
-                            <CardContent>
-                            Learn about building and deploying applications through B.C. government AWS landing zone.
-                            </CardContent>
-                            <CardActions>
-                                <CardButton to="docs/default/component/public-cloud-techdocs" title="public-cloud-techdocs">Explore the Public cloud docs</CardButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    {docs.map(d => (
+                        <Grid item sm={12} md={4} style={{display: 'flex'}}>
+                            <Card key={d.key} classes={{ root: classes.card }}>
+                                <CardMedia>
+                                    <ItemCardHeader classes={{ root: classes.cardHeader }}
+                                        title={<CardTitle linkProps={{ to: d.url, title: d.label }} icon={d.icon}>{d.label}</CardTitle>}
+                                    />
+                                </CardMedia>
+                                <CardContent>
+                                    {d.desc}
+                                </CardContent>
+                                <CardActions>
+                                    <CardButton to={d.url} title={d.label}>{d.buttonText}</CardButton>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))}
                 </Grid>
             </div>
 
@@ -212,38 +232,21 @@ export const HomePageCards = () => {
                 </BCGovHeaderText>
 
                 <ItemCardGrid classes={{ root: classes.cardGrid }}>
-                    <Card key='e1' classes={{ root: classes.card }}>
-                        <CardMedia>
-                            <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                title={<CardTitle linkProps={{ to: "https://openshift101.eventbrite.com/", title: "OpenShift 101" }} icon={<EventIcon />}>OpenShift 101</CardTitle>}
-                            />
-                        </CardMedia>
-                        <CardContent>
-                            <Typography variant='body2' paragraph>This four-session technical training covers the DevOps platform and application operational tasks.</Typography>
-                            <Typography variant='body2'><b>What: </b>The OpenShift 101 course</Typography>
-                            <Typography variant='body2'><b>Where: </b>Online</Typography>
-                            <Typography variant='body2'><b>When: </b>Recurring monthly</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <CardButton to="https://openshift101.eventbrite.com/">Register for OpenShift 101</CardButton>
-                        </CardActions>
-                    </Card>
-                    <Card key='e2' classes={{ root: classes.card }}>
-                        <CardMedia>
-                            <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                title={<CardTitle linkProps={{ to: "https://openshift201.eventbrite.com/", title: "OpenShift 201" }} icon={<EventIcon />}>OpenShift 201</CardTitle>}
-                            />
-                        </CardMedia>
-                        <CardContent>
-                            <Typography variant='body2' paragraph>This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.</Typography>
-                            <Typography variant='body2'><b>What: </b>The OpenShift 201 course</Typography>
-                            <Typography variant='body2'><b>Where: </b>Online</Typography>
-                            <Typography variant='body2'><b>When: </b>Recurring every other month</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <CardButton to="https://openshift201.eventbrite.com/">Register for OpenShift 201</CardButton>
-                        </CardActions>
-                    </Card>
+                    {events.map(e => (
+                        <Card key={e.key} classes={{ root: classes.card }}>
+                            <CardMedia>
+                                <ItemCardHeader classes={{ root: classes.cardHeader }}
+                                    title={<CardTitle linkProps={{ to: e.url, title: e.label }} icon={e.icon}>{e.label}</CardTitle>}
+                                />
+                            </CardMedia>
+                            <CardContent>
+                                {e.desc}
+                            </CardContent>
+                            <CardActions>
+                                <CardButton to={e.url} title={e.label}>{e.buttonText}</CardButton>
+                            </CardActions>
+                        </Card>
+                    ))}
                 </ItemCardGrid>
             </div>
 
@@ -264,7 +267,7 @@ export const HomePageCards = () => {
                                 />
                             </CardMedia>
                             <CardContent>
-                                    {t.desc}
+                                {t.desc}
                             </CardContent>
                             <CardActions>
                                 <CardButton to={t.url} title={t.label}>{t.buttonText}</CardButton>
