@@ -62,16 +62,16 @@ const CardLinkButton = withStyles({
 	},
 })(Button);
 
-const CardButton = (props: PropsWithChildren<LinkProps>) => {
+const CardButton = ({children, ...props}: PropsWithChildren<LinkProps>) => {
 	return (
 		<CardLinkButton variant='text'> 
-			<Link className="link-text" to={props.to} title={props.title}>{props.children}</Link>
+			<Link className="link-text" {...props}>{children}</Link>
 			<ChevronRightIcon className="icon" />
 		</CardLinkButton>
 	);
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     cardGroup: {
         paddingTop: tokens.layoutMarginXxxlarge,
     },
@@ -85,7 +85,7 @@ const useStyles = makeStyles({
         justifyContent:'space-between',
         flexDirection:'column',
         '&:hover': {
-            background: tokens.surfaceColorMenusHover,
+            background: (theme.palette.type === 'dark')? tokens.themeGray80 : tokens.surfaceColorMenusHover,
         }
     },
     cardHeader: {
@@ -97,9 +97,9 @@ const useStyles = makeStyles({
         padding: `0px calc(9% + ${tokens.layoutPaddingLarge}) ${tokens.layoutMarginXxxlarge}`,
         marginLeft: `-${tokens.layoutMarginLarge}`,
         marginRight: `-${tokens.layoutMarginLarge}`,
-        background: tokens.surfaceColorBackgroundLightGray,
+        background: (theme.palette.type === 'dark')? tokens.themeGray90: tokens.surfaceColorBackgroundLightGray,
     }
-});
+}));
 
 export const HomePageCards = () => {
     const classes = useStyles();
@@ -236,14 +236,14 @@ export const HomePageCards = () => {
                         <Card key={e.key} classes={{ root: classes.card }}>
                             <CardMedia>
                                 <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: e.url, title: e.label }} icon={e.icon}>{e.label}</CardTitle>}
+                                    title={<CardTitle linkProps={{ to: e.url, title: e.label, target: '_blank' }} icon={e.icon}>{e.label}</CardTitle>}
                                 />
                             </CardMedia>
                             <CardContent>
                                 {e.desc}
                             </CardContent>
                             <CardActions>
-                                <CardButton to={e.url} title={e.label}>{e.buttonText}</CardButton>
+                                <CardButton to={e.url} title={e.label} target="_blank">{e.buttonText}</CardButton>
                             </CardActions>
                         </Card>
                     ))}
@@ -263,14 +263,14 @@ export const HomePageCards = () => {
                         <Card key={t.key} classes={{ root: classes.card }}>
                             <CardMedia>
                                 <ItemCardHeader classes={{ root: classes.cardHeader }}
-                                    title={<CardTitle linkProps={{ to: t.url, title: t.label }} icon={t.icon}>{t.label}</CardTitle>}
+                                    title={<CardTitle linkProps={{ to: t.url, title: t.label, target: '_blank' }} icon={t.icon}>{t.label}</CardTitle>}
                                 />
                             </CardMedia>
                             <CardContent>
                                 {t.desc}
                             </CardContent>
                             <CardActions>
-                                <CardButton to={t.url} title={t.label}>{t.buttonText}</CardButton>
+                                <CardButton to={t.url} title={t.label} target="_blank">{t.buttonText}</CardButton>
                             </CardActions>
                         </Card>
                     ))}
