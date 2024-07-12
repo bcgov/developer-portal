@@ -54,7 +54,7 @@ const baseTheme = createTheme({
     error: {
       main: tokens.iconsColorDanger,
       light: tokens.supportSurfaceColorDanger,
-      dark: '#A2312D',
+      dark: '#DE350B',
     },
     warning: {
       main: tokens.iconsColorWarning,

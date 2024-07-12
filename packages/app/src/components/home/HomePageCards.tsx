@@ -22,7 +22,7 @@ const CardTitleIcon = withStyles({
 
 interface CardTitleProps {
     icon: React.ReactNode,
-    linkProps: PropsWithChildren<LinkProps>
+    linkProps: LinkProps,
 };
 
 const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTitleProps>) => {
@@ -39,6 +39,7 @@ const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTitleProps>
 const CardLinkButton = withStyles({
     root: {
         paddingLeft: tokens.layoutPaddingNone,
+        paddingRight: tokens.layoutPaddingNone,
         '& .link-text': {
             color: tokens.typographyColorLink,
             transition: 'transform .25s ease',
@@ -197,7 +198,7 @@ export const HomePageCards = () => {
     return (
         <div className={classes.background}>
             <div className={classes.cardGroup}>
-                <Grid container spacing={1} justifyContent="space-between">
+                <Grid container spacing={0} justifyContent="space-between">
                     <BCGovHeaderText variant="h3" paragraph>
                         Documentation library
                     </BCGovHeaderText>
