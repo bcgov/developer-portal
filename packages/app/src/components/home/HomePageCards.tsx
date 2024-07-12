@@ -136,7 +136,7 @@ export const HomePageCards = () => {
             buttonText: 'Explore the Public cloud docs',
             desc: 'Learn about building and deploying applications through B.C. government AWS landing zone.'
         }
-	]
+    ]
 
     const events = [
         {
@@ -168,31 +168,31 @@ export const HomePageCards = () => {
     ]
 
     const tools = [
-		{
-			key: 't1',
-			url: 'https://stackoverflow.developer.gov.bc.ca',
-			label: 'Stack Overflow',
-			icon: <StackOverFlowIcon/>,
-			buttonText: 'Ask a question',
-			desc: 'Ask, answer and discuss technical questions specific to the B.C. government on the popular Q & A platform.'
-		},
-		{
-			key: 't2',
-			url: 'https://chat.developer.gov.bc.ca',
-			label: 'RocketChat',
-			icon: <RocketChatIcon/>,
-			buttonText: 'Message teams',
-			desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.'
-		},
-		{
-			key: 't3',
-			url: 'https://github.com/bcgov',
-			label: 'GitHub',
-			icon: <GitHubSvgIcon/>,
-			buttonText: 'Find code',
-			desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.'
-		}
-	]
+        {
+            key: 't1',
+            url: 'https://stackoverflow.developer.gov.bc.ca',
+            label: 'Stack Overflow',
+            icon: <StackOverFlowIcon/>,
+            buttonText: 'Ask a question',
+            desc: 'Ask, answer and discuss technical questions specific to the B.C. government on the popular Q & A platform.'
+        },
+        {
+            key: 't2',
+            url: 'https://chat.developer.gov.bc.ca',
+            label: 'RocketChat',
+            icon: <RocketChatIcon/>,
+            buttonText: 'Message teams',
+            desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.'
+        },
+        {
+            key: 't3',
+            url: 'https://github.com/bcgov',
+            label: 'GitHub',
+            icon: <GitHubSvgIcon/>,
+            buttonText: 'Find code',
+            desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.'
+        }
+    ]
 
     return (
         <div className={classes.background}>
