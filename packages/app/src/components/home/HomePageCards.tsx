@@ -104,38 +104,38 @@ export const HomePageCards = () => {
     const classes = useStyles();
 
     const docs = [
-		{
-			key: 'd1',
-			url: 'docs/default/component/bcdg',
-			label: 'Application development guide',
-			icon: <DocsIcon />,
-			buttonText: 'Build a quality application',
-			desc: 'Everything you need to know to build a quality, consistent and compliant application.'
-		},
-		{
-			key: 'd2',
-			url: 'docs/default/component/mobile-developer-guide',
-			label: 'Mobile development guide',
-			icon: <DocsIcon />,
-			buttonText: 'Review the mobile guide',
-			desc: 'Detailed guidance on the steps and practices you must follow when developing a mobile application.'
-		},
-		{
-			key: 'd3',
-			url: 'docs/default/component/platform-developer-docs',
-			label: 'Private cloud technical docs',
-			icon: <DocsIcon />,
-			buttonText: 'Explore the Private cloud docs',
-			desc: 'Learn how to build, deploy, maintain, and retire applications on OpenShift.'
+        {
+            key: 'd1',
+            url: 'docs/default/component/bcdg',
+            label: 'Application development guide',
+            icon: <DocsIcon />,
+            buttonText: 'Build a quality application',
+            desc: 'Everything you need to know to build a quality, consistent and compliant application.'
         },
         {
-			key: 'd4',
-			url: 'docs/default/component/public-cloud-techdocs',
-			label: 'Public cloud technical docs',
-			icon: <DocsIcon />,
-			buttonText: 'Explore the Public cloud docs',
-			desc: 'Learn about building and deploying applications through B.C. government AWS landing zone.'
-		}
+            key: 'd2',
+            url: 'docs/default/component/mobile-developer-guide',
+            label: 'Mobile development guide',
+            icon: <DocsIcon />,
+            buttonText: 'Review the mobile guide',
+            desc: 'Detailed guidance on the steps and practices you must follow when developing a mobile application.'
+        },
+        {
+            key: 'd3',
+            url: 'docs/default/component/platform-developer-docs',
+            label: 'Private cloud technical docs',
+            icon: <DocsIcon />,
+            buttonText: 'Explore the Private cloud docs',
+            desc: 'Learn how to build, deploy, maintain, and retire applications on OpenShift.'
+        },
+        {
+            key: 'd4',
+            url: 'docs/default/component/public-cloud-techdocs',
+            label: 'Public cloud technical docs',
+            icon: <DocsIcon />,
+            buttonText: 'Explore the Public cloud docs',
+            desc: 'Learn about building and deploying applications through B.C. government AWS landing zone.'
+        }
 	]
 
     const events = [
