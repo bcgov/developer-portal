@@ -37,7 +37,7 @@ const CardTitle = ({children, icon, ...props}: PropsWithChildren<CardTitleProps>
 };
 
 const CardLinkButton = withStyles({
-	root: {
+    root: {
         paddingLeft: tokens.layoutPaddingNone,
         '& .link-text': {
             color: tokens.typographyColorLink,
@@ -59,7 +59,7 @@ const CardLinkButton = withStyles({
                 fill: tokens.themeBlue80,
             },
         },
-	},
+    },
 })(Button);
 
 const CardButton = ({children, ...props}: PropsWithChildren<LinkProps>) => {
@@ -93,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: tokens.layoutPaddingNone,
     },
     background: {
-        width: 'auto',
         padding: `0px calc(9% + ${tokens.layoutPaddingLarge}) ${tokens.layoutMarginXxxlarge}`,
         marginLeft: `-${tokens.layoutMarginLarge}`,
         marginRight: `-${tokens.layoutMarginLarge}`,
@@ -128,7 +127,7 @@ export const HomePageCards = () => {
 			icon: <DocsIcon />,
 			buttonText: 'Explore the Private cloud docs',
 			desc: 'Learn how to build, deploy, maintain, and retire applications on OpenShift.'
-		},
+        },
         {
 			key: 'd4',
 			url: 'docs/default/component/public-cloud-techdocs',
@@ -140,32 +139,32 @@ export const HomePageCards = () => {
 	]
 
     const events = [
-		{
-			key: 'e1',
-			url: 'https://openshift101.eventbrite.com/',
-			label: 'OpenShift 101',
-			icon: <EventIcon />,
-			buttonText: 'Register for OpenShift 101',
-			desc: <>
+        {
+            key: 'e1',
+            url: 'https://openshift101.eventbrite.com/',
+            label: 'OpenShift 101',
+            icon: <EventIcon />,
+            buttonText: 'Register for OpenShift 101',
+            desc: <>
                     <Typography variant='body2' paragraph>This four-session technical training covers the DevOps platform and application operational tasks.</Typography>
                     <Typography variant='body2'><b>What: </b>The OpenShift 101 course</Typography>
                     <Typography variant='body2'><b>Where: </b>Online</Typography>
                     <Typography variant='body2'><b>When: </b>Recurring monthly</Typography>
                 </>
-		},
-		{
-			key: 'e2',
-			url: 'https://openshift201.eventbrite.com/',
-			label: 'OpenShift 201',
-			icon: <EventIcon />,
-			buttonText: 'Register for OpenShift 201',
-			desc: <>
+        },
+        {
+            key: 'e2',
+            url: 'https://openshift201.eventbrite.com/',
+            label: 'OpenShift 201',
+            icon: <EventIcon />,
+            buttonText: 'Register for OpenShift 201',
+            desc: <>
                     <Typography variant='body2' paragraph>This two-day training is designed to introduce new skills, and build on knowledge gained during OpenShift 101.</Typography>
                     <Typography variant='body2'><b>What: </b>The OpenShift 201 course</Typography>
                     <Typography variant='body2'><b>Where: </b>Online</Typography>
                     <Typography variant='body2'><b>When: </b>Recurring every other month</Typography>
                 </>
-		},
+        },
     ]
 
     const tools = [
