@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     cardGrid: {
         gridTemplateColumns: 'repeat(auto-fit)',
         gridGap: tokens.layoutMarginXlarge,
-	},
+    },
     card: {
         display: 'flex',
         flex: 1,
