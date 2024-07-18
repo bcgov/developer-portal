@@ -1,17 +1,19 @@
-name: Delete gitops deployment branch 
+name: Delete gitops deployment branch
 
 on:
   pull_request:
     types: [unlabeled, closed]
-    branches: [ "main" ] 
-  
+    branches: ['main']
+
+env:
+  HUSKY: 0
+
 # save resources. Don't take up a queue space doing a duplicate build
 concurrency:
   group: delete-${{ github.event.pull_request.number }}
-  cancel-in-progress: true    
-      
-jobs:
+  cancel-in-progress: true
 
+jobs:
   should-run:
     runs-on: ubuntu-latest
     outputs:
@@ -39,21 +41,18 @@ jobs:
     if: needs.should-run.outputs.SHOULD_RUN == 'true'
 
     steps:
-
       - name: Setup gitops repo access
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}  
+          ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
 
       - name: Checkout CD repo
-        uses: actions/checkout@v4   
+        uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
           token: ${{ secrets.MANIFEST_REPO_PAT }}
-          
+
       - name: Delete branch in gitops
         run: |
           git push origin --delete ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
-
-

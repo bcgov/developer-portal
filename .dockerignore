@@ -13,3 +13,4 @@ examples
 *.git
 **/.swc
 e2e-test-report
+.husky
