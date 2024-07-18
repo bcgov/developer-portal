@@ -16687,6 +16687,11 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
+husky@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.1.tgz#73f8f1b58329f377654293148c1a6458f54ca224"
+  integrity sha512-fCqlqLXcBnXa/TJXmT93/A36tJsjdJkibQ1MuIiFyCCYUlpYpIaj2mv1w+3KR6Rzu1IC3slFTje5f6DUp2A2rg==
+
 hyperdyperid@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hyperdyperid/-/hyperdyperid-1.2.0.tgz#59668d323ada92228d2a869d3e474d5a33b69e6b"
@@ -25156,20 +25161,6 @@ types-ramda@^0.30.0:
   integrity sha512-oVPw/KHB5M0Du0txTEKKM8xZOG9cZBRdCVXvwHYuNJUVkAiJ9oWyqkA+9Bj2gjMsHgkkhsYevobQBWs8I2/Xvw==
   dependencies:
     ts-toolbelt "^9.6.0"
-
-typescript-json-schema@^0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/typescript-json-schema/-/typescript-json-schema-0.62.0.tgz#774b06b0c9d86d7f3580ea9136363a6eafae1470"
-  integrity sha512-qRO6pCgyjKJ230QYdOxDRpdQrBeeino4v5p2rYmSD72Jf4rD3O+cJcROv46sQukm46CLWoeusqvBgKpynEv25g==
-  dependencies:
-    "@types/json-schema" "^7.0.9"
-    "@types/node" "^16.9.2"
-    glob "^7.1.7"
-    path-equal "^1.2.5"
-    safe-stable-stringify "^2.2.0"
-    ts-node "^10.9.1"
-    typescript "~5.1.0"
-    yargs "^17.1.1"
 
 typescript-json-schema@^0.63.0:
   version "0.63.0"
