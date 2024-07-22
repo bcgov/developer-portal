@@ -21,7 +21,7 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { StackOverflowIcon } from '@backstage/plugin-stack-overflow';
+import { StackOverflowIcon } from '@backstage-community/plugin-stack-overflow';
 import { searchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
