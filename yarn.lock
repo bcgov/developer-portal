@@ -8604,12 +8604,31 @@
     "@snowplow/tracker-core" "3.23.0"
     tslib "^2.3.1"
 
+"@snowplow/browser-plugin-site-tracking@^3.23.1":
+  version "3.23.1"
+  resolved "https://registry.yarnpkg.com/@snowplow/browser-plugin-site-tracking/-/browser-plugin-site-tracking-3.23.1.tgz#4f666dd6ee409ed8302a4054bc072888bbab0b70"
+  integrity sha512-yi/NjHRowtUDRxSQJkqjW6tV5ChAIGez7f+jIzSpuOwoNd3IuepByZs/rzc8I2gnBw3HCO5qyy8vf7/5aS4yZw==
+  dependencies:
+    "@snowplow/browser-tracker-core" "3.23.1"
+    "@snowplow/tracker-core" "3.23.1"
+    tslib "^2.3.1"
+
 "@snowplow/browser-tracker-core@3.23.0":
   version "3.23.0"
   resolved "https://registry.yarnpkg.com/@snowplow/browser-tracker-core/-/browser-tracker-core-3.23.0.tgz#a849f6804e779c1b6539deb036c94d06db834fd9"
   integrity sha512-Lt0Mc2Z3NiWCskn8rfgAQ3SCAI16qeU/j7OB6PP1H9NM40hbUVvsg6txYn0JwY2hZEhD8C0H2fi16enbIpZkkw==
   dependencies:
     "@snowplow/tracker-core" "3.23.0"
+    sha1 "^1.1.1"
+    tslib "^2.3.1"
+    uuid "^3.4.0"
+
+"@snowplow/browser-tracker-core@3.23.1":
+  version "3.23.1"
+  resolved "https://registry.yarnpkg.com/@snowplow/browser-tracker-core/-/browser-tracker-core-3.23.1.tgz#e886f5de571a72cb57c8a71e05556a8a613aaca1"
+  integrity sha512-d2w8wjRX5NE/midFnzKlDaWjof6FgxS0d92OLu7FypSWL45uKrY1A13Qz6Quu+jrfWr4ox/9A2hIKQSDtmLeNg==
+  dependencies:
+    "@snowplow/tracker-core" "3.23.1"
     sha1 "^1.1.1"
     tslib "^2.3.1"
     uuid "^3.4.0"
@@ -8627,6 +8646,14 @@
   version "3.23.0"
   resolved "https://registry.yarnpkg.com/@snowplow/tracker-core/-/tracker-core-3.23.0.tgz#49fc6c679b9d81ac31a2bb911c6ccebc84f7473f"
   integrity sha512-q6Z7czCjyfzhnftnofWo+jaLf3jdmTO8yNze7WbJcnZBTQjO0iMjx1ffVieZ38zFOc+O6ANLv4roMfmgyohwiQ==
+  dependencies:
+    tslib "^2.3.1"
+    uuid "^3.4.0"
+
+"@snowplow/tracker-core@3.23.1":
+  version "3.23.1"
+  resolved "https://registry.yarnpkg.com/@snowplow/tracker-core/-/tracker-core-3.23.1.tgz#1543699518b5359aaabe72f962b45a6d03635d3b"
+  integrity sha512-EJJuRS2fI/XrrDaHSLnGfwLz+fweucwCeKF0cVNCVr5sm7kVw32DhHmFz1SCh2yMAN/9mGihyasTwRNONPuQSw==
   dependencies:
     tslib "^2.3.1"
     uuid "^3.4.0"
@@ -11006,6 +11033,7 @@ apg-lite@^1.0.3:
     "@material-ui/lab" "^4.0.0-alpha.61"
     "@material-ui/styles" "^4.11.5"
     "@snowplow/browser-plugin-link-click-tracking" "^3.15.0"
+    "@snowplow/browser-plugin-site-tracking" "^3.23.1"
     "@snowplow/browser-tracker" "^3.15.0"
     backstage-plugin-techdocs-addon-mermaid "^0.11.0"
     history "^5.0.0"
