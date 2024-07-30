@@ -159,7 +159,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
         </SidebarScrollWrapper> */}
       </SidebarGroup>
       <SidebarSpace />
-      <SidebarDivider />
       <SidebarGroup
         label="Offsite Links"
       >

@@ -4793,6 +4793,11 @@
   resolved "https://registry.yarnpkg.com/@bcgov/bc-sans/-/bc-sans-2.1.0.tgz#881f626901c0bf3324c56563fa0c5045fded420a"
   integrity sha512-1MesF4NAVpM5dywoJ68wNcBylHbPqg1dDV/FNuQm0BbspETGlPmfX8LG8rtrCjCAPhWuL2qRT/lBYDUMvFTUnw==
 
+"@bcgov/design-tokens@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@bcgov/design-tokens/-/design-tokens-3.0.0.tgz#c83ac4bee5e37b98cb50343d6a9b1d0e4ba1b873"
+  integrity sha512-RH7FyZNg2RovlmLBzQRtoFcSAaQt1SV+6/5MiovUv8+Vib6KpBj1RSWgYc9V0cXJwpR6Az5KniAcqhAhqiJcFg==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -11027,6 +11032,7 @@ apg-lite@^1.0.3:
     "@backstage/plugin-user-settings" "^0.8.8"
     "@backstage/theme" "^0.5.6"
     "@bcgov/bc-sans" "^2.0.0"
+    "@bcgov/design-tokens" "^3.0.0"
     "@internal/plugin-analytics-module-snowplow" "^0.1.0"
     "@material-ui/core" "^4.12.4"
     "@material-ui/icons" "^4.11.3"
