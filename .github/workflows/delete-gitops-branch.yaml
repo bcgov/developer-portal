@@ -50,7 +50,6 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
-          token: ${{ secrets.MANIFEST_REPO_PAT }}
           
       - name: Delete branch in gitops
         run: |
