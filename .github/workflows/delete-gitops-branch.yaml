@@ -52,6 +52,7 @@ jobs:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
 
+          
       - name: Delete branch in gitops
         run: |
           git push origin --delete ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}

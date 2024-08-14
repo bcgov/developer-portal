@@ -6,6 +6,8 @@ import {
   lightTheme,
   pageTheme as defaultPageThemes,
   PageTheme,
+  genPageTheme,
+  shapes,
 } from '@backstage/theme';
 
 import { alpha } from '@material-ui/core/styles';
@@ -13,6 +15,7 @@ import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
 import { OutlinedInputClassKey } from '@material-ui/core';
 import '@bcgov/bc-sans/css/BCSans.css';
+import * as tokens from "@bcgov/design-tokens/js";
 
 // Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
 declare module '@material-ui/core/styles/overrides' {
@@ -23,77 +26,82 @@ declare module '@material-ui/core/styles/overrides' {
   }
 }
 
-const pageThemesFontColorOverride: Record<string, PageTheme> = {};
-Object.keys(defaultPageThemes).map(key => {
-  pageThemesFontColorOverride[key] = {
-    ...defaultPageThemes[key],
-    fontColor: '#0E3468',
-  };
-});
-
 const baseTheme = createTheme({
   palette: {
     ...lightTheme.palette,
     primary: {
-      main: '#0E3468',
-      light: '#4C9AFF',
-      dark: '#0E3468',
+      main: tokens.themePrimaryBlue,
+      light: tokens.themeBlue60, // this is a graph node color for catalog components
+      dark: tokens.themePrimaryBlue,
     },
     secondary: {
-      main: '#FF5630',
-      light: '#FFAB00',
-      dark: '#6554C0',
+      main: tokens.themePrimaryGold,
+      light: tokens.themePrimaryGold, // this is a graph node color for catalog components
+      dark: tokens.surfaceColorBorderActive,
     },
     grey: {
-      50: '#C1C7D0',
-      100: '#7A869A',
-      200: '#6B778C',
-      300: '#5E6C84',
-      400: '#505F79',
-      500: '#42526E',
-      600: '#344563',
-      700: '#253858',
-      800: '#0E3468',
-      900: '#091E42',
+      50: tokens.themeGray10,
+      100: tokens.themeGray20,
+      200: tokens.themeGray30,
+      300: tokens.themeGray40,
+      400: tokens.themeGray50,
+      500: tokens.themeGray60,
+      600: tokens.themeGray70,
+      700: tokens.themeGray80,
+      800: tokens.themeGray90,
+      900: tokens.themeGray100,
     },
     error: {
-      main: '#FF5630',
-      light: '#FF8F73',
+      main: tokens.iconsColorDanger,
+      light: tokens.supportSurfaceColorDanger,
       dark: '#DE350B',
     },
     warning: {
-      main: '#FFAB00',
-      light: '#FFE380',
+      main: tokens.iconsColorWarning,
+      light: tokens.supportSurfaceColorWarning,
       dark: '#FF8B00',
     },
     success: {
-      main: '#36B37E',
-      light: '#79F2C0',
+      main: tokens.iconsColorSuccess,
+      light: tokens.supportSurfaceColorSuccess,
       dark: '#006644',
     },
     info: {
-      main: '#0065FF',
-      light: '#4C9AFF',
+      main: tokens.iconsColorInfo,
+      light: tokens.supportSurfaceColorInfo,
       dark: '#0747A6',
     },
     navigation: {
       ...lightTheme.palette.navigation,
-      background: '#0E3468',
-      color: '#FFFFFF',
-      indicator: '#2684FF',
+      background: tokens.themePrimaryBlue,
+      color: tokens.typographyColorPrimaryInvert,
+      indicator: tokens.themePrimaryGold,
       navItem: {
-        hoverBackground: 'rgba(116,118,121,0.6)',
+        hoverBackground: tokens.surfaceColorPrimaryButtonHover,
       },
     },
     text: {
-      primary: '#222222',
+      primary: tokens.themeGray110,
     },
     background: {
-      default: '#FFFFFF',
+      default: tokens.surfaceColorBackgroundWhite,
     },
   },
   fontFamily: 'BCSans, Noto Sans, Roboto, sans-serif',
-  pageTheme: pageThemesFontColorOverride,
+  // Generate page header + font color & card header. Currently we have page header backgrounds turned off
+  // HomePage card header backgrounds are also turned off, so this mainly controls page header font color
+  // and the card headers on /create
+  pageTheme: {
+    // set all the builtin page themes to the same header background and font color
+    ...Object.keys(defaultPageThemes).reduce((acc: {[key: string]: PageTheme}, themeName) => {
+        acc[themeName] = genPageTheme({
+          colors: [ tokens.themeGray30, tokens.surfaceColorBackgroundWhite ],
+          shape: shapes.round,
+          options: { fontColor: tokens.themePrimaryBlue },
+        });
+        return acc;
+    }, {}),
+  },
   defaultPageTheme: 'home',
 });
 
@@ -104,9 +112,9 @@ const createCustomThemeOverrides = (
     BackstageHeader: {
       header: {
         backgroundImage: 'unset',
-        borderBottom: '2px solid #c7c7c7',
-        boxShadow: '0 -3px 12px rgba(0,0,0,.5)',
-        paddingBottom: theme.spacing(2),
+        borderBottom: `${tokens.layoutBorderWidthMedium} solid ${tokens.surfaceColorBorderDefault}`,
+        boxShadow: tokens.surfaceShadowSmall,
+        paddingBottom: tokens.layoutPaddingMedium,
         '& h1': {
           fontSize: '1.5rem',
         },
@@ -116,10 +124,10 @@ const createCustomThemeOverrides = (
         fontWeight: 900,
       },
       subtitle: {
-        color: alpha(theme.page.fontColor, 0.8),
+        color: alpha(theme.page.fontColor, 0.9),
       },
       type: {
-        color: alpha(theme.page.fontColor, 0.8),
+        color: alpha(theme.page.fontColor, 0.9),
       },
     },
     BackstageHeaderLabel: {
@@ -127,7 +135,7 @@ const createCustomThemeOverrides = (
         color: theme.page.fontColor,
       },
       value: {
-        color: alpha(theme.page.fontColor, 0.8),
+        color: alpha(theme.page.fontColor, 0.9),
       },
     },
     BackstageHeaderTabs: {
@@ -139,14 +147,14 @@ const createCustomThemeOverrides = (
     BackstageOpenedDropdown: {
       icon: {
         '& path': {
-          fill: '#FFFFFF',
+          fill: tokens.iconsColorPrimaryInvert,
         },
       },
     },
     BackstageTable: {
       root: {
         '&> :first-child': {
-          borderBottom: '1px solid #D5D5D5',
+          borderBottom: `${tokens.layoutBorderWidthSmall} solid ${tokens.surfaceColorBorderDefault}`,
           boxShadow: 'none',
         },
         '& th': {
@@ -155,6 +163,11 @@ const createCustomThemeOverrides = (
         },
       },
     },
+    BackstageItemCardHeader: {
+        root: {
+          padding: `${tokens.layoutPaddingLarge} ${tokens.layoutPaddingLarge} calc(${tokens.layoutPaddingLarge} / 2)`,
+      }
+    },
     CatalogReactUserListPicker: {
       title: {
         textTransform: 'none',
@@ -162,41 +175,41 @@ const createCustomThemeOverrides = (
     },
     MuiAlert: {
       root: {
-        borderRadius: 0,
+        borderRadius: tokens.layoutBorderRadiusNone,
       },
       standardError: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.error.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardInfo: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.primary.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardSuccess: {
-        color: '#FFFFFF',
+        color: tokens.typographyColorPrimaryInvert,
         backgroundColor: theme.palette.success.dark,
         '& $icon': {
-          color: '#FFFFFF',
+          color: tokens.iconsColorPrimaryInvert,
         },
       },
       standardWarning: {
-        color: theme.palette.grey[700],
+        color: theme.palette.grey[800],
         backgroundColor: theme.palette.secondary.light,
         '& $icon': {
-          color: theme.palette.grey[700],
+          color: theme.palette.grey[800],
         },
       },
     },
     MuiAutocomplete: {
       root: {
         '&[aria-expanded=true]': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimaryInvert,
         },
         '&[aria-expanded=true] path': {
           fill: theme.palette.primary.main,
@@ -206,16 +219,13 @@ const createCustomThemeOverrides = (
     MuiOutlinedInput: {
       root: {
         "& $notchedOutline": {
-          borderColor: '#606060'
-        },
-        "&:hover $notchedOutline": {
-          borderColor: theme.palette.grey[50]
+          borderColor: tokens.surfaceColorBackgroundDarkBlue,
         },
         "&$focused $notchedOutline": {
-          borderColor: theme.palette.primary.main,
+          borderColor: tokens.surfaceColorBorderActive,
         },
-        '& [class^="MuiSvgIcon-root"]': {
-          fill: '#606060'
+        '& svg': {
+          fill: tokens.themeGray80,
         }
       },
     },
@@ -226,7 +236,7 @@ const createCustomThemeOverrides = (
     },
     MuiButton: {
       root: {
-        borderRadius: 3,
+        borderRadius: tokens.layoutBorderRadiusMedium,
         textTransform: 'none',
       },
       contained: {
@@ -236,31 +246,48 @@ const createCustomThemeOverrides = (
     MuiCard: {
       root: {
         backgroundImage: 'unset',
-        paddingBottom: theme.spacing(1),
+        borderRadius: tokens.layoutBorderRadiusMedium,
+        boxShadow: tokens.surfaceShadowSmall,
         '& h3': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimary,
         },
         '& h4': {
-          color: '#FFFFFF',
+          color: tokens.typographyColorPrimary,
+        },
+        '&:hover': {
+          boxShadow: tokens.surfaceShadowMedium,
         },
         '& svg': {
-          color: theme.palette.grey[50],
+          color: tokens.themeGray80,
         },
       },
     },
+    MuiCardContent: {
+      root: {
+        padding: `${tokens.layoutPaddingMedium} ${tokens.layoutPaddingLarge} 0`,
+      }
+    },
+    MuiCardActions: {
+      root: {
+        // /create cards have 16px padding on CardActions regardless of what's specified here
+        // so setting all to 16px (layoutPaddingMedium), and use margin to reach desired layoutPaddingLarge value
+        padding: tokens.layoutPaddingMedium,
+        margin: `${tokens.layoutMarginNone} ${tokens.layoutMarginSmall} ${tokens.layoutMarginSmall}`
+      }
+    },
     MuiChip: {
       root: {
-        borderRadius: 3,
+        borderRadius: tokens.layoutBorderRadiusMedium,
         backgroundColor: 'rgba(0, 0, 0, .11)',
         color: theme.palette.primary.dark,
-        margin: 4,
+        margin: tokens.layoutMarginXsmall,
       },
     },
     MuiSelect: {
       root: {
         '&[aria-expanded]': {
-          backgroundColor: '#26385A',
-          color: '#FFFFFF',
+          backgroundColor: tokens.surfaceColorBackgroundDarkBlue,
+          color: tokens.typographyColorPrimaryInvert,
         },
       },
     },
@@ -272,7 +299,7 @@ const createCustomThemeOverrides = (
         padding: 12,
       },
       thumb: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: tokens.surfaceColorBackgroundWhite,
         height: 14,
         width: 14,
       },
