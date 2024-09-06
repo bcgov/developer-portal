@@ -4,10 +4,10 @@ metadata:
   name: developer-portal
   description: A portal for the BC Government developer community.
   annotations:
-     github.com/project-slug: bcgov/developer-portal
-     github.com/team-slug: bcgov/teams/exchange-lab-developer-portal-team
+    github.com/project-slug: bcgov/developer-portal
+    github.com/team-slug: bcgov/teams/exchange-lab-developer-portal-team
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: website
-  owner: exchange-lab-developer-portal-team
+  owner: group:bcgov/exchange-lab-developer-portal-team
   lifecycle: experimental
