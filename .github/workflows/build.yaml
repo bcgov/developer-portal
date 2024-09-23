@@ -1,3 +1,6 @@
+# Builds the docker image.
+# Note: This workflow is expected to be called by other workflows and not run on its own
+
 name: Build Image
 
 env:
@@ -6,10 +9,6 @@ env:
 
 on:
   workflow_call:
-    paths-ignore:
-      - 'catalog-info.yaml'
-      - '**/*.md'
-      - 'examples/**'
 
 jobs:
   build:

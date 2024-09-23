@@ -12,6 +12,9 @@ on:
       - '.github/**'
       - 'README.md'
       - '.husky/**'
+      - 'catalog-info.yaml'
+      - '**/*.md'
+      - 'examples/**'
     branches: ['main']
 
 # save resources. Don't take up a queue space doing a duplicate build
