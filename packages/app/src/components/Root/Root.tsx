@@ -67,7 +67,7 @@ const useSidebarLogoStyles = makeStyles({
   linkClose: {
     width: sidebarConfig.drawerWidthClosed,
     marginLeft: 14,
-    marginTop: -16,
+    marginTop: -5,
   },
 });
 
