@@ -51,6 +51,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
           repository: ${{ secrets.MANIFEST_REPO }}
+          fetch-depth: 0 # get all branches. Needed for deleting gitops branch
 
       - name: Delete branch in gitops
         run: |
