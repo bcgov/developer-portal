@@ -1,54 +1,63 @@
 app:
-    title: B.C. government DevHub
-    baseUrl: http://localhost:3000
-    support:
-        url: 'https://github.com/bcgov/developer-portal/issues'
-        items:
-            - title: 'Something went wrong.'
-              links:
-                  - url: 'https://github.com/bcgov/developer-portal/issues'
-                    title: 'Our GitHub issues.'
-    analytics:
-        snowplow:
-            enabled: true
-            collectorUrl: https://spm.apps.gov.bc.ca
+  title: B.C. government DevHub
+  baseUrl: http://localhost:3000
+  support:
+    url: 'https://github.com/bcgov/developer-portal/issues'
+    items:
+      - title: 'Something went wrong.'
+        links:
+          - url: 'https://github.com/bcgov/developer-portal/issues'
+            title: 'Our GitHub issues.'
+  analytics:
+    snowplow:
+      enabled: true
+      collectorUrl: https://spm.apps.gov.bc.ca
 
 organization:
-    name: BCDevExchange
+  name: BCDevExchange
 
 backend:
-    # Used for enabling authentication, secret is shared by all backend plugins
-    # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
-    # information on the format
-    # auth:
-    #   keys:
-    #     - secret: ${BACKEND_SECRET}
-    baseUrl: http://localhost:7007
-    listen:
-        port: 7007
-        # Uncomment the following host directive to bind to specific interfaces
-        # host: 127.0.0.1
-    csp:
-        connect-src: [ "'self'", 'http:', 'https:' ]
-        img-src: [ "'self'", "*.gov.bc.ca", "github.com", "bcgov.github.io", "img.shields.io", "data:" ]
-        frame-src: ["www.youtube.com", "miro.com"]
-        # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
-        # Default Helmet Content-Security-Policy values can be removed by setting the key to false
-    cors:
-        origin: http://localhost:3000
-        methods: [ GET, HEAD, PATCH, POST, PUT, DELETE ]
-        credentials: true
-    # This is for local development only, it is not recommended to use this in production
-    # The production database configuration is set via the helm settings yaml file.
-    database:
-        client: better-sqlite3
-        connection: ':memory:'
-    cache:
-        store: memory
-    # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+    # Uncomment the following host directive to bind to specific interfaces
+    # host: 127.0.0.1
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    img-src:
+      [
+        "'self'",
+        '*.gov.bc.ca',
+        'github.com',
+        'bcgov.github.io',
+        'img.shields.io',
+        'cdnjs.cloudflare.com/ajax/libs/emojione/',
+        'data:',
+      ]
+    frame-src: ['www.youtube.com', 'miro.com']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is set via the helm settings yaml file.
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  cache:
+    store: memory
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 permission:
-    enabled: true
+  enabled: true
 
 integrations:
 # github:
@@ -65,32 +74,31 @@ integrations:
 #   apiKey: ${STACK_OVERFLOW_API_KEY}
 
 proxy:
-### Example for how to add a proxy endpoint for the frontend.
-### A typical reason to do this is to handle HTTPS and CORS for internal services.
-# '/test':
-#   target: 'https://example.com'
-#   changeOrigin: true
+  ### Example for how to add a proxy endpoint for the frontend.
+  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
+  # '/test':
+  #   target: 'https://example.com'
+  #   changeOrigin: true
   endpoints:
     '/github-api':
-      target:  https://api.github.com
+      target: https://api.github.com
       allowedHeaders: ['Authorization', 'X-GitHub-Api-Version', 'Accept']
       credentials: require
       headers:
-        X-GitHub-Api-Version: "2022-11-28"
+        X-GitHub-Api-Version: '2022-11-28'
         Accept: application/vnd.github+json
-
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
 # https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
 techdocs:
-    builder: 'local' # Alternatives - 'external'
-    generator:
-        runIn: 'docker' # Alternatives - 'local'
-    publisher:
-        type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
-    sanitizer:
-        allowedIframeHosts:
-            - www.youtube.com
-            - miro.com
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'docker' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+  sanitizer:
+    allowedIframeHosts:
+      - www.youtube.com
+      - miro.com
