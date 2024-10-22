@@ -55,7 +55,7 @@ jobs:
 
       - name: Delete branch in gitops
         run: |
-          if git rev-parse --verify --quiet ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}; then
+          if git rev-parse --verify --quiet origin/${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}; then
             git push origin --delete ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }}
           else
             echo "Branch ${{ needs.get-pr-branch-name.outputs.BRANCH_NAME }} already does not exist"
