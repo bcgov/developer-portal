@@ -1,28 +1,50 @@
 backend:
-    # config options: https://node-postgres.com/apis/client
-    database:
-        client: pg
-        connection:
-            host: ${POSTGRES_HOST}
-            password: ${POSTGRES_PASSWORD}
-            port: ${POSTGRES_PORT}
-            user: ${POSTGRES_USER}
+  # config options: https://node-postgres.com/apis/client
+  database:
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST}
+      password: ${POSTGRES_PASSWORD}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
 catalog:
-    import:
-        entityFilename: catalog-info.yaml
-        pullRequestBranchName: backstage-integration
-    rules:
-        -   allow: [ Component, System, API, Resource, Location ]
-    locations:
-        -   type: url
-            target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/catalog-seed-production.yml
-            rules:
-                -   allow: [ Component ]
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, API, Resource, Location]
+  locations:
+    - type: url
+      target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/catalog-seed-production.yml
+      rules:
+        - allow: [Component]
 search:
   collators:
     catalog:
+      schedule: # same options as in SchedulerServiceTaskScheduleDefinition
+        # supports cron, ISO duration, "human duration" as used in code
+        initialDelay: { seconds: 3 }
+        frequency: { minutes: 10 }
+        timeout: { minutes: 15 }
       filter:
-        kind: ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User']
+        kind:
+          ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User']
 stackoverflow:
-    baseUrl: ${STACK_OVERFLOW_URL}
-    apiKey: ${STACK_OVERFLOW_API_KEY}
+  baseUrl: ${STACK_OVERFLOW_URL}
+  apiKey: ${STACK_OVERFLOW_API_KEY}
+  requestParams:
+    pagesize: 100
+    site: stackoverflow
+
+auth:
+  environment: default
+  providers:
+    guest:
+      dangerouslyAllowOutsideDevelopment: true
+    github:
+      default:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
