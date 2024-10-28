@@ -7,6 +7,13 @@ backend:
       password: ${POSTGRES_PASSWORD}
       port: ${POSTGRES_PORT}
       user: ${POSTGRES_USER}
+    # https://backstage.io/docs/tutorials/switching-sqlite-postgres/#override-default-postgresql-database-pool-configuration
+    knexConfig:
+      pool:
+        min: 3
+        max: 12
+        acquireTimeoutMillis: 60000
+        idleTimeoutMillis: 60000
 catalog:
   import:
     entityFilename: catalog-info.yaml
@@ -40,6 +47,7 @@ auth:
   environment: default
   providers:
     guest:
+      userEntityRef: user:guest
       dangerouslyAllowOutsideDevelopment: true
     github:
       default:
