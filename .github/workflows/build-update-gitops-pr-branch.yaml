@@ -42,7 +42,7 @@ jobs:
 
   call-build-workflow:
     needs: get-build-mode
-    if: ${{ (needs.get-build-mode.outputs.SHOULD_BUILD) || (needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY) }}
+    if: ${{ (needs.get-build-mode.outputs.SHOULD_BUILD == 'true') || (needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true') }}
     uses: ./.github/workflows/build.yaml
 
   get-short-sha:
