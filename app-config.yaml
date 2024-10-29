@@ -54,9 +54,6 @@ backend:
   cache:
     store: memory
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
-  # https://backstage.io/docs/tutorials/auth-service-migration/#disabling-the-default-auth-policy
-  # auth:
-  #     dangerouslyDisableDefaultAuthPolicy: true
 
 permission:
   enabled: true
