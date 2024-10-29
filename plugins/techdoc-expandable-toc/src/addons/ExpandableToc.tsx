@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     left: '220px',
     top: '19px',
+    zIndex: 2,
     padding: 0,
     minWidth: 0,
   },
