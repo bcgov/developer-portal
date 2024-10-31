@@ -59,7 +59,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.28.1",
+    "@backstage/cli": "^0.28.2",
     "@types/express": "^4.17.6",
     "@types/express-serve-static-core": "^4.17.5",
     "@types/luxon": "^2.0.4",
