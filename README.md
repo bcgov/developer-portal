@@ -4,40 +4,38 @@
 [![Package Status](https://github.com/bcgov/developer-portal/actions/workflows/update-gitops.yaml/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/update-gitops.yaml)
 [![CodeQL](https://github.com/bcgov/developer-portal/workflows/CodeQL/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/github-code-scanning/codeql)
 
-This is the [developer portal for the Province of British Columbia](https://developer.gov.bc.ca) built using [Backstage](https://backstage.io). 
+This is the [developer portal for the Province of British Columbia](https://developer.gov.bc.ca) built using [Backstage](https://backstage.io).
 
 ## Local Development
 
 ### Required Tools
-* Node [long-term-support version](https://nodejs.dev/en/about/releases/) (i.e. lts/hydrogen)
+
+- Node [long-term-support version](https://nodejs.dev/en/about/releases/) (i.e. lts/hydrogen)
 
 ### Setup
-* For development purposes, the in memory SQLite database is sufficient (it is already configured)
-    * Alternativley, [Postgres](https://www.postgresql.org) can be configured 
-        * Install [Postgres locally](https://www.postgresql.org/download/) or via [docker](https://hub.docker.com/_/postgres)
-        * Create an `app-config.local.yaml` file in the project's root directory and provide the following configurations:
-        ```yaml
-        database:
-            client: pg
-            connection:
-                host: ${POSTGRES_HOST}
-                port: ${POSTGRES_PORT}
-                user: ${POSTGRES_USER}
-                password: ${POSTGRES_PASSWORD}
-        ```
+
+- For development purposes, the in memory SQLite database is sufficient (it is already configured)
+  - Alternativley, [Postgres](https://www.postgresql.org) can be configured
+    - Install [Postgres locally](https://www.postgresql.org/download/) or via [docker](https://hub.docker.com/_/postgres)
+- Create an `app-config.local.yaml` file based off of the [app-config.local.template.yaml](app-config.local.template.yaml) file.
 
 ### Running
+
 To run the project, use the following at the project's root directory
+
 ```
 $ yarn install
 $ yarn dev
 ```
-### Dockerfile 
+
+### Dockerfile
+
 Note: The dockerfile is based on the [Janus showcase project](https://github.com/janus-idp/backstage-showcase/)
 
+### Deployment
 
-### Deployment 
 See the [gitops repo](https://github.com/bcgov-c/tenant-gitops-f5ff48).
 
 ### More information
+
 See the [Backstage.io documentation](https://backstage.io/docs/getting-started/)

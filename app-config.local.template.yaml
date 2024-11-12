@@ -1,0 +1,65 @@
+# Use this template to create your own app-config.local.yaml file
+# See one of the devs on how to get the values for the env variables
+
+# Uncomment to use POSTGRES. The below config assumes postgres is running locally.
+# backend:
+#   database:
+#     client: pg
+#     connection:
+#       host: localhost
+#       port: 5432
+#       password: ${POSTGRES_PASSWORD}
+#       user: ${POSTGRES_USER}
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
+stackoverflow:
+  baseUrl: https://stackoverflow.developer.gov.bc.ca/api/2.3
+  apiKey: ${STACK_OVERFLOW_API_KEY}
+  requestParams:
+    pagesize: 100
+    site: stackoverflow
+
+auth:
+  environment: development
+  providers:
+    guest:
+      userEntityRef: user:default/guest
+      dangerouslyAllowOutsideDevelopment: true
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+
+techdocs:
+  builder: 'external'
+  generator:
+    runIn: 'local'
+  publisher:
+    type: 'awsS3'
+    awsS3:
+      bucketName: backstage
+      bucketRootPath: dev
+      credentials:
+        accessKeyId: ${TECHDOCS_S3_ACCESS_KEY_ID}
+        secretAccessKey: ${TECHDOCS_S3_SECRET_ACCESS_KEY}
+      endpoint: ${TECHDOCS_S3_ENDPOINT}
+      region: ca-central-1
+      s3ForcePathStyle: true
+
+catalog:
+  locations:
+    - type: url
+      target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/catalog-seed-dev.yml
+      rules:
+        - allow: [Component]
+    - type: url
+      target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/templates-seed-dev.yml
+      rules:
+        - allow: [Template]
