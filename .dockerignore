@@ -3,7 +3,7 @@
 .yarn/install-state.gz
 **/dist
 **/node_modules
-*.local.yaml
+*.local.*
 coverage
 dist-types
 examples

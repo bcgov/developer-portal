@@ -44,6 +44,9 @@ site
 # Local configuration or documentation files
 *.local.*
 
+# Except template local file
+!app-config.local.yaml.template
+
 # bak up files
 *.bak
 

@@ -40,7 +40,7 @@ auth:
   environment: default
   providers:
     guest:
-      userEntityRef: user:guest
+      userEntityRef: user:default/guest
       dangerouslyAllowOutsideDevelopment: true
     github:
       default:
