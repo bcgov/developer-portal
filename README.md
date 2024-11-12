@@ -17,7 +17,7 @@ This is the [developer portal for the Province of British Columbia](https://deve
 - For development purposes, the in memory SQLite database is sufficient (it is already configured)
   - Alternativley, [Postgres](https://www.postgresql.org) can be configured
     - Install [Postgres locally](https://www.postgresql.org/download/) or via [docker](https://hub.docker.com/_/postgres)
-- Create an `app-config.local.yaml` file based off of the [app-config.local.yaml.template](app-config.local.yaml.template) file.
+- Create an `app-config.local.yaml` file based off of the [app-config.local.template.yaml](app-config.local.template.yaml) file.
 
 ### Running
 

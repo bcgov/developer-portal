@@ -45,7 +45,7 @@ site
 *.local.*
 
 # Except template local file
-!app-config.local.yaml.template
+!app-config.local.template.yaml
 
 # bak up files
 *.bak
