@@ -105,6 +105,12 @@ techdocs:
       - www.youtube.com
       - miro.com
 
+search:
+  collators:
+    githubDiscussions:
+      url: https://github.com/guidanti/github-discussions-fetcher
+      # https://github.com/backstage/community-plugins/pull/1744
+
 catalog:
   providers:
     githubOrg:

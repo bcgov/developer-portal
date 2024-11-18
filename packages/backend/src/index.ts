@@ -23,6 +23,12 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(
   import('@backstage/plugin-search-backend-module-stack-overflow-collator'),
 );
+backend.add(
+  import(
+    '@backstage-community/plugin-search-backend-module-github-discussions'
+  ),
+);
+
 backend.add(import('@backstage/plugin-techdocs-backend'));
 
 backend.add(import('@backstage/plugin-permission-backend'));
