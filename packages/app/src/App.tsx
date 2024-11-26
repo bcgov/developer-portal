@@ -25,7 +25,6 @@ import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
-
 import {
   AlertDisplay,
   OAuthRequestDialog,
@@ -184,13 +183,13 @@ const routes = (
     <Route
       path="/Data-and-APIs/BC-Government-API-Guidelines"
       element={
-        <ExternalRedirect to="https://classic.developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines" />
+        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
       }
     />
     <Route
       path="/BC-Government-API-Guidelines"
       element={
-        <ExternalRedirect to="https://classic.developer.gov.bc.ca/BC-Government-API-Guidelines" />
+        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
       }
     />
   </FlatRoutes>

@@ -37,6 +37,7 @@ backend:
         'github.com',
         'bcgov.github.io',
         'img.shields.io',
+        'cdnjs.cloudflare.com/ajax/libs/emojione/',
         'data:',
       ]
     frame-src: ['www.youtube.com', 'miro.com']
