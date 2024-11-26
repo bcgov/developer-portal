@@ -102,3 +102,13 @@ techdocs:
     allowedIframeHosts:
       - www.youtube.com
       - miro.com
+
+catalog:
+  providers:
+    githubOrg:
+      - id: production
+        githubUrl: 'https://github.com'
+        orgs: ['bcgov', 'bcgov-public']
+        schedule:
+          frequency: { minutes: 60 }
+          timeout: { minutes: 15 }

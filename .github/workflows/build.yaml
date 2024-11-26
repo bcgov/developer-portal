@@ -1,28 +1,20 @@
+# Builds the docker image.
+# Note: This workflow is expected to be called by other workflows and not run on its own
+
 name: Build Image
 
 env:
   REGISTRY: ghcr.io
-  REPOSITORY_NAME: developer-experience/developer-portal
+  REPOSITORY_NAME: ${{ github.repository_owner }}/developer-experience/developer-portal
 
 on:
   workflow_call:
-    paths-ignore:
-      - 'catalog-info.yaml'
-      - '**/*.md'
-      - 'examples/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Delete unnecessary files
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -30,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/${{ env.REPOSITORY_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
           # Always generate latest tag (https://github.com/docker/metadata-action#latest-tag)
           flavor: latest=true
           # Sha tag is used in udpate_deploy_file job below
@@ -43,21 +35,19 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - # Support for multiplatform build. Using for dev debugging
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
 
-      - # Support for multiplatform build. Using for dev debugging
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Build container
         uses: docker/build-push-action@v6
+        env:
+          CACHE_TAG: buildcache
         with:
           context: .
           file: packages/backend/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ env.CACHE_TAG }}
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ env.CACHE_TAG }},mode=max

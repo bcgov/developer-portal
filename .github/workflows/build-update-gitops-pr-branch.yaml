@@ -1,4 +1,4 @@
-name: Build and update gitops repo for pull-request
+name: Build and optionally update gitops repo for a pull-request
 
 env:
   TARGET_FILE: 'values.pr.yaml'
@@ -17,39 +17,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  should-run:
+  get-build-mode:
     runs-on: ubuntu-latest
     outputs:
-      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+      SHOULD_BUILD: ${{ steps.build_mode.outputs.SHOULD_BUILD }}
+      SHOULD_BUILD_DEPLOY: ${{ steps.build_mode.outputs.SHOULD_BUILD_DEPLOY }}
     steps:
-      - name: Check if this workflow should run
-        id: should_run
+      # Check if this workflow should build and optionally deploy. Deployment cannot happen without a build
+      - name: Determine if should build and deploy
+        id: build_mode
         run: |
-          should_run=false
-          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') && github.event.pull_request.state == 'open' }} ; then
-            should_run=true
+          should_build=false
+          should_build_deploy=false
+          if ${{ github.event.pull_request.state == 'open' }} ; then 
+            if ${{ contains(github.event.pull_request.labels.*.name, 'build' )}} ; then  
+              should_build=true
+            fi
+            if ${{ contains(github.event.pull_request.labels.*.name, 'preview') }}; then
+              should_build_deploy=true
+            fi
           fi
-          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+          echo "SHOULD_BUILD=$should_build" >> "$GITHUB_OUTPUT"
+          echo "SHOULD_BUILD_DEPLOY=$should_build_deploy" >> "$GITHUB_OUTPUT"
 
   call-build-workflow:
-    needs: should-run
-    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    needs: get-build-mode
+    if: ${{ (needs.get-build-mode.outputs.SHOULD_BUILD == 'true') || (needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true') }}
     uses: ./.github/workflows/build.yaml
 
   get-short-sha:
-    needs: should-run
-    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    needs: get-build-mode
+    if: needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true'
     uses: ./.github/workflows/get-short-sha.yaml
 
   get-pr-branch-name:
-    needs: should-run
-    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    needs: get-build-mode
+    if: needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true'
     uses: ./.github/workflows/get-pr-branch-name.yaml
 
   update-gitops-pr-file:
-    if: needs.should-run.outputs.SHOULD_RUN == 'true'
+    if: needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true'
     runs-on: ubuntu-latest
-    needs: [call-build-workflow, get-short-sha, get-pr-branch-name, should-run]
+    needs:
+      [call-build-workflow, get-short-sha, get-pr-branch-name, get-build-mode]
 
     steps:
       - name: Setup gitops repo access
