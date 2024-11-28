@@ -25,11 +25,7 @@ import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
-import {
-  AlertDisplay,
-  OAuthRequestDialog,
-  ProxiedSignInPage,
-} from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
@@ -46,6 +42,16 @@ import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { Custom404Page } from './components/404/Custom404Page';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+import ProtectedPage from './ProtectedPage';
+import { CustomSignInPage } from './components/signin/CustomSignInPage';
+
+const github_auth_provider = {
+  id: 'github-auth-provider',
+  title: 'GitHub',
+  message: 'Sign in using GitHub',
+  apiRef: githubAuthApiRef,
+};
 
 const app = createApp({
   apis,
@@ -98,7 +104,8 @@ const app = createApp({
   ],
   components: {
     NotFoundErrorPage: () => <Custom404Page />,
-    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+    SignInPage: props => <CustomSignInPage {...props} />,
+    // SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
   },
 });
 
@@ -143,15 +150,21 @@ const routes = (
       </TechDocsAddons>
     </Route>
     <Route
+      /**
+       * SEE https://blog.logrocket.com/authentication-react-router-v6/#using-nested-routes-outlet
+       * about wrapping multiple protected routes
+       */
       path="/create"
       element={
-        <ScaffolderPage
-          headerOptions={{
-            title: '🧙‍♂️ DevHub wizards',
-            subtitle:
-              'Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies',
-          }}
-        />
+        <ProtectedPage provider={github_auth_provider} redirect="/create">
+          <ScaffolderPage
+            headerOptions={{
+              title: '🧙‍♂️ DevHub wizards',
+              subtitle:
+                'Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies',
+            }}
+          />
+        </ProtectedPage>
       }
     />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
@@ -170,7 +183,14 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
-    <Route path="/settings" element={<UserSettingsPage />} />
+    <Route
+      path="/settings"
+      element={
+        <ProtectedPage provider={github_auth_provider} redirect="/settings">
+          <UserSettingsPage />
+        </ProtectedPage>
+      }
+    />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
 
     {/* redirect several popular "classic" devhub urls */}
