@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from '@backstage/core-components';
 import { ResultHighlight } from '@backstage/plugin-search-common';
 import { HighlightedSearchResultText } from '@backstage/plugin-search-react';
-import { IndexableDocument } from '@backstage/plugin-search-common';
+import { SearchDocument } from '@backstage/plugin-search-common';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
 
-export interface GithubDiscussionsDocument extends IndexableDocument {
+export interface GithubDiscussionsDocument extends SearchDocument {
   author: string;
   category: string;
   labels: {
