@@ -62,7 +62,7 @@ export interface GithubDiscussionsSearchResultListItemProps {
 export function GithubDiscussionsSearchResultListItem(
   props: GithubDiscussionsSearchResultListItemProps,
 ) {
-  const { result, highlight, icon } = props;
+  const { result, highlight, icon, lineClamp } = props;
   const classes = useStyles();
   if (!result) return null;
 
@@ -92,7 +92,7 @@ export function GithubDiscussionsSearchResultListItem(
               style={{
                 display: '-webkit-box',
                 WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: props.lineClamp,
+                WebkitLineClamp: lineClamp,
                 overflow: 'hidden',
               }}
               color="textSecondary"
