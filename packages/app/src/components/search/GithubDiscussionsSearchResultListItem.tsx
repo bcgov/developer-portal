@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -30,9 +32,9 @@ export interface GithubDiscussionsDocument extends SearchDocument {
 
 const useStyles = makeStyles(theme => ({
   item: {
-    display: 'flex',
+    alignItems: 'center',
   },
-  flexContainer: {
+  box: {
     flexWrap: 'wrap',
   },
   itemText: {
@@ -67,62 +69,65 @@ export function GithubDiscussionsSearchResultListItem(
   if (!result) return null;
 
   return (
-    <div className={classes.item}>
-      {icon && <ListItemIcon>{icon}</ListItemIcon>}
-      <div className={classes.flexContainer}>
-        <ListItemText
-          className={classes.itemText}
-          primaryTypographyProps={{ variant: 'h6' }}
-          primary={
-            <Link noTrack to={result.location}>
-              {highlight?.fields.title ? (
-                <HighlightedSearchResultText
-                  text={highlight.fields.title}
-                  preTag={highlight.preTag}
-                  postTag={highlight.postTag}
-                />
-              ) : (
-                result.title
-              )}
-            </Link>
-          }
-          secondary={
-            <Typography
-              component="span"
-              style={{
-                display: '-webkit-box',
-                WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: lineClamp,
-                overflow: 'hidden',
-              }}
-              color="textSecondary"
-              variant="body2"
-            >
-              {highlight?.fields.text ? (
-                <HighlightedSearchResultText
-                  text={highlight.fields.text}
-                  preTag={highlight.preTag}
-                  postTag={highlight.postTag}
-                />
-              ) : (
-                result.text
-              )}
-            </Typography>
-          }
-        />
-        <Box>
-          {result.author && (
-            <div className={classes.user}>
-              <EntityRefLink entityRef={`user:default/${result.author}`} />
-            </div>
-          )}
-          {result.category && <Chip label={result.category} size="small" />}
-          {result.labels.length > 0 &&
-            result.labels.map(({ name }) => {
-              return <Chip key={name} label={name} size="small" />;
-            })}
+    <>
+      <ListItem className={classes.item}>
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+        <Box className={classes.box}>
+          <ListItemText
+            className={classes.itemText}
+            primaryTypographyProps={{ variant: 'h6' }}
+            primary={
+              <Link noTrack to={result.location}>
+                {highlight?.fields.title ? (
+                  <HighlightedSearchResultText
+                    text={highlight.fields.title}
+                    preTag={highlight.preTag}
+                    postTag={highlight.postTag}
+                  />
+                ) : (
+                  result.title
+                )}
+              </Link>
+            }
+            secondary={
+              <Typography
+                component="span"
+                style={{
+                  display: '-webkit-box',
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: lineClamp,
+                  overflow: 'hidden',
+                }}
+                color="textSecondary"
+                variant="body2"
+              >
+                {highlight?.fields.text ? (
+                  <HighlightedSearchResultText
+                    text={highlight.fields.text}
+                    preTag={highlight.preTag}
+                    postTag={highlight.postTag}
+                  />
+                ) : (
+                  result.text
+                )}
+              </Typography>
+            }
+          />
+          <Box>
+            {result.author && (
+              <div className={classes.user}>
+                <EntityRefLink entityRef={`user:default/${result.author}`} />
+              </div>
+            )}
+            {result.category && <Chip label={result.category} size="small" />}
+            {result.labels.length > 0 &&
+              result.labels.map(({ name }) => {
+                return <Chip key={name} label={name} size="small" />;
+              })}
+          </Box>
         </Box>
-      </div>
-    </div>
+      </ListItem>
+      <Divider />
+    </>
   );
 }

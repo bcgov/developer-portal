@@ -17,6 +17,7 @@ import {
   GithubDiscussionsSearchResultListItem,
   GithubDiscussionsDocument,
 } from './GithubDiscussionsSearchResultListItem';
+import { GitHubIcon } from '@backstage/core-components';
 
 const SearchResultCustomList = () => {
   return (
@@ -59,6 +60,7 @@ const SearchResultCustomList = () => {
                   <GithubDiscussionsSearchResultListItem
                     result={document as GithubDiscussionsDocument}
                     highlight={highlight}
+                    icon={<GitHubIcon />}
                   />
                 );
               default:
