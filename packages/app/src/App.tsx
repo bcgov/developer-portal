@@ -45,6 +45,7 @@ import { Custom404Page } from './components/404/Custom404Page';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import ProtectedPage from './ProtectedPage';
 import { CustomSignInPage } from './components/signin/CustomSignInPage';
+import { redirectRoutes } from './redirect';
 
 const github_auth_provider = {
   id: 'github-auth-provider',
@@ -105,15 +106,8 @@ const app = createApp({
   components: {
     NotFoundErrorPage: () => <Custom404Page />,
     SignInPage: props => <CustomSignInPage {...props} />,
-    // SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
   },
 });
-
-const ExternalRedirect = ({ to }: { to: string }) => {
-  window.location.href = to;
-
-  return null;
-};
 
 const routes = (
   <FlatRoutes>
@@ -192,26 +186,10 @@ const routes = (
       }
     />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-
     {/* redirect several popular "classic" devhub urls */}
-    <Route
-      path="/Design-System/About-the-Design-System"
-      element={
-        <Navigate to="/docs/default/component/bc-developer-guide/design-system/about-the-design-system/" />
-      }
-    />
-    <Route
-      path="/Data-and-APIs/BC-Government-API-Guidelines"
-      element={
-        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
-      }
-    />
-    <Route
-      path="/BC-Government-API-Guidelines"
-      element={
-        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
-      }
-    />
+    {redirectRoutes.map(route => (
+      <Route path={route.path} element={<Navigate to={route.to} />} />
+    ))}
   </FlatRoutes>
 );
 
