@@ -1,7 +1,6 @@
 import {
   SignInPageProps,
   useApi,
-  githubAuthApiRef,
   BackstageIdentityResponse,
 } from '@backstage/core-plugin-api';
 import {
@@ -19,7 +18,7 @@ export type Props = SignInPageProps & {
 };
 
 export const CustomSignInPage = (props: Props) => {
-  const authApi = useApi(githubAuthApiRef);
+  const authApi = useApi(props.provider.apiRef);
   const location = useLocation();
 
   const [showLoginPage, setShowLoginPage] = useState<boolean | null>(null);
@@ -40,7 +39,7 @@ export const CustomSignInPage = (props: Props) => {
           );
           return;
         }
-        // logged in with GitHub, so carry on to SignIn page which will pass the login and not show signinpage
+        // logged in with provider, so carry on to SignIn page which will pass the login and not show signinpage
         setShowLoginPage(true);
       } catch (err: any) {
         setShowLoginPage(true);

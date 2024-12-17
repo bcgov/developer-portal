@@ -1,9 +1,5 @@
 import React, { useEffect, useState, PropsWithChildren } from 'react';
-import {
-  useApi,
-  githubAuthApiRef,
-  BackstageIdentityResponse,
-} from '@backstage/core-plugin-api';
+import { useApi, BackstageIdentityResponse } from '@backstage/core-plugin-api';
 import {
   SignInPage,
   SignInProviderConfig,
@@ -20,7 +16,7 @@ const ProtectedPage = ({
   provider,
   ...props
 }: ProtectedPageProps) => {
-  const authApi = useApi(githubAuthApiRef);
+  const authApi = useApi(provider.apiRef);
 
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   const navigate = useNavigate();
