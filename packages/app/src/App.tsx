@@ -6,8 +6,7 @@ import {
   CatalogIndexPage,
   catalogPlugin,
 } from '@backstage/plugin-catalog';
-import { CatalogImportPage } from '@backstage/plugin-catalog-import';
-import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
+import { scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
@@ -20,17 +19,13 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import {
   /* ExpandableNavigation*/ ReportIssue,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
-import { entityPage } from './components/catalog/EntityPage';
+
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
-import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
-import { RequirePermission } from '@backstage/plugin-permission-react';
-import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
@@ -45,7 +40,8 @@ import { Custom404Page } from './components/404/Custom404Page';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import ProtectedPage from './ProtectedPage';
 import { CustomSignInPage } from './components/signin/CustomSignInPage';
-import { redirectRoutes } from './redirect';
+import { protectedRoutes, redirectRoutes } from './routes';
+import { entityPage } from './components/catalog/EntityPage';
 
 const github_auth_provider = {
   id: 'github-auth-provider',
@@ -117,13 +113,6 @@ const routes = (
       <HomePage />
     </Route>
     <Route path="/Systems" element={<Navigate to="catalog" />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
-    <Route
-      path="/catalog/:namespace/:kind/:name"
-      element={<CatalogEntityPage />}
-    >
-      {entityPage}
-    </Route>
     <Route path="/docs" element={<TechDocsIndexPage />} />
     {/* redirect in case anyone has bookmarked bcdg*/}
     <Route
@@ -145,53 +134,40 @@ const routes = (
         />
       </TechDocsAddons>
     </Route>
-    <Route
-      /**
-       * SEE https://blog.logrocket.com/authentication-react-router-v6/#using-nested-routes-outlet
-       * about wrapping multiple protected routes
-       */
-      path="/create"
-      element={
-        <ProtectedPage provider={github_auth_provider}>
-          <ScaffolderPage
-            headerOptions={{
-              title: '🧙‍♂️ DevHub wizards',
-              subtitle:
-                'Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies',
-            }}
-          />
-        </ProtectedPage>
-      }
-    />
+
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
     />
-    <Route
-      path="/catalog-import"
-      element={
-        <RequirePermission permission={catalogEntityCreatePermission}>
-          <CatalogImportPage />
-        </RequirePermission>
-      }
-    />
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
-    <Route
-      path="/settings"
-      element={
-        <ProtectedPage provider={github_auth_provider}>
-          <UserSettingsPage />
-        </ProtectedPage>
-      }
-    />
-    <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     {/* redirect several popular "classic" devhub urls */}
     {redirectRoutes.map(route => (
       <Route path={route.path} element={<Navigate to={route.to} />} />
     ))}
+
+    {protectedRoutes.map(route => (
+      <Route
+        key={route.path} // Add key to avoid React warnings
+        path={route.path}
+        element={
+          <ProtectedPage provider={github_auth_provider}>
+            {route.element}
+          </ProtectedPage>
+        }
+      >
+        {/* {route.page ? route.page : null } */}
+      </Route>
+    ))}
+
+    <Route
+      path="/catalog/:namespace/:kind/:name"
+      element={<CatalogEntityPage />}
+    >
+      {entityPage}
+    </Route>
   </FlatRoutes>
 );
 
