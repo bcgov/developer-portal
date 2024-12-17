@@ -9,23 +9,22 @@ import {
   SignInProviderConfig,
   Progress,
 } from '@backstage/core-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type ProtectedPageProps = PropsWithChildren & {
   provider: SignInProviderConfig;
-  redirect: string;
 };
 
 const ProtectedPage = ({
   children,
   provider,
-  redirect,
   ...props
 }: ProtectedPageProps) => {
   const authApi = useApi(githubAuthApiRef);
 
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const checkSignInStatus = async () => {
@@ -47,7 +46,7 @@ const ProtectedPage = ({
 
   const handleSignInSuccess = () => {
     setIsSignedIn(true);
-    navigate(redirect);
+    navigate(location.pathname);
     window.location.reload(); // hack to get identity to reload
   };
 

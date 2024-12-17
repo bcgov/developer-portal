@@ -150,7 +150,7 @@ const routes = (
        */
       path="/create"
       element={
-        <ProtectedPage provider={github_auth_provider} redirect="/create">
+        <ProtectedPage provider={github_auth_provider}>
           <ScaffolderPage
             headerOptions={{
               title: '🧙‍♂️ DevHub wizards',
@@ -180,7 +180,7 @@ const routes = (
     <Route
       path="/settings"
       element={
-        <ProtectedPage provider={github_auth_provider} redirect="/settings">
+        <ProtectedPage provider={github_auth_provider}>
           <UserSettingsPage />
         </ProtectedPage>
       }
