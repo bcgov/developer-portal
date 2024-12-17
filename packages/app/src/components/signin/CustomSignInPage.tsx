@@ -7,19 +7,15 @@ import {
 import {
   ProxiedSignInPage,
   SignInPage,
+  SignInProviderConfig,
   Progress,
 } from '@backstage/core-components';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-export type Props = SignInPageProps;
-
-const github_auth_provider = {
-  id: 'github-auth-provider',
-  title: 'GitHub',
-  message: 'Sign in using GitHub',
-  apiRef: githubAuthApiRef,
+export type Props = SignInPageProps & {
+  provider: SignInProviderConfig;
 };
 
 export const CustomSignInPage = (props: Props) => {
@@ -59,7 +55,7 @@ export const CustomSignInPage = (props: Props) => {
   }
 
   return showLoginPage ? (
-    <SignInPage {...props} auto={false} provider={github_auth_provider} />
+    <SignInPage {...props} auto={false} provider={props.provider} />
   ) : (
     <ProxiedSignInPage {...props} provider="guest" />
   );

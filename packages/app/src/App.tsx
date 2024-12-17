@@ -105,7 +105,9 @@ const app = createApp({
   ],
   components: {
     NotFoundErrorPage: () => <Custom404Page />,
-    SignInPage: props => <CustomSignInPage {...props} />,
+    SignInPage: props => (
+      <CustomSignInPage provider={github_auth_provider} {...props} />
+    ),
   },
 });
 
