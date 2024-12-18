@@ -1,4 +1,3 @@
-import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import React from 'react';
@@ -6,9 +5,27 @@ import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { CatalogEntityPage, CatalogIndexPage } from '@backstage/plugin-catalog';
-import { entityPage } from './components/catalog/EntityPage';
+import { entityPage } from '../catalog/EntityPage';
 
 export const protectedRoutes = [
+  {
+    path: '/catalog',
+    element: <CatalogIndexPage />,
+  },
+  {
+    path: '/catalog/:namespace/:kind/:name',
+    element: <CatalogEntityPage />,
+    page: entityPage,
+  },
+  {
+    path: '/catalog-graph',
+    element: <CatalogGraphPage />,
+  },
+  {
+    path: '/catalog-import',
+    element: <CatalogImportPage />,
+    permission: catalogEntityCreatePermission,
+  },
   {
     path: '/create',
     element: (
@@ -22,33 +39,13 @@ export const protectedRoutes = [
     ),
   },
   {
-    path: '/catalog',
-    element: <CatalogIndexPage />,
-  },
-  // {
-  //   path: '/catalog/:namespace/:kind/:name',
-  //   element: <CatalogEntityPage />,
-  //   page: entityPage
-  // },
-  {
-    path: '/catalog-graph',
-    element: <CatalogGraphPage />,
-  },
-  {
-    path: '/catalog-import',
-    element: (
-      <RequirePermission permission={catalogEntityCreatePermission}>
-        <CatalogImportPage />
-      </RequirePermission>
-    ),
-  },
-  {
     path: '/settings',
     element: <UserSettingsPage />,
   },
 ];
 
 export const redirectRoutes = [
+  /* redirect several popular "classic" devhub urls */
   {
     path: '/Design-System/About-the-Design-System',
     to: '/docs/default/component/bc-developer-guide/design-system/about-the-design-system/',
@@ -60,5 +57,10 @@ export const redirectRoutes = [
   {
     path: '/API-Guidelines',
     to: '/docs/default/component/bc-developer-guide/bc-government-api-guidelines/',
+  },
+  {
+    /* redirect in case anyone has bookmarked bcdg*/
+    path: '/docs/default/component/bcdg',
+    to: '/docs/default/component/bc-developer-guide',
   },
 ];

@@ -12,6 +12,15 @@ import {
 import { useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { protectedRoutes } from '../utils/routes';
+import { Location } from 'react-router-dom';
+
+export const isProtected = (location: Location) => {
+  const regex = /\/[^/?]*/i;
+  return protectedRoutes.some(
+    route => route.path === (location.pathname.match(regex)?.[0] ?? ''),
+  );
+};
 
 export type Props = SignInPageProps & {
   provider: SignInProviderConfig;
@@ -33,10 +42,8 @@ export const CustomSignInPage = (props: Props) => {
           });
 
         if (!identityResponse) {
-          // show login page if they go to a location that isn't the main page or a page in techdocs
-          setShowLoginPage(
-            location.pathname !== '/' && !location.pathname.startsWith('/docs'),
-          );
+          // show login page if they go to a protected location
+          setShowLoginPage(isProtected(location));
           return;
         }
         // logged in with provider, so carry on to SignIn page which will pass the login and not show signinpage

@@ -1,11 +1,7 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import {
-  CatalogEntityPage,
-  CatalogIndexPage,
-  catalogPlugin,
-} from '@backstage/plugin-catalog';
+import { catalogPlugin } from '@backstage/plugin-catalog';
 import { scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
@@ -38,10 +34,10 @@ import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { Custom404Page } from './components/404/Custom404Page';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
-import ProtectedPage from './ProtectedPage';
-import { CustomSignInPage } from './components/signin/CustomSignInPage';
-import { protectedRoutes, redirectRoutes } from './routes';
-import { entityPage } from './components/catalog/EntityPage';
+import ProtectedPage from './components/auth/ProtectedPage';
+import { CustomSignInPage } from './components/auth/CustomSignInPage';
+import { protectedRoutes, redirectRoutes } from './components/utils/routes';
+import { RequirePermission } from '@backstage/plugin-permission-react';
 
 const github_auth_provider = {
   id: 'github-auth-provider',
@@ -112,14 +108,7 @@ const routes = (
     <Route path="/" element={<HomepageCompositionRoot />}>
       <HomePage />
     </Route>
-    <Route path="/Systems" element={<Navigate to="catalog" />} />
     <Route path="/docs" element={<TechDocsIndexPage />} />
-    {/* redirect in case anyone has bookmarked bcdg*/}
-    <Route
-      path="/docs/default/component/bcdg"
-      element={<Navigate to="/docs/default/component/bc-developer-guide" />}
-    />
-
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
@@ -143,31 +132,34 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
-    {/* redirect several popular "classic" devhub urls */}
+
     {redirectRoutes.map(route => (
-      <Route path={route.path} element={<Navigate to={route.to} />} />
+      <Route
+        key={route.path}
+        path={route.path}
+        element={<Navigate to={route.to} />}
+      />
     ))}
 
     {protectedRoutes.map(route => (
       <Route
-        key={route.path} // Add key to avoid React warnings
+        key={route.path}
         path={route.path}
         element={
           <ProtectedPage provider={github_auth_provider}>
-            {route.element}
+            {route.permission ? (
+              <RequirePermission permission={route.permission}>
+                {route.element}
+              </RequirePermission>
+            ) : (
+              route.element
+            )}
           </ProtectedPage>
         }
       >
-        {/* {route.page ? route.page : null } */}
+        {route.page ? route.page : null}
       </Route>
     ))}
-
-    <Route
-      path="/catalog/:namespace/:kind/:name"
-      element={<CatalogEntityPage />}
-    >
-      {entityPage}
-    </Route>
   </FlatRoutes>
 );
 
