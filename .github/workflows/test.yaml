@@ -24,7 +24,7 @@ jobs:
           node-version: '20'
 
       - name: find location of yarn cache
-        run: ./.yarn/releases/yarn-1.22.19.cjs cache dir)
+        run: ./.yarn/releases/yarn-1.22.19.cjs cache dir
 
       - name: Install Dependencies
         run: ./.yarn/releases/yarn-1.22.19.cjs install --frozen-lockfile
