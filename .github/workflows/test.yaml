@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - devxt-1653 # testing if workflow works
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: ./.yarn/releases/yarn-1.22.19.cjs install --immutable
+
+      - name: Run Unit Tests
+        run: ./.yarn/releases/yarn-1.22.19.cjs test
