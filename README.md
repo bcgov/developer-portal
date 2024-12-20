@@ -1,8 +1,9 @@
 # Developer Portal
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Package Status](https://github.com/bcgov/developer-portal/actions/workflows/update-gitops.yaml/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/update-gitops.yaml)
+[![Build and update gitops repo](https://github.com/bcgov/developer-portal/actions/workflows/build-update-gitops.yaml/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/build-update-gitops.yaml)
 [![CodeQL](https://github.com/bcgov/developer-portal/workflows/CodeQL/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/github-code-scanning/codeql)
+[![Run Unit Tests](https://github.com/bcgov/developer-portal/actions/workflows/test.yaml/badge.svg)](https://github.com/bcgov/developer-portal/actions/workflows/test.yaml)
 
 This is the [developer portal for the Province of British Columbia](https://developer.gov.bc.ca) built using [Backstage](https://backstage.io).
 
