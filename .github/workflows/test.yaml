@@ -23,8 +23,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: find location of yarn cache
+        run: ./.yarn/releases/yarn-1.22.19.cjs cache dir)
+
       - name: Install Dependencies
-        run: ./.yarn/releases/yarn-1.22.19.cjs install --immutable
+        run: ./.yarn/releases/yarn-1.22.19.cjs install --frozen-lockfile
 
       - name: Run Unit Tests
         run: ./.yarn/releases/yarn-1.22.19.cjs test
