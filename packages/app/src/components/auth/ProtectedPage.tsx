@@ -1,17 +1,18 @@
 import React, { useEffect, useState, PropsWithChildren } from 'react';
-import { useApi, BackstageIdentityResponse } from '@backstage/core-plugin-api';
+import { useApi } from '@backstage/core-plugin-api';
 import {
   SignInPage,
   SignInProviderConfig,
   Progress,
 } from '@backstage/core-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getIdentityResponse } from './helpers';
 
 type ProtectedPageProps = PropsWithChildren & {
   provider: SignInProviderConfig;
 };
 
-const ProtectedPage = ({
+export const ProtectedPage = ({
   children,
   provider,
   ...props
@@ -25,12 +26,7 @@ const ProtectedPage = ({
   useEffect(() => {
     const checkSignInStatus = async () => {
       try {
-        const identityResponse: BackstageIdentityResponse | undefined =
-          await authApi.getBackstageIdentity({
-            optional: true,
-            instantPopup: false,
-          });
-
+        const identityResponse = await getIdentityResponse(authApi);
         setIsSignedIn(!!identityResponse);
       } catch (error) {
         setIsSignedIn(false);
@@ -63,5 +59,3 @@ const ProtectedPage = ({
 
   return <>{children}</>;
 };
-
-export default ProtectedPage;

@@ -1,8 +1,4 @@
-import {
-  SignInPageProps,
-  useApi,
-  BackstageIdentityResponse,
-} from '@backstage/core-plugin-api';
+import { SignInPageProps, useApi } from '@backstage/core-plugin-api';
 import {
   ProxiedSignInPage,
   SignInPage,
@@ -12,15 +8,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { protectedRoutes } from '../utils/routes';
-import { Location } from 'react-router-dom';
-
-export const isProtected = (location: Location) => {
-  const regex = /\/[^/?]*/i;
-  return protectedRoutes.some(
-    route => route.path === (location.pathname.match(regex)?.[0] ?? ''),
-  );
-};
+import { getIdentityResponse, isProtected } from './helpers';
 
 export type Props = SignInPageProps & {
   provider: SignInProviderConfig;
@@ -35,19 +23,21 @@ export const CustomSignInPage = (props: Props) => {
   useEffect(() => {
     const checkSignInStatus = async () => {
       try {
-        const identityResponse: BackstageIdentityResponse | undefined =
-          await authApi.getBackstageIdentity({
-            optional: true,
-            instantPopup: false,
-          });
+        const identityResponse = await getIdentityResponse(authApi);
 
         if (!identityResponse) {
-          // show login page if they go to a protected location
+          /*
+          Not logged in with GitHub or as the guest user
+          If they are going to a protected page then they need to SignIn with GitHub.
+          Otherwise, they will be automatically logged in as guest user via the ProxiedSignInPage, which is a 
+          hack to allow our public pages to be accessed without a GitHub login.
+          */
           setShowLoginPage(isProtected(location));
-          return;
+        } else {
+          // They are logged in as either Guest or with GitHub account. The SigInPage will handle what to do
+          // (either show the login page or not).
+          setShowLoginPage(true);
         }
-        // logged in with provider, so carry on to SignIn page which will pass the login and not show signinpage
-        setShowLoginPage(true);
       } catch (err: any) {
         setShowLoginPage(true);
         throw err;

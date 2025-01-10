@@ -34,7 +34,7 @@ import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { Custom404Page } from './components/404/Custom404Page';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
-import ProtectedPage from './components/auth/ProtectedPage';
+import { ProtectedPage } from './components/auth/ProtectedPage';
 import { CustomSignInPage } from './components/auth/CustomSignInPage';
 import { protectedRoutes, redirectRoutes } from './components/utils/routes';
 import { RequirePermission } from '@backstage/plugin-permission-react';

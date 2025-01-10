@@ -29,6 +29,20 @@ $ yarn install
 $ yarn dev
 ```
 
+### Testing
+
+End to end tests are in the [packages/app/e2e-tests](./packages/app/e2e-tests/) directory.
+
+To run locally:
+
+- start a local instance
+- `yarn test:e2e`
+
+To run against a dev instance:
+
+- modify the [playwright.config.ts](./playwright.config.ts) file to include the url you want to test
+- `yarn test:e2e`
+
 ### Dockerfile
 
 Note: The dockerfile is based on the [Janus showcase project](https://github.com/janus-idp/backstage-showcase/)

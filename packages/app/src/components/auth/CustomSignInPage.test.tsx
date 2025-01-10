@@ -1,82 +1,157 @@
-import { isProtected } from './CustomSignInPage';
-import { Location } from 'react-router-dom';
+import React from 'react';
+import { waitFor } from '@testing-library/react';
+import {
+  TestApiRegistry,
+  mockApis,
+  registerMswTestHooks,
+  renderInTestApp,
+} from '@backstage/test-utils';
+import { CustomSignInPage } from './CustomSignInPage';
+import { ApiProvider, ConfigReader } from '@backstage/core-app-api';
+import {
+  configApiRef,
+  discoveryApiRef,
+  githubAuthApiRef,
+} from '@backstage/core-plugin-api';
+import { setupServer } from 'msw';
+import { rest } from 'msw';
+import { useLocation } from 'react-router-dom';
 
-describe('isProtected function', () => {
-  it('should return true for catalog routes', () => {
-    const catLoc: Partial<Location> = { pathname: '/catalog' } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph',
-    } as Location;
-    const settingLoc: Partial<Location> = { pathname: '/settings' } as Location;
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: jest.fn(),
+}));
 
-    expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
-    expect(isProtected(settingLoc as Location)).toBe(true);
+const mockUseLocation = useLocation as jest.MockedFunction<typeof useLocation>;
+
+const defaultUseLocationResult = {
+  pathname: '',
+  search: '',
+  state: {},
+  hash: '',
+  key: '',
+};
+
+const mockNoIdentityAuthApi = {
+  getBackstageIdentity: jest.fn().mockResolvedValue(undefined),
+};
+
+describe('CustomSignInPage Tests', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+    jest.resetModules();
   });
 
-  it('should return true for catalog routes when path has trailing slash', () => {
-    const catLoc: Partial<Location> = { pathname: '/catalog/' } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph/',
-    } as Location;
-    const settingLoc: Partial<Location> = {
-      pathname: '/settings/',
-    } as Location;
+  const createMockConfig = () =>
+    new ConfigReader({
+      app: {
+        title: 'Unit Test',
+        baseUrl: 'http://localhost:3000',
+      },
+      backend: {
+        baseUrl: 'http://localhost:7007',
+      },
+    });
 
-    expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
-    expect(isProtected(settingLoc as Location)).toBe(true);
+  const github_auth_provider = {
+    id: 'github-auth-provider',
+    title: 'GitHub',
+    message: 'Sign in using GitHub',
+    apiRef: githubAuthApiRef,
+  };
+
+  const mswServer = setupServer();
+  registerMswTestHooks(mswServer);
+
+  it('should prompt for login to protected path when not logged in', async () => {
+    mockUseLocation.mockReturnValue({
+      ...defaultUseLocationResult,
+      pathname: '/create',
+    });
+
+    const mockConfig = createMockConfig();
+
+    const apiRegistry = TestApiRegistry.from(
+      [configApiRef, mockConfig],
+      [githubAuthApiRef, mockNoIdentityAuthApi],
+    );
+
+    const rendered = await renderInTestApp(<div>test</div>, {
+      components: {
+        SignInPage: props => (
+          <ApiProvider apis={apiRegistry}>
+            <CustomSignInPage provider={github_auth_provider} {...props} />
+          </ApiProvider>
+        ),
+      },
+    });
+
+    await waitFor(() => {
+      expect(rendered.queryByRole('progressbar')).not.toBeInTheDocument();
+    });
+    // screen.debug();
+    expect(
+      await rendered.findByRole('button', { name: /Sign In/i }),
+    ).toBeInTheDocument();
+    expect(rendered.queryByText('test')).not.toBeInTheDocument();
   });
 
-  it('should return true for a catalog route when path has parameters', () => {
-    const catLoc: Partial<Location> = {
-      pathname: '/catalog?param=1&param=2',
-    } as Location;
-    expect(isProtected(catLoc as Location)).toBe(true);
-  });
+  it('should allow access to non protected paths when not logged in', async () => {
+    const DISCOVERY_BASE_URL = 'http://example.com';
+    // needed for ProxiedSignInPage
+    mswServer.use(
+      rest.get(
+        `${DISCOVERY_BASE_URL}/api/auth/guest/refresh`,
+        (req, res, ctx) => {
+          return res(
+            ctx.status(200),
+            ctx.json({
+              profile: { displayName: 'Guest User' },
+              backstageIdentity: {
+                token: 'a.e30.c',
+                identity: {
+                  type: 'user',
+                  userEntityRef: 'user:default/guest',
+                  ownershipEntityRefs: ['user:default/guest'],
+                },
+              },
+            }),
+          );
+        },
+      ),
+    );
+    mockUseLocation.mockReturnValue({
+      ...defaultUseLocationResult,
+      pathname: '/docs',
+    });
 
-  it('should return true for a catalog route when path has sub path', () => {
-    const catLoc: Partial<Location> = {
-      pathname: '/catalog/some/other/place',
-    } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph/other/',
-    } as Location;
-    expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
-  });
+    const mockConfig = createMockConfig();
+    const apiRegistry = TestApiRegistry.from(
+      [configApiRef, mockConfig],
+      [githubAuthApiRef, mockNoIdentityAuthApi],
+      [discoveryApiRef, mockApis.discovery({ baseUrl: DISCOVERY_BASE_URL })],
+    );
 
-  it('should return false for a non catalog route', () => {
-    const otherLoc: Partial<Location> = { pathname: '/something' } as Location;
-    const otherLocWitSubPath: Partial<Location> = {
-      pathname: '/something/over/there',
-    } as Location;
-    expect(isProtected(otherLoc as Location)).toBe(false);
-    expect(isProtected(otherLocWitSubPath as Location)).toBe(false);
-  });
+    const rendered = await renderInTestApp(<div>guest</div>, {
+      components: {
+        SignInPage: props => (
+          <ApiProvider apis={apiRegistry}>
+            <CustomSignInPage provider={github_auth_provider} {...props} />
+          </ApiProvider>
+        ),
+      },
+    });
 
-  it('should return false for a route that starts with the same string as a catalog route', () => {
-    const otherLoc: Partial<Location> = { pathname: '/setting' } as Location;
-    const otherLoc2: Partial<Location> = {
-      pathname: '/catalog-grapha',
-    } as Location;
-    expect(isProtected(otherLoc as Location)).toBe(false);
-    expect(isProtected(otherLoc2 as Location)).toBe(false);
-  });
+    await waitFor(() => {
+      expect(rendered.queryByRole('progressbar')).not.toBeInTheDocument();
+    });
 
-  it('should return false for a route that starts with the same string as a catalog route and has params', () => {
-    const otherLoc: Partial<Location> = {
-      pathname: '/setting?param=1',
-    } as Location;
-    const otherLoc2: Partial<Location> = {
-      pathname: '/catalog-grapha?x=7&y=abc',
-    } as Location;
-    expect(isProtected(otherLoc as Location)).toBe(false);
-    expect(isProtected(otherLoc2 as Location)).toBe(false);
-  });
+    expect(
+      rendered.queryByRole('button', { name: /Sign In/i }),
+    ).not.toBeInTheDocument();
 
-  it('should return false for the root route', () => {
-    const rootLoc: Partial<Location> = { pathname: '/' } as Location;
-    expect(isProtected(rootLoc as Location)).toBe(false);
+    await waitFor(() => {
+      expect(rendered.getByText('guest')).toBeInTheDocument();
+    });
   });
 });
