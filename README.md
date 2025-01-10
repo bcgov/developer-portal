@@ -40,8 +40,8 @@ To run locally:
 
 To run against a dev instance:
 
-- modify the [playwright.config.ts](./playwright.config.ts) file to include the url you want to test
-- `yarn test:e2e`
+- Set the `PLAYWRIGHT_URL` to your dev instance when running the test
+- `PLAYWRIGHT_URL=https://dev.example.org yarn test:e2e`
 
 ### Dockerfile
 

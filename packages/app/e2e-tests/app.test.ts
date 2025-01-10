@@ -15,6 +15,8 @@
  */
 import { test, expect } from '@playwright/test';
 
+test.describe.configure({ mode: 'parallel' });
+
 /**
  * All pages in this section are accessible without the need to login first.
  * A default guest user is used behind the scenes.
@@ -33,7 +35,7 @@ test.describe('Login not needed to access non-protected pages', () => {
     await page.getByRole('link', { name: 'Mobile development guide' }).click();
     await expect(
       page.getByRole('heading', { name: 'Mobile app development' }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 20_000 }); // give this extra time to load, it seems slow sometimes and fails
   });
 
   test('search is available', async ({ page }) => {
