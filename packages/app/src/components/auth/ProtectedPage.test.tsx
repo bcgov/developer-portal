@@ -104,7 +104,7 @@ describe('ProtectedPage Tests', () => {
       expect(rendered.queryByRole('progressbar')).not.toBeInTheDocument();
     });
 
-    rendered.debug();
+    // rendered.debug();
     await waitFor(() => {
       expect(
         rendered.queryByRole('button', { name: /Sign In/i }),

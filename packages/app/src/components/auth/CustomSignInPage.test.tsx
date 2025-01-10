@@ -13,7 +13,7 @@ import {
   discoveryApiRef,
   githubAuthApiRef,
 } from '@backstage/core-plugin-api';
-import { setupServer } from 'msw';
+import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { useLocation } from 'react-router-dom';
 

@@ -31,8 +31,9 @@ test.describe('Login not needed to access non-protected pages', () => {
       page.getByText('Documentation available in BCDevExchange'),
     ).toBeVisible();
     await page.getByRole('link', { name: 'Mobile development guide' }).click();
-    page.waitForLoadState();
-    await expect(page.getByTitle('mobile-developer-guide')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Mobile app development' }),
+    ).toBeVisible();
   });
 
   test('search is available', async ({ page }) => {
@@ -44,7 +45,9 @@ test.describe('Login not needed to access non-protected pages', () => {
 
   test('api-docs are available', async ({ page }) => {
     await page.goto('/api-docs');
-    await expect(page.getByText('APIs')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'All apis (0)' }),
+    ).toBeVisible();
   });
 
   test('tech-radar is available', async ({ page }) => {
