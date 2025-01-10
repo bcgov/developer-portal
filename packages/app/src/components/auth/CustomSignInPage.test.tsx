@@ -102,7 +102,7 @@ describe('CustomSignInPage Tests', () => {
     mswServer.use(
       rest.get(
         `${DISCOVERY_BASE_URL}/api/auth/guest/refresh`,
-        (req, res, ctx) => {
+        (_, res, ctx) => {
           return res(
             ctx.status(200),
             ctx.json({
