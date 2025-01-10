@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - devxt-1653 # testing if workflow works
   pull_request:
     branches:
       - main
