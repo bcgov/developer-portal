@@ -31,6 +31,7 @@ import {
 // import { useApp } from '@backstage/core-plugin-api';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import { CustomSearchModal } from '../search/CustomModal';
 
 const storedTheme = localStorage.getItem('theme');
@@ -57,7 +58,7 @@ const useSidebarLogoStyles = makeStyles({
     alignItems: 'center',
     marginBottom: 40,
     paddingTop: 42,
-    marginLeft: -10
+    marginLeft: -10,
   },
   linkOpen: {
     width: sidebarConfig.drawerWidthClosed,
@@ -77,7 +78,12 @@ const SidebarLogo = () => {
 
   return (
     <div className={classes.root}>
-      <Link to="/" underline="none" className={isOpen ? classes.linkOpen : classes.linkClose} aria-label="Home">
+      <Link
+        to="/"
+        underline="none"
+        className={isOpen ? classes.linkOpen : classes.linkClose}
+        aria-label="Home"
+      >
         {isOpen ? <LogoFull /> : <LogoIcon />}
       </Link>
     </div>
@@ -88,28 +94,25 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
   const { state, toggleModal } = useSearchModal();
 
   return (
-  <SidebarPage>
-    <Sidebar>
-      <SidebarLogo />
-      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-      <SearchModalProvider>
-        <SidebarItem
-          className="search-icon"
-          icon={SearchIcon}
-          text="Search"
-          onClick={toggleModal}
-        />
-        <CustomSearchModal
-          {...state}
-          toggleModal={toggleModal}
-        />
-      </SearchModalProvider>
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="/" text="Home" />
-        {/* Global nav, not org-specific */}
-        {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
+    <SidebarPage>
+      <Sidebar>
+        <SidebarLogo />
+        <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
+          <SearchModalProvider>
+            <SidebarItem
+              className="search-icon"
+              icon={SearchIcon}
+              text="Search"
+              onClick={toggleModal}
+            />
+            <CustomSearchModal {...state} toggleModal={toggleModal} />
+          </SearchModalProvider>
+        </SidebarGroup>
+        <SidebarDivider />
+        <SidebarGroup label="Menu" icon={<MenuIcon />}>
+          <SidebarItem icon={HomeIcon} to="/" text="Home" />
+          {/* Global nav, not org-specific */}
+          {/* <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
           <SidebarSubmenu title="Catalog">
           <SidebarSubmenuItem
               title="APIs"
@@ -150,28 +153,32 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           </SidebarSubmenu>
         </SidebarItem>
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" /> */}
-        <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
-        {/* End global nav */}
-        {/* <SidebarDivider />
+          <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+          <SidebarItem icon={LibraryAddIcon} to="create" text="Wizards" />
+          {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
+          {/* End global nav */}
+          {/* <SidebarDivider />
         <SidebarScrollWrapper>
           <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
         </SidebarScrollWrapper> */}
-      </SidebarGroup>
-      <SidebarSpace />
-      <SidebarGroup
-        label="Offsite Links"
-      >
-        <SidebarItem icon={LaunchIcon} to="https://classic.developer.gov.bc.ca" text="Classic DevHub" />
-      </SidebarGroup>
-      <SidebarGroup
-        label="Settings"
-        icon={<UserSettingsSignInAvatar />}
-        to="/settings"
-      >
-        <SidebarSettings />
-      </SidebarGroup>
-    </Sidebar>
-    {children}
-  </SidebarPage>
-)};
+        </SidebarGroup>
+        <SidebarSpace />
+        <SidebarGroup label="Offsite Links">
+          <SidebarItem
+            icon={LaunchIcon}
+            to="https://classic.developer.gov.bc.ca"
+            text="Classic DevHub"
+          />
+        </SidebarGroup>
+        <SidebarGroup
+          label="Settings"
+          icon={<UserSettingsSignInAvatar />}
+          to="/settings"
+        >
+          <SidebarSettings />
+        </SidebarGroup>
+      </Sidebar>
+      {children}
+    </SidebarPage>
+  );
+};
