@@ -33,6 +33,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import { CustomSearchModal } from '../search/CustomModal';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 
 const storedTheme = localStorage.getItem('theme');
 
@@ -92,6 +93,10 @@ const SidebarLogo = () => {
 
 export const Root = ({ children }: PropsWithChildren<{}>) => {
   const { state, toggleModal } = useSearchModal();
+  const config = useApi(configApiRef);
+  const wizardsEnabled =
+    config.getOptionalConfig('app.wizards') &&
+    config.getBoolean('app.wizards.enabled');
 
   return (
     <SidebarPage>
@@ -154,7 +159,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
         </SidebarItem>
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" /> */}
           <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-          <SidebarItem icon={LibraryAddIcon} to="create" text="Wizards" />
+          {wizardsEnabled ? (
+            <SidebarItem icon={LibraryAddIcon} to="create" text="Wizards" />
+          ) : null}
           {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." /> */}
           {/* End global nav */}
           {/* <SidebarDivider />

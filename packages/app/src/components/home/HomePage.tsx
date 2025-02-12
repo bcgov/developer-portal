@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { BCGovBannerText, BCGovHeaderText } from './HomeHeaderText';
 import { HomePageCards } from './HomePageCards';
 import { AnnounceBanner } from './AnnounceBanner';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import * as tokens from '@bcgov/design-tokens/js';
 
 const useStyles = makeStyles({
@@ -67,17 +68,23 @@ const GlobalStyle = createGlobalStyle`
 
 const HomePage = () => {
   const classes = useStyles();
+  const config = useApi(configApiRef);
+  const wizardsEnabled =
+    config.getOptionalConfig('app.wizards') &&
+    config.getBoolean('app.wizards.enabled');
 
   return (
     <Page themeId="home">
       <GlobalStyle />
       <Content>
-        <AnnounceBanner id={0} title="Quickstart wizards launch">
-          <Typography>
-            reduce startup times for new apps with the{' '}
-            <Link to="/create">OpenShift quickstart wizard</Link>
-          </Typography>
-        </AnnounceBanner>
+        {wizardsEnabled ? (
+          <AnnounceBanner id={0} title="Quickstart wizards launch">
+            <Typography>
+              reduce startup times for new apps with the{' '}
+              <Link to="/create">OpenShift quickstart wizard</Link>
+            </Typography>
+          </AnnounceBanner>
+        ) : null}
 
         <div className={classes.root}>
           <BCGovBannerText variant="h2" gutterBottom>
