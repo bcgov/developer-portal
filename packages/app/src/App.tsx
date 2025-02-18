@@ -151,6 +151,18 @@ const routes = (
             subtitle:
               'Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies',
           }}
+          groups={[
+            {
+              title: 'Quickstarts',
+              filter: entity =>
+                entity?.metadata?.tags?.includes('quickstarts') ?? false,
+            },
+            {
+              title: 'TechDocs',
+              filter: entity =>
+                entity?.metadata?.tags?.includes('techdocs') ?? false,
+            },
+          ]}
         />
       }
     />
