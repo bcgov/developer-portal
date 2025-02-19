@@ -284,8 +284,8 @@ export const HomePageCards = () => {
 
         <Grid container spacing={4}>
           {docs.map(d => (
-            <Grid item sm={12} md={4} style={{ display: 'flex' }}>
-              <Card key={d.key} classes={{ root: classes.card }}>
+            <Grid item key={d.key} sm={12} md={4} style={{ display: 'flex' }}>
+              <Card classes={{ root: classes.card }}>
                 <CardMedia>
                   <ItemCardHeader
                     classes={{ root: classes.cardHeader }}
