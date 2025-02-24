@@ -1,13 +1,163 @@
 apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: digital-office
+  title: Digital Office
+  description: OCIO Digital Office
+spec:
+  type: division
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ecosystem
+  title: Digital Ecosystem
+  description: BC Government Digital Ecosystem
+spec:
+  owner: group:digital-office
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ecosystem-enablers
+  title: Ecosystem Enablers
+  description: Internal services developed or governed by the BC Government for the benefit of the BC Government Digital Ecosystem
+spec:
+  owner: group:digital-office
+  subdomainOf: ecosystem
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: digital-services
+  title: Digital Services
+  description: External Digital Services developed by the BC Government
+spec:
+  owner: group:digital-office
+  subdomainOf: ecosystem
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: silver
+  description: BC Gov silver-tier shared OpenShift/Kubernetes cluster.
+spec:
+  type: kubernetes-cluster
+  owner: group:bcgov/platform-services-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: gold
+  description: BC Gov gold-tier shared OpenShift/Kubernetes cluster.
+spec:
+  type: kubernetes-cluster
+  owner: group:bcgov/platform-services-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: gold-dr
+  description: BC Gov gold-tier shared disaster recovery OpenShift/Kubernetes cluster.
+spec:
+  type: kubernetes-cluster
+  owner: group:bcgov/platform-services-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: emerald
+  description: BC Gov emerald-tier shared OpenShift/Kubernetes cluster.
+spec:
+  type: kubernetes-cluster
+  owner: group:bcgov/platform-services-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: f5ff48-tools
+  description: Stores DevHub catalog and other related data.
+spec:
+  type: kubernetes-namespace
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: f5ff48-dev
+  description: Stores DevHub catalog and other related data.
+spec:
+  type: kubernetes-namespace
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: f5ff48-test
+  description: Stores DevHub catalog and other related data.
+spec:
+  type: kubernetes-namespace
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: f5ff48-prod
+  description: Stores DevHub catalog and other related data.
+spec:
+  type: kubernetes-namespace
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: devhub
+  description: A system to help developers be more informed and efficient when building software for the BC Government.
+spec:
+  owner: group:bcgov/developer-experience
+  lifecycle: production
+  domain: ecosystem-enablers
+---
+apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: developer-portal
   description: A portal for the BC Government developer community.
   annotations:
     github.com/project-slug: bcgov/developer-portal
-    github.com/team-slug: bcgov/teams/exchange-lab-developer-portal-team
-  #   backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: developer-portal
 spec:
+  system: devhub
   type: website
   owner: group:bcgov/exchange-lab-developer-portal-team
-  lifecycle: experimental
+  lifecycle: production
+  dependsOn:
+    - resource:devhub-db
+    - resource:devhub-techdocs-bucket
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: devhub-db
+  description: Stores DevHub catalog and other related data.
+  annotations:
+    backstage.io/kubernetes-id: devhub-db
+spec:
+  type: database
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: devhub-techdocs-bucket
+  description: Stores DevHub catalog and other related data.
+spec:
+  type: s3-bucket
+  owner: group:bcgov/exchange-lab-developer-portal-team
+  system: devhub

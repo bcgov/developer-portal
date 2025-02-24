@@ -114,3 +114,9 @@ catalog:
         schedule:
           frequency: { minutes: 60 }
           timeout: { minutes: 15 }
+  rules:
+    - allow:
+        [Component, API, Location, Template, Resource, System, Group, Domain]
+  locations:
+    - type: file
+      target: ../../catalog-info.yaml
