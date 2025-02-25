@@ -14,6 +14,7 @@ backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(
   import('@roadiehq/scaffolder-backend-module-http-request/new-backend'),
 );
+backend.add(import('@roadiehq/scaffolder-backend-module-utils'));
 backend.add(import('@backstage/plugin-auth-backend'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-search-backend'));

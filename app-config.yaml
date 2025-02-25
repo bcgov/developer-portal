@@ -12,6 +12,8 @@ app:
     snowplow:
       enabled: true
       collectorUrl: https://spm.apps.gov.bc.ca
+  wizards:
+    enabled: false
 
 organization:
   name: BCDevExchange
