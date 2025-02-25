@@ -76,88 +76,116 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: f5ff48-tools
-  description: Stores DevHub catalog and other related data.
+  name: xyz123-tools
+  description: For deployment of tools and utilities related to live apps.
 spec:
   type: kubernetes-namespace
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: f5ff48-dev
-  description: Stores DevHub catalog and other related data.
+  name: xyz123-dev
+  description: For deployment of development application artifacts.
 spec:
   type: kubernetes-namespace
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: f5ff48-test
-  description: Stores DevHub catalog and other related data.
+  name: xyz123-test
+  description: For deployment of test application artifacts.
 spec:
   type: kubernetes-namespace
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: f5ff48-prod
-  description: Stores DevHub catalog and other related data.
+  name: xyz123-prod
+  description: For deployment of production application artifacts.
 spec:
   type: kubernetes-namespace
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: devhub
-  description: A system to help developers be more informed and efficient when building software for the BC Government.
+  name: bcparks-reservation
+  description: BC Parks reservation system.
 spec:
   owner: group:bcgov/developer-experience
   lifecycle: production
-  domain: ecosystem-enablers
+  domain: digital-services
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: developer-portal
-  description: A portal for the BC Government developer community.
+  name: reserve-rec-public
+  description: For the Parks and Recreation Digital Transformation project.
   annotations:
-    github.com/project-slug: bcgov/developer-portal
-    backstage.io/kubernetes-id: developer-portal
+    github.com/project-slug: bcgov/reserve-rec-public
 spec:
-  system: devhub
+  system: bcparks-reservation
   type: website
-  owner: group:bcgov/exchange-lab-developer-portal-team
+  owner: group:bcgov/bc-parks-reservation
   lifecycle: production
   dependsOn:
-    - resource:devhub-db
+    - component:reserve-rec-api
+    - resource:devhub-techdocs-bucket
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: reserve-rec-api
+  description: For the Parks and Recreation Digital Transformation project.
+  annotations:
+    github.com/project-slug: bcgov/reserve-rec-api
+spec:
+  system: bcparks-reservation
+  type: service
+  owner: group:bcgov/bc-parks-reservation
+  lifecycle: production
+  dependsOn:
+    - resource:reserve-rec-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: reserve-rec-admin
+  description: For the Parks and Recreation Digital Transformation project.
+  annotations:
+    github.com/project-slug: bcgov/reserve-rec-admin
+spec:
+  system: bcparks-reservation
+  type: website
+  owner: group:bcgov/bc-parks-reservation
+  lifecycle: production
+  dependsOn:
+    - component:reserve-rec-api
     - resource:devhub-techdocs-bucket
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: devhub-db
-  description: Stores DevHub catalog and other related data.
-  annotations:
-    backstage.io/kubernetes-id: devhub-db
+  name: reserve-rec-db
+  description: Data store for BC Parks reservation system.
 spec:
   type: database
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: devhub-techdocs-bucket
-  description: Stores DevHub catalog and other related data.
+  name: reserve-rec-bucket
+  description: Stores documents and other related assets related to support the BC Parks Reservation system.
 spec:
   type: s3-bucket
-  owner: group:bcgov/exchange-lab-developer-portal-team
-  system: devhub
+  owner: group:bcgov/bc-parks-reservation
+  system: bcparks-reservation
