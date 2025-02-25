@@ -1,0 +1,29 @@
+name: Dependency Analysis
+type: best-practice
+level: optional
+description: Components perform dependency chain analysis
+---
+name: TypeScript Strict mode
+type: code-quality
+level: recommended
+description: TypeScript projects configured to use strict mode
+---
+name: Container Vulnerability
+type: security
+level: required
+description: Services have container vulnerability scanning reports that are less than 90 days old.
+---
+name: Automatic Updates
+type: best-practice
+level: optional
+description: Components configured to automatically update dependencies
+---
+name: Critical dependencies
+type: security
+level: required
+description: Components do not have CRITICAL alerts older than 30 days
+---
+name: Unencrypted Credentials
+type: security
+level: strictly-enforced
+description: Components do not store unencrypted credentials in the repository

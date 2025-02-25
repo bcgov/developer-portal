@@ -1,0 +1,54 @@
+# geneated with prompt: turn these into backstage component entities of kind "policy" and apiVersion: bc-gov/policyv1
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: dependency-analysis
+  description: Components perform dependency chain analysis
+spec:
+  type: best-practice
+  level: optional
+---
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: typescript-strict
+  description: TypeScript projects configured to use strict mode
+spec:
+  type: code-quality
+  level: recommended
+---
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: container-vulnerability
+  description: Services have container vulnerability scanning reports that are less than 90 days old.
+spec:
+  type: security
+  level: required
+---
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: automatic-updates
+  description: Components configured to automatically update dependencies
+spec:
+  type: best-practice
+  level: optional
+---
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: critical-dependencies
+  description: Components do not have CRITICAL alerts older than 30 days
+spec:
+  type: security
+  level: required
+---
+apiVersion: bc-gov/policyv1
+kind: Policy
+metadata:
+  name: unencrypted-credentials
+  description: Components do not store unencrypted credentials in the repository
+spec:
+  type: security
+  level: strictly-enforced
