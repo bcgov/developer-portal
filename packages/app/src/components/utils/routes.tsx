@@ -3,24 +3,8 @@ import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import React from 'react';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
-import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
-import { CatalogEntityPage, CatalogIndexPage } from '@backstage/plugin-catalog';
-import { entityPage } from '../catalog/EntityPage';
 
 export const protectedRoutes = [
-  {
-    path: '/catalog',
-    element: <CatalogIndexPage />,
-  },
-  {
-    path: '/catalog/:namespace/:kind/:name',
-    element: <CatalogEntityPage />,
-    page: entityPage,
-  },
-  {
-    path: '/catalog-graph',
-    element: <CatalogGraphPage />,
-  },
   {
     path: '/catalog-import',
     element: <CatalogImportPage />,

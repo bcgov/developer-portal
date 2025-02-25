@@ -1,7 +1,11 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import { catalogPlugin } from '@backstage/plugin-catalog';
+import {
+  CatalogEntityPage,
+  CatalogIndexPage,
+  catalogPlugin,
+} from '@backstage/plugin-catalog';
 import { scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
@@ -16,13 +20,13 @@ import {
   /* ExpandableNavigation*/ ReportIssue,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { apis } from './apis';
-
+import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
-
+import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
 import { devExTheme } from './devex-theme';
@@ -42,7 +46,8 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 const github_auth_provider = {
   id: 'github-auth-provider',
   title: 'GitHub',
-  message: 'Sign in using GitHub. You must be a member of the bcgov GitHub organization.',
+  message:
+    'Sign in using GitHub. You must be a member of the bcgov GitHub organization.',
   apiRef: githubAuthApiRef,
 };
 
@@ -108,6 +113,13 @@ const routes = (
     <Route path="/" element={<HomepageCompositionRoot />}>
       <HomePage />
     </Route>
+    <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route
+      path="/catalog/:namespace/:kind/:name"
+      element={<CatalogEntityPage />}
+    >
+      {entityPage}
+    </Route>
     <Route path="/docs" element={<TechDocsIndexPage />} />
     <Route
       path="/docs/:namespace/:kind/:name/*"
@@ -132,6 +144,7 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
+    <Route path="/catalog-graph" element={<CatalogGraphPage />} />
 
     {redirectRoutes.map(route => (
       <Route
@@ -156,9 +169,7 @@ const routes = (
             )}
           </ProtectedPage>
         }
-      >
-        {route.page ? route.page : null}
-      </Route>
+      />
     ))}
   </FlatRoutes>
 );
