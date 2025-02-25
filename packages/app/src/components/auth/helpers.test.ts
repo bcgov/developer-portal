@@ -2,51 +2,28 @@ import { isProtected } from './helpers';
 import { Location } from 'react-router-dom';
 
 describe('isProtected function', () => {
-  it('should return true for catalog routes', () => {
-    const catLoc: Partial<Location> = { pathname: '/catalog' } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph',
-    } as Location;
+  it('should return true for settings and catalog-import routes', () => {
     const settingLoc: Partial<Location> = { pathname: '/settings' } as Location;
+    const catLoc: Partial<Location> = {
+      pathname: '/catalog-import',
+    } as Location;
 
     expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
     expect(isProtected(settingLoc as Location)).toBe(true);
   });
 
-  it('should return true for catalog routes when path has trailing slash', () => {
-    const catLoc: Partial<Location> = { pathname: '/catalog/' } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph/',
-    } as Location;
+  it('should return true for settings and catalog-import routes when path has trailing slash', () => {
     const settingLoc: Partial<Location> = {
       pathname: '/settings/',
     } as Location;
-
-    expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
+    const catLoc: Partial<Location> = {
+      pathname: '/catalog-import/',
+    } as Location;
     expect(isProtected(settingLoc as Location)).toBe(true);
-  });
-
-  it('should return true for a catalog route when path has parameters', () => {
-    const catLoc: Partial<Location> = {
-      pathname: '/catalog?param=1&param=2',
-    } as Location;
     expect(isProtected(catLoc as Location)).toBe(true);
   });
 
-  it('should return true for a catalog route when path has sub path', () => {
-    const catLoc: Partial<Location> = {
-      pathname: '/catalog/some/other/place',
-    } as Location;
-    const catGraphLoc: Partial<Location> = {
-      pathname: '/catalog-graph/other/',
-    } as Location;
-    expect(isProtected(catLoc as Location)).toBe(true);
-    expect(isProtected(catGraphLoc as Location)).toBe(true);
-  });
-
-  it('should return false for a non catalog route', () => {
+  it('should return false for a a generic route', () => {
     const otherLoc: Partial<Location> = { pathname: '/something' } as Location;
     const otherLocWitSubPath: Partial<Location> = {
       pathname: '/something/over/there',
@@ -55,24 +32,32 @@ describe('isProtected function', () => {
     expect(isProtected(otherLocWitSubPath as Location)).toBe(false);
   });
 
-  it('should return false for a route that starts with the same string as a catalog route', () => {
+  it('should return false for a route that starts with the same string as the settings or catalog-import route', () => {
     const otherLoc: Partial<Location> = { pathname: '/setting' } as Location;
     const otherLoc2: Partial<Location> = {
-      pathname: '/catalog-grapha',
+      pathname: '/catalog-impor',
+    } as Location;
+    const otherLoc3: Partial<Location> = {
+      pathname: '/catalog-importa',
     } as Location;
     expect(isProtected(otherLoc as Location)).toBe(false);
     expect(isProtected(otherLoc2 as Location)).toBe(false);
+    expect(isProtected(otherLoc3 as Location)).toBe(false);
   });
 
-  it('should return false for a route that starts with the same string as a catalog route and has params', () => {
+  it('should return false for a route that starts with the same string as the settings or catalog-import route and has params', () => {
     const otherLoc: Partial<Location> = {
-      pathname: '/setting?param=1',
+      pathname: '/sett?param=1',
     } as Location;
     const otherLoc2: Partial<Location> = {
-      pathname: '/catalog-grapha?x=7&y=abc',
+      pathname: '/catalog-impor?x=7&y=abc',
+    } as Location;
+    const otherLoc3: Partial<Location> = {
+      pathname: '/catalog-importa?x=7&y=abc',
     } as Location;
     expect(isProtected(otherLoc as Location)).toBe(false);
     expect(isProtected(otherLoc2 as Location)).toBe(false);
+    expect(isProtected(otherLoc3 as Location)).toBe(false);
   });
 
   it('should return false for the root route', () => {
