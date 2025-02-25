@@ -1,4 +1,5 @@
 import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -12,16 +13,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { Link } from '@material-ui/core';
 
-interface PoliciesCardProps {
-  variant?: InfoCardVariants;
-  rating?: string | undefined;
-}
-
 const ratingChip = {
   borderRadius: '10px',
   width: '90px',
   marginLeft: '10px',
   color: 'gray',
+};
+
+const avatar = {
+  color: 'black',
+  padding: '20px',
+  marginRight: '15px',
 };
 
 const useStyles = makeStyles({
@@ -67,14 +69,21 @@ const useStyles = makeStyles({
   },
   policyRowContent: {
     display: 'flex',
+    flex: 4,
     alignItems: 'center',
-  },
-  policyRowDescription: {
-    marginLeft: '15px',
   },
   policyRowCheckbox: {
     fill: '#00be00',
     fontSize: 40,
+    marginRight: '15px',
+  },
+  red: {
+    ...avatar,
+    backgroundColor: 'pink',
+  },
+  green: {
+    ...avatar,
+    backgroundColor: 'lime',
   },
 });
 
@@ -86,15 +95,75 @@ const exampleComponentPolicies = [
   'Repository does not contain unencrypted secrets',
 ];
 
-const PolicyRow = ({ description }: { description: string }) => {
+const exampleSystemPolicies = [
+  {
+    red: 3,
+    green: 7,
+    description:
+      'All components in the system perform dependency chain analysis',
+  },
+  {
+    red: 0,
+    green: 5,
+    description:
+      'All services in the system have container vulnerability scanning reports that are <90 days old',
+  },
+  {
+    red: 10,
+    green: 0,
+    description:
+      'All components in the system are configured to automatically update dependencies',
+  },
+  {
+    red: 47,
+    green: 0,
+    description:
+      'Components do not have dependency CRITICAL alerts older than 30 days',
+  },
+  {
+    red: 0,
+    green: 10,
+    description:
+      'Components do not store unencrypted credentials in the repository',
+  },
+];
+
+interface PoliciesCardProps {
+  variant?: InfoCardVariants;
+  rating?: string | undefined;
+}
+
+const PolicyRow1 = ({ policy }: { policy: string }) => {
   const classes = useStyles();
   return (
     <Grid className={classes.policyRowContainer}>
       <Grid className={classes.policyRowContent}>
         <CheckBoxIcon className={classes.policyRowCheckbox} />
-        <Typography className={classes.policyRowDescription}>
-          {description}
-        </Typography>
+        <Typography>{policy}</Typography>
+      </Grid>
+      <Link style={{ cursor: 'pointer' }} variant="body2">
+        Learn more
+      </Link>
+    </Grid>
+  );
+};
+
+const PolicyRow2 = ({
+  policy: { red, green, description },
+}: {
+  policy: {
+    red: number;
+    green: number;
+    description: string;
+  };
+}) => {
+  const classes = useStyles();
+  return (
+    <Grid className={classes.policyRowContainer}>
+      <Grid className={classes.policyRowContent}>
+        <Avatar className={classes.red}>{red}</Avatar>
+        <Avatar className={classes.green}>{green}</Avatar>
+        <Typography>{description}</Typography>
       </Grid>
       <Link style={{ cursor: 'pointer' }} variant="body2">
         Learn more
@@ -145,12 +214,19 @@ export function EntityPoliciesCard(props: PoliciesCardProps) {
       />
       <Divider />
       <CardContent className={classes.cardContent}>
-        {exampleComponentPolicies.map(policy => (
-          <>
-            <PolicyRow description={policy} />
-            <Divider variant="middle" />
-          </>
-        ))}
+        {entity.kind === 'Component'
+          ? exampleComponentPolicies.map(policy => (
+              <>
+                <PolicyRow1 policy={policy} />
+                <Divider variant="middle" />
+              </>
+            ))
+          : exampleSystemPolicies.map(policy => (
+              <>
+                <PolicyRow2 policy={policy} />
+                <Divider variant="middle" />
+              </>
+            ))}
       </CardContent>
     </Card>
   );
