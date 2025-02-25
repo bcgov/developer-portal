@@ -4,7 +4,7 @@ import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,
   EntityConsumingComponentsCard,
-  EntityHasApisCard,
+  // EntityHasApisCard,
   EntityProvidedApisCard,
   EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
@@ -12,8 +12,8 @@ import {
   EntityAboutCard,
   EntityDependsOnComponentsCard,
   EntityDependsOnResourcesCard,
-  EntityHasComponentsCard,
-  EntityHasResourcesCard,
+  // EntityHasComponentsCard,
+  // EntityHasResourcesCard,
   EntityHasSystemsCard,
   EntityLayout,
   EntityLinksCard,
@@ -146,7 +146,7 @@ const overviewContent = (
 		</Grid> */}
 
     <Grid item md={6} xs={12}>
-      <EntityPoliciesCard variant="gridItem" />
+      <EntityPoliciesCard variant="gridItem" rating="GOLD" />
     </Grid>
   </Grid>
 );
@@ -358,17 +358,20 @@ const systemPage = (
         <Grid item md={6} xs={12}>
           <EntityCatalogGraphCard variant="gridItem" height={400} />
         </Grid>
-        <Grid item md={4} xs={12}>
+        {/* <Grid item md={4} xs={12}>
           <EntityLinksCard />
-        </Grid>
-        <Grid item md={8}>
+        </Grid> */}
+        {/* <Grid item md={6}>
           <EntityHasComponentsCard variant="gridItem" />
-        </Grid>
-        <Grid item md={6}>
+        </Grid> */}
+        {/* <Grid item md={6}>
           <EntityHasApisCard variant="gridItem" />
-        </Grid>
-        <Grid item md={6}>
+        </Grid> */}
+        {/* <Grid item md={6}>
           <EntityHasResourcesCard variant="gridItem" />
+        </Grid> */}
+        <Grid item md={6} xs={12}>
+          <EntityPoliciesCard variant="gridItem" />
         </Grid>
       </Grid>
     </EntityLayout.Route>

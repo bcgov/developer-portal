@@ -14,7 +14,15 @@ import { Link } from '@material-ui/core';
 
 interface PoliciesCardProps {
   variant?: InfoCardVariants;
+  rating?: string | undefined;
 }
+
+const ratingChip = {
+  borderRadius: '10px',
+  width: '90px',
+  marginLeft: '10px',
+  color: 'gray',
+};
 
 const useStyles = makeStyles({
   header: {
@@ -26,13 +34,15 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
   },
-  goldRating: {
+  ratingGold: {
+    ...ratingChip,
     backgroundColor: 'gold',
-    border: '3px solid orange',
-    borderRadius: '10px',
-    padding: '5px',
-    marginLeft: '10px',
-    color: 'gray',
+    border: '3px solid yellow',
+  },
+  ratingBronze: {
+    ...ratingChip,
+    backgroundColor: '#faaf08',
+    border: '3px solid gold',
   },
   gridItemCard: {
     display: 'flex',
@@ -93,8 +103,26 @@ const PolicyRow = ({ description }: { description: string }) => {
   );
 };
 
+const PolicyRating = ({ rating }: { rating: string | undefined }) => {
+  const classes = useStyles();
+  if (rating === 'GOLD') {
+    return (
+      <Grid className={classes.headerRating}>
+        <Typography variant="body2">Security Rating</Typography>
+        <Chip label="GOLD" className={classes.ratingGold} />
+      </Grid>
+    );
+  }
+  return (
+    <Grid className={classes.headerRating}>
+      <Typography variant="body2">Security Rating</Typography>
+      <Chip label="BRONZE" className={classes.ratingBronze} />
+    </Grid>
+  );
+};
+
 export function EntityPoliciesCard(props: PoliciesCardProps) {
-  const { variant } = props;
+  const { variant, rating } = props;
   const classes = useStyles();
   const { entity } = useEntity();
 
@@ -111,10 +139,7 @@ export function EntityPoliciesCard(props: PoliciesCardProps) {
         title={
           <Grid className={classes.header}>
             <Typography variant="h5">Security Policies</Typography>
-            <Grid className={classes.headerRating}>
-              <Typography variant="body2">Security Rating</Typography>
-              <Chip label="GOLD" className={classes.goldRating} />
-            </Grid>
+            <PolicyRating rating={rating} />
           </Grid>
         }
       />
