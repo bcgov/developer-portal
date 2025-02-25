@@ -9,9 +9,29 @@ import {
   createApiFactory,
   analyticsApiRef,
 } from '@backstage/core-plugin-api';
-import { SnowplowAnalytics } from '@internal/plugin-analytics-module-snowplow'
+import { SnowplowAnalytics } from '@internal/plugin-analytics-module-snowplow';
+import {
+  catalogApiRef,
+  entityPresentationApiRef,
+} from '@backstage/plugin-catalog-react';
+import { DefaultEntityPresentationApi } from '@backstage/plugin-catalog';
+import { PolicyIcon } from './components/utils/icons';
 
 export const apis: AnyApiFactory[] = [
+  createApiFactory({
+    api: entityPresentationApiRef,
+    deps: {
+      catalgoApi: catalogApiRef,
+    },
+    factory({ catalgoApi }) {
+      return DefaultEntityPresentationApi.create({
+        catalogApi: catalgoApi,
+        kindIcons: {
+          Policy: PolicyIcon,
+        },
+      });
+    },
+  }),
   createApiFactory({
     api: scmIntegrationsApiRef,
     deps: { configApi: configApiRef },
