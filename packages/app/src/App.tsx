@@ -42,7 +42,7 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 const github_auth_provider = {
   id: 'github-auth-provider',
   title: 'GitHub',
-  message: 'Sign in using GitHub',
+  message: 'Sign in using GitHub. You must be a member of the bcgov GitHub organization.',
   apiRef: githubAuthApiRef,
 };
 
