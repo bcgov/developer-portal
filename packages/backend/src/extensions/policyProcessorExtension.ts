@@ -2,6 +2,7 @@ import { Entity } from '@backstage/catalog-model';
 import { createBackendModule } from '@backstage/backend-plugin-api';
 import { CatalogProcessor } from '@backstage/plugin-catalog-node';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import { POLICY_KIND, policyValidator } from '@internal/plugin-policy-common';
 
 class PolicyEntityProcessor implements CatalogProcessor {
   getProcessorName(): string {
@@ -9,7 +10,7 @@ class PolicyEntityProcessor implements CatalogProcessor {
   }
 
   async validateEntityKind(entity: Entity): Promise<boolean> {
-    return entity.kind === 'Policy';
+    return entity.kind === POLICY_KIND && policyValidator.check(entity);
   }
 }
 
