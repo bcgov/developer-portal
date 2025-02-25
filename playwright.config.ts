@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { defineConfig } from '@playwright/test';
-import { generateProjects } from '@backstage/e2e-test-utils/playwright';
+import { defineConfig, devices } from '@playwright/test';
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  testDir: 'packages/app/e2e-tests',
   timeout: 60_000,
   expect: {
     timeout: 5_000,
@@ -46,5 +47,22 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   outputDir: 'node_modules/.cache/e2e-test-results',
-  projects: generateProjects(), // Find all packages with e2e-test folders
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'], channel: 'chromium' },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'Microsoft Edge',
+      use: { ...devices['Desktop Edge'], channel: 'chromium' },
+    },
+  ],
 });
