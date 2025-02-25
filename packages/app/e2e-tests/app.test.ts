@@ -56,6 +56,28 @@ test.describe('Login not needed to access non-protected pages', () => {
     await page.goto('/tech-radar');
     await expect(page.getByText('Tech Radar')).toBeVisible();
   });
+
+  test('catalog is available', async ({ page }) => {
+    await page.goto('/catalog');
+    await expect(page.getByText('BCDevExchange Catalog')).toBeVisible();
+  });
+
+  test('catalog is available when it has params', async ({ page }) => {
+    await page.goto(
+      '/catalog?filters%5Bkind%5D=component&filters%5Buser%5D=owned&limit=20',
+    );
+    await expect(page.getByText('BCDevExchange Catalog')).toBeVisible();
+  });
+
+  test('catalog entity is available', async ({ page }) => {
+    await page.goto('/catalog/default/component/mobile-developer-guide');
+    await expect(page.getByText('Mobile development guide')).toBeVisible();
+  });
+
+  test('catalog-graph is available', async ({ page }) => {
+    await page.goto('/catalog-graph');
+    await expect(page.getByText('Catalog Graph')).toBeVisible();
+  });
 });
 
 /**
@@ -69,28 +91,6 @@ test.describe('Login needed to access protected pages', () => {
 
   test('login needed for settings', async ({ page }) => {
     await page.goto('/settings');
-    await expect(page.getByRole('button', { name: /Sign In/i })).toBeVisible();
-  });
-
-  test('login needed for catalog', async ({ page }) => {
-    await page.goto('/catalog');
-    await expect(page.getByRole('button', { name: /Sign In/i })).toBeVisible();
-  });
-
-  test('login needed for catalog when it has params', async ({ page }) => {
-    await page.goto(
-      '/catalog?filters%5Bkind%5D=component&filters%5Buser%5D=owned&limit=20',
-    );
-    await expect(page.getByRole('button', { name: /Sign In/i })).toBeVisible();
-  });
-
-  test('login needed going directly to catalog entity', async ({ page }) => {
-    await page.goto('/catalog/default/component/mobile-developer-guide');
-    await expect(page.getByRole('button', { name: /Sign In/i })).toBeVisible();
-  });
-
-  test('login needed for catalog-graph', async ({ page }) => {
-    await page.goto('/catalog-graph');
     await expect(page.getByRole('button', { name: /Sign In/i })).toBeVisible();
   });
 
