@@ -88,6 +88,50 @@ scope:
   - date: '2023-12'
     total: 128
     affected: 3
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 98.5
+      policies_passed: 197
+      policies_total: 200
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 97.2
+      policies_passed: 174
+      policies_total: 179
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.8
+      policies_passed: 181
+      policies_total: 187
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.9
+      policies_passed: 163
+      policies_total: 170
+    - name: 'Ministry of Health'
+      compliance_rate: 95.5
+      policies_passed: 191
+      policies_total: 200
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.4
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 83.7
+      policies_passed: 87
+      policies_total: 104
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 84.9
+      policies_passed: 96
+      policies_total: 113
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 85.6
+      policies_passed: 95
+      policies_total: 111
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 86.2
+      policies_passed: 94
+      policies_total: 109
 ---
 title: TypeScript Strict Mode
 name: typescript-strict-mode
@@ -171,6 +215,50 @@ scope:
   - date: '2023-12'
     total: 112
     affected: 5
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 96.8
+      policies_passed: 194
+      policies_total: 200
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.9
+      policies_passed: 173
+      policies_total: 180
+    - name: 'Ministry of Finance'
+      compliance_rate: 97.2
+      policies_passed: 185
+      policies_total: 190
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.4
+      policies_passed: 164
+      policies_total: 170
+    - name: 'Ministry of Health'
+      compliance_rate: 95.7
+      policies_passed: 191
+      policies_total: 200
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 83.6
+      policies_passed: 92
+      policies_total: 110
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 81.9
+      policies_passed: 86
+      policies_total: 105
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 82.8
+      policies_passed: 95
+      policies_total: 115
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 83.2
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 84.1
+      policies_passed: 93
+      policies_total: 110
 ---
 title: Container Vulnerability
 name: container-vulnerability
@@ -262,6 +350,50 @@ scope:
   - date: '2023-12'
     total: 185
     affected: 3
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 96.9
+      policies_passed: 189
+      policies_total: 195
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.8
+      policies_passed: 177
+      policies_total: 185
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.4
+      policies_passed: 185
+      policies_total: 192
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.6
+      policies_passed: 167
+      policies_total: 175
+    - name: 'Ministry of Health'
+      compliance_rate: 97.1
+      policies_passed: 192
+      policies_total: 198
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 81.8
+      policies_passed: 92
+      policies_total: 112
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 82.4
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 81.6
+      policies_passed: 93
+      policies_total: 114
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 82.7
+      policies_passed: 91
+      policies_total: 110
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 82.1
+      policies_passed: 94
+      policies_total: 115
 ---
 title: Automatic Updates
 name: automatic-updates
@@ -345,6 +477,50 @@ scope:
   - date: '2023-12'
     total: 108
     affected: 15
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.2
+      policies_passed: 185
+      policies_total: 190
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.8
+      policies_passed: 174
+      policies_total: 182
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.5
+      policies_passed: 181
+      policies_total: 188
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.1
+      policies_passed: 171
+      policies_total: 178
+    - name: 'Ministry of Health'
+      compliance_rate: 95.9
+      policies_passed: 187
+      policies_total: 195
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.5
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 83.1
+      policies_passed: 88
+      policies_total: 106
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.9
+      policies_passed: 94
+      policies_total: 112
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 82.8
+      policies_passed: 90
+      policies_total: 109
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 83.4
+      policies_passed: 93
+      policies_total: 111
 ---
 title: Critical dependencies
 name: critical-dependencies
@@ -436,6 +612,50 @@ scope:
   - date: '2023-12'
     total: 255
     affected: 1
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.3
+      policies_passed: 190
+      policies_total: 195
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 96.1
+      policies_passed: 181
+      policies_total: 188
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.8
+      policies_passed: 186
+      policies_total: 192
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.9
+      policies_passed: 169
+      policies_total: 176
+    - name: 'Ministry of Health'
+      compliance_rate: 97.1
+      policies_passed: 190
+      policies_total: 196
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.3
+      policies_passed: 91
+      policies_total: 110
+    - name: 'Ministry of Emergency Management'
+      compliance_rate: 81.9
+      policies_passed: 87
+      policies_total: 106
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.1
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Indigenous Relations'
+      compliance_rate: 82.7
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Energy and Mines'
+      compliance_rate: 83.4
+      policies_passed: 95
+      policies_total: 114
 ---
 title: Unencrypted Credentials
 name: unencrypted-credentials
@@ -525,3 +745,47 @@ scope:
   - date: '2023-12'
     total: 230
     affected: 0
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.5
+      policies_passed: 193
+      policies_total: 198
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 96.8
+      policies_passed: 179
+      policies_total: 185
+    - name: 'Ministry of Finance'
+      compliance_rate: 97.1
+      policies_passed: 189
+      policies_total: 195
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.4
+      policies_passed: 174
+      policies_total: 180
+    - name: 'Ministry of Health'
+      compliance_rate: 96.9
+      policies_passed: 186
+      policies_total: 192
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.8
+      policies_passed: 95
+      policies_total: 115
+    - name: 'Ministry of Emergency Management'
+      compliance_rate: 82.5
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.1
+      policies_passed: 98
+      policies_total: 118
+    - name: 'Ministry of Indigenous Relations'
+      compliance_rate: 82.9
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Energy and Mines'
+      compliance_rate: 83.2
+      policies_passed: 97
+      policies_total: 116
