@@ -28,6 +28,8 @@ const ComplianceDataSchema = z.object({
   fail: z.number().min(0),
 });
 
+export type ComplianceData = z.infer<typeof ComplianceDataSchema>;
+
 // Scope data point schema
 const ScopeDataSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}$/),
