@@ -47,6 +47,7 @@ import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { Custom404Page } from './components/404/Custom404Page';
 import { columns } from './components/utils/columns';
+import { DefaultFilters } from './filters';
 
 const app = createApp({
   apis,
@@ -115,7 +116,12 @@ const routes = (
       <HomePage />
     </Route>
     <Route path="/Systems" element={<Navigate to="catalog" />} />
-    <Route path="/catalog" element={<CatalogIndexPage columns={columns} />} />
+    <Route
+      path="/catalog"
+      element={
+        <CatalogIndexPage columns={columns} filters={<DefaultFilters />} />
+      }
+    />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}

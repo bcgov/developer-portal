@@ -172,7 +172,7 @@ const PolicyRow2 = ({
   );
 };
 
-const PolicyRating = ({ rating }: { rating: string | undefined }) => {
+export const PolicyRating = ({ rating }: { rating: string | undefined }) => {
   const classes = useStyles();
   if (rating === 'GOLD') {
     return (

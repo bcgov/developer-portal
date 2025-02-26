@@ -4,7 +4,6 @@ import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,
   EntityConsumingComponentsCard,
-  // EntityHasApisCard,
   EntityProvidedApisCard,
   EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
@@ -12,8 +11,7 @@ import {
   EntityAboutCard,
   EntityDependsOnComponentsCard,
   EntityDependsOnResourcesCard,
-  // EntityHasComponentsCard,
-  // EntityHasResourcesCard,
+  EntityHasSubcomponentsCard,
   EntityHasSystemsCard,
   EntityLayout,
   EntityLinksCard,
@@ -58,9 +56,11 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 
-import { EntitySecurityInsightsContent } from '@roadiehq/backstage-plugin-security-insights';
-
 import { EntityPoliciesCard } from './EntityPoliciesCard';
+import {
+  componentSecurityAlertsContent,
+  SystemSecurityAlertsContent,
+} from './SecurityAlerts';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -137,14 +137,24 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
+    <Grid item md={4} xs={12}>
+      <EntityLinksCard />
+    </Grid>
+    <Grid item md={8} xs={12}>
+      <EntityHasSubcomponentsCard variant="gridItem" />
+    </Grid>
+  </Grid>
+);
 
-    {/* <Grid item md={4} xs={12}>
-			<EntityLinksCard/>
-		</Grid>
-		<Grid item md={8} xs={12}>
-			<EntityHasSubcomponentsCard variant="gridItem"/>
-		</Grid> */}
-
+const overviewContentWithPolicies = (
+  <Grid container spacing={3} alignItems="stretch">
+    {entityWarningContent}
+    <Grid item md={6}>
+      <EntityAboutCard variant="gridItem" />
+    </Grid>
+    <Grid item md={6} xs={12}>
+      <EntityCatalogGraphCard variant="gridItem" height={400} />
+    </Grid>
     <Grid item md={6} xs={12}>
       <EntityPoliciesCard variant="gridItem" rating="GOLD" />
     </Grid>
@@ -154,7 +164,7 @@ const overviewContent = (
 const serviceEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
-      {overviewContent}
+      {overviewContentWithPolicies}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
@@ -187,8 +197,8 @@ const serviceEntityPage = (
       {techdocsContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/security-insights" title="Security Insights">
-      <EntitySecurityInsightsContent />
+    <EntityLayout.Route path="/alerts" title="Security Alerts">
+      {componentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -196,7 +206,7 @@ const serviceEntityPage = (
 const websiteEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
-      {overviewContent}
+      {overviewContentWithPolicies}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
@@ -218,8 +228,8 @@ const websiteEntityPage = (
       {techdocsContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/security-insights" title="Security Insights">
-      <EntitySecurityInsightsContent />
+    <EntityLayout.Route path="/alerts" title="Security Alerts">
+      {componentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -255,6 +265,10 @@ const defaultEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/alerts" title="Security Alerts">
+      {componentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -393,6 +407,9 @@ const systemPage = (
         ]}
         unidirectional={false}
       />
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/alerts" title="Security Alerts">
+      <SystemSecurityAlertsContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
