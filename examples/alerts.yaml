@@ -14,6 +14,7 @@ apiVersion: bc-gov/alertsv1
 kind: Alert
 metadata:
   name: system-dependency
+  title: critical-dependencies
   description: openssl vulnerability detected
 spec:
   category: Runtime
@@ -25,7 +26,7 @@ spec:
 apiVersion: bc-gov/alertsv1
 kind: Alert
 metadata:
-  name: system-dependency-2
+  name: critical-dependencies
   title: system-dependency
   description: Low risk vulnerability detected in React
 spec:
@@ -38,7 +39,7 @@ spec:
 apiVersion: bc-gov/alertsv1
 kind: Alert
 metadata:
-  name: exposed-secrets
+  name: unencrypted-credentials
   description: Found possible secrets in repository
 spec:
   category: Secrets
@@ -50,7 +51,7 @@ spec:
 apiVersion: bc-gov/alertsv1
 kind: Alert
 metadata:
-  name: automatic-dependency-updates
+  name: automatic-updates
   description: Automatic dependency updates were not detected
 spec:
   category: Dependencies
