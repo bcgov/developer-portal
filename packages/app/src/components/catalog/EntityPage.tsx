@@ -62,6 +62,11 @@ import {
   SystemSecurityAlertsContent,
 } from './SecurityAlerts';
 import { PolicyComplianceCard } from './PolicyComplianceCard';
+import {
+  PolicyToolsCard,
+  PolicyMostCompliantCard,
+  PolicyLeastCompliantCard,
+} from './PolicyOverviewCards';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -438,12 +443,20 @@ const policyPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
       <Grid container spacing={3} alignItems="stretch">
-        {entityWarningContent}
         <Grid item md={6}>
           <EntityAboutCard variant="gridItem" />
         </Grid>
+        <Grid item md={6}>
+          <PolicyToolsCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyMostCompliantCard variant="gridItem" />
+        </Grid>
         <Grid item md={6} xs={12}>
           <PolicyComplianceCard />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyLeastCompliantCard variant="gridItem" />
         </Grid>
       </Grid>
     </EntityLayout.Route>
