@@ -81,8 +81,9 @@ const policyCategoryColumn: TableColumn<CatalogTableRow> = {
 };
 
 const levelColumn: TableColumn<CatalogTableRow> = {
-  title: 'Level',
+  title: 'Policy Level',
   field: 'spec.level',
+  width: '15%',
   render: row => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const classes = useStyles();
@@ -101,9 +102,9 @@ export const componentAlertsColumns: CatalogTableColumnsFunc = () => {
   return [
     alertColumn,
     severityColumn,
+    levelColumn,
     policyColumn,
     policyCategoryColumn,
-    levelColumn,
   ];
 };
 
@@ -112,8 +113,8 @@ export const systemAlertsColumns: CatalogTableColumnsFunc = () => {
     entityColumn,
     alertColumn,
     severityColumn,
+    levelColumn,
     policyColumn,
     policyCategoryColumn,
-    levelColumn,
   ];
 };
