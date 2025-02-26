@@ -31,20 +31,15 @@ const entityColumn: TableColumn<CatalogTableRow> = {
   title: 'Entity',
   field: 'spec.entity',
   width: '15%',
-  render: ({ entity }) => entity.spec?.entity,
-};
-
-const typeColumn: TableColumn<CatalogTableRow> = {
-  title: 'Type',
-  field: 'spec.entityType',
-  width: '10%',
-  render: ({ entity }) => entity.spec?.entityType,
+  render: ({ entity }) => (
+    <EntityRefLink entityRef={`${entity.spec?.entity}`} />
+  ),
 };
 
 const alertColumn: TableColumn<CatalogTableRow> = {
   title: 'Alert',
-  field: 'metadata.description',
-  render: ({ entity }) => entity.metadata?.description,
+  field: 'spec.alert',
+  render: ({ entity }) => entity.spec?.alert,
 };
 
 const severityColumn: TableColumn<CatalogTableRow> = {
@@ -52,19 +47,28 @@ const severityColumn: TableColumn<CatalogTableRow> = {
   field: 'spec.severity',
   width: '10%',
   render: row => {
-    return row.entity.spec?.severity?.toString() || '';
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const classes = useStyles();
+    const severity = row.entity.spec?.severity?.toString().toLowerCase();
+    let level = 'recommended' as keyof typeof classes;
+    if (severity === 'warning') {
+      level = 'required';
+    } else if (severity === 'critical') {
+      level = 'strictly-enforced';
+    }
+    return (
+      <Typography className={classes[level]} variant="body2">
+        {prettyText(`${severity}`)}
+      </Typography>
+    );
   },
 };
 
 const policyColumn: TableColumn<CatalogTableRow> = {
-  title: 'Policy Category',
-  field: 'spec.category',
+  title: 'Policy',
+  field: 'spec.policy',
   render: row => (
-    <EntityRefLink
-      entityRef={`policy:${
-        row.entity.metadata.title || row.entity.metadata.name
-      }`}
-    />
+    <EntityRefLink entityRef={`policy:default/${row.entity.spec?.policy}`} />
   ),
 };
 
@@ -106,7 +110,6 @@ export const componentAlertsColumns: CatalogTableColumnsFunc = () => {
 export const systemAlertsColumns: CatalogTableColumnsFunc = () => {
   return [
     entityColumn,
-    typeColumn,
     alertColumn,
     severityColumn,
     policyColumn,
