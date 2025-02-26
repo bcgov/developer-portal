@@ -15,7 +15,7 @@ kind: Alert
 metadata:
   name: system-dependency
   title: critical-dependencies
-  description: openssl vulnerability detected
+  description: OpenSSL vulnerability detected
 spec:
   category: Runtime
   level: Required
@@ -26,8 +26,8 @@ spec:
 apiVersion: bc-gov/alertsv1
 kind: Alert
 metadata:
-  name: critical-dependencies
-  title: system-dependency
+  name: system-dependency
+  title: critical-dependencies
   description: Low risk vulnerability detected in React
 spec:
   category: Dependencies
