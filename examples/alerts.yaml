@@ -1,0 +1,59 @@
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: alert-1
+spec:
+  policy: dependency-analysis
+  alert: Low risk vulnerability detected in node-cron
+  category: Dependencies
+  level: Recommended
+  severity: Warning
+  entity: component:reserve-rec-public
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: alert-2
+spec:
+  policy: critical-dependencies
+  alert: OpenSSL vulnerability detected
+  category: Runtime
+  level: Required
+  severity: Warning
+  entity: resource:emerald
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: alert-3
+spec:
+  policy: critical-dependencies
+  alert: Low risk vulnerability detected in React
+  category: Dependencies
+  level: Recommended
+  severity: Info
+  entity: resource:gold
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: alert-4
+spec:
+  policy: unencrypted-credentials
+  alert: Found possible secrets in repository
+  category: Secrets
+  level: Required
+  severity: Critical
+  entity: resource:xyz123-tools
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: alert-5
+spec:
+  policy: automatic-updates
+  alert: Automatic dependency updates were not detected
+  category: Dependencies
+  level: Optional
+  severity: Info
+  entity: component:bcparks-reservation

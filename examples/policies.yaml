@@ -1,0 +1,791 @@
+title: Dependency Analysis
+name: dependency-analysis
+type: best-practice
+level: optional
+description: Components perform dependency chain analysis
+tools:
+  - name: Snyk
+    alerts: 147
+  - name: Dependabot
+    alerts: 83
+  - name: WhiteSource
+    alerts: 219
+  - name: SonarQube Dependency Check
+    alerts: 92
+  - name: Black Duck
+    alerts: 165
+compliance:
+  - date: '2023-01'
+    pass: 85
+    fail: 15
+  - date: '2023-02'
+    pass: 87
+    fail: 13
+  - date: '2023-03'
+    pass: 89
+    fail: 11
+  - date: '2023-04'
+    pass: 90
+    fail: 10
+  - date: '2023-05'
+    pass: 92
+    fail: 8
+  - date: '2023-06'
+    pass: 91
+    fail: 9
+  - date: '2023-07'
+    pass: 93
+    fail: 7
+  - date: '2023-08'
+    pass: 94
+    fail: 6
+  - date: '2023-09'
+    pass: 95
+    fail: 5
+  - date: '2023-10'
+    pass: 96
+    fail: 4
+  - date: '2023-11'
+    pass: 97
+    fail: 3
+  - date: '2023-12'
+    pass: 98
+    fail: 2
+scope:
+  - date: '2023-01'
+    total: 100
+    affected: 15
+  - date: '2023-02'
+    total: 102
+    affected: 14
+  - date: '2023-03'
+    total: 105
+    affected: 12
+  - date: '2023-04'
+    total: 108
+    affected: 11
+  - date: '2023-05'
+    total: 110
+    affected: 10
+  - date: '2023-06'
+    total: 112
+    affected: 9
+  - date: '2023-07'
+    total: 115
+    affected: 8
+  - date: '2023-08'
+    total: 118
+    affected: 7
+  - date: '2023-09'
+    total: 120
+    affected: 6
+  - date: '2023-10'
+    total: 122
+    affected: 5
+  - date: '2023-11'
+    total: 125
+    affected: 4
+  - date: '2023-12'
+    total: 128
+    affected: 3
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 98.5
+      policies_passed: 197
+      policies_total: 200
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 97.2
+      policies_passed: 174
+      policies_total: 179
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.8
+      policies_passed: 181
+      policies_total: 187
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.9
+      policies_passed: 163
+      policies_total: 170
+    - name: 'Ministry of Health'
+      compliance_rate: 95.5
+      policies_passed: 191
+      policies_total: 200
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.4
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 83.7
+      policies_passed: 87
+      policies_total: 104
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 84.9
+      policies_passed: 96
+      policies_total: 113
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 85.6
+      policies_passed: 95
+      policies_total: 111
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 86.2
+      policies_passed: 94
+      policies_total: 109
+---
+title: TypeScript Strict Mode
+name: typescript-strict-mode
+type: code-quality
+level: recommended
+description: TypeScript projects configured to use strict mode
+tools:
+  - name: TypeScript Config Checker
+    alerts: 67
+compliance:
+  - date: '2023-01'
+    pass: 72
+    fail: 28
+  - date: '2023-02'
+    pass: 75
+    fail: 25
+  - date: '2023-03'
+    pass: 78
+    fail: 22
+  - date: '2023-04'
+    pass: 80
+    fail: 20
+  - date: '2023-05'
+    pass: 83
+    fail: 17
+  - date: '2023-06'
+    pass: 85
+    fail: 15
+  - date: '2023-07'
+    pass: 87
+    fail: 13
+  - date: '2023-08'
+    pass: 89
+    fail: 11
+  - date: '2023-09'
+    pass: 91
+    fail: 9
+  - date: '2023-10'
+    pass: 93
+    fail: 7
+  - date: '2023-11'
+    pass: 94
+    fail: 6
+  - date: '2023-12'
+    pass: 95
+    fail: 5
+scope:
+  - date: '2023-01'
+    total: 85
+    affected: 28
+  - date: '2023-02'
+    total: 87
+    affected: 25
+  - date: '2023-03'
+    total: 90
+    affected: 22
+  - date: '2023-04'
+    total: 92
+    affected: 20
+  - date: '2023-05'
+    total: 95
+    affected: 17
+  - date: '2023-06'
+    total: 98
+    affected: 15
+  - date: '2023-07'
+    total: 100
+    affected: 13
+  - date: '2023-08'
+    total: 103
+    affected: 11
+  - date: '2023-09'
+    total: 105
+    affected: 9
+  - date: '2023-10'
+    total: 108
+    affected: 7
+  - date: '2023-11'
+    total: 110
+    affected: 6
+  - date: '2023-12'
+    total: 112
+    affected: 5
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 96.8
+      policies_passed: 194
+      policies_total: 200
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.9
+      policies_passed: 173
+      policies_total: 180
+    - name: 'Ministry of Finance'
+      compliance_rate: 97.2
+      policies_passed: 185
+      policies_total: 190
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.4
+      policies_passed: 164
+      policies_total: 170
+    - name: 'Ministry of Health'
+      compliance_rate: 95.7
+      policies_passed: 191
+      policies_total: 200
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 83.6
+      policies_passed: 92
+      policies_total: 110
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 81.9
+      policies_passed: 86
+      policies_total: 105
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 82.8
+      policies_passed: 95
+      policies_total: 115
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 83.2
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 84.1
+      policies_passed: 93
+      policies_total: 110
+---
+title: Container Vulnerability
+name: container-vulnerability
+type: security
+level: required
+description: Services have container vulnerability scanning reports that are less than 90 days old.
+tools:
+  - name: Trivy
+    alerts: 143
+  - name: Clair
+    alerts: 98
+  - name: Aqua Security
+    alerts: 176
+  - name: Snyk Container
+    alerts: 124
+  - name: Docker Scout
+    alerts: 157
+compliance:
+  - date: '2023-01'
+    pass: 65
+    fail: 35
+  - date: '2023-02'
+    pass: 70
+    fail: 30
+  - date: '2023-03'
+    pass: 75
+    fail: 25
+  - date: '2023-04'
+    pass: 79
+    fail: 21
+  - date: '2023-05'
+    pass: 82
+    fail: 18
+  - date: '2023-06'
+    pass: 85
+    fail: 15
+  - date: '2023-07'
+    pass: 88
+    fail: 12
+  - date: '2023-08'
+    pass: 90
+    fail: 10
+  - date: '2023-09'
+    pass: 92
+    fail: 8
+  - date: '2023-10'
+    pass: 94
+    fail: 6
+  - date: '2023-11'
+    pass: 96
+    fail: 4
+  - date: '2023-12'
+    pass: 97
+    fail: 3
+scope:
+  - date: '2023-01'
+    total: 150
+    affected: 35
+  - date: '2023-02'
+    total: 155
+    affected: 30
+  - date: '2023-03'
+    total: 158
+    affected: 25
+  - date: '2023-04'
+    total: 160
+    affected: 21
+  - date: '2023-05'
+    total: 165
+    affected: 18
+  - date: '2023-06'
+    total: 168
+    affected: 15
+  - date: '2023-07'
+    total: 172
+    affected: 12
+  - date: '2023-08'
+    total: 175
+    affected: 10
+  - date: '2023-09'
+    total: 178
+    affected: 8
+  - date: '2023-10'
+    total: 180
+    affected: 6
+  - date: '2023-11'
+    total: 183
+    affected: 4
+  - date: '2023-12'
+    total: 185
+    affected: 3
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 96.9
+      policies_passed: 189
+      policies_total: 195
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.8
+      policies_passed: 177
+      policies_total: 185
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.4
+      policies_passed: 185
+      policies_total: 192
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.6
+      policies_passed: 167
+      policies_total: 175
+    - name: 'Ministry of Health'
+      compliance_rate: 97.1
+      policies_passed: 192
+      policies_total: 198
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 81.8
+      policies_passed: 92
+      policies_total: 112
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 82.4
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 81.6
+      policies_passed: 93
+      policies_total: 114
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 82.7
+      policies_passed: 91
+      policies_total: 110
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 82.1
+      policies_passed: 94
+      policies_total: 115
+---
+title: Automatic Updates
+name: automatic-updates
+type: best-practice
+level: optional
+description: Components configured to automatically update dependencies
+tools:
+  - name: OpenSSF Scorecard
+    alerts: 47
+compliance:
+  - date: '2023-01'
+    pass: 45
+    fail: 55
+  - date: '2023-02'
+    pass: 48
+    fail: 52
+  - date: '2023-03'
+    pass: 52
+    fail: 48
+  - date: '2023-04'
+    pass: 55
+    fail: 45
+  - date: '2023-05'
+    pass: 60
+    fail: 40
+  - date: '2023-06'
+    pass: 63
+    fail: 37
+  - date: '2023-07'
+    pass: 68
+    fail: 32
+  - date: '2023-08'
+    pass: 72
+    fail: 28
+  - date: '2023-09'
+    pass: 75
+    fail: 25
+  - date: '2023-10'
+    pass: 78
+    fail: 22
+  - date: '2023-11'
+    pass: 82
+    fail: 18
+  - date: '2023-12'
+    pass: 85
+    fail: 15
+scope:
+  - date: '2023-01'
+    total: 80
+    affected: 55
+  - date: '2023-02'
+    total: 82
+    affected: 52
+  - date: '2023-03'
+    total: 85
+    affected: 48
+  - date: '2023-04'
+    total: 88
+    affected: 45
+  - date: '2023-05'
+    total: 90
+    affected: 40
+  - date: '2023-06'
+    total: 92
+    affected: 37
+  - date: '2023-07'
+    total: 95
+    affected: 32
+  - date: '2023-08'
+    total: 98
+    affected: 28
+  - date: '2023-09'
+    total: 100
+    affected: 25
+  - date: '2023-10'
+    total: 102
+    affected: 22
+  - date: '2023-11'
+    total: 105
+    affected: 18
+  - date: '2023-12'
+    total: 108
+    affected: 15
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.2
+      policies_passed: 185
+      policies_total: 190
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 95.8
+      policies_passed: 174
+      policies_total: 182
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.5
+      policies_passed: 181
+      policies_total: 188
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.1
+      policies_passed: 171
+      policies_total: 178
+    - name: 'Ministry of Health'
+      compliance_rate: 95.9
+      policies_passed: 187
+      policies_total: 195
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.5
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Emergency Management and Climate Readiness'
+      compliance_rate: 83.1
+      policies_passed: 88
+      policies_total: 106
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.9
+      policies_passed: 94
+      policies_total: 112
+    - name: 'Ministry of Indigenous Relations and Reconciliation'
+      compliance_rate: 82.8
+      policies_passed: 90
+      policies_total: 109
+    - name: 'Ministry of Energy, Mines and Low Carbon Innovation'
+      compliance_rate: 83.4
+      policies_passed: 93
+      policies_total: 111
+---
+title: Critical dependencies
+name: critical-dependencies
+type: security
+level: required
+description: Components do not have CRITICAL alerts older than 30 days
+tools:
+  - name: Dependency-Check
+    alerts: 183
+  - name: OWASP Dependency Track
+    alerts: 156
+  - name: Retire.js
+    alerts: 92
+  - name: NPM Audit
+    alerts: 147
+  - name: Bundler Audit
+    alerts: 128
+compliance:
+  - date: '2023-01'
+    pass: 60
+    fail: 40
+  - date: '2023-02'
+    pass: 65
+    fail: 35
+  - date: '2023-03'
+    pass: 72
+    fail: 28
+  - date: '2023-04'
+    pass: 78
+    fail: 22
+  - date: '2023-05'
+    pass: 83
+    fail: 17
+  - date: '2023-06'
+    pass: 87
+    fail: 13
+  - date: '2023-07'
+    pass: 90
+    fail: 10
+  - date: '2023-08'
+    pass: 93
+    fail: 7
+  - date: '2023-09'
+    pass: 95
+    fail: 5
+  - date: '2023-10'
+    pass: 96
+    fail: 4
+  - date: '2023-11'
+    pass: 98
+    fail: 2
+  - date: '2023-12'
+    pass: 99
+    fail: 1
+scope:
+  - date: '2023-01'
+    total: 200
+    affected: 40
+  - date: '2023-02'
+    total: 205
+    affected: 35
+  - date: '2023-03'
+    total: 210
+    affected: 28
+  - date: '2023-04'
+    total: 215
+    affected: 22
+  - date: '2023-05'
+    total: 220
+    affected: 17
+  - date: '2023-06'
+    total: 225
+    affected: 13
+  - date: '2023-07'
+    total: 230
+    affected: 10
+  - date: '2023-08'
+    total: 235
+    affected: 7
+  - date: '2023-09'
+    total: 240
+    affected: 5
+  - date: '2023-10'
+    total: 245
+    affected: 4
+  - date: '2023-11'
+    total: 250
+    affected: 2
+  - date: '2023-12'
+    total: 255
+    affected: 1
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.3
+      policies_passed: 190
+      policies_total: 195
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 96.1
+      policies_passed: 181
+      policies_total: 188
+    - name: 'Ministry of Finance'
+      compliance_rate: 96.8
+      policies_passed: 186
+      policies_total: 192
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 95.9
+      policies_passed: 169
+      policies_total: 176
+    - name: 'Ministry of Health'
+      compliance_rate: 97.1
+      policies_passed: 190
+      policies_total: 196
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.3
+      policies_passed: 91
+      policies_total: 110
+    - name: 'Ministry of Emergency Management'
+      compliance_rate: 81.9
+      policies_passed: 87
+      policies_total: 106
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.1
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Indigenous Relations'
+      compliance_rate: 82.7
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Energy and Mines'
+      compliance_rate: 83.4
+      policies_passed: 95
+      policies_total: 114
+---
+title: Unencrypted Credentials
+name: unencrypted-credentials
+type: security
+level: strictly-enforced
+tools:
+  - name: GitGuardian
+    alerts: 178
+  - name: Gitleaks
+    alerts: 134
+  - name: TruffleHog
+    alerts: 156
+  - name: Detect-secrets
+    alerts: 112
+  - name: Nightfall
+compliance:
+  - date: '2023-01'
+    pass: 55
+    fail: 45
+  - date: '2023-02'
+    pass: 65
+    fail: 35
+  - date: '2023-03'
+    pass: 75
+    fail: 25
+  - date: '2023-04'
+    pass: 82
+    fail: 18
+  - date: '2023-05'
+    pass: 88
+    fail: 12
+  - date: '2023-06'
+    pass: 92
+    fail: 8
+  - date: '2023-07'
+    pass: 95
+    fail: 5
+  - date: '2023-08'
+    pass: 97
+    fail: 3
+  - date: '2023-09'
+    pass: 98
+    fail: 2
+  - date: '2023-10'
+    pass: 99
+    fail: 1
+  - date: '2023-11'
+    pass: 100
+    fail: 0
+  - date: '2023-12'
+    pass: 100
+    fail: 0
+scope:
+  - date: '2023-01'
+    total: 175
+    affected: 45
+  - date: '2023-02'
+    total: 180
+    affected: 35
+  - date: '2023-03'
+    total: 185
+    affected: 25
+  - date: '2023-04'
+    total: 190
+    affected: 18
+  - date: '2023-05'
+    total: 195
+    affected: 12
+  - date: '2023-06'
+    total: 200
+    affected: 8
+  - date: '2023-07'
+    total: 205
+    affected: 5
+  - date: '2023-08'
+    total: 210
+    affected: 3
+  - date: '2023-09'
+    total: 215
+    affected: 2
+  - date: '2023-10'
+    total: 220
+    affected: 1
+  - date: '2023-11'
+    total: 225
+    affected: 0
+  - date: '2023-12'
+    total: 230
+    affected: 0
+ministry_compliance:
+  best_performing:
+    - name: "Ministry of Citizens' Services"
+      compliance_rate: 97.5
+      policies_passed: 193
+      policies_total: 198
+    - name: 'Ministry of Attorney General'
+      compliance_rate: 96.8
+      policies_passed: 179
+      policies_total: 185
+    - name: 'Ministry of Finance'
+      compliance_rate: 97.1
+      policies_passed: 189
+      policies_total: 195
+    - name: 'Ministry of Education and Child Care'
+      compliance_rate: 96.4
+      policies_passed: 174
+      policies_total: 180
+    - name: 'Ministry of Health'
+      compliance_rate: 96.9
+      policies_passed: 186
+      policies_total: 192
+
+  needs_improvement:
+    - name: 'Ministry of Tourism, Arts, Culture and Sport'
+      compliance_rate: 82.8
+      policies_passed: 95
+      policies_total: 115
+    - name: 'Ministry of Emergency Management'
+      compliance_rate: 82.5
+      policies_passed: 89
+      policies_total: 108
+    - name: 'Ministry of Water, Land and Resource Stewardship'
+      compliance_rate: 83.1
+      policies_passed: 98
+      policies_total: 118
+    - name: 'Ministry of Indigenous Relations'
+      compliance_rate: 82.9
+      policies_passed: 93
+      policies_total: 112
+    - name: 'Ministry of Energy and Mines'
+      compliance_rate: 83.2
+      policies_passed: 97
+      policies_total: 116

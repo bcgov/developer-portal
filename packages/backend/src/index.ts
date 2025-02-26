@@ -27,6 +27,8 @@ backend.add(import('@backstage/plugin-techdocs-backend'));
 
 backend.add(import('@backstage/plugin-permission-backend'));
 backend.add(import('./extensions/permissionsPolicyExtension'));
+backend.add(import('./extensions/policyProcessorExtension'));
+backend.add(import('./extensions/alertProcessorExtension'));
 
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 backend.start();
