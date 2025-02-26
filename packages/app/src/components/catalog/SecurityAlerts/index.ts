@@ -1,4 +1,4 @@
 export {
   componentSecurityAlertsContent,
-  systemSecurityAlertsContent,
+  SystemSecurityAlertsContent,
 } from './SecurityAlerts';

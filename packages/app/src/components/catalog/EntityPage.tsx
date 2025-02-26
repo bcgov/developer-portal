@@ -59,7 +59,7 @@ import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { EntityPoliciesCard } from './EntityPoliciesCard';
 import {
   componentSecurityAlertsContent,
-  systemSecurityAlertsContent,
+  SystemSecurityAlertsContent,
 } from './SecurityAlerts';
 
 const techdocsContent = (
@@ -409,7 +409,7 @@ const systemPage = (
       />
     </EntityLayout.Route>
     <EntityLayout.Route path="/alerts" title="Security Alerts">
-      {systemSecurityAlertsContent}
+      <SystemSecurityAlertsContent />
     </EntityLayout.Route>
   </EntityLayout>
 );

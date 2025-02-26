@@ -1,1 +1,1 @@
-export { EntityPoliciesCard } from './EntityPoliciesCard';
+export { EntityPoliciesCard, PolicyRating } from './EntityPoliciesCard';
