@@ -70,7 +70,6 @@ export function PolicyToolsCard(props: PolicyToolsCardProps) {
             <TableHead>
               <TableRow>
                 <TableCell align="left">Tool Name</TableCell>
-                <TableCell align="center">EcoSystem</TableCell>
                 <TableCell align="center">Alerts</TableCell>
               </TableRow>
             </TableHead>
@@ -80,7 +79,6 @@ export function PolicyToolsCard(props: PolicyToolsCardProps) {
                   <TableCell component="th" scope="row">
                     {tool.name}
                   </TableCell>
-                  <TableCell align="center">All</TableCell>
                   <TableCell align="center">{tool.alerts}</TableCell>
                 </TableRow>
               ))}
