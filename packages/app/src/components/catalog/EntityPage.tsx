@@ -67,6 +67,7 @@ import {
   PolicyMostCompliantCard,
   PolicyLeastCompliantCard,
 } from './PolicyOverviewCards';
+import { PolicyScopeCard } from './PolicyScopeCard';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -457,6 +458,9 @@ const policyPage = (
         </Grid>
         <Grid item md={6}>
           <PolicyLeastCompliantCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyScopeCard />
         </Grid>
       </Grid>
     </EntityLayout.Route>
