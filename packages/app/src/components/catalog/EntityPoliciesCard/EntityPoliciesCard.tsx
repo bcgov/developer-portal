@@ -12,6 +12,7 @@ import { InfoCardVariants } from '@backstage/core-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { Link } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
 
 const ratingChip = {
   borderRadius: '10px',
@@ -79,11 +80,11 @@ const useStyles = makeStyles({
   },
   red: {
     ...avatar,
-    backgroundColor: 'pink',
+    backgroundColor: red['500'],
   },
   green: {
     ...avatar,
-    backgroundColor: 'lime',
+    backgroundColor: green['500'],
   },
 });
 
@@ -149,7 +150,7 @@ const PolicyRow1 = ({ policy }: { policy: string }) => {
 };
 
 const PolicyRow2 = ({
-  policy: { red, green, description },
+  policy: { red: noncompliant, green: compliant, description },
 }: {
   policy: {
     red: number;
@@ -161,8 +162,8 @@ const PolicyRow2 = ({
   return (
     <Grid className={classes.policyRowContainer}>
       <Grid className={classes.policyRowContent}>
-        <Avatar className={classes.red}>{red}</Avatar>
-        <Avatar className={classes.green}>{green}</Avatar>
+        <Avatar className={classes.red}>{noncompliant}</Avatar>
+        <Avatar className={classes.green}>{compliant}</Avatar>
         <Typography>{description}</Typography>
       </Grid>
       <Link style={{ cursor: 'pointer' }} variant="body2">
