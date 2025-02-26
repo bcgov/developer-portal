@@ -3,33 +3,525 @@ name: dependency-analysis
 type: best-practice
 level: optional
 description: Components perform dependency chain analysis
+tools:
+  - name: Snyk
+    alerts: 147
+  - name: Dependabot
+    alerts: 83
+  - name: WhiteSource
+    alerts: 219
+  - name: SonarQube Dependency Check
+    alerts: 92
+  - name: Black Duck
+    alerts: 165
+compliance:
+  - date: '2023-01'
+    pass: 85
+    fail: 15
+  - date: '2023-02'
+    pass: 87
+    fail: 13
+  - date: '2023-03'
+    pass: 89
+    fail: 11
+  - date: '2023-04'
+    pass: 90
+    fail: 10
+  - date: '2023-05'
+    pass: 92
+    fail: 8
+  - date: '2023-06'
+    pass: 91
+    fail: 9
+  - date: '2023-07'
+    pass: 93
+    fail: 7
+  - date: '2023-08'
+    pass: 94
+    fail: 6
+  - date: '2023-09'
+    pass: 95
+    fail: 5
+  - date: '2023-10'
+    pass: 96
+    fail: 4
+  - date: '2023-11'
+    pass: 97
+    fail: 3
+  - date: '2023-12'
+    pass: 98
+    fail: 2
+scope:
+  - date: '2023-01'
+    total: 100
+    affected: 15
+  - date: '2023-02'
+    total: 102
+    affected: 14
+  - date: '2023-03'
+    total: 105
+    affected: 12
+  - date: '2023-04'
+    total: 108
+    affected: 11
+  - date: '2023-05'
+    total: 110
+    affected: 10
+  - date: '2023-06'
+    total: 112
+    affected: 9
+  - date: '2023-07'
+    total: 115
+    affected: 8
+  - date: '2023-08'
+    total: 118
+    affected: 7
+  - date: '2023-09'
+    total: 120
+    affected: 6
+  - date: '2023-10'
+    total: 122
+    affected: 5
+  - date: '2023-11'
+    total: 125
+    affected: 4
+  - date: '2023-12'
+    total: 128
+    affected: 3
 ---
 title: TypeScript Strict Mode
 name: typescript-strict-mode
 type: code-quality
 level: recommended
 description: TypeScript projects configured to use strict mode
+tools:
+  - name: TypeScript Config Checker
+    alerts: 67
+compliance:
+  - date: '2023-01'
+    pass: 72
+    fail: 28
+  - date: '2023-02'
+    pass: 75
+    fail: 25
+  - date: '2023-03'
+    pass: 78
+    fail: 22
+  - date: '2023-04'
+    pass: 80
+    fail: 20
+  - date: '2023-05'
+    pass: 83
+    fail: 17
+  - date: '2023-06'
+    pass: 85
+    fail: 15
+  - date: '2023-07'
+    pass: 87
+    fail: 13
+  - date: '2023-08'
+    pass: 89
+    fail: 11
+  - date: '2023-09'
+    pass: 91
+    fail: 9
+  - date: '2023-10'
+    pass: 93
+    fail: 7
+  - date: '2023-11'
+    pass: 94
+    fail: 6
+  - date: '2023-12'
+    pass: 95
+    fail: 5
+scope:
+  - date: '2023-01'
+    total: 85
+    affected: 28
+  - date: '2023-02'
+    total: 87
+    affected: 25
+  - date: '2023-03'
+    total: 90
+    affected: 22
+  - date: '2023-04'
+    total: 92
+    affected: 20
+  - date: '2023-05'
+    total: 95
+    affected: 17
+  - date: '2023-06'
+    total: 98
+    affected: 15
+  - date: '2023-07'
+    total: 100
+    affected: 13
+  - date: '2023-08'
+    total: 103
+    affected: 11
+  - date: '2023-09'
+    total: 105
+    affected: 9
+  - date: '2023-10'
+    total: 108
+    affected: 7
+  - date: '2023-11'
+    total: 110
+    affected: 6
+  - date: '2023-12'
+    total: 112
+    affected: 5
 ---
 title: Container Vulnerability
 name: container-vulnerability
 type: security
 level: required
 description: Services have container vulnerability scanning reports that are less than 90 days old.
+tools:
+  - name: Trivy
+    alerts: 143
+  - name: Clair
+    alerts: 98
+  - name: Aqua Security
+    alerts: 176
+  - name: Snyk Container
+    alerts: 124
+  - name: Docker Scout
+    alerts: 157
+compliance:
+  - date: '2023-01'
+    pass: 65
+    fail: 35
+  - date: '2023-02'
+    pass: 70
+    fail: 30
+  - date: '2023-03'
+    pass: 75
+    fail: 25
+  - date: '2023-04'
+    pass: 79
+    fail: 21
+  - date: '2023-05'
+    pass: 82
+    fail: 18
+  - date: '2023-06'
+    pass: 85
+    fail: 15
+  - date: '2023-07'
+    pass: 88
+    fail: 12
+  - date: '2023-08'
+    pass: 90
+    fail: 10
+  - date: '2023-09'
+    pass: 92
+    fail: 8
+  - date: '2023-10'
+    pass: 94
+    fail: 6
+  - date: '2023-11'
+    pass: 96
+    fail: 4
+  - date: '2023-12'
+    pass: 97
+    fail: 3
+scope:
+  - date: '2023-01'
+    total: 150
+    affected: 35
+  - date: '2023-02'
+    total: 155
+    affected: 30
+  - date: '2023-03'
+    total: 158
+    affected: 25
+  - date: '2023-04'
+    total: 160
+    affected: 21
+  - date: '2023-05'
+    total: 165
+    affected: 18
+  - date: '2023-06'
+    total: 168
+    affected: 15
+  - date: '2023-07'
+    total: 172
+    affected: 12
+  - date: '2023-08'
+    total: 175
+    affected: 10
+  - date: '2023-09'
+    total: 178
+    affected: 8
+  - date: '2023-10'
+    total: 180
+    affected: 6
+  - date: '2023-11'
+    total: 183
+    affected: 4
+  - date: '2023-12'
+    total: 185
+    affected: 3
 ---
 title: Automatic Updates
 name: automatic-updates
 type: best-practice
 level: optional
 description: Components configured to automatically update dependencies
+tools:
+  - name: OpenSSF Scorecard
+    alerts: 47
+compliance:
+  - date: '2023-01'
+    pass: 45
+    fail: 55
+  - date: '2023-02'
+    pass: 48
+    fail: 52
+  - date: '2023-03'
+    pass: 52
+    fail: 48
+  - date: '2023-04'
+    pass: 55
+    fail: 45
+  - date: '2023-05'
+    pass: 60
+    fail: 40
+  - date: '2023-06'
+    pass: 63
+    fail: 37
+  - date: '2023-07'
+    pass: 68
+    fail: 32
+  - date: '2023-08'
+    pass: 72
+    fail: 28
+  - date: '2023-09'
+    pass: 75
+    fail: 25
+  - date: '2023-10'
+    pass: 78
+    fail: 22
+  - date: '2023-11'
+    pass: 82
+    fail: 18
+  - date: '2023-12'
+    pass: 85
+    fail: 15
+scope:
+  - date: '2023-01'
+    total: 80
+    affected: 55
+  - date: '2023-02'
+    total: 82
+    affected: 52
+  - date: '2023-03'
+    total: 85
+    affected: 48
+  - date: '2023-04'
+    total: 88
+    affected: 45
+  - date: '2023-05'
+    total: 90
+    affected: 40
+  - date: '2023-06'
+    total: 92
+    affected: 37
+  - date: '2023-07'
+    total: 95
+    affected: 32
+  - date: '2023-08'
+    total: 98
+    affected: 28
+  - date: '2023-09'
+    total: 100
+    affected: 25
+  - date: '2023-10'
+    total: 102
+    affected: 22
+  - date: '2023-11'
+    total: 105
+    affected: 18
+  - date: '2023-12'
+    total: 108
+    affected: 15
 ---
 title: Critical dependencies
 name: critical-dependencies
 type: security
 level: required
 description: Components do not have CRITICAL alerts older than 30 days
+tools:
+  - name: Dependency-Check
+    alerts: 183
+  - name: OWASP Dependency Track
+    alerts: 156
+  - name: Retire.js
+    alerts: 92
+  - name: NPM Audit
+    alerts: 147
+  - name: Bundler Audit
+    alerts: 128
+compliance:
+  - date: '2023-01'
+    pass: 60
+    fail: 40
+  - date: '2023-02'
+    pass: 65
+    fail: 35
+  - date: '2023-03'
+    pass: 72
+    fail: 28
+  - date: '2023-04'
+    pass: 78
+    fail: 22
+  - date: '2023-05'
+    pass: 83
+    fail: 17
+  - date: '2023-06'
+    pass: 87
+    fail: 13
+  - date: '2023-07'
+    pass: 90
+    fail: 10
+  - date: '2023-08'
+    pass: 93
+    fail: 7
+  - date: '2023-09'
+    pass: 95
+    fail: 5
+  - date: '2023-10'
+    pass: 96
+    fail: 4
+  - date: '2023-11'
+    pass: 98
+    fail: 2
+  - date: '2023-12'
+    pass: 99
+    fail: 1
+scope:
+  - date: '2023-01'
+    total: 200
+    affected: 40
+  - date: '2023-02'
+    total: 205
+    affected: 35
+  - date: '2023-03'
+    total: 210
+    affected: 28
+  - date: '2023-04'
+    total: 215
+    affected: 22
+  - date: '2023-05'
+    total: 220
+    affected: 17
+  - date: '2023-06'
+    total: 225
+    affected: 13
+  - date: '2023-07'
+    total: 230
+    affected: 10
+  - date: '2023-08'
+    total: 235
+    affected: 7
+  - date: '2023-09'
+    total: 240
+    affected: 5
+  - date: '2023-10'
+    total: 245
+    affected: 4
+  - date: '2023-11'
+    total: 250
+    affected: 2
+  - date: '2023-12'
+    total: 255
+    affected: 1
 ---
 title: Unencrypted Credentials
 name: unencrypted-credentials
 type: security
 level: strictly-enforced
-description: Components do not store unencrypted credentials in the repository
+tools:
+  - name: GitGuardian
+    alerts: 178
+  - name: Gitleaks
+    alerts: 134
+  - name: TruffleHog
+    alerts: 156
+  - name: Detect-secrets
+    alerts: 112
+  - name: Nightfall
+compliance:
+  - date: '2023-01'
+    pass: 55
+    fail: 45
+  - date: '2023-02'
+    pass: 65
+    fail: 35
+  - date: '2023-03'
+    pass: 75
+    fail: 25
+  - date: '2023-04'
+    pass: 82
+    fail: 18
+  - date: '2023-05'
+    pass: 88
+    fail: 12
+  - date: '2023-06'
+    pass: 92
+    fail: 8
+  - date: '2023-07'
+    pass: 95
+    fail: 5
+  - date: '2023-08'
+    pass: 97
+    fail: 3
+  - date: '2023-09'
+    pass: 98
+    fail: 2
+  - date: '2023-10'
+    pass: 99
+    fail: 1
+  - date: '2023-11'
+    pass: 100
+    fail: 0
+  - date: '2023-12'
+    pass: 100
+    fail: 0
+scope:
+  - date: '2023-01'
+    total: 175
+    affected: 45
+  - date: '2023-02'
+    total: 180
+    affected: 35
+  - date: '2023-03'
+    total: 185
+    affected: 25
+  - date: '2023-04'
+    total: 190
+    affected: 18
+  - date: '2023-05'
+    total: 195
+    affected: 12
+  - date: '2023-06'
+    total: 200
+    affected: 8
+  - date: '2023-07'
+    total: 205
+    affected: 5
+  - date: '2023-08'
+    total: 210
+    affected: 3
+  - date: '2023-09'
+    total: 215
+    affected: 2
+  - date: '2023-10'
+    total: 220
+    affected: 1
+  - date: '2023-11'
+    total: 225
+    affected: 0
+  - date: '2023-12'
+    total: 230
+    affected: 0
