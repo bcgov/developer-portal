@@ -61,6 +61,11 @@ import {
   componentSecurityAlertsContent,
   SystemSecurityAlertsContent,
 } from './SecurityAlerts';
+import {
+  PolicyToolsCard,
+  PolicyMostCompliantCard,
+  PolicyLeastCompliantCard,
+} from './PolicyOverviewCards';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -439,6 +444,15 @@ const policyPage = (
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
           <EntityAboutCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyToolsCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyMostCompliantCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PolicyLeastCompliantCard variant="gridItem" />
         </Grid>
       </Grid>
     </EntityLayout.Route>
