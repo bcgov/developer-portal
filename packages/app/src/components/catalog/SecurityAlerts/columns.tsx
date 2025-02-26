@@ -27,19 +27,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// columns [ entity, type ]
+const entityColumn: TableColumn<CatalogTableRow> = {
+  title: 'Entity',
+  field: 'spec.entity',
+  width: '15%',
+  render: ({ entity }) => entity.spec?.entity,
+};
+
+const typeColumn: TableColumn<CatalogTableRow> = {
+  title: 'Type',
+  field: 'spec.entityType',
+  width: '10%',
+  render: ({ entity }) => entity.spec?.entityType,
+};
 
 const alertColumn: TableColumn<CatalogTableRow> = {
   title: 'Alert',
   field: 'metadata.description',
-  width: '35%',
   render: ({ entity }) => entity.metadata?.description,
 };
 
 const severityColumn: TableColumn<CatalogTableRow> = {
   title: 'Severity',
   field: 'spec.severity',
-  width: '15%',
+  width: '10%',
   render: row => {
     return row.entity.spec?.severity?.toString() || '';
   },
@@ -48,7 +59,6 @@ const severityColumn: TableColumn<CatalogTableRow> = {
 const policyColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy Category',
   field: 'spec.category',
-  width: '15%',
   render: row => (
     <EntityRefLink
       entityRef={`policy:${
@@ -61,7 +71,6 @@ const policyColumn: TableColumn<CatalogTableRow> = {
 const policyCategoryColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy Category',
   field: 'spec.category',
-  width: '15%',
   render: row => {
     return row.entity.spec?.category?.toString() || '';
   },
@@ -70,7 +79,6 @@ const policyCategoryColumn: TableColumn<CatalogTableRow> = {
 const levelColumn: TableColumn<CatalogTableRow> = {
   title: 'Level',
   field: 'spec.level',
-  width: '15%',
   render: row => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const classes = useStyles();
@@ -96,5 +104,13 @@ export const componentAlertsColumns: CatalogTableColumnsFunc = () => {
 };
 
 export const systemAlertsColumns: CatalogTableColumnsFunc = () => {
-  return [];
+  return [
+    entityColumn,
+    typeColumn,
+    alertColumn,
+    severityColumn,
+    policyColumn,
+    policyCategoryColumn,
+    levelColumn,
+  ];
 };

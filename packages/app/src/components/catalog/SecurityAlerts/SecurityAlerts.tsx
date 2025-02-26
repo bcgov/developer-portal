@@ -30,9 +30,17 @@ export const componentSecurityAlertsContent = (
 );
 
 export const systemSecurityAlertsContent = (
-  <Grid container spacing={3} alignItems="stretch">
-    <Grid item md={6}>
-      header with rating
-    </Grid>
-  </Grid>
+  <EntityListProvider>
+    <CatalogFilterLayout>
+      <CatalogFilterLayout.Filters>
+        <EntityKindPicker initialFilter="alert" hidden />
+        <EntityAlertCategoryPicker />
+        <EntityAlertLevelPicker />
+        <EntityAlertSeverityPicker />
+      </CatalogFilterLayout.Filters>
+      <CatalogFilterLayout.Content>
+        <CatalogTable columns={systemAlertsColumns} actions={[]} />
+      </CatalogFilterLayout.Content>
+    </CatalogFilterLayout>
+  </EntityListProvider>
 );
