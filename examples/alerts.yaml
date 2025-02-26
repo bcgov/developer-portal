@@ -1,0 +1,60 @@
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: dependency-analysis
+  description: Low risk vulnerability detected in node-cron
+spec:
+  category: Dependencies
+  level: Recommended
+  severity: Warning
+  entity: developer-portal
+  entityType: Component
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: system-dependency
+  description: openssl vulnerability detected
+spec:
+  category: Runtime
+  level: Required
+  severity: Warning
+  entity: devhub-db
+  entityType: Resource
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: system-dependency-2
+  title: system-dependency
+  description: Low risk vulnerability detected in React
+spec:
+  category: Dependencies
+  level: Recommended
+  severity: Info
+  entity: emerald
+  entityType: Resource
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: exposed-secrets
+  description: Found possible secrets in repository
+spec:
+  category: Secrets
+  level: Required
+  severity: Critical
+  entity: gold-dr
+  entityType: Resource
+---
+apiVersion: bc-gov/alertsv1
+kind: Alert
+metadata:
+  name: automatic-dependency-updates
+  description: Automatic dependency updates were not detected
+spec:
+  category: Dependencies
+  level: Optional
+  severity: Info
+  entity: f5ff48
+  entityType: Resource

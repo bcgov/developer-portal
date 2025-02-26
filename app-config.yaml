@@ -116,7 +116,22 @@ catalog:
           timeout: { minutes: 15 }
   rules:
     - allow:
-        [Component, API, Location, Template, Resource, System, Group, Domain]
+        [
+          Component,
+          API,
+          Location,
+          Template,
+          Resource,
+          System,
+          Group,
+          Domain,
+          Policy,
+          Alert,
+        ]
   locations:
     - type: file
       target: ../../catalog-info.yaml
+    - type: file
+      target: ../../examples/policies-generated.yaml
+    - type: file
+      target: ../../examples/alerts.yaml
