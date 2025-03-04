@@ -51,18 +51,7 @@ export const DefaultFilters = (props: DefaultFiltersProps) => {
   } = props;
   return (
     <>
-      <EntityKindPicker
-        initialFilter={initialKind}
-        allowedKinds={[
-          'component',
-          'domain',
-          'group',
-          'location',
-          'policy',
-          'resource',
-          'system',
-        ]}
-      />
+      <EntityKindPicker initialFilter={initialKind} />
       <EntityTypePicker />
       <UserListPicker initialFilter={initiallySelectedFilter} />
       <EntityOwnerPicker mode={ownerPickerMode} />
