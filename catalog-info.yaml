@@ -189,3 +189,20 @@ spec:
   type: s3-bucket
   owner: group:bcgov/bc-parks-reservation
   system: bcparks-reservation
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: github-fetchers
+spec:
+  type: service
+  lifecycle: production
+  owner: guidanti
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: guidanti
+spec:
+  type: team
+  children: []
