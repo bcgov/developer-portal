@@ -5,6 +5,7 @@ import {
 } from '@backstage/plugin-catalog';
 import { startCase, camelCase } from 'lodash-es';
 import { Theme, Typography, makeStyles } from '@material-ui/core';
+import { EntityRefLink } from '@backstage/plugin-catalog-react';
 
 function prettyText(text: string) {
   return startCase(camelCase(text));
@@ -56,6 +57,62 @@ export const columns: CatalogTableColumnsFunc = entityListContext => {
         field: 'spec.type',
         render: row => {
           return prettyText(row.entity.spec?.type?.toString() || '');
+        },
+      },
+    ];
+  }
+
+  // alert columns
+  if (entityListContext.filters.kind?.value === 'alert') {
+    return [
+      {
+        title: 'Alert #',
+        field: 'metadata.name',
+        render: ({ entity }) => entity.metadata.name,
+      },
+      {
+        title: 'Source',
+        field: 'spec.source',
+        render: ({ entity }) => entity.spec?.source,
+      },
+      {
+        title: 'Description',
+        field: 'spec.alert',
+        highlight: false,
+        render: ({ entity }) => entity.spec?.alert,
+      },
+      {
+        title: 'Category',
+        field: 'spec.category',
+        highlight: false,
+        render: ({ entity }) => entity.spec?.category,
+      },
+      {
+        title: 'Entity',
+        field: 'spec.entity',
+        render: ({ entity }) => {
+          return <EntityRefLink entityRef={`${entity.spec?.entity}`} />;
+        },
+      },
+      {
+        title: 'Severity',
+        field: 'spec.severity',
+        width: '10%',
+        render: row => {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const classes = useStyles();
+          const severity = row.entity.spec?.severity?.toString().toLowerCase();
+          let level = 'recommended' as keyof typeof classes;
+          if (severity === 'warning') {
+            level = 'required';
+          } else if (severity === 'critical') {
+            level = 'strictly-enforced';
+          }
+          return (
+            <Typography className={classes[level]} variant="body2">
+              {prettyText(`${severity}`)}
+            </Typography>
+          );
         },
       },
     ];
