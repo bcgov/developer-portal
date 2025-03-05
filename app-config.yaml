@@ -133,5 +133,3 @@ catalog:
       target: ../../catalog-info.yaml
     - type: file
       target: ../../examples/policies-generated.yaml
-    - type: file
-      target: ../../examples/alerts.yaml
