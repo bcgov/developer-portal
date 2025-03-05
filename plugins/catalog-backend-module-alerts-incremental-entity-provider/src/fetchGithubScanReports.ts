@@ -29,13 +29,15 @@ export function* fetchGithubScanReports({
         }),
       );
 
-      logger.info(`🟢🟢🟢 fetched ${alerts.length} alerts for ${repo}`);
+      const activeAlerts = alerts.filter(alert => alert.state === 'open');
 
-      alerts
-        .filter(alert => alert.state === 'open')
-        .forEach(alert => {
-          results.add(alert);
-        });
+      logger.info(
+        `🟢🟢🟢 fetched ${activeAlerts.length} active alerts out of ${alerts.length} total for ${repo}`,
+      );
+
+      activeAlerts.forEach(alert => {
+        results.add(alert);
+      });
     } catch (e) {
       const error = e as { response: { data: { message: string } } };
       logger.error('🔴🔴🔴 skipping', repo, error.response.data.message);
