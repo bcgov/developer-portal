@@ -64,9 +64,12 @@ export class AlertsIncrementalEntityProvider
 
   async next(
     context: Context,
-    cursor: Cursor,
+    _cursor: Cursor,
   ): Promise<EntityIteratorResult<Cursor>> {
-    const alerts = [];
+    type CodeScanningAlertsResponse = Awaited<
+      ReturnType<typeof octokit.rest.codeScanning.listAlertsForRepo>
+    >['data'];
+    const alerts = [] as CodeScanningAlertsResponse;
     const { octokit } = context;
     try {
       await run(function* () {
@@ -100,6 +103,37 @@ export class AlertsIncrementalEntityProvider
       }
     }
 
-    return {} as EntityIteratorResult<Cursor>; // 🚨
+    const entities = alerts.map(alert => ({
+      entity: {
+        apiVersion: 'bc-gov/alertsv1',
+        kind: 'Alert',
+        metadata: {
+          name: `alert-${alert.number}`,
+          annotations: {
+            'backstage.io/managed-by-location':
+              'url:https://github.com/guidanti',
+            'backstage.io/managed-by-origin-location':
+              'url:https://github.com/guidanti',
+          },
+        },
+        spec: {
+          policy: alert.rule.name,
+          alert: alert.rule.description,
+          category: alert.most_recent_instance.category,
+          source: alert.tool.name,
+          severity: alert.rule.severity,
+          entity: 'component:github-fetchers',
+        },
+      },
+      locationKey: `alert-${alert.number}`,
+    }));
+
+    return {
+      done: true,
+      entities,
+      cursor: {
+        page: 1,
+      },
+    };
   }
 }
