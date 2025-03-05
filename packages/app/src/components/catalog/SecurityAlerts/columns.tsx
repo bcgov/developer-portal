@@ -32,7 +32,10 @@ const entityColumn: TableColumn<CatalogTableRow> = {
   field: 'spec.entity',
   width: '15%',
   render: ({ entity }) => (
-    <EntityRefLink entityRef={`${entity.spec?.entity}`} />
+    <EntityRefLink
+      entityRef={`${entity.spec?.entity}`}
+      defaultKind={entity.kind}
+    />
   ),
 };
 
@@ -81,7 +84,7 @@ const policyCategoryColumn: TableColumn<CatalogTableRow> = {
 };
 
 const levelColumn: TableColumn<CatalogTableRow> = {
-  title: 'Policy Level',
+  title: 'Remediation',
   field: 'spec.level',
   width: '15%',
   render: row => {
