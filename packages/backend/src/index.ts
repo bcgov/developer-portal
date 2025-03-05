@@ -5,6 +5,16 @@ backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
 backend.add(import('@backstage/plugin-catalog-backend'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
+
+backend.add(
+  import('@backstage/plugin-catalog-backend-module-incremental-ingestion'),
+);
+backend.add(
+  import(
+    'backstage-plugin-catalog-backend-module-alerts-incremental-entity-provider'
+  ),
+);
+
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
@@ -31,4 +41,5 @@ backend.add(import('./extensions/policyProcessorExtension'));
 backend.add(import('./extensions/alertProcessorExtension'));
 
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
+
 backend.start();
