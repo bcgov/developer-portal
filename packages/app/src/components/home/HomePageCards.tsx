@@ -217,32 +217,6 @@ export const HomePageCards = () => {
         </>
       ),
     },
-    {
-      key: 'e3',
-      url: 'https://events.redhat.com/profile/form/index.cfm?PKformID=0x1344517abcd&sc_cid=RHCTN1250000437812#overview',
-      label: 'Red Hat DevOps Roadshow',
-      icon: <EventIcon />,
-      buttonText: 'Register for the Roadshow',
-      desc: (
-        <>
-          <Typography variant="body2" paragraph>
-            This is a hands-on event designed for DevOps, security, operations,
-            and platform engineering professionals who are interested in
-            modernizing their environments.
-          </Typography>
-          <Typography variant="body2">
-            <b>What: </b>The Red Hat DevOps Roadshow
-          </Typography>
-          <Typography variant="body2">
-            <b>Where: </b>Inn at Laurel Point - 680 Montreal Street, Victoria,
-            BC
-          </Typography>
-          <Typography variant="body2">
-            <b>When: </b>Tuesday, March 4, 2025 (9AM - 2:30PM PT)
-          </Typography>
-        </>
-      ),
-    },
   ];
 
   const tools = [
