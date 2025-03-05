@@ -15,7 +15,6 @@ export function* fetchGithubScanReports({
   } = yield* call(() => octokit.rest.apps.listReposAccessibleToInstallation());
   for (const repository of repositories) {
     const {
-      default_branch,
       name: repo,
       owner: { login: owner },
     } = repository;
@@ -25,7 +24,8 @@ export function* fetchGithubScanReports({
         octokit.rest.codeScanning.listAlertsForRepo({
           owner,
           repo,
-          ref: default_branch,
+          // ref: default_branch,
+          ref: 'mk/reports',
         }),
       );
 
