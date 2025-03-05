@@ -6,8 +6,7 @@ import {
   CatalogIndexPage,
   catalogPlugin,
 } from '@backstage/plugin-catalog';
-import { CatalogImportPage } from '@backstage/plugin-catalog-import';
-import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
+import { scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
@@ -20,22 +19,14 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import {
   /* ExpandableNavigation*/ ReportIssue,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
-import {
-  AlertDisplay,
-  OAuthRequestDialog,
-  ProxiedSignInPage,
-} from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
-import { RequirePermission } from '@backstage/plugin-permission-react';
-import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
 import { devExTheme } from './devex-theme';
@@ -46,6 +37,19 @@ import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { Custom404Page } from './components/404/Custom404Page';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+import { ProtectedPage } from './components/auth/ProtectedPage';
+import { CustomSignInPage } from './components/auth/CustomSignInPage';
+import { protectedRoutes, redirectRoutes } from './components/utils/routes';
+import { RequirePermission } from '@backstage/plugin-permission-react';
+
+const github_auth_provider = {
+  id: 'github-auth-provider',
+  title: 'GitHub',
+  message:
+    'Sign in using GitHub. You must be a member of the bcgov GitHub organization.',
+  apiRef: githubAuthApiRef,
+};
 
 const app = createApp({
   apis,
@@ -98,22 +102,17 @@ const app = createApp({
   ],
   components: {
     NotFoundErrorPage: () => <Custom404Page />,
-    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+    SignInPage: props => (
+      <CustomSignInPage provider={github_auth_provider} {...props} />
+    ),
   },
 });
-
-const ExternalRedirect = ({ to }: { to: string }) => {
-  window.location.href = to;
-
-  return null;
-};
 
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<HomepageCompositionRoot />}>
       <HomePage />
     </Route>
-    <Route path="/Systems" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
@@ -122,12 +121,6 @@ const routes = (
       {entityPage}
     </Route>
     <Route path="/docs" element={<TechDocsIndexPage />} />
-    {/* redirect in case anyone has bookmarked bcdg*/}
-    <Route
-      path="/docs/default/component/bcdg"
-      element={<Navigate to="/docs/default/component/bc-developer-guide" />}
-    />
-
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
@@ -142,68 +135,42 @@ const routes = (
         />
       </TechDocsAddons>
     </Route>
-    <Route
-      path="/create"
-      element={
-        <ScaffolderPage
-          headerOptions={{
-            title: '🧙‍♂️ DevHub wizards',
-            subtitle:
-              'Create or modify bcgov GitHub repositories with easy and fast templates for common tools and technologies',
-          }}
-          groups={[
-            {
-              title: 'Quickstarts',
-              filter: entity =>
-                entity?.metadata?.tags?.includes('quickstarts') ?? false,
-            },
-            {
-              title: 'TechDocs',
-              filter: entity =>
-                entity?.metadata?.tags?.includes('techdocs') ?? false,
-            },
-          ]}
-        />
-      }
-    />
+
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
     />
-    <Route
-      path="/catalog-import"
-      element={
-        <RequirePermission permission={catalogEntityCreatePermission}>
-          <CatalogImportPage />
-        </RequirePermission>
-      }
-    />
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
-    <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
 
-    {/* redirect several popular "classic" devhub urls */}
-    <Route
-      path="/Design-System/About-the-Design-System"
-      element={
-        <Navigate to="/docs/default/component/bc-developer-guide/design-system/about-the-design-system/" />
-      }
-    />
-    <Route
-      path="/Data-and-APIs/BC-Government-API-Guidelines"
-      element={
-        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
-      }
-    />
-    <Route
-      path="/BC-Government-API-Guidelines"
-      element={
-        <ExternalRedirect to="/docs/default/component/bc-developer-guide/bc-government-api-guidelines/" />
-      }
-    />
+    {redirectRoutes.map(route => (
+      <Route
+        key={route.path}
+        path={route.path}
+        element={<Navigate to={route.to} />}
+      />
+    ))}
+
+    {protectedRoutes.map(route => (
+      <Route
+        key={route.path}
+        path={route.path}
+        element={
+          <ProtectedPage provider={github_auth_provider}>
+            {route.permission ? (
+              <RequirePermission permission={route.permission}>
+                {route.element}
+              </RequirePermission>
+            ) : (
+              route.element
+            )}
+          </ProtectedPage>
+        }
+      />
+    ))}
   </FlatRoutes>
 );
 
