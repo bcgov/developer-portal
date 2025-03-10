@@ -104,10 +104,21 @@ const levelColumn: TableColumn<CatalogTableRow> = {
 export const componentAlertsColumns: CatalogTableColumnsFunc = () => {
   return [
     alertColumn,
+    {
+      title: 'Source',
+      field: 'spec.source',
+      render: ({ entity }) => entity.spec?.source,
+    },
     severityColumn,
-    levelColumn,
-    policyColumn,
-    policyCategoryColumn,
+    // levelColumn,
+    // policyColumn,
+    // policyCategoryColumn,
+    {
+      title: 'Category',
+      field: 'spec.category',
+      highlight: false,
+      render: ({ entity }) => entity.spec?.category,
+    },
   ];
 };
 

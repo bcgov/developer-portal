@@ -65,11 +65,7 @@ export const columns: CatalogTableColumnsFunc = entityListContext => {
   // alert columns
   if (entityListContext.filters.kind?.value === 'alert') {
     return [
-      {
-        title: 'Alert #',
-        field: 'metadata.name',
-        render: ({ entity }) => entity.metadata.name,
-      },
+      CatalogTable.columns.createNameColumn(),
       {
         title: 'Source',
         field: 'spec.source',
