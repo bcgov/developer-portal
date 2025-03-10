@@ -1,6 +1,6 @@
 {
-  "name": "backstage-plugin-catalog-backend-module-alerts-incremental-entity-provider",
-  "description": "The alerts-incremental-entity-provider backend module for the catalog plugin.",
+  "name": "backstage-plugin-catalog-backend-module-alerts-policy-processor",
+  "description": "The alerts-policy-processor backend module for the catalog plugin.",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -25,12 +25,11 @@
   },
   "dependencies": {
     "@backstage/backend-plugin-api": "^1.0.1",
-    "@backstage/integration": "^1.16.1",
-    "@backstage/plugin-catalog-backend-module-incremental-ingestion": "^0.5.6",
-    "@backstage/plugin-catalog-node": "^1.16.0",
-    "@octokit/auth-app": "^4.0.13",
-    "@octokit/rest": "^19.0.13",
-    "effection": "4.0.0-alpha.5"
+    "@backstage/catalog-model": "^1.7.0",
+    "@backstage/config": "^1.2.0",
+    "@backstage/plugin-catalog-node": "^1.13.1",
+    "@backstage/types": "^1.2.1",
+    "@open-policy-agent/opa-wasm": "^1.10.0"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^1.0.2",

@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import {
   LoggerService,
   RootConfigService,
@@ -6,6 +7,7 @@ import {
   EntityIteratorResult,
   IncrementalEntityProvider,
 } from '@backstage/plugin-catalog-backend-module-incremental-ingestion';
+import { type CatalogProcessorRelationResult } from '@backstage/plugin-catalog-node';
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import { ScmIntegrations } from '@backstage/integration';
@@ -108,7 +110,13 @@ export class AlertsIncrementalEntityProvider
         apiVersion: 'bc-gov/alertsv1',
         kind: 'Alert',
         metadata: {
-          name: `alert-${alert.number}`,
+          // Strings of length at least 1, and at most 63
+          // Must consist of sequences of [a-z0-9A-Z] possibly separated by one of [-_.]
+          name: `${repository_name}-${alert.number}`,
+          // Namespaces must be sequences of [a-zA-Z0-9], possibly separated by -,
+          // at most 63 characters in total. Namespace names are case insensitive
+          // and will be rendered as lower case in most places.
+          namespace: orgname,
           annotations: {
             'backstage.io/managed-by-location':
               'url:https://github.com/guidanti',
@@ -117,12 +125,27 @@ export class AlertsIncrementalEntityProvider
           },
         },
         spec: {
-          policy: alert.rule.name,
-          alert: alert.rule.description,
-          category: alert.most_recent_instance.category,
-          source: alert.tool.name,
-          severity: alert.rule.severity,
-          entity: 'component:github-fetchers',
+          alert,
+          __entity_relations: [
+            {
+              type: 'relation',
+              relation: {
+                // from component to alert
+                type: 'hasAlerts',
+                source: 'component:github-fetchers',
+                target: `alert:{orgname}/${repository_name}-${alert.number}`,
+              },
+            },
+            {
+              type: 'relation',
+              relation: {
+                // from alert to component
+                type: 'forComponent',
+                target: 'component:github-fetchers',
+                source: `alert:{orgname}/${repository_name}-${alert.number}`,
+              },
+            },
+          ],
         },
       },
       locationKey: `alert-${alert.number}`,
