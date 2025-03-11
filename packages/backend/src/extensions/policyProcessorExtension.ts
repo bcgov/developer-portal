@@ -10,7 +10,7 @@ class PolicyEntityProcessor implements CatalogProcessor {
   }
 
   async validateEntityKind(entity: Entity): Promise<boolean> {
-    return entity.kind === POLICY_KIND && policyValidator.check(entity);
+    return entity.kind === POLICY_KIND;
   }
 }
 

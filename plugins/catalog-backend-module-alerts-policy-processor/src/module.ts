@@ -24,11 +24,11 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
           const policyPath = path.join(policiesDir, policyFile);
           const policy = await loadPolicy(await fs.readFile(policyPath));
           catalog.addProcessor(new AlertPolicyProcessor(policy));
-          policies.push(policy);
+          policies.push({ name: policyFile });
         }
 
-        // const policyEntityProvider = new StaticPolicyProvider(policies);
-        // catalog.addEntityProvider(policyEntityProvider);
+        const policyEntityProvider = new StaticPolicyProvider(policies);
+        catalog.addEntityProvider(policyEntityProvider);
 
         // add processor that connects relationships
       },

@@ -131,5 +131,3 @@ catalog:
   locations:
     - type: file
       target: ../../catalog-info.yaml
-    - type: file
-      target: ../../examples/policies-generated.yaml
