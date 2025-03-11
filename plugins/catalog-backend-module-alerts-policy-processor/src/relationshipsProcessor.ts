@@ -1,24 +1,23 @@
 import {
   type CatalogProcessor,
   type CatalogProcessorEmit,
+  type CatalogProcessorRelationResult,
 } from '@backstage/plugin-catalog-node';
 import { type Entity } from '@backstage/catalog-model';
 import type { LocationSpec } from '@backstage/plugin-catalog-common';
 import type { LoggerService } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
 
-export class EntityReplationsProcessor implements CatalogProcessor {
+export class EntityRelationsProcessor implements CatalogProcessor {
   constructor(
     private options: {
       logger: LoggerService;
-      config: Config;
     },
   ) {
     options.logger.info(`${this.getProcessorName()} started`);
   }
 
   getProcessorName() {
-    return 'EntityReplationsProcessor';
+    return 'EntityRelationsProcessor';
   }
 
   async preProcessEntity(
@@ -33,11 +32,15 @@ export class EntityReplationsProcessor implements CatalogProcessor {
       } named ${entity.metadata.name}`,
     );
 
-    const relationships = entity.spec?.__entity_relations ?? [];
+    const relationships =
+      (entity.spec?.__entity_relations as CatalogProcessorRelationResult[]) ??
+      []; // 🚨
 
-    relationships.forEach(emit);
+    if (Array.isArray(relationships)) {
+      relationships.forEach(emit);
+    }
 
-    delete entity.spec.__entity_relations;
+    delete entity.spec?.__entity_relations;
 
     return entity;
   }
