@@ -4,6 +4,7 @@ import { AlertPolicyProcessor } from './alertsPolicyProcessor';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 import { promises as fs } from 'fs';
 import { StaticPolicyProvider } from './staticPolicyEntityProvider';
+import path from 'path';
 
 export const catalogModuleAlertsPolicyProcessor = createBackendModule({
   pluginId: 'catalog',
@@ -14,14 +15,20 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         catalog: catalogProcessingExtensionPoint,
       },
       async init({ catalog }) {
-        // get list of policies from directory
-        // for each policy, register a new processor
+        const policiesDir = '../../policies';
+        await fs.access(policiesDir);
+        const policiesPath = await fs.readdir(policiesDir);
+        const policies = [];
 
-        const policyEntityProvider = new StaticPolicyProvider();
-        catalog.addEntityProvider(policyEntityProvider);
+        for (const policyFile of policiesPath) {
+          const policyPath = path.join(policiesDir, policyFile);
+          const policy = await loadPolicy(await fs.readFile(policyPath));
+          catalog.addProcessor(new AlertPolicyProcessor(policy));
+          policies.push(policy);
+        }
 
-        const policy = await loadPolicy(await fs.readFile('../../policy.wasm'));
-        catalog.addProcessor(new AlertPolicyProcessor(policy));
+        // const policyEntityProvider = new StaticPolicyProvider(policies);
+        // catalog.addEntityProvider(policyEntityProvider);
 
         // add processor that connects relationships
       },
