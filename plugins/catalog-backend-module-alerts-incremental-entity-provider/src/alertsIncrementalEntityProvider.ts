@@ -136,8 +136,16 @@ export class AlertsIncrementalEntityProvider
                   relation: {
                     // from component to alert
                     type: 'hasAlerts',
-                    source: `component:${name}`,
-                    target: `alert:${owner}/${name}-${alert.number}`,
+                    source: {
+                      kind: 'component',
+                      namespace: 'default',
+                      name,
+                    },
+                    target: {
+                      kind: 'alert',
+                      namespace: `${owner}`,
+                      name: `${name}-${alert.number}`,
+                    },
                   },
                 },
                 {
@@ -145,8 +153,16 @@ export class AlertsIncrementalEntityProvider
                   relation: {
                     // from alert to component
                     type: 'forComponent',
-                    target: `component:${name}`,
-                    source: `alert:${owner}/${name}-${alert.number}`,
+                    target: {
+                      kind: 'component',
+                      namespace: 'default',
+                      name,
+                    },
+                    source: {
+                      kind: 'alert',
+                      namespace: `${owner}`,
+                      name: `${name}-${alert.number}`,
+                    },
                   },
                 },
               ],
