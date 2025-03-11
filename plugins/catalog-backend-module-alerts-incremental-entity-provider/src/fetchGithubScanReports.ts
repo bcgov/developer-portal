@@ -32,7 +32,7 @@ export function* fetchGithubScanReports({
       const activeAlerts = alerts.filter(alert => alert.state === 'open');
 
       logger.info(
-        `🟢🟢🟢 fetched ${activeAlerts.length} active alerts out of ${alerts.length} total for ${repo}`,
+        `🟢 fetched ${activeAlerts.length} active alerts out of ${alerts.length} total for ${repo}`,
       );
 
       activeAlerts.forEach(alert => {
@@ -40,7 +40,7 @@ export function* fetchGithubScanReports({
       });
     } catch (e) {
       const error = e as { response: { data: { message: string } } };
-      logger.error('🔴🔴🔴 skipping', repo, error.response.data.message);
+      logger.error('🔴 skipping', repo, error.response.data.message);
     }
   }
 }

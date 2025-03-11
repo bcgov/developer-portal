@@ -7,7 +7,6 @@ import {
   EntityIteratorResult,
   IncrementalEntityProvider,
 } from '@backstage/plugin-catalog-backend-module-incremental-ingestion';
-import { type CatalogProcessorRelationResult } from '@backstage/plugin-catalog-node';
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import { ScmIntegrations } from '@backstage/integration';
@@ -20,6 +19,7 @@ import {
   each,
 } from 'effection';
 import { fetchGithubScanReports } from './fetchGithubScanReports';
+import gh from 'parse-github-url';
 
 interface Cursor {
   page: number;
@@ -105,51 +105,60 @@ export class AlertsIncrementalEntityProvider
       }
     }
 
-    const entities = alerts.map(alert => ({
-      entity: {
-        apiVersion: 'bc-gov/alertsv1',
-        kind: 'Alert',
-        metadata: {
-          // Strings of length at least 1, and at most 63
-          // Must consist of sequences of [a-z0-9A-Z] possibly separated by one of [-_.]
-          name: `${repository_name}-${alert.number}`,
-          // Namespaces must be sequences of [a-zA-Z0-9], possibly separated by -,
-          // at most 63 characters in total. Namespace names are case insensitive
-          // and will be rendered as lower case in most places.
-          namespace: orgname,
-          annotations: {
-            'backstage.io/managed-by-location':
-              'url:https://github.com/guidanti',
-            'backstage.io/managed-by-origin-location':
-              'url:https://github.com/guidanti',
+    const entities = alerts.map(alert => {
+      const url = gh(alert.url);
+      if (url) {
+        const { name, owner } = url;
+        return {
+          entity: {
+            apiVersion: 'bc-gov/alertsv1',
+            kind: 'Alert',
+            metadata: {
+              // Strings of length at least 1, and at most 63
+              // Must consist of sequences of [a-z0-9A-Z] possibly separated by one of [-_.]
+              name: `${name}-${alert.number}`,
+              // Namespaces must be sequences of [a-zA-Z0-9], possibly separated by -,
+              // at most 63 characters in total. Namespace names are case insensitive
+              // and will be rendered as lower case in most places.
+              namespace: `${owner}`,
+              annotations: {
+                'backstage.io/managed-by-location':
+                  'url:https://github.com/guidanti',
+                'backstage.io/managed-by-origin-location':
+                  'url:https://github.com/guidanti',
+              },
+            },
+            spec: {
+              alert,
+              __entity_relations: [
+                {
+                  type: 'relation',
+                  relation: {
+                    // from component to alert
+                    type: 'hasAlerts',
+                    source: `component:${name}`,
+                    target: `alert:${owner}/${name}-${alert.number}`,
+                  },
+                },
+                {
+                  type: 'relation',
+                  relation: {
+                    // from alert to component
+                    type: 'forComponent',
+                    target: `component:${name}`,
+                    source: `alert:${owner}/${name}-${alert.number}`,
+                  },
+                },
+              ],
+            },
           },
-        },
-        spec: {
-          alert,
-          __entity_relations: [
-            {
-              type: 'relation',
-              relation: {
-                // from component to alert
-                type: 'hasAlerts',
-                source: 'component:github-fetchers',
-                target: `alert:{orgname}/${repository_name}-${alert.number}`,
-              },
-            },
-            {
-              type: 'relation',
-              relation: {
-                // from alert to component
-                type: 'forComponent',
-                target: 'component:github-fetchers',
-                source: `alert:{orgname}/${repository_name}-${alert.number}`,
-              },
-            },
-          ],
-        },
-      },
-      locationKey: `alert-${alert.number}`,
-    }));
+          locationKey: `alert-${alert.number}`,
+        };
+      }
+      throw new Error(
+        `Skipping because there was an issue parsing the following GitHub URL: ${alert.url}`,
+      );
+    });
 
     return {
       done: true,

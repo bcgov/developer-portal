@@ -30,11 +30,13 @@
     "@backstage/plugin-catalog-node": "^1.16.0",
     "@octokit/auth-app": "^4.0.13",
     "@octokit/rest": "^19.0.13",
-    "effection": "4.0.0-alpha.5"
+    "effection": "4.0.0-alpha.5",
+    "parse-github-url": "1.0.3"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^1.0.2",
-    "@backstage/cli": "^0.28.2"
+    "@backstage/cli": "^0.28.2",
+    "@types/parse-github-url": "1.0.3"
   },
   "files": [
     "dist"
