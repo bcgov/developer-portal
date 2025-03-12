@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const entityColumn: TableColumn<CatalogTableRow> = {
+export const entityColumn: TableColumn<CatalogTableRow> = {
   title: 'Entity',
   field: 'spec.alert.url',
   width: '15%',
@@ -39,21 +39,21 @@ const entityColumn: TableColumn<CatalogTableRow> = {
   },
 };
 
-const alertRuleDescriptionColumn: TableColumn<CatalogTableRow> = {
+export const alertRuleDescriptionColumn: TableColumn<CatalogTableRow> = {
   title: 'Alert',
   field: 'spec.alert.rule.description',
   // @ts-ignore 🚨🚨🚨
   render: ({ entity }) => entity.spec?.alert?.rule?.description,
 };
 
-const alertRuleToolColumn: TableColumn<CatalogTableRow> = {
+export const alertRuleToolColumn: TableColumn<CatalogTableRow> = {
   title: 'Source',
   field: 'spec.alert.tool.name',
   // @ts-ignore 🚨🚨🚨
   render: ({ entity }) => entity.spec?.alert?.tool?.name,
 };
 
-const severityColumn: TableColumn<CatalogTableRow> = {
+export const severityColumn: TableColumn<CatalogTableRow> = {
   title: 'Severity',
   field: 'spec.alert.rule.severity',
   width: '10%',
@@ -80,7 +80,7 @@ const severityColumn: TableColumn<CatalogTableRow> = {
   },
 };
 
-const securityLevelColumn: TableColumn<CatalogTableRow> = {
+export const securityLevelColumn: TableColumn<CatalogTableRow> = {
   title: 'Remediation',
   field: 'spec.alert.rule.security_severity_level',
   width: '15%',
@@ -108,12 +108,12 @@ const securityLevelColumn: TableColumn<CatalogTableRow> = {
   },
 };
 
-const policyColumn: TableColumn<CatalogTableRow> = {
+export const policyColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy',
   render: () => <EntityRefLink entityRef="policy:default/example.wasm" />,
 };
 
-const policyCategoryColumn: TableColumn<CatalogTableRow> = {
+export const policyCategoryColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy Category',
   field: 'spec.category',
   render: () => <Typography>TBD</Typography>,
