@@ -56,6 +56,7 @@
     "history": "^5.0.0",
     "lodash-es": "^4.17.21",
     "luxon": "^3.5.0",
+    "parse-github-url": "1.0.3",
     "react": "^18.0.2",
     "victory": "^37.3.6",
     "react-dom": "^18.0.2",
