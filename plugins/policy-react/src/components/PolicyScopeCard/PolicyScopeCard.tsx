@@ -4,7 +4,6 @@ import {
   VictoryChart,
   VictoryTheme,
   VictoryLine,
-  VictoryGroup,
   VictoryStack,
   VictoryLegend,
 } from 'victory';

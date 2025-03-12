@@ -9,4 +9,3 @@
 // that are useful to other plugins or modules.
 
 export * from './components';
-export * from './hooks';
