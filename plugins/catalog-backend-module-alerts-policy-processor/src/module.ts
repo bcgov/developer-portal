@@ -20,22 +20,24 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         logger: coreServices.logger,
       },
       async init({ catalog, logger }) {
-        const policiesDir = '../../policies';
-        await fs.access(policiesDir);
-        const policiesPath = await fs.readdir(policiesDir);
-        const policies = [];
+        const policiesDir = '../../bundle';
 
-        for (const policyFile of policiesPath) {
-          const policyPath = path.join(policiesDir, policyFile);
-          const policy = await loadPolicy(await fs.readFile(policyPath));
-          catalog.addProcessor(new AlertPolicyProcessor(policy));
-          policies.push({ name: policyFile });
-        }
+        const policyPath = path.join(policiesDir, './policy.wasm');
+        const policy = await loadPolicy(await fs.readFile(policyPath));
+        
+        catalog.addProcessor(new AlertPolicyProcessor(policy));
+        
+        // await fs.access(policiesDir);
+        // const policiesPath = await fs.readdir(policiesDir);
+        // const policies = [];
+        // for (const policyFile of policiesPath) {
+        //   policies.push({ name: policyFile });
+        // }
 
-        const policyEntityProvider = new StaticPolicyProvider(policies);
-        catalog.addEntityProvider(policyEntityProvider);
+        // const policyEntityProvider = new StaticPolicyProvider(policies);
+        // catalog.addEntityProvider(policyEntityProvider);
 
-        catalog.addProcessor(new EntityRelationsProcessor({ logger }));
+        // catalog.addProcessor(new EntityRelationsProcessor({ logger }));
       },
     });
   },
