@@ -58,7 +58,7 @@ import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 
 import { EntityPoliciesCard } from './EntityPoliciesCard';
 import {
-  componentSecurityAlertsContent,
+  ComponentSecurityAlertsContent,
   SystemSecurityAlertsContent,
 } from './SecurityAlerts';
 import { PolicyComplianceCard } from './PolicyComplianceCard';
@@ -205,7 +205,7 @@ const serviceEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/alerts" title="Security Alerts">
-      {componentSecurityAlertsContent}
+      {ComponentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -236,7 +236,7 @@ const websiteEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/alerts" title="Security Alerts">
-      {componentSecurityAlertsContent}
+      {ComponentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -272,10 +272,6 @@ const defaultEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/alerts" title="Security Alerts">
-      {componentSecurityAlertsContent}
     </EntityLayout.Route>
   </EntityLayout>
 );

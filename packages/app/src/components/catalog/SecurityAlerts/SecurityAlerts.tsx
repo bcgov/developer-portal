@@ -8,9 +8,9 @@ import {
 } from '@backstage/plugin-catalog-react';
 import { CatalogTable } from '@backstage/plugin-catalog';
 import {
-  EntityAlertCategoryPicker,
-  EntityAlertLevelPicker,
-  EntityAlertSeverityPicker,
+  EntityAlertCategoryPicker, // 🚨 fake
+  EntityAlertLevelPicker, // 🚨 fake
+  EntityAlertSeverityPicker, // 🚨 fake
 } from './filters';
 import { componentAlertsColumns, systemAlertsColumns } from './columns';
 import { PolicyRating } from '../EntityPoliciesCard';
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const componentSecurityAlertsContent = (
+export const ComponentSecurityAlertsContent = (
   <EntityListProvider>
     <CatalogFilterLayout>
       <CatalogFilterLayout.Filters>
