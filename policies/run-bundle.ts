@@ -3,7 +3,7 @@
  * This script expects a bundle to be present in the root directory.
  * You can build a bundle using the `yarn build:policies` script.
  * Then extract the bundle into the `bundle` directory by running:
- * 
+ *
  * ```bash
  * yarn build:policies
  * tar -xvf bundle.tar.gz
@@ -12,16 +12,40 @@
 
 import { loadPolicy } from "npm:@open-policy-agent/opa-wasm@1.10.0";
 import { join } from "node:path";
-import { z } from "npm:zod@3.24.2";
-import { $ } from "npm:zx@8.4.0";
+import { any, z } from "npm:zod@3.24.2";
+import { $, within } from "npm:zx@8.4.0";
 
-await $`mkdir -p bundle`;
-await $`opa build -b policies -t wasm -e bcgov/security --ignore="*test*"`;
-await $`tar -xvf bundle.tar.gz -C bundle`;
+const source = "policies/";
+const built = "policies.bundle/";
+const bundle = `${built}bundle.tar.gz`;
+
+await $`mkdir -p ${built}`;
+await within(async () => {
+  $.cwd = source;
+  try {
+    await $`opa build -b . -t wasm --ignore="*test*" --output="../${bundle}"`;
+  } catch (error) {
+    console.error(error);
+  }
+});
+await $`tar -xvf ${bundle} -C ${built}`;
+await $`rm ${bundle}`;
 
 const WasmEntrySchema = z.object({
   entrypoint: z.string(),
   module: z.string(),
+  annotations: z.array(z.object({
+    custom: z.record(z.string(), z.unknown()).optional(),
+    description: z.string().optional(),
+    entrypoint: z.boolean().optional(),
+    scope: z.union([
+      z.literal("document"),
+      z.literal("rule"),
+      z.literal("package"),
+      z.literal("subpackage"),
+    ]).optional(),
+    title: z.string().optional(),
+  })),
 });
 
 const ManifestSchema = z.object({
@@ -32,19 +56,30 @@ const ManifestSchema = z.object({
 });
 
 const manifest = ManifestSchema.parse(
-  JSON.parse(await Deno.readTextFile("./bundle/.manifest")),
+  JSON.parse(await Deno.readTextFile(`${built}/.manifest`)),
 );
 
-const [policy] = await Promise.all(manifest.wasm.map(async (wasm) => {
-  const policyWasm = await Deno.readFile(join("bundle", wasm.module));
-  return {
-    policy: await loadPolicy(policyWasm),
-    entrypoint: wasm.entrypoint,
-  };
-}));
+console.log(manifest.wasm);
 
-console.log(policy.policy.evaluate({
-  entity: {
-    kind: "system",
-  },
-}));
+const [wasm] = manifest.wasm;
+
+const policyWasm = await Deno.readFile(join(built, wasm.module));
+const policy = await loadPolicy(policyWasm);
+
+manifest.wasm.forEach((wasm) => {
+  console.log(wasm.entrypoint);
+  console.log(policy.evaluate({
+    entity: {
+      kind: "system",
+    },
+  }, wasm.entrypoint));
+
+  console.log(policy.evaluate({
+    entity: {
+      kind: "component",
+      relations: {
+        partOf: "system:default/finance-portal",
+      },
+    },
+  }, wasm.entrypoint));
+});
