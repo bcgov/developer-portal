@@ -158,7 +158,20 @@ const overviewContentWithPolicies = (
       <EntityAboutCard variant="gridItem" />
     </Grid>
     <Grid item md={6} xs={12}>
-      <EntityCatalogGraphCard variant="gridItem" height={400} />
+      <EntityCatalogGraphCard
+        variant="gridItem"
+        height={400}
+        relations={[
+          RELATION_PART_OF,
+          RELATION_HAS_PART,
+          RELATION_API_CONSUMED_BY,
+          RELATION_API_PROVIDED_BY,
+          RELATION_CONSUMES_API,
+          RELATION_PROVIDES_API,
+          RELATION_DEPENDENCY_OF,
+          RELATION_DEPENDS_ON,
+        ]}
+      />
     </Grid>
     <Grid item md={6} xs={12}>
       <EntityPoliciesCard variant="gridItem" rating="GOLD" />
@@ -371,7 +384,20 @@ const systemPage = (
           <EntityAboutCard variant="gridItem" />
         </Grid>
         <Grid item md={6} xs={12}>
-          <EntityCatalogGraphCard variant="gridItem" height={400} />
+          <EntityCatalogGraphCard
+            variant="gridItem"
+            height={400}
+            relations={[
+              RELATION_PART_OF,
+              RELATION_HAS_PART,
+              RELATION_API_CONSUMED_BY,
+              RELATION_API_PROVIDED_BY,
+              RELATION_CONSUMES_API,
+              RELATION_PROVIDES_API,
+              RELATION_DEPENDENCY_OF,
+              RELATION_DEPENDS_ON,
+            ]}
+          />
         </Grid>
         {/* <Grid item md={4} xs={12}>
           <EntityLinksCard />
