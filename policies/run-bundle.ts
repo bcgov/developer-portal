@@ -59,27 +59,32 @@ const manifest = ManifestSchema.parse(
   JSON.parse(await Deno.readTextFile(`${built}/.manifest`)),
 );
 
-console.log(manifest.wasm);
-
 const [wasm] = manifest.wasm;
 
 const policyWasm = await Deno.readFile(join(built, wasm.module));
 const policy = await loadPolicy(policyWasm);
 
 manifest.wasm.forEach((wasm) => {
-  console.log(wasm.entrypoint);
-  console.log(policy.evaluate({
+  console.log(`Entrypoint: ${wasm.entrypoint}`);
+
+  const [result1] = policy.evaluate({
     entity: {
       kind: "system",
     },
-  }, wasm.entrypoint));
+  }, wasm.entrypoint);
+  if (result1 && result1.result) {
+    console.log(result1);
+  }
 
-  console.log(policy.evaluate({
+  const [result2] = policy.evaluate({
     entity: {
       kind: "component",
       relations: {
         partOf: "system:default/finance-portal",
       },
     },
-  }, wasm.entrypoint));
+  }, wasm.entrypoint);
+  if (result2 && result2.result) {
+    console.dir(result2);
+  }
 });
