@@ -12,7 +12,7 @@
 
 import { loadPolicy } from "npm:@open-policy-agent/opa-wasm@1.10.0";
 import { join } from "node:path";
-import { any, z } from "npm:zod@3.24.2";
+import { z } from "npm:zod@3.24.2";
 import { $, within } from "npm:zx@8.4.0";
 
 const source = "policies/";
@@ -45,7 +45,7 @@ const WasmEntrySchema = z.object({
       z.literal("subpackage"),
     ]).optional(),
     title: z.string().optional(),
-  })),
+  })).optional(),
 });
 
 const ManifestSchema = z.object({
@@ -64,27 +64,4 @@ const [wasm] = manifest.wasm;
 const policyWasm = await Deno.readFile(join(built, wasm.module));
 const policy = await loadPolicy(policyWasm);
 
-manifest.wasm.forEach((wasm) => {
-  console.log(`Entrypoint: ${wasm.entrypoint}`);
-
-  const [result1] = policy.evaluate({
-    entity: {
-      kind: "system",
-    },
-  }, wasm.entrypoint);
-  if (result1 && result1.result) {
-    console.log(result1);
-  }
-
-  const [result2] = policy.evaluate({
-    entity: {
-      kind: "component",
-      relations: {
-        partOf: "system:default/finance-portal",
-      },
-    },
-  }, wasm.entrypoint);
-  if (result2 && result2.result) {
-    console.dir(result2);
-  }
-});
+console.log(manifest)

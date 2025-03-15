@@ -1,8 +1,6 @@
-package bcgov.security
-
-import data.bcgov.security.component
-import data.bcgov.security.remediation
-import data.bcgov.security.system
+# METADATA
+# entrypoint: true
+package alert
 
 import rego.v1
 
@@ -13,9 +11,13 @@ import rego.v1
 #   entity:
 #     metadata:
 #       name: "codeql-warnings"
-codeql_warnings(alert) := {
+remediation contains {
 	"policy": "codeql_warnings",
 	"level": "optional",
 	"help": alert.rule.help,
 	"description": alert.rule.full_description,
+} if {
+	alert := input.entity.spec.alert
+	alert.rule.severity == "warning"
+	alert.tool.name == "CodeQL"
 }
