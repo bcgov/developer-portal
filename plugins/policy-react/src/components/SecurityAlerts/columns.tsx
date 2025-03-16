@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const entityColumn: TableColumn<CatalogTableRow> = {
   title: 'Entity',
   field: 'spec.alert.url',
-  width: '15%',
+  width: '10%',
   render: ({ entity }) => {
     // @ts-ignore 🚨🚨🚨
     const url = gh(entity.spec?.alert?.url);
@@ -49,6 +49,7 @@ export const alertRuleDescriptionColumn: TableColumn<CatalogTableRow> = {
 export const alertRuleToolColumn: TableColumn<CatalogTableRow> = {
   title: 'Source',
   field: 'spec.alert.tool.name',
+  width: '10%',
   // @ts-ignore 🚨🚨🚨
   render: ({ entity }) => entity.spec?.alert?.tool?.name,
 };
@@ -84,49 +85,87 @@ export const securityLevelColumn: TableColumn<CatalogTableRow> = {
   title: 'Remediation',
   field: 'spec.alert.rule.security_severity_level',
   width: '15%',
-  render: row => {
+  render: ({ entity }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const classes = useStyles();
-    const severity =
-      // @ts-ignore 🚨🚨🚨
-      row.entity.spec?.alert?.rule?.security_severity_level
-        ?.toString()
-        .toLowerCase() || '';
-    let level = 'optional' as keyof typeof classes;
-    if (severity === 'high') {
-      level = 'required';
-    } else if (severity === 'medium') {
-      level = 'recommended';
-    } else if (severity === 'critical') {
-      level = 'strictly-enforced';
+
+    if (
+      Array.isArray(entity.spec?.remediation) &&
+      entity.spec?.remediation.length
+    ) {
+      return entity.spec.remediation.map((remediation, index) => {
+        const severity =
+          // @ts-ignore 🚨🚨🚨
+          remediation.level?.toString().toLowerCase() || '';
+        let level = 'optional' as keyof typeof classes;
+        if (severity === 'required') {
+          level = 'required';
+        } else if (severity === 'recommended') {
+          level = 'recommended';
+        } else if (severity === 'enforced') {
+          level = 'strictly-enforced';
+        }
+        return (
+          <>
+            {index > 0 && ', '}
+            <Typography className={classes[level]} variant="body2">
+              {prettyText(severity) || ''}
+            </Typography>
+          </>
+        );
+      });
     }
-    return (
-      <Typography className={classes[level]} variant="body2">
-        {prettyText(severity) || ''}
-      </Typography>
-    );
+    return <></>;
   },
 };
 
 export const policyColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy',
-  render: () => <EntityRefLink entityRef="policy:default/example.wasm" />,
+  render: ({ entity }) => {
+    if (
+      Array.isArray(entity.spec?.remediation) &&
+      entity.spec?.remediation.length
+    ) {
+      return entity.spec.remediation.map((remediation, index) => {
+        return (
+          <>
+            {index > 0 && ', '}
+            {/* @ts-ignore 🚨🚨🚨 */}
+            <EntityRefLink entityRef={`policy:default/${remediation.policy}`} />
+          </>
+        );
+      });
+    }
+    return <></>;
+  },
 };
 
 export const policyCategoryColumn: TableColumn<CatalogTableRow> = {
   title: 'Policy Category',
   field: 'spec.category',
-  render: () => <Typography>TBD</Typography>,
+  render: ({ entity }) => {
+    if (Array.isArray(entity.spec?.category) && entity.spec?.category.length) {
+      return entity.spec.category.map((category, index) => {
+        return (
+          <>
+            {index > 0 && ', '}
+            {/* @ts-ignore 🚨🚨🚨 */}
+            <Typography>{category.id}</Typography>
+          </>
+        );
+      });
+    }
+    return <></>;
+  },
 };
 
 export const componentAlertsColumns: CatalogTableColumnsFunc = () => {
   return [
     alertRuleToolColumn,
     alertRuleDescriptionColumn,
+    policyColumn,
     severityColumn,
     securityLevelColumn,
-    policyColumn, // 🚨 ref to policy
-    policyCategoryColumn, // 🚨 TBD get from policy
   ];
 };
 
@@ -134,10 +173,9 @@ export const systemAlertsColumns: CatalogTableColumnsFunc = () => {
   return [
     entityColumn,
     alertRuleToolColumn,
+    policyColumn,
     alertRuleDescriptionColumn,
     severityColumn,
     securityLevelColumn,
-    policyColumn, // 🚨 ref to policy
-    policyCategoryColumn, // 🚨 TBD get from policy
   ];
 };
