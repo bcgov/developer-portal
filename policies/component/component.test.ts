@@ -11,6 +11,28 @@ describe("component", () => {
       expect(policy.entrypoints).toHaveProperty("component/query");
     });
 
+    it("should handle entities without namespace", function* () {
+      const policy = yield* usePolicy();
+
+      const result = policy.evaluate({
+        entity: {
+          kind: "component",
+          metadata: {
+            name: "test-no-namespace",
+          },
+        },
+      }, "component/query");
+
+      expect(result).toMatchObject([{
+        result: {
+          alerts: [{
+            kind: "alert",
+            "relations.forComponent": "component:default/test-no-namespace",
+          }],
+        },
+      }]);
+    });
+
     it("should return the filters", function* () {
       const policy = yield* usePolicy();
 

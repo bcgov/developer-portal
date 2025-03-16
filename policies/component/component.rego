@@ -12,7 +12,7 @@ query := {"alerts": [{
 	"relations.forComponent": sprintf("%v:%v/%v", [kind, namespace, name]),
 }]} if {
 	kind := input.entity.kind
-	namespace := input.entity.metadata.namespace
+	namespace := object.get(input.entity.metadata, "namespace", "default")
 	name := input.entity.metadata.name
 }
 

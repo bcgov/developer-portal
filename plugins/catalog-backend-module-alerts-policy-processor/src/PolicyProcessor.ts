@@ -40,55 +40,67 @@ export class PolicyProcessor implements CatalogProcessor {
   }
 
   async preProcessEntity(entity: Entity): Promise<Entity> {
-    const entrypoint = entity.kind.toLocaleLowerCase();
-    if (!this.entrypoints.includes(entrypoint)) {
+    const kind = entity.kind.toLocaleLowerCase();
+    if (!this.entrypoints.includes(kind)) {
       return entity;
     }
+    const entityRef = `${entity.kind}:${entity.metadata.namespace ?? 'default'}/${entity.metadata.name}`.toLocaleLowerCase();
 
     const input: Record<string, Entity | Entity[]> = {
       entity,
     };
 
-    if (this.entrypoints.includes(`${entrypoint}/query`)) {
+    if (this.entrypoints.includes(`${kind}/query`)) {
       const policyEvaluationQueryResult = this.policy.evaluate(
-        { entity },
-        `${entrypoint}/query`,
+        input,
+        `${kind}/query`,
       );
-      const [{ result }] = PolicyEvaluationQueryResultSchema.parse(
-        policyEvaluationQueryResult,
-      );
+      try {
+        // Attempt to parse the policy evaluation query result
+        const [{ result } = { result: {} }] = PolicyEvaluationQueryResultSchema.parse(
+          policyEvaluationQueryResult,
+        );        
 
-      this.logger.debug(`Evaluated[${entrypoint}/query]`, {
-        entityRef: `${entity.kind}:${entity.metadata.namespace}/${entity.metadata.name}`,
-        entrypoint,
-        query: result,
-      });
+        this.logger.debug(`Evaluated[${kind}/query]`, {
+          entityRef,
+          entrypoint: kind,
+          preparse: JSON.stringify(policyEvaluationQueryResult),
+          query: JSON.stringify(result),
+        });
 
-      await Promise.all(
-        Object.entries(result).map(async ([key, filter]) => {
-          if (filter === null) {
-            input[key] = [];
-          } else {
-            const { items } = await this.catalogClient.queryEntities({
-              filter,
-            });
-            input[key] = items;
-          }
-        }),
-      );
+        await Promise.all(
+          Object.entries(result).map(async ([key, filter]) => {
+            if (filter === null) {
+              input[key] = [];
+            } else {
+              const { items } = await this.catalogClient.queryEntities({
+                filter,
+              });
+              input[key] = items;
+            }
+          }),
+        );
+      } catch (error) {
+        this.logger.error(`Failed to process query for entity`, {
+          entityRef,
+          entrypoint: `${kind}/query`,
+          error: error instanceof Error ? error.message : String(error),
+        });
+        return entity;
+      }
     }
 
-    const policyEvaluationResult = this.policy.evaluate(input, entrypoint);
+    const policyEvaluationResult = this.policy.evaluate(input, kind);
 
     // need to add zod schema to validate the result
-    const [{ result }] = PolicyEvaluationResultSchema.parse(
+    const [{ result } = { result: {} }] = PolicyEvaluationResultSchema.parse(
       policyEvaluationResult,
     );
 
-    this.logger.debug(`Evaluated[${entrypoint}]`, {
-      entityRef: `${entity.kind}:${entity.metadata.namespace}/${entity.metadata.name}`,
-      entrypoint,
-      result,
+    this.logger.debug(`Evaluated[${kind}]`, {
+      entityRef,
+      entrypoint: kind,
+      result: JSON.stringify(result),
     });
 
     return {

@@ -31,7 +31,7 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         const policy = await loadPolicy(await fs.readFile(policyPath));
 
         catalog.addProcessor(
-          new PolicyProcessor({ policy, logger, catalogClient }),
+          new PolicyProcessor({ policy, logger: logger.child({ module: 'PolicyProcessor' }), catalogClient }),
         );
         catalog.addProcessor(new EntityRelationsProcessor({ logger }));
       },
