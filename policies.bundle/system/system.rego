@@ -2,6 +2,8 @@
 # entrypoint: true
 package system
 
+import data.system.query
+
 import rego.v1
 
 import data.helpers

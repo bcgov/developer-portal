@@ -8,4 +8,5 @@ else := "fail"
 # Helper function to calculate entity reference
 entity_ref(kind, namespace, name) := lower(sprintf("%v:%v/%v", [kind, namespace, name]))
 
+# Helper function to calculate entity reference from entity
 entity_ref_from_entity(entity) := entity_ref(entity.kind, entity.metadata.namespace, entity.metadata.name)
