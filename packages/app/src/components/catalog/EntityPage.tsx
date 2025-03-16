@@ -48,6 +48,7 @@ import {
   RELATION_DEPENDENCY_OF,
   RELATION_DEPENDS_ON,
   RELATION_HAS_PART,
+  RELATION_OWNED_BY,
   RELATION_PART_OF,
   RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
@@ -164,6 +165,7 @@ const overviewContentWithPolicies = (
         relations={[
           RELATION_PART_OF,
           RELATION_HAS_PART,
+          RELATION_OWNED_BY,
           RELATION_API_CONSUMED_BY,
           RELATION_API_PROVIDED_BY,
           RELATION_CONSUMES_API,
@@ -495,7 +497,7 @@ export const entityPage = (
     <EntitySwitch.Case if={isKind('user')} children={userPage} />
     <EntitySwitch.Case if={isKind('system')} children={systemPage} />
     <EntitySwitch.Case if={isKind('domain')} children={domainPage} />
-    <EntitySwitch.Case if={isKind('policy')} children={policyPage} />
+    {/* <EntitySwitch.Case if={isKind('policy')} children={policyPage} /> */}
 
     <EntitySwitch.Case>{defaultEntityPage}</EntitySwitch.Case>
   </EntitySwitch>
