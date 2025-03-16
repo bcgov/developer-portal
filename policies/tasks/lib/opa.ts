@@ -32,18 +32,22 @@ export function* readPolicy(
 export interface Bundle {
   policy: LoadedPolicy;
   manifest: ManifestSchemaType;
-  location: string;
+  output: string;
 }
 
 export function* useBundle(
   source: string,
-  { bundle, destination }: { bundle?: string; destination?: string },
+  _output?: string,
+  options?: { bundle?: string; },
 ): Operation<Bundle> {
-  if (!bundle) {
-    bundle = yield* call(() =>
-      Deno.makeTempFile({ prefix: "opa-bundle-", suffix: ".tar.gz" })
-    );
-  }
+  const bundle = options?.bundle ?? (yield* call(() =>
+    Deno.makeTempFile({ prefix: "opa-bundle-", suffix: ".tar.gz" })
+  ));
+
+  const output = _output ?? (yield* call(() =>
+    Deno.makeTempDir({ prefix: "opa-bundle-" })
+  ));
+
   if (!bundle) throw new Error("Failed to build bundle.");
   console.log(`Building bundle ${source}`);
 
@@ -51,25 +55,21 @@ export function* useBundle(
 
   console.log(`Extracting bundle from ${bundle}`);
 
-  if (!destination) {
-    destination = yield* call(() =>
-      Deno.makeTempDir({ prefix: "opa-bundle-" })
-    );
-  }
+  yield* extractTar(bundle, output);
 
-  yield* extractTar(bundle, destination);
+  console.log(`Extracted bundle to ${output}`);
 
-  console.log(`Extracted bundle to ${destination}`);
+  const manifest = yield* readManifest(join(output, ".manifest"));
 
-  const manifest = yield* readManifest(join(destination, ".manifest"));
   const file = yield* call(() =>
-    Deno.readFile(join(destination, "policy.wasm"))
+    Deno.readFile(join(output, "policy.wasm"))
   );
+
   const policy = yield* readPolicy(file.buffer.slice(0, file.length));
 
   return {
     policy,
     manifest,
-    location: destination,
+    output,
   };
 }
