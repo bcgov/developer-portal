@@ -7,7 +7,7 @@ import { move, emptyDir } from "@std/fs";
 if (import.meta.main) {
   await main(function* () {
     const source = ".";
-    const output = "../policy.bundle/";
+    const output = "../policies.bundle/";
 
     yield* call(() => emptyDir(output));
 
