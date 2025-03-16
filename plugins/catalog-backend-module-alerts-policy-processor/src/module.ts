@@ -2,7 +2,10 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
-import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import {
+  catalogProcessingExtensionPoint,
+  catalogServiceRef,
+} from '@backstage/plugin-catalog-node/alpha';
 import { loadPolicy } from '@open-policy-agent/opa-wasm';
 import { promises as fs } from 'fs';
 import { join } from 'path';
@@ -17,8 +20,9 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
       deps: {
         catalog: catalogProcessingExtensionPoint,
         logger: coreServices.logger,
+        catalogClient: catalogServiceRef,
       },
-      async init({ catalog, logger }) {
+      async init({ catalog, logger, catalogClient }) {
         const policiesDir = '../../policies.bundle';
 
         const policyPath = join(policiesDir, './policy.wasm');
@@ -26,7 +30,9 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
 
         const policy = await loadPolicy(await fs.readFile(policyPath));
 
-        catalog.addProcessor(new PolicyProcessor({ policy, logger }));
+        catalog.addProcessor(
+          new PolicyProcessor({ policy, logger, catalogClient }),
+        );
         catalog.addProcessor(new EntityRelationsProcessor({ logger }));
       },
     });
