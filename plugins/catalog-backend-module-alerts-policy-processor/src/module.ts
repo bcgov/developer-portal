@@ -21,8 +21,9 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         catalog: catalogProcessingExtensionPoint,
         logger: coreServices.logger,
         catalogClient: catalogServiceRef,
+        auth: coreServices.auth,
       },
-      async init({ catalog, logger, catalogClient }) {
+      async init({ catalog, logger, catalogClient, auth }) {
         const policiesDir = '../../policies.bundle';
 
         const policyPath = join(policiesDir, './policy.wasm');
@@ -31,7 +32,12 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         const policy = await loadPolicy(await fs.readFile(policyPath));
 
         catalog.addProcessor(
-          new PolicyProcessor({ policy, logger: logger.child({ module: 'PolicyProcessor' }), catalogClient }),
+          new PolicyProcessor({
+            policy,
+            logger: logger.child({ module: 'PolicyProcessor' }),
+            catalogClient,
+            auth,
+          }),
         );
         catalog.addProcessor(new EntityRelationsProcessor({ logger }));
       },

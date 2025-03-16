@@ -1,4 +1,4 @@
-import { LoggerService } from '@backstage/backend-plugin-api';
+import { AuthService, LoggerService } from '@backstage/backend-plugin-api';
 import { Entity } from '@backstage/catalog-model';
 import { type CatalogProcessor } from '@backstage/plugin-catalog-node';
 import { JsonValue } from '@backstage/types';
@@ -13,6 +13,7 @@ export class PolicyProcessor implements CatalogProcessor {
   private logger: LoggerService;
   private entrypoints: string[];
   private catalogClient: CatalogApi;
+  private auth: AuthService;
 
   getProcessorName(): string {
     return `PolicyProcessor`;
@@ -22,15 +23,18 @@ export class PolicyProcessor implements CatalogProcessor {
     policy,
     logger,
     catalogClient,
+    auth,
   }: {
     policy: LoadedPolicy;
     logger: LoggerService;
     catalogClient: CatalogApi;
+    auth: AuthService;
   }) {
     this.policy = policy;
     this.logger = logger;
     this.catalogClient = catalogClient;
     this.entrypoints = Object.keys(this.policy.entrypoints);
+    this.auth = auth;
 
     this.logger.debug(
       `PolicyProcessor received policy with ${this.entrypoints.join(
@@ -44,7 +48,9 @@ export class PolicyProcessor implements CatalogProcessor {
     if (!this.entrypoints.includes(kind)) {
       return entity;
     }
-    const entityRef = `${entity.kind}:${entity.metadata.namespace ?? 'default'}/${entity.metadata.name}`.toLocaleLowerCase();
+    const entityRef = `${entity.kind}:${
+      entity.metadata.namespace ?? 'default'
+    }/${entity.metadata.name}`.toLocaleLowerCase();
 
     const input: Record<string, Entity | Entity[]> = {
       entity,
@@ -57,9 +63,8 @@ export class PolicyProcessor implements CatalogProcessor {
       );
       try {
         // Attempt to parse the policy evaluation query result
-        const [{ result } = { result: {} }] = PolicyEvaluationQueryResultSchema.parse(
-          policyEvaluationQueryResult,
-        );        
+        const [{ result } = { result: {} }] =
+          PolicyEvaluationQueryResultSchema.parse(policyEvaluationQueryResult);
 
         this.logger.debug(`Evaluated[${kind}/query]`, {
           entityRef,
@@ -68,14 +73,22 @@ export class PolicyProcessor implements CatalogProcessor {
           query: JSON.stringify(result),
         });
 
+        const { token } = await this.auth.getPluginRequestToken({
+          onBehalfOf: await this.auth.getOwnServiceCredentials(),
+          targetPluginId: 'catalog',
+        });
+
         await Promise.all(
           Object.entries(result).map(async ([key, filter]) => {
             if (filter === null) {
               input[key] = [];
             } else {
-              const { items } = await this.catalogClient.queryEntities({
-                filter,
-              });
+              const { items } = await this.catalogClient.queryEntities(
+                {
+                  filter,
+                },
+                { token },
+              );
               input[key] = items;
             }
           }),
