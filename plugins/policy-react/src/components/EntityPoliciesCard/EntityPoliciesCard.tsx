@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { Link } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
+import { EntityRefLink } from '@backstage/plugin-catalog-react';
 
 const ratingChip = {
   borderRadius: '10px',
@@ -69,10 +70,13 @@ const useStyles = makeStyles({
     marginTop: '10px',
     marginBottom: '12px',
   },
-  policyRowContent: {
+  policyRowLinkAndStatus: {
     display: 'flex',
     flex: 4,
     alignItems: 'center',
+  },
+  policyRowCompliance: {
+    display: 'flex',
   },
   policyRowCheckboxIcon: {
     fill: '#00be00',
@@ -132,21 +136,32 @@ interface PoliciesCardProps {
   rating?: string | undefined;
 }
 
-const PolicyRow1 = ({ policy, status }: { policy: string; status: string }) => {
+const PolicyRow1 = ({
+  compliance,
+}: {
+  compliance: {
+    policy: string;
+    status: string;
+    failure_count: number;
+    total_count: number;
+  };
+}) => {
   const classes = useStyles();
+  const { policy, status, failure_count, total_count } = compliance;
   return (
     <Grid className={classes.policyRowContainer}>
-      <Grid className={classes.policyRowContent}>
+      <Grid className={classes.policyRowLinkAndStatus}>
         {status === 'pass' ? (
           <CheckBoxIcon className={classes.policyRowCheckboxIcon} />
         ) : (
           <WarningIcon className={classes.policyRowWarningIcon} />
         )}
-        <Typography>{policy}</Typography>
+        <EntityRefLink entityRef={`policy:default/${policy}`} />
       </Grid>
-      <Link style={{ cursor: 'pointer' }} variant="body2">
-        Learn more
-      </Link>
+      <Grid className={classes.policyRowCompliance}>
+        <Avatar className={classes.red}>{failure_count}</Avatar>
+        <Avatar className={classes.green}>{total_count - failure_count}</Avatar>
+      </Grid>
     </Grid>
   );
 };
@@ -163,7 +178,7 @@ const PolicyRow2 = ({
   const classes = useStyles();
   return (
     <Grid className={classes.policyRowContainer}>
-      <Grid className={classes.policyRowContent}>
+      <Grid className={classes.policyRowLinkAndStatus}>
         <Avatar className={classes.red}>{noncompliant}</Avatar>
         <Avatar className={classes.green}>{compliant}</Avatar>
         <Typography>{description}</Typography>
@@ -206,7 +221,7 @@ const ComplianceRows = ({
   if (Array.isArray(compliances) && compliances.length) {
     return compliances.map(compliance => (
       <>
-        <PolicyRow1 policy={compliance.policy} status={compliance.status} />
+        <PolicyRow1 compliance={compliance} />
         <Divider variant="middle" />
       </>
     ));
