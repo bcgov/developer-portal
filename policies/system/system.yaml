@@ -1,0 +1,13 @@
+apiVersion: policy.gov.bc.ca/v1alpha1
+kind: Policy
+metadata:
+  name: all-components-compliant
+  title: All Components Compliant
+  description: All components must be compliant without any violations.
+spec:
+  scope:
+    - kind: system
+  uses:
+    - kind: component
+---
+

@@ -10,7 +10,7 @@ export function* buildWasm(source: string, output: string) {
     const result = await $`opa build -b ${source} -t wasm --output="${output}"`
       .nothrow();
     if (result.exitCode !== 0) {
-      console.error(result.stdout);
+      throw new Error(result.stdout);
     }
     return result.stdout;
   });
@@ -47,9 +47,6 @@ export function* useBundle(
   const output = _output ?? (yield* call(() =>
     Deno.makeTempDir({ prefix: "opa-bundle-" })
   ));
-
-  if (!bundle) throw new Error("Failed to build bundle.");
-  console.log(`Building bundle ${source}`);
 
   yield* buildWasm(source, bundle);
 

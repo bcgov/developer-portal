@@ -3,6 +3,7 @@
 package component
 
 import rego.v1
+import data.helpers
 
 # Compliance result
 compliance contains {
@@ -21,8 +22,5 @@ compliance contains {
 	])
 
 	# Determine status based on enforced remediations count
-	status := calc_status(enforced_remediations)
+	status := helpers.calc_status(enforced_remediations)
 }
-
-# Helper function to calculate status
-calc_status(x) := "pass" if x == 0 else := "fail"
