@@ -25,6 +25,4 @@ compliance contains {
 }
 
 # Helper function to calculate status
-calc_status(x) := "pass" if x == 0
-
-calc_status(x) := "fail" if x > 0
+calc_status(x) := "pass" if x == 0 else := "fail"
