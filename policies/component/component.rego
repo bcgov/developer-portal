@@ -2,8 +2,19 @@
 # entrypoint: true
 package component
 
-import rego.v1
 import data.helpers
+import rego.v1
+
+# METADATA
+# entrypoint: true
+query := {"alerts": [{
+	"kind": "alert",
+	"relations.forComponent": sprintf("%v:%v/%v", [kind, namespace, name]),
+}]} if {
+	kind := input.entity.kind
+	namespace := input.metadata.namespace
+	name := input.metadata.name
+}
 
 # Compliance result
 compliance contains {

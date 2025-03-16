@@ -4,6 +4,7 @@ import { call, type Operation } from "effection";
 import { $ } from "zx";
 import { ManifestSchemaType, readManifest } from "./manifest.ts";
 import { extractTar } from "./tar.ts";
+import { useLog } from "./log.ts";
 
 export function* buildWasm(source: string, output: string) {
   yield* call(async () => {
@@ -40,6 +41,9 @@ export function* useBundle(
   _output?: string,
   options?: { bundle?: string; },
 ): Operation<Bundle> {
+
+  const logger = yield* useLog();
+
   const bundle = options?.bundle ?? (yield* call(() =>
     Deno.makeTempFile({ prefix: "opa-bundle-", suffix: ".tar.gz" })
   ));
@@ -50,11 +54,11 @@ export function* useBundle(
 
   yield* buildWasm(source, bundle);
 
-  console.log(`Extracting bundle from ${bundle}`);
+  logger.info(`Extracting bundle from ${bundle}`);
 
   yield* extractTar(bundle, output);
 
-  console.log(`Extracted bundle to ${output}`);
+  logger.info(`Extracted bundle to ${output}`);
 
   const manifest = yield* readManifest(join(output, ".manifest"));
 

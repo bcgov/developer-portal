@@ -1,8 +1,10 @@
 import { call, each, stream, type Operation } from "effection";
 import { UntarStream } from "@std/tar/untar-stream";
 import { dirname, join, normalize } from "@std/path";
+import { useLog } from "./log.ts";
 
 export function* extractTar(archive: string, destination: string): Operation<void> {
+  const logger = yield* useLog();
   const content = yield* call(() => Deno.open(archive));
 
   for (
@@ -22,7 +24,7 @@ export function* extractTar(archive: string, destination: string): Operation<voi
 
     yield* call(() => entry.readable?.pipeTo(dest.writable));
 
-    console.log(`Extracted ${file}`);
+    logger.info(`Extracted ${file}`);
 
     yield* each.next();
   }

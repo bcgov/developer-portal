@@ -3,6 +3,7 @@ import { useBundle } from "./lib/opa.ts";
 import { join } from "@std/path";
 import { merge } from "./lib/yaml.ts";
 import { move, emptyDir } from "@std/fs";
+import { withLogger } from "./lib/log.ts";
 
 if (import.meta.main) {
   await main(function* () {
@@ -11,9 +12,9 @@ if (import.meta.main) {
 
     yield* call(() => emptyDir(output));
 
-    const bundle = yield* useBundle(".", output);
+    const bundle = yield* withLogger("useBundle", () => useBundle(".", output));
 
-    const policyEntitiesFile = yield* merge(source);
+    const policyEntitiesFile = yield* withLogger("merge", () => merge(source));
 
     yield* call(() => move(policyEntitiesFile, join(bundle.output, "policy.yaml")));
   });

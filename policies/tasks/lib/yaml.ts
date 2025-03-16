@@ -2,8 +2,11 @@ import { walk } from "@std/fs";
 import { globToRegExp } from "@std/path";
 import { call, each, stream } from "effection";
 import { Document, parseAllDocuments } from "@eemeli/yaml";
+import { useLog } from "./log.ts";
 
 export function* merge(source: string) {
+  const logger = yield* useLog();
+  
   const reg = globToRegExp("**/*.yaml", {
     globstar: true,
   });
@@ -24,7 +27,7 @@ export function* merge(source: string) {
     const docs = parseAllDocuments(content);
     docs.forEach((doc) => {
       if (doc.errors.length > 0) {
-        console.error(
+        logger.error(
           `${entry.path}: ${doc.errors.map((e) => e.message).join(", ")}`,
         );
       }
