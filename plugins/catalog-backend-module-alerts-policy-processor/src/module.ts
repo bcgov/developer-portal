@@ -2,12 +2,11 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
-import { loadPolicy } from '@open-policy-agent/opa-wasm';
-import { AlertPolicyProcessor } from './alertsPolicyProcessor';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import { loadPolicy } from '@open-policy-agent/opa-wasm';
 import { promises as fs } from 'fs';
-import { StaticPolicyProvider } from './staticPolicyEntityProvider';
-import path from 'path';
+import { join } from 'path';
+import { PolicyProcessor } from './PolicyProcessor';
 import { EntityRelationsProcessor } from './relationshipsProcessor';
 
 export const catalogModuleAlertsPolicyProcessor = createBackendModule({
@@ -20,24 +19,15 @@ export const catalogModuleAlertsPolicyProcessor = createBackendModule({
         logger: coreServices.logger,
       },
       async init({ catalog, logger }) {
-        const policiesDir = '../../bundle';
+        const policiesDir = '../../policies.bundle';
 
-        const policyPath = path.join(policiesDir, './policy.wasm');
+        const policyPath = join(policiesDir, './policy.wasm');
+        console.log('policyPath', policyPath);
+
         const policy = await loadPolicy(await fs.readFile(policyPath));
-        
-        catalog.addProcessor(new AlertPolicyProcessor(policy));
-        
-        // await fs.access(policiesDir);
-        // const policiesPath = await fs.readdir(policiesDir);
-        // const policies = [];
-        // for (const policyFile of policiesPath) {
-        //   policies.push({ name: policyFile });
-        // }
 
-        // const policyEntityProvider = new StaticPolicyProvider(policies);
-        // catalog.addEntityProvider(policyEntityProvider);
-
-        // catalog.addProcessor(new EntityRelationsProcessor({ logger }));
+        catalog.addProcessor(new PolicyProcessor({ policy, logger }));
+        catalog.addProcessor(new EntityRelationsProcessor({ logger }));
       },
     });
   },

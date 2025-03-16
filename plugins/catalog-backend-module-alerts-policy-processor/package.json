@@ -29,7 +29,8 @@
     "@backstage/config": "^1.2.0",
     "@backstage/plugin-catalog-node": "^1.13.1",
     "@backstage/types": "^1.2.1",
-    "@open-policy-agent/opa-wasm": "^1.10.0"
+    "@open-policy-agent/opa-wasm": "^1.10.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^1.0.2",

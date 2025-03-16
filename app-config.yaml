@@ -62,6 +62,12 @@ permission:
   enabled: true
 
 integrations:
+  github:
+    - host: github.com
+      # token: ${GITHUB_TOKEN}
+      apps:
+        - $include: github-app-guidanti-github-app-credentials.yaml
+
 # github:
 #   - host: github.com
 # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
@@ -131,3 +137,5 @@ catalog:
   locations:
     - type: file
       target: ../../catalog-info.yaml
+    - type: file
+      target: ../../policies.bundle/policy.yaml

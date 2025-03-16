@@ -63,3 +63,5 @@ catalog:
       target: https://github.com/bcgov/developer-experience-team/blob/main/developer-portal/catalog/templates-seed-dev.yml
       rules:
         - allow: [Template]
+    - type: file
+      target: ../../policies.bundle/policy.yaml
