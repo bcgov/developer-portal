@@ -9,7 +9,7 @@ import rego.v1
 # entrypoint: true
 query := {"alerts": [{
 	"kind": "alert",
-	"relations.forComponent": sprintf("%v:%v/%v", [kind, namespace, name]),
+	"relations.forComponent": helpers.entity_ref(kind, namespace, name),
 }]} if {
 	kind := input.entity.kind
 	namespace := object.get(input.entity.metadata, "namespace", "default")
