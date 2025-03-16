@@ -1,1 +1,1 @@
-{"revision":"","roots":[""],"wasm":[{"entrypoint":"alert","module":"/policy.wasm"},{"entrypoint":"component","module":"/policy.wasm"},{"entrypoint":"system","module":"/policy.wasm"},{"entrypoint":"component/compliance","module":"/policy.wasm"}],"rego_version":1}
+{"revision":"","roots":[""],"wasm":[{"entrypoint":"alert","module":"/policy.wasm"},{"entrypoint":"component","module":"/policy.wasm"},{"entrypoint":"component/query","module":"/policy.wasm","annotations":[{"entrypoint":true,"scope":"document"}]},{"entrypoint":"system","module":"/policy.wasm"}],"rego_version":1}

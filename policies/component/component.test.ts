@@ -11,7 +11,7 @@ describe("component", () => {
       expect(policy.entrypoints).toHaveProperty("component/query");
     });
 
-    it("should return the correct alerts", function* () {
+    it("should return the filters", function* () {
       const policy = yield* usePolicy();
 
       const result = policy.evaluate({

@@ -12,8 +12,8 @@ query := {"alerts": [{
 	"relations.forComponent": sprintf("%v:%v/%v", [kind, namespace, name]),
 }]} if {
 	kind := input.entity.kind
-	namespace := input.metadata.namespace
-	name := input.metadata.name
+	namespace := input.entity.metadata.namespace
+	name := input.entity.metadata.name
 }
 
 # Compliance result
