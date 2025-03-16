@@ -1,23 +1,11 @@
-import { createContext } from "effection";
-import { beforeEach, describe, expect, it } from "./adapter.ts";
-import { normalize, relative } from "@std/path";
-import { Bundle, useBundle } from "../tasks/lib/opa.ts";
-
-function getSource() {
-  return normalize(
-    relative(new URL("../", import.meta.url).pathname, Deno.cwd()),
-  );
-}
-
-const PolicyContext = createContext<Bundle>("policy");
+import { describe, expect, it } from "../tests/adapter.ts";
+import { usePolicy, setupPolicyContext } from "../tests/helpers.ts";
 
 describe("alert", () => {
-  beforeEach(function* () {
-    yield* PolicyContext.set(yield* useBundle(getSource()));
-  });
+  setupPolicyContext();
 
   it("provides alert remediation for CodeQL Warnings", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {
@@ -53,7 +41,7 @@ describe("alert", () => {
   });
 
   it("provides alert remediation for CodeQL Errors", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
     
     const result = policy.evaluate({
       entity: {
@@ -90,7 +78,7 @@ describe("alert", () => {
   });
 
   it("provides alert remediation for Trivy Errors", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {
@@ -127,7 +115,7 @@ describe("alert", () => {
   });
 
   it("provides alert remediation for Private Key Exposure", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {
@@ -164,7 +152,7 @@ describe("alert", () => {
   });
 
   it("provides alert category for XSS", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {
@@ -191,7 +179,7 @@ describe("alert", () => {
   });
 
   it("provides alert category for Dependency Vulnerability", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {
@@ -218,7 +206,7 @@ describe("alert", () => {
   });
 
   it("provides alert category for Secret", function* () {
-    const { policy } = yield* PolicyContext.expect();
+    const policy = yield* usePolicy();
 
     const result = policy.evaluate({
       entity: {

@@ -1,0 +1,13 @@
+apiVersion: policy.gov.bc.ca/v1alpha1
+kind: Policy
+metadata:
+  name: no-enforced-policy-violations
+  title: "No Enforced Policy Violations"
+  description: "This policy ensures that no alerts violate enforced policies."
+spec:
+  scope:
+    - kind: component
+  uses:
+    - kind: alert
+---
+
