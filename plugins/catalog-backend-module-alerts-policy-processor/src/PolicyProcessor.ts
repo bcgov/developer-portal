@@ -2,13 +2,7 @@ import { type CatalogProcessor } from '@backstage/plugin-catalog-node';
 import { Entity } from '@backstage/catalog-model';
 import { LoadedPolicy } from '@open-policy-agent/opa-wasm';
 import { LoggerService } from '@backstage/backend-plugin-api';
-import { z } from 'zod';
-
-const PolicyResultSchema = z.array(
-  z.object({
-    result: z.record(z.string(), z.any()),
-  }),
-);
+import { PolicyEvaluationResultSchema } from './schemas/PolicyEvaluationResult';
 
 export class PolicyProcessor implements CatalogProcessor {
   private policy: LoadedPolicy;
@@ -37,16 +31,12 @@ export class PolicyProcessor implements CatalogProcessor {
   }
 
   async preProcessEntity(entity: Entity): Promise<Entity> {
-    const entrypoints = Object.keys(this.policy.entrypoints);
     if (!this.entrypoints.includes(entity.kind.toLocaleLowerCase())) {
-      this.logger.debug(
-        `PolicyProcessor received entity of kind ${entity.kind} but no entrypoints found for it`,
-      );
       return entity;
     }
 
     // need to add zod schema to validate the result
-    const [{ result }] = PolicyResultSchema.parse(
+    const [{ result }] = PolicyEvaluationResultSchema.parse(
       this.policy.evaluate({
         entity,
       }),
