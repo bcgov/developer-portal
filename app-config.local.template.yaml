@@ -65,3 +65,5 @@ catalog:
         - allow: [Template]
     - type: file
       target: ../../policies.bundle/policy.yaml
+    - type: file
+      target: ../../catalog-info.yaml
