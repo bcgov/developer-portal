@@ -8,6 +8,7 @@ import {
   alertRuleToolColumn,
   severityColumn,
   securityLevelColumn,
+  policyCategoryColumn,
 } from 'backstage-plugin-policy-react';
 
 export const columns: CatalogTableColumnsFunc = entityListContext => {
@@ -19,6 +20,7 @@ export const columns: CatalogTableColumnsFunc = entityListContext => {
       alertRuleToolColumn,
       severityColumn,
       securityLevelColumn,
+      policyCategoryColumn,
     ];
   }
 
