@@ -2,9 +2,9 @@ apiVersion: policy.gov.bc.ca/v1alpha1
 kind: Policy
 metadata:
   name: codeql-warnings
-  title: "Suggest fixing CodeQL Warnings"
-  description: "This policy identifies CodeQL warnings and provides optional
-    remediation guidance."
+  title: 'Suggest fixing CodeQL Warnings'
+  description: 'This policy identifies CodeQL warnings and provides optional
+    remediation guidance.'
 spec:
   scope:
     - kind: alert
@@ -13,9 +13,9 @@ apiVersion: policy.gov.bc.ca/v1alpha1
 kind: Policy
 metadata:
   name: codeql-errors
-  title: "Suggest fixing CodeQL Errors"
-  description: "This policy identifies CodeQL errors and provides recommended
-    remediation guidance."
+  title: 'Suggest fixing CodeQL Errors'
+  description: 'This policy identifies CodeQL errors and provides recommended
+    remediation guidance.'
 spec:
   scope:
     - kind: alert
@@ -24,7 +24,7 @@ apiVersion: policy.gov.bc.ca/v1alpha1
 kind: Policy
 metadata:
   name: trivy-errors
-  title: "Suggest fixing Trivy Errors"
+  title: 'Suggest fixing Trivy Errors'
 spec:
   scope:
     - kind: alert
@@ -32,9 +32,23 @@ spec:
 apiVersion: policy.gov.bc.ca/v1alpha1
 kind: Policy
 metadata:
-  name: "private-key-exposure"
-  title: "Fixing Private Key Exposure is strictly enforced"
-  description: "This policy identifies private key exposure and requires remediation."
+  name: 'private-key-exposure'
+  title: 'Fixing Private Key Exposure is strictly enforced'
+  description: 'This policy identifies private key exposure and requires remediation.'
 spec:
   scope:
     - kind: alert
+---
+apiVersion: policy.gov.bc.ca/v1alpha1
+kind: Policy
+metadata:
+  name: 'no-enforced-policy-violations'
+  title: 'No Enforced Policy Violations'
+  description: 'This policy ensures that no alerts violate enforced policies.'
+spec:
+  scope:
+    - kind: component
+  uses:
+    - kind: alert
+---
+
