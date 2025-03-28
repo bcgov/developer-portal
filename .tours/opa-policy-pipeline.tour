@@ -1,0 +1,105 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "OPA Policy Pipeline",
+  "steps": [
+    {
+      "title": "Policies Pacakge",
+      "description": "All of the policies are stored in the `policies` directory."
+    },
+    {
+      "file": "policies/deno.json",
+      "description": "You can run `deno task build` from policies directory to generate a policies bundle. This bundle will include everything in policies directory.",
+      "line": 5
+    },
+    {
+      "file": "policies.bundle/.manifest",
+      "description": "The generated bundle has a `.manifest` file which shows all of the entrypoints of the `policy.wasm` file. Entrypoints are used by the processing pipeline to processes entities.",
+      "line": 6
+    },
+    {
+      "file": "policies.bundle/.manifest",
+      "description": "\"alert\", \"component\" and \"system\" entrypoints correspond to Backstage entity kinds. To allow applying policies to a new kind, you need to create a new entrypoint. An entrypoint is a policy file with `.rego` extension.",
+      "line": 8
+    },
+    {
+      "file": "policies/alert/alert.rego",
+      "description": "These two lines are required by OPA to tell policy compiler to treat this file as entrypoint.",
+      "line": 1
+    },
+    {
+      "file": "policies/alert/alert.rego",
+      "description": "package name should be unique and match the name of the directory",
+      "line": 3
+    },
+    {
+      "file": "policies/alert/alert.rego",
+      "description": "`remediation` is the name of the property that will be added to the backstage entity. The way to read this is `remediation will contain policy, level, help, description if it matches the alert properties`",
+      "line": 7
+    },
+    {
+      "file": "policies/alert/alert.rego",
+      "description": "All of the `remediation` rules will be evaluated but only those matching the `if` block will be included in the `remediation` property. The remediation property will be an array. ",
+      "line": 18
+    },
+    {
+      "file": "policies/alert/alert.rego",
+      "description": "policy property refers to entity in alert.yaml file. that file will be contatinated to produce entities file in the policy.bundle. This property create a soft link to the policy entity. ",
+      "line": 8
+    },
+    {
+      "file": "policies/alert/alert.test.ts",
+      "description": "You can run this test with `deno test alert/alert.test.ts` from policies directory or `deno test` to run all tests. These tests are used to confirm result of policy execution.",
+      "line": 4
+    },
+    {
+      "file": "policies/component/component.rego",
+      "description": "compliance rules on components behave similar to alert remediation except they evaluate using alert remediations as input. ",
+      "line": 20
+    },
+    {
+      "file": "policies/component/component.rego",
+      "description": "Backstage processing pipeline processes one entity at a time, which means that a component won't know what alerts belong to it. We need to query the catalog to get alerts that belong to component. We could have hard coded this in the processor, but it would require making TypeScript changes everytime we want to add a new entity kind. Instead, we have `query` rule which receives the entity and returns a filter parameters that can be sent to Backstage Catalog's entities endpoint. The resulting entities will be passed to the compliance query.  ",
+      "line": 10
+    },
+    {
+      "file": "policies/system/system.rego",
+      "description": "System compliance follows similar pattern to Component compliance but it operates on component compliance results. ",
+      "line": 18
+    },
+    {
+      "file": "policies/system/system.rego",
+      "description": "system/query entry point rule returns filters for components. we could query more data by adding another property along side components. ",
+      "line": 11
+    },
+    {
+      "file": "policies.bundle/policy.yaml",
+      "description": "This file will contain all policies from .yaml files from directories in policies. This file is included in app-config.yaml",
+      "line": 1
+    },
+    {
+      "file": "plugins/catalog-backend-module-alerts-policy-processor/src/PolicyProcessor.ts",
+      "description": "This is the main PolicyProcessor.",
+      "line": 1
+    },
+    {
+      "file": "plugins/catalog-backend-module-alerts-policy-processor/src/PolicyProcessor.ts",
+      "description": "It evaluates policy wasm file for each entity kind that has an entrypoint in the entity. Here it checks that the entity kind has an entrypoint in the wasm file. If it doesn't, it just returns the entity which sends it throught the pipeline.",
+      "line": 47
+    },
+    {
+      "file": "plugins/catalog-backend-module-alerts-policy-processor/src/PolicyProcessor.ts",
+      "selection": {
+        "start": {
+          "line": 61,
+          "character": 1
+        },
+        "end": {
+          "line": 62,
+          "character": 1
+        }
+      },
+      "description": "It'll attempt to fetch additional entities the policy for this kind has a `${kind}/query` entrypoint. The result will be added to the `input` variable above."
+    }
+  ],
+  "ref": "alert-ingestion"
+}

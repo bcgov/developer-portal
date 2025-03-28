@@ -56,13 +56,18 @@ export class PolicyProcessor implements CatalogProcessor {
       entity,
     };
 
+    // checks if query entrypoint exists for this kind
+    // it'll look like `component/query`
     if (this.entrypoints.includes(`${kind}/query`)) {
+      // evaluate the query entry point with the entity as input
       const policyEvaluationQueryResult = this.policy.evaluate(
         input,
         `${kind}/query`,
       );
       try {
         // Attempt to parse the policy evaluation query result
+        // Uses zod schema to pass the result which gives us a
+        // strictly types result.
         const [{ result } = { result: {} }] =
           PolicyEvaluationQueryResultSchema.parse(policyEvaluationQueryResult);
 
@@ -73,11 +78,13 @@ export class PolicyProcessor implements CatalogProcessor {
           query: JSON.stringify(result),
         });
 
+        // generate a token for calling the catalog backend
         const { token } = await this.auth.getPluginRequestToken({
           onBehalfOf: await this.auth.getOwnServiceCredentials(),
           targetPluginId: 'catalog',
         });
 
+        // user the result of query entrypoint to filter the catalog
         await Promise.all(
           Object.entries(result).map(async ([key, filter]) => {
             if (filter === null) {
