@@ -27,7 +27,7 @@
     "@backstage/backend-plugin-api": "^1.0.1",
     "@backstage/config": "^1.2.0",
     "@backstage/plugin-scaffolder-node": "^0.5.0",
-    "@snowplow/browser-tracker": "^3.15.0"
+    "@snowplow/node-tracker": "^4.5.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.28.2",

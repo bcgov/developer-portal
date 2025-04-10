@@ -1,9 +1,6 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import { Config } from '@backstage/config';
-import {
-  newTracker,
-  trackSelfDescribingEvent,
-} from '@snowplow/browser-tracker';
+import { newTracker, buildSelfDescribingEvent } from '@snowplow/node-tracker';
 
 /**
  * Creates an `bcgov:analytics` Scaffolder action.
@@ -19,7 +16,7 @@ export function createAnalyticsAction(options: { config: Config }) {
   return createTemplateAction<{
     name: string;
     ministry: string;
-    options?: string;
+    options?: string[];
     platform?: string;
     timeSaved: number;
   }>({
@@ -44,8 +41,8 @@ export function createAnalyticsAction(options: { config: Config }) {
           },
           options: {
             title: 'The selected configuration options',
-            description: 'This is a configuration option selected by the user',
-            type: 'string',
+            description: 'These are configuration options selected by the user',
+            type: 'array(string)',
           },
           platform: {
             title: 'The selected platform',
@@ -62,7 +59,7 @@ export function createAnalyticsAction(options: { config: Config }) {
       },
     },
     async handler(ctx) {
-      ctx.logger.info(`Running analytics action, ${config}`);
+      ctx.logger.info('Running snowplow analytics action');
 
       if (config.getBoolean('app.analytics.snowplow.enabled')) {
         const trackerId =
@@ -72,36 +69,35 @@ export function createAnalyticsAction(options: { config: Config }) {
         const appId =
           config.getOptionalString('app.analytics.snowplow.appId') ||
           'Snowplow_standalone_OCIO';
-        const cookieLifetime =
-          config.getOptionalNumber('app.analytics.snowplow.cookieLifetime') ??
-          86400 * 548;
 
-        newTracker(trackerId, endpoint, {
-          appId: appId,
-          cookieLifetime: cookieLifetime,
-          platform: 'web',
-          contexts: {
-            webPage: true,
+        const tracker = newTracker(
+          {
+            namespace: trackerId,
+            appId: appId,
+            encodeBase64: false,
           },
-          plugins: [],
-        });
+          {
+            endpoint: endpoint,
+            eventMethod: 'post',
+            bufferSize: 1,
+          },
+        );
 
-        trackSelfDescribingEvent({
-          event: {
-            schema: 'iglu:ca.bc.gov.devx/action/jsonschema/1-0-0',
-            data: {
-              action: 'wizard-complete',
-              text: ctx.input.name,
-              ministry: ctx.input.ministry,
-
-              // these req schema update
-              // options: ctx.input.options,
-              // platform: ctx.input.platform,
-
-              time_saved: ctx.input.timeSaved,
+        tracker.track(
+          buildSelfDescribingEvent({
+            event: {
+              schema: 'iglu:ca.bc.gov.devx/action/jsonschema/1-0-0',
+              data: {
+                action: 'wizard-complete',
+                text: ctx.input.name,
+                ministry: ctx.input.ministry,
+                options: ctx.input.options,
+                platform: ctx.input.platform,
+                time_saved: ctx.input.timeSaved,
+              },
             },
-          },
-        });
+          }),
+        );
       }
     },
   });

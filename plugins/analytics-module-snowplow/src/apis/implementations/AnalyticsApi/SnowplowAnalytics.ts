@@ -4,7 +4,6 @@ import {
   newTracker,
   trackPageView,
   enableActivityTracking,
-  trackSelfDescribingEvent,
 } from '@snowplow/browser-tracker';
 import {
   LinkClickTrackingPlugin as linkClickTrackingPlugin,
@@ -103,9 +102,6 @@ export class SnowplowAnalytics implements AnalyticsApi {
         case 'discover':
           this.trackClick(event);
           break;
-        case 'create':
-          this.trackCreate(event);
-          break;
         default:
           break;
       }
@@ -146,19 +142,5 @@ export class SnowplowAnalytics implements AnalyticsApi {
       this.trackSearch(event);
       this.cancelProc = null;
     }, this.debounceTime);
-  }
-
-  private trackCreate(event: AnalyticsEvent): void {
-    trackSelfDescribingEvent({
-      event: {
-        schema: 'iglu:ca.bc.gov.devx/action/jsonschema/1-0-0',
-        data: {
-          action: 'wizard-complete',
-          text: event.subject,
-          ministry: '',
-          time_saved: event.value ?? 0.0,
-        },
-      },
-    });
   }
 }
