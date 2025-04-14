@@ -10,7 +10,7 @@ RUN dnf install -y -q --allowerasing --nobest \
 
 
 # Env vars
-ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
+ENV YARN=./.yarn/releases/yarn-4.4.1.cjs
 ENV EXTERNAL_SOURCE=.
 ENV CONTAINER_SOURCE=/opt/app-root/src
 
@@ -27,7 +27,7 @@ COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-RUN "$YARN" install --frozen-lockfile --network-timeout 600000
+RUN "$YARN" install --immutable --network-timeout 600000
 
 # Stage 3 - Build packages
 FROM deps AS build
@@ -55,14 +55,14 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
   $EXTERNAL_SOURCE/catalog-info.yaml ./
 
 # Install production dependencies
-RUN "$YARN" install --frozen-lockfile --production --network-timeout 600000 && "$YARN" cache clean
+RUN "$YARN" workspaces focus --all --production --network-timeout 600000 && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
 FROM registry.access.redhat.com/ubi9/nodejs-20-minimal AS runner
 USER 0
 
 # Env vars
-ENV YARN=./.yarn/releases/yarn-1.22.19.cjs
+ENV YARN=./.yarn/releases/yarn-4.4.1.cjs
 ENV CONTAINER_SOURCE=/opt/app-root/src
 
 WORKDIR $CONTAINER_SOURCE/
