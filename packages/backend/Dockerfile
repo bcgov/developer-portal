@@ -55,7 +55,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
   $EXTERNAL_SOURCE/catalog-info.yaml ./
 
 # Install production dependencies
-RUN "$YARN" workspaces focus --all --production --network-timeout 600000 && "$YARN" cache clean
+RUN "$YARN" workspaces focus --all --production && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
 FROM registry.access.redhat.com/ubi9/nodejs-20-minimal AS runner
