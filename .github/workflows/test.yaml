@@ -22,10 +22,10 @@ jobs:
         with:
           node-version: '20'
 
-      # from https://github.com/actions/cache/blob/main/examples.md#node---yarn
+      # from https://github.com/actions/cache/blob/main/examples.md#node---yarn-2
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(./.yarn/releases/yarn-1.22.19.cjs cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(./.yarn/releases/yarn-4.4.1.cjs config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
         id: yarn-cache
@@ -36,7 +36,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
-        run: ./.yarn/releases/yarn-1.22.19.cjs install --frozen-lockfile
+        run: ./.yarn/releases/yarn-4.4.1.cjs install --immutable
 
       - name: Run Unit Tests
-        run: ./.yarn/releases/yarn-1.22.19.cjs test
+        run: ./.yarn/releases/yarn-4.4.1.cjs test
