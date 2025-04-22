@@ -27,6 +27,10 @@ import DocsIcon from '@material-ui/icons/Description';
 import EventIcon from '@material-ui/icons/Event';
 import { BCGovHeaderText } from './HomeHeaderText';
 import * as tokens from '@bcgov/design-tokens/js';
+import {
+  HomePageRecentlyVisited,
+  HomePageTopVisited,
+} from '@backstage/plugin-home';
 
 const CardTitleIcon = withStyles({
   root: {
@@ -248,6 +252,20 @@ export const HomePageCards = () => {
 
   return (
     <div className={classes.background}>
+      <div className={classes.cardGroup}>
+        <BCGovHeaderText variant="h3" paragraph>
+          Quick access
+        </BCGovHeaderText>
+        <Grid container spacing={4}>
+          <Grid item key="r1" sm={12} md={6}>
+            <HomePageRecentlyVisited numVisitsTotal={3} />
+          </Grid>
+          <Grid item key="r2" sm={12} md={6}>
+            <HomePageTopVisited numVisitsTotal={3} />
+          </Grid>
+        </Grid>
+      </div>
+
       <div className={classes.cardGroup}>
         <Grid container spacing={0} justifyContent="space-between">
           <BCGovHeaderText variant="h3" paragraph>

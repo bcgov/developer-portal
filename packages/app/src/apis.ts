@@ -8,8 +8,11 @@ import {
   configApiRef,
   createApiFactory,
   analyticsApiRef,
+  identityApiRef,
+  errorApiRef,
 } from '@backstage/core-plugin-api';
-import { SnowplowAnalytics } from '@internal/plugin-analytics-module-snowplow'
+import { SnowplowAnalytics } from '@internal/plugin-analytics-module-snowplow';
+import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
@@ -22,5 +25,14 @@ export const apis: AnyApiFactory[] = [
     api: analyticsApiRef,
     deps: { configApi: configApiRef },
     factory: ({ configApi }) => SnowplowAnalytics.fromConfig(configApi),
+  }),
+  createApiFactory({
+    api: visitsApiRef,
+    deps: {
+      identityApi: identityApiRef,
+      errorApi: errorApiRef,
+    },
+    factory: ({ identityApi, errorApi }) =>
+      VisitsWebStorageApi.create({ identityApi, errorApi }),
   }),
 ];

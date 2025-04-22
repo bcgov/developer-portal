@@ -31,7 +31,7 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
 import { devExTheme } from './devex-theme';
 
-import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import HomePage from './components/home/HomePage';
 import { TocFix } from '@app/plugin-toc-fix2';
 import { TechdocExpandableToc } from '@app/plugin-expandable-toc';
@@ -179,6 +179,7 @@ export default app.createRoot(
     <AlertDisplay />
     <OAuthRequestDialog />
     <AppRouter>
+      <VisitListener />
       <Root>{routes}</Root>
     </AppRouter>
   </>,
