@@ -27,7 +27,7 @@ COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
 
-RUN "$YARN" install --immutable --network-timeout 600000
+RUN "$YARN" install --immutable
 
 # Stage 3 - Build packages
 FROM deps AS build
