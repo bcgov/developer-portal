@@ -33,17 +33,22 @@
     "react-use": "^17.2.4"
   },
   "peerDependencies": {
-    "react": "^16.13.1 || ^17.0.0"
+    "react": "^18.0.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.28.2",
     "@backstage/core-app-api": "^1.15.1",
     "@backstage/dev-utils": "^1.1.2",
     "@backstage/test-utils": "^1.7.0",
+    "@testing-library/dom": "^9.0.0",
     "@testing-library/jest-dom": "^5.10.1",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^14.0.0",
-    "msw": "^1.0.0"
+    "@types/react": "^18.0.0",
+    "msw": "^1.0.0",
+    "react": "^18.0.2",
+    "react-dom": "^18.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "files": [
     "dist"
