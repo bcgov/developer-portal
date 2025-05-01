@@ -62,12 +62,6 @@ permission:
   enabled: true
 
 integrations:
-  github:
-    - host: github.com
-      # token: ${GITHUB_TOKEN}
-      apps:
-        - $include: github-app-guidanti-github-app-credentials.yaml
-
 # github:
 #   - host: github.com
 # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
@@ -120,22 +114,3 @@ catalog:
         schedule:
           frequency: { minutes: 60 }
           timeout: { minutes: 15 }
-  rules:
-    - allow:
-        [
-          Component,
-          API,
-          Location,
-          Template,
-          Resource,
-          System,
-          Group,
-          Domain,
-          Policy,
-          Alert,
-        ]
-  locations:
-    - type: file
-      target: ../../catalog-info.yaml
-    - type: file
-      target: ../../policies.bundle/policy.yaml

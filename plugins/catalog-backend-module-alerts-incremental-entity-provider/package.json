@@ -39,6 +39,8 @@
     "@types/parse-github-url": "1.0.3"
   },
   "files": [
-    "dist"
-  ]
+    "dist",
+    "config.d.ts"
+  ],
+  "configSchema": "config.d.ts"
 }

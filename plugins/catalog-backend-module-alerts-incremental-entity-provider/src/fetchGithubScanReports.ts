@@ -3,29 +3,36 @@ import { Octokit } from '@octokit/rest';
 
 export function* fetchGithubScanReports({
   octokit,
+  organization,
   results,
   logger,
 }: {
   octokit: Octokit;
+  organization: string;
   results: Queue<any, void>; // 🚨
   logger: typeof console;
 }) {
-  const {
-    data: { repositories },
-  } = yield* call(() => octokit.rest.apps.listReposAccessibleToInstallation());
-  for (const repository of repositories) {
+  // @ts-ignore
+  const repositories = yield* call(() =>
+    octokit.paginate(octokit.rest.repos.listForOrg, {
+      org: organization,
+      per_page: 100,
+    }),
+  );
+  for (const repository of repositories as Array<{
+    name: string;
+    owner: { login: string };
+  }>) {
     const {
       name: repo,
       owner: { login: owner },
     } = repository;
 
     try {
-      const { data: alerts } = yield* call(() =>
-        octokit.rest.codeScanning.listAlertsForRepo({
-          owner,
-          repo,
-          // ref: default_branch,
-          ref: 'mk/reports',
+      const alerts = yield* call(() =>
+        octokit.paginate(octokit.rest.codeScanning.listAlertsForRepo, {
+          owner: owner,
+          repo: repo,
         }),
       );
 

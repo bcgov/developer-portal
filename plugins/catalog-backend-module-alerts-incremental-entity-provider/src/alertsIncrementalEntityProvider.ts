@@ -45,22 +45,45 @@ export class AlertsIncrementalEntityProvider
   }
 
   async around(burst: (context: Context) => Promise<void>): Promise<void> {
+    this.logger.info('Initializing GitHub integration to retrieve Alerts...');
+
     const { github } = ScmIntegrations.fromConfig(this.config);
     const githubIntegration = github.byHost('github.com');
+    let octokit = null;
 
-    if (githubIntegration && githubIntegration.config.apps?.length) {
-      const { appId, privateKey } = githubIntegration.config.apps[0];
-      const octokit: Octokit = new Octokit({
-        authStrategy: createAppAuth,
-        auth: {
-          appId,
-          privateKey,
-          installationId: 55462171, // 🚨
-        },
-      });
+    if (githubIntegration) {
+      if (githubIntegration.config.apps?.length) {
+        const { appId, privateKey } = githubIntegration.config.apps[0];
+        const githubAppInstallationId = this.config.getNumber(
+          'integrations.alerts.githubAppInstallationId',
+        );
+
+        octokit = new Octokit({
+          authStrategy: createAppAuth,
+          auth: {
+            appId,
+            privateKey,
+            installationId: githubAppInstallationId,
+          },
+          log: console,
+        });
+
+        this.logger.info(
+          'Initialized GitHub integration using GitHub App authentication...',
+        );
+      } else {
+        octokit = new Octokit({
+          auth: githubIntegration.config.token,
+        });
+
+        this.logger.info(
+          'Initialized GitHub integration using GitHub Token authentication...You may encounter errors due to API rate limits.',
+        );
+      }
+
       await burst({ octokit });
     } else {
-      throw new Error('GitHub App configuration not found');
+      throw new Error('GitHub configuration not found');
     }
   }
 
@@ -73,6 +96,10 @@ export class AlertsIncrementalEntityProvider
     >['data'];
     const alerts = [] as CodeScanningAlertsResponse;
     const { octokit } = context;
+    const organization = this.config.getString(
+      'integrations.alerts.githubOrganization',
+    );
+
     try {
       await run(function* () {
         const results = createQueue<any, void>(); // 🚨
@@ -80,6 +107,7 @@ export class AlertsIncrementalEntityProvider
         yield* spawn(function* () {
           yield* fetchGithubScanReports({
             octokit,
+            organization,
             results,
             logger: console,
           });
