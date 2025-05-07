@@ -27,10 +27,7 @@ import DocsIcon from '@material-ui/icons/Description';
 import EventIcon from '@material-ui/icons/Event';
 import { BCGovHeaderText } from './HomeHeaderText';
 import * as tokens from '@bcgov/design-tokens/js';
-import {
-  HomePageRecentlyVisited,
-  HomePageTopVisited,
-} from '@backstage/plugin-home';
+import { ActivityCard } from './ActivityCard';
 
 const CardTitleIcon = withStyles({
   root: {
@@ -254,14 +251,24 @@ export const HomePageCards = () => {
     <div className={classes.background}>
       <div className={classes.cardGroup}>
         <BCGovHeaderText variant="h3" paragraph>
-          Quick access
+          Your Activity
         </BCGovHeaderText>
         <Grid container spacing={4}>
-          <Grid item key="r1" sm={12} md={6}>
-            <HomePageRecentlyVisited numVisitsTotal={3} />
+          <Grid item key="r1" sm={12} md={6} style={{ display: 'flex' }}>
+            <ActivityCard
+              title="Recently Visited"
+              maxItems={5}
+              mode="recent"
+              description="Pages you've visited recently"
+            />
           </Grid>
-          <Grid item key="r2" sm={12} md={6}>
-            <HomePageTopVisited numVisitsTotal={3} />
+          <Grid item key="r2" sm={12} md={6} style={{ display: 'flex' }}>
+            <ActivityCard
+              title="Most Visited"
+              maxItems={5}
+              mode="frequent"
+              description="Pages you visit most frequently"
+            />
           </Grid>
         </Grid>
       </div>
