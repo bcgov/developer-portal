@@ -44,7 +44,7 @@ const CardTitleIcon = withStyles({
 
 interface CardTitleProps {
   icon: React.ReactNode;
-  linkProps: LinkProps;
+  linkProps?: LinkProps;
 }
 
 const CardTitle = ({
@@ -55,7 +55,11 @@ const CardTitle = ({
   return (
     <CardTitleIcon>
       <div className="icon">{icon}</div>
-      <Link {...props.linkProps}>{children}</Link>
+      {props.linkProps ? (
+        <Link {...props.linkProps}>{children}</Link>
+      ) : (
+        children
+      )}
     </CardTitleIcon>
   );
 };
@@ -263,10 +267,7 @@ export const HomePageCards = () => {
                 <ItemCardHeader
                   classes={{ root: classes.cardHeader }}
                   title={
-                    <CardTitle
-                      linkProps={{ to: '/', title: 'recent' }}
-                      icon={<HistoryIcon />}
-                    >
+                    <CardTitle icon={<HistoryIcon />}>
                       Recently Visited
                     </CardTitle>
                   }
@@ -279,10 +280,6 @@ export const HomePageCards = () => {
                   mode="recent"
                 />
               </CardContent>
-              <CardActions>
-                {/* <CardButton to={d.url} title={d.label}>
-                  </CardButton> */}
-              </CardActions>
             </Card>
           </Grid>
           <Grid item key="r2" sm={12} md={6} style={{ display: 'flex' }}>
@@ -291,10 +288,7 @@ export const HomePageCards = () => {
                 <ItemCardHeader
                   classes={{ root: classes.cardHeader }}
                   title={
-                    <CardTitle
-                      linkProps={{ to: '/', title: 'frequent' }}
-                      icon={<TrendingUpIcon />}
-                    >
+                    <CardTitle icon={<TrendingUpIcon />}>
                       Most Visited
                     </CardTitle>
                   }
@@ -303,10 +297,6 @@ export const HomePageCards = () => {
               <CardContent>
                 <VisitList title="Most Visited" maxItems={5} mode="frequent" />
               </CardContent>
-              <CardActions>
-                {/* <CardButton to={d.url} title={d.label}>
-                    </CardButton> */}
-              </CardActions>
             </Card>
           </Grid>
         </Grid>

@@ -8,6 +8,7 @@ import {
   ListItemText,
   Typography,
   makeStyles,
+  Box,
 } from '@material-ui/core';
 import * as tokens from '@bcgov/design-tokens/js';
 
@@ -32,7 +33,49 @@ const useStyles = makeStyles({
     textAlign: 'center',
     color: tokens.themeGray70,
   },
+  contextDetails: {
+    fontSize: '0.8rem',
+    color: tokens.themeGray70,
+    marginTop: '2px',
+  },
 });
+
+/**
+ * Formats a timestamp into a human-readable "time ago" string
+ */
+function formatTimeAgo(timestamp: number): string {
+  const now = new Date();
+  const visitTime = new Date(timestamp); // This will handle the Unix timestamp in ms
+  const diffMs = now.getTime() - visitTime.getTime();
+
+  const diffSecs = Math.floor(diffMs / 1000);
+  if (diffSecs < 60) {
+    return `${diffSecs} sec${diffSecs !== 1 ? 's' : ''} ago`;
+  }
+
+  const diffMins = Math.floor(diffSecs / 60);
+  if (diffMins < 60) {
+    return `${diffMins} min${diffMins !== 1 ? 's' : ''} ago`;
+  }
+
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) {
+    return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+  }
+
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays < 30) {
+    return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+  }
+
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths < 12) {
+    return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+  }
+
+  const diffYears = Math.floor(diffMonths / 12);
+  return `${diffYears} year${diffYears !== 1 ? 's' : ''} ago`;
+}
 
 export type VisitListProps = {
   title: string;
@@ -99,9 +142,17 @@ export const VisitList = ({ maxItems = 5, mode }: VisitListProps) => {
               </Link>
             }
             secondary={
-              <Typography variant="body2" className={classes.path}>
-                {item.pathname}
-              </Typography>
+              <>
+                <Typography variant="body2" className={classes.path}>
+                  {item.pathname.replace('/catalog/default/component/', '')}
+                </Typography>
+                <Box className={classes.contextDetails}>
+                  {mode === 'recent'
+                    ? item.timestamp && formatTimeAgo(item.timestamp)
+                    : item.hits !== undefined &&
+                      `Visited ${item.hits} time${item.hits !== 1 ? 's' : ''}`}
+                </Box>
+              </>
             }
           />
         </ListItem>
