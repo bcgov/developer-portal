@@ -13,7 +13,7 @@ import * as tokens from '@bcgov/design-tokens/js';
 
 const useStyles = makeStyles({
   listItem: {
-    padding: `${tokens.layoutPaddingSmall} 0`,
+    padding: `0 0`,
     borderBottom: `1px solid ${tokens.themeGray20}`,
     '&:last-child': {
       borderBottom: 'none',
@@ -21,9 +21,10 @@ const useStyles = makeStyles({
   },
   title: {
     fontWeight: 'bold',
+    color: tokens.typographyColorLink,
   },
   path: {
-    color: tokens.themeGray70,
+    color: tokens.themeGray80,
     fontSize: '0.85rem',
   },
   emptyState: {

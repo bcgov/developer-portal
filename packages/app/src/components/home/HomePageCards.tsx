@@ -25,9 +25,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
 import DocsIcon from '@material-ui/icons/Description';
 import EventIcon from '@material-ui/icons/Event';
+import HistoryIcon from '@material-ui/icons/History';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { BCGovHeaderText } from './HomeHeaderText';
 import * as tokens from '@bcgov/design-tokens/js';
-import { ActivityCard } from './ActivityCard';
+import { VisitList } from './VisitList';
 
 const CardTitleIcon = withStyles({
   root: {
@@ -253,22 +255,59 @@ export const HomePageCards = () => {
         <BCGovHeaderText variant="h3" paragraph>
           Your Activity
         </BCGovHeaderText>
+
         <Grid container spacing={4}>
           <Grid item key="r1" sm={12} md={6} style={{ display: 'flex' }}>
-            <ActivityCard
-              title="Recently Visited"
-              maxItems={5}
-              mode="recent"
-              description="Pages you've visited recently"
-            />
+            <Card classes={{ root: classes.card }}>
+              <CardMedia>
+                <ItemCardHeader
+                  classes={{ root: classes.cardHeader }}
+                  title={
+                    <CardTitle
+                      linkProps={{ to: '/', title: 'recent' }}
+                      icon={<HistoryIcon />}
+                    >
+                      Recently Visited
+                    </CardTitle>
+                  }
+                />
+              </CardMedia>
+              <CardContent>
+                <VisitList
+                  title="Recently Visited"
+                  maxItems={5}
+                  mode="recent"
+                />
+              </CardContent>
+              <CardActions>
+                {/* <CardButton to={d.url} title={d.label}>
+                  </CardButton> */}
+              </CardActions>
+            </Card>
           </Grid>
           <Grid item key="r2" sm={12} md={6} style={{ display: 'flex' }}>
-            <ActivityCard
-              title="Most Visited"
-              maxItems={5}
-              mode="frequent"
-              description="Pages you visit most frequently"
-            />
+            <Card classes={{ root: classes.card }}>
+              <CardMedia>
+                <ItemCardHeader
+                  classes={{ root: classes.cardHeader }}
+                  title={
+                    <CardTitle
+                      linkProps={{ to: '/', title: 'frequent' }}
+                      icon={<TrendingUpIcon />}
+                    >
+                      Most Visited
+                    </CardTitle>
+                  }
+                />
+              </CardMedia>
+              <CardContent>
+                <VisitList title="Most Visited" maxItems={5} mode="frequent" />
+              </CardContent>
+              <CardActions>
+                {/* <CardButton to={d.url} title={d.label}>
+                    </CardButton> */}
+              </CardActions>
+            </Card>
           </Grid>
         </Grid>
       </div>
