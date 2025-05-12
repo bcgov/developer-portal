@@ -106,6 +106,7 @@ techdocs:
       - miro.com
 
 catalog:
+  useUrlReadersSearch: true
   providers:
     githubOrg:
       - id: production

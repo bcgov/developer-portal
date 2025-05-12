@@ -1,4 +1,4 @@
-import React, { useEffect, useState, PropsWithChildren } from 'react';
+import { useEffect, useState, PropsWithChildren } from 'react';
 import { useApi } from '@backstage/core-plugin-api';
 import {
   SignInPage,

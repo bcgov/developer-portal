@@ -6,8 +6,7 @@ import {
   Progress,
 } from '@backstage/core-components';
 import { useLocation } from 'react-router-dom';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getIdentityResponse, isProtected } from './helpers';
 
 export type Props = SignInPageProps & {

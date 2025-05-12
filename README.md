@@ -26,7 +26,7 @@ To run the project, use the following at the project's root directory
 
 ```
 $ yarn install
-$ yarn dev
+$ yarn start
 ```
 
 ### Testing

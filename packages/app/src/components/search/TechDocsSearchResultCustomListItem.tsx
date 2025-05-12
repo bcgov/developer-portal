@@ -19,8 +19,16 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren, ReactNode } from 'react';
-import { Box, Chip, Divider, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
+import { PropsWithChildren, ReactNode } from 'react';
+import {
+  Box,
+  Chip,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Link } from '@backstage/core-components';
 import { ResultHighlight } from '@backstage/plugin-search-common';
@@ -72,13 +80,7 @@ export const TechDocsSearchResultCustomListItem = (
   const classes = useStyles();
 
   const LinkWrapper = ({ children }: PropsWithChildren<{}>) =>
-    asLink ? (
-      <Link to={result.location}>
-        {children}
-      </Link>
-    ) : (
-      <>{children}</>
-    );
+    asLink ? <Link to={result.location}>{children}</Link> : <>{children}</>;
 
   const TextItem = () => {
     const resultTitle = highlight?.fields.title ? (
@@ -114,55 +116,51 @@ export const TechDocsSearchResultCustomListItem = (
     if (!result) return null;
 
     return (
-        <>
-            <ListItem alignItems="center">
-                {icon && <ListItemIcon>
-                    {typeof icon === 'function' ? icon(result) : icon}
-                </ListItemIcon>}
-                <Box flexWrap="wrap">
-                    <ListItemText
-                        className={classes.itemText}
-                        primaryTypographyProps={{ variant: 'h6' }}
-                        primary={
-                            <LinkWrapper>
-                                {title ? (
-                                title
-                                ) : (
-                                <>
-                                    {resultTitle} docs
-                                </>
-                                )}
-                            </LinkWrapper>
-                        }
-                        secondary={
-                            <Typography
-                                component="span"
-                                style={{
-                                display: '-webkit-box',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: lineClamp,
-                                overflow: 'hidden',
-                                }}
-                                color="textSecondary"
-                                variant="body2"
-                            >
-                                {highlight?.fields.text ? (
-                                <HighlightedSearchResultText
-                                    text={highlight.fields.text}
-                                    preTag={highlight.preTag}
-                                    postTag={highlight.postTag}
-                                />
-                                ) : (
-                                    result.text
-                                )}
-                            </Typography>
-                        }
+      <>
+        <ListItem alignItems="center">
+          {icon && (
+            <ListItemIcon>
+              {typeof icon === 'function' ? icon(result) : icon}
+            </ListItemIcon>
+          )}
+          <Box flexWrap="wrap">
+            <ListItemText
+              className={classes.itemText}
+              primaryTypographyProps={{ variant: 'h6' }}
+              primary={
+                <LinkWrapper>
+                  {title ? title : <>{resultTitle} docs</>}
+                </LinkWrapper>
+              }
+              secondary={
+                <Typography
+                  component="span"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: lineClamp,
+                    overflow: 'hidden',
+                  }}
+                  color="textSecondary"
+                  variant="body2"
+                >
+                  {highlight?.fields.text ? (
+                    <HighlightedSearchResultText
+                      text={highlight.fields.text}
+                      preTag={highlight.preTag}
+                      postTag={highlight.postTag}
                     />
-                    <Chip label={entityTitle ?? resultName} size="small" />
-                </Box>
-            </ListItem>
-            <Divider />
-        </>
+                  ) : (
+                    result.text
+                  )}
+                </Typography>
+              }
+            />
+            <Chip label={entityTitle ?? resultName} size="small" />
+          </Box>
+        </ListItem>
+        <Divider />
+      </>
     );
   };
 
