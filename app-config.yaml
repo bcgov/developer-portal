@@ -13,7 +13,7 @@ app:
       enabled: true
       collectorUrl: https://spm.apps.gov.bc.ca
   wizards:
-    enabled: false
+    enabled: true
 
 organization:
   name: BCDevExchange
@@ -110,7 +110,7 @@ catalog:
     githubOrg:
       - id: production
         githubUrl: 'https://github.com'
-        orgs: ['bcgov', 'bcgov-public']
+        orgs: ['bcgov']
         schedule:
           frequency: { minutes: 60 }
           timeout: { minutes: 15 }

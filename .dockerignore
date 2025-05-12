@@ -14,3 +14,5 @@ examples
 **/.swc
 e2e-test-report
 .husky
+*.test.tsx
+*.test.ts
