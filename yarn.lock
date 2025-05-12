@@ -19823,19 +19823,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-notice@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "eslint-plugin-notice@npm:1.0.0"
-  dependencies:
-    find-root: "npm:^1.1.0"
-    lodash: "npm:^4.17.21"
-    metric-lcs: "npm:^0.1.2"
-  peerDependencies:
-    eslint: ">=3.0.0"
-  checksum: 10c0/40b162fea014efad8e24c38f58c84729cf0ce0ee7a21fdb79ccfde9c2f5d219e4e74e7729679b6321400b34cc80c51beb00a46ba03a7c13265ceab573262f9ea
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-react-hooks@npm:^5.0.0":
   version: 5.2.0
   resolution: "eslint-plugin-react-hooks@npm:5.2.0"
@@ -26278,13 +26265,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"metric-lcs@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "metric-lcs@npm:0.1.2"
-  checksum: 10c0/cf5e8987cb92b3f70ca9f277268f5b525ae02195906de3b5c612d6c58341b8686241dce07cde7867d1442481f3b06f150d1d2c9f5f2a5a8c91c021ae94675edb
-  languageName: node
-  linkType: hard
-
 "micromark-core-commonmark@npm:^1.0.0, micromark-core-commonmark@npm:^1.0.1":
   version: 1.1.0
   resolution: "micromark-core-commonmark@npm:1.1.0"
@@ -31950,7 +31930,6 @@ __metadata:
     "@spotify/prettier-config": "npm:^12.0.0"
     concurrently: "npm:^8.0.0"
     eslint: "npm:^8.6.0"
-    eslint-plugin-notice: "npm:^1.0.0"
     eslint-plugin-react: "npm:^7.28.0"
     eslint-plugin-testing-library: "npm:^6.0.0"
     husky: "npm:^9.1.1"
