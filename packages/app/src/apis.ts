@@ -11,7 +11,7 @@ import {
   identityApiRef,
   errorApiRef,
 } from '@backstage/core-plugin-api';
-import { SnowplowAnalytics } from '@internal/plugin-analytics-module-snowplow';
+import { SnowplowAnalytics } from '@app/plugin-analytics-module-snowplow';
 import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
 
 export const apis: AnyApiFactory[] = [
