@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { Visit, visitsApiRef } from '@backstage/plugin-home';
+import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import {
   List,
   ListItem,
@@ -11,6 +12,13 @@ import {
   Box,
 } from '@material-ui/core';
 import * as tokens from '@bcgov/design-tokens/js';
+
+// Define the EntityName interface locally since we can't import it
+interface EntityName {
+  kind: string;
+  namespace: string;
+  name: string;
+}
 
 const useStyles = makeStyles({
   listItem: {
@@ -88,7 +96,94 @@ export const VisitList = ({ maxItems = 5, mode }: VisitListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | undefined>();
   const visitsApi = useApi(visitsApiRef);
+  const catalogApi = useApi(catalogApiRef);
   const [visits, setVisits] = useState<Visit[]>([]);
+  const [entityTitles, setEntityTitles] = useState<Record<string, string>>({});
+
+  // Parse entity info from TechDocs URL path: /docs/{namespace}/{kind}/{name}
+  const parseEntityRefFromPath = (pathname: string): EntityName | undefined => {
+    const matches = pathname.match(/^\/docs\/([^\/]+)\/([^\/]+)\/([^\/]+)/);
+    if (matches && matches.length === 4) {
+      return {
+        namespace: matches[1],
+        kind: matches[2],
+        name: matches[3],
+      };
+    }
+    return undefined;
+  };
+
+  // Create an entity reference string from an EntityName object
+  const createEntityRef = (entity: EntityName): string => {
+    return `${entity.kind}:${entity.namespace}/${entity.name}`;
+  };
+
+  // Fetch entity titles from the catalog API for the given visit items
+  useEffect(() => {
+    const fetchEntityTitles = async () => {
+      if (visits.length === 0) return;
+
+      const entityRefs: Record<string, EntityName> = {};
+      const titles: Record<string, string> = {};
+
+      // First extract entity references from all visits
+      visits.forEach(visit => {
+        const entityRef = parseEntityRefFromPath(visit.pathname);
+        if (entityRef) {
+          entityRefs[visit.pathname] = entityRef;
+        }
+      });
+
+      // Then fetch entity information for each unique entity
+      try {
+        for (const [pathname, entityRef] of Object.entries(entityRefs)) {
+          try {
+            // Convert EntityName to a string ref
+            const stringRef = createEntityRef(entityRef);
+            const entity = await catalogApi.getEntityByRef(stringRef);
+            if (entity) {
+              titles[pathname] = entity.metadata.title || entity.metadata.name;
+            }
+          } catch (err) {
+            setError(err instanceof Error ? err : new Error(String(err)));
+          }
+        }
+        setEntityTitles(titles);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      }
+    };
+
+    fetchEntityTitles();
+  }, [visits, catalogApi]);
+
+  // Helper function to get the title for a visit item
+  const getDocumentTitle = (item: Visit): string => {
+    // First try to get title from the catalog API results
+    const catalogTitle = entityTitles[item.pathname];
+    if (catalogTitle) {
+      return catalogTitle;
+    }
+
+    // If we have a name from the visit record, use it
+    if (item.name) {
+      return item.name;
+    }
+
+    // Otherwise, extract a readable title from the pathname
+    const segments = item.pathname.split('/').filter(Boolean);
+    const lastSegment = segments[segments.length - 1];
+
+    if (!lastSegment) return 'Untitled document';
+
+    // Convert kebab-case to readable title format
+    const title = lastSegment
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    return title;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,6 +195,7 @@ export const VisitList = ({ maxItems = 5, mode }: VisitListProps) => {
           orderBy: [{ field: modeField, direction: 'desc' }],
           filterBy: [
             { field: 'entityRef', operator: 'contains', value: 'component:' },
+            { field: 'pathname', operator: 'contains', value: '/docs/' }, // startsWith /docs/ would be better
           ],
         });
         setVisits(visitData);
@@ -137,14 +233,14 @@ export const VisitList = ({ maxItems = 5, mode }: VisitListProps) => {
             primary={
               <Link to={item.pathname}>
                 <Typography variant="body1" className={classes.title}>
-                  {item.name || 'Untitled'}
+                  {getDocumentTitle(item)}
                 </Typography>
               </Link>
             }
             secondary={
               <>
                 <Typography variant="body2" className={classes.path}>
-                  {item.pathname.replace('/catalog/default/component/', '')}
+                  {item.pathname.replace('/docs/default/component/', '')}
                 </Typography>
                 <Box className={classes.contextDetails}>
                   {mode === 'recent'
