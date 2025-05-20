@@ -194,8 +194,8 @@ export const VisitList = ({ maxItems = 5, mode }: VisitListProps) => {
           limit: maxItems,
           orderBy: [{ field: modeField, direction: 'desc' }],
           filterBy: [
-            { field: 'entityRef', operator: 'contains', value: 'component:' },
-            { field: 'pathname', operator: 'contains', value: '/docs/' }, // startsWith /docs/ would be better
+            // { field: 'entityRef', operator: 'contains', value: 'component:' },
+            { field: 'pathname', operator: 'contains', value: 'docs/' }, // startsWith /docs/ would be better
           ],
         });
         setVisits(visitData);
