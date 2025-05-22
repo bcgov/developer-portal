@@ -1,4 +1,3 @@
-import React from 'react';
 import { waitFor } from '@testing-library/react';
 import { TestApiRegistry, renderInTestApp } from '@backstage/test-utils';
 import { ProtectedPage } from './ProtectedPage';

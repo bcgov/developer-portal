@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {

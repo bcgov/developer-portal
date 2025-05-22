@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { makeStyles, withStyles } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Typography from '@material-ui/core/Typography';
 
 import { useShadowRootElements } from '@backstage/plugin-techdocs-react';
 
 const TOC_LIST = 'ul[data-md-component="toc"]>li';
 
-const EXPANDABLE_TOC_LOCAL_STORAGE =
-  '@backstage/techdocs-addons/toc-expanded';
+const EXPANDABLE_TOC_LOCAL_STORAGE = '@backstage/techdocs-addons/toc-expanded';
 
 const useStyles = makeStyles({
   span: {
@@ -25,7 +25,7 @@ const ExpandedIcon = withStyles({
   root: {
     height: '20px',
     width: '20px',
-    transition: 'transform .25s'
+    transition: 'transform .25s',
   },
 })(ChevronRightIcon);
 
@@ -37,44 +37,51 @@ type expandableTocLocalStorage = {
  * Show expand/collapse button next to ToC header
  */
 export const ExpandableTocAddon = () => {
-    const classes = useStyles();
-    const defaultValue = { expandToc: false };
-    const { value: expanded, set: setExpanded } =
+  const classes = useStyles();
+  const defaultValue = { expandToc: false };
+  const { value: expanded, set: setExpanded } =
     useLocalStorageValue<expandableTocLocalStorage>(
-        EXPANDABLE_TOC_LOCAL_STORAGE,
-        { defaultValue },
+      EXPANDABLE_TOC_LOCAL_STORAGE,
+      { defaultValue },
     );
 
-    const tocList = useShadowRootElements<HTMLLIElement>([TOC_LIST]);
-    const isEmpty = (tocList.length === 0);
+  const tocList = useShadowRootElements<HTMLLIElement>([TOC_LIST]);
+  const isEmpty = tocList.length === 0;
 
-    useEffect(() => {
-      tocList.forEach(match => {
-        match.style.display = expanded?.expandToc ? 'block' : 'none';
-      });
-    }, [expanded, tocList]);
+  useEffect(() => {
+    tocList.forEach(match => {
+      match.style.display = expanded?.expandToc ? 'block' : 'none';
+    });
+  }, [expanded, tocList]);
 
-    const handleState = () => {
-        setExpanded(prevState => ({
-            expandToc: !prevState?.expandToc,
-        }));
-    };
+  const handleState = () => {
+    setExpanded(prevState => ({
+      expandToc: !prevState?.expandToc,
+    }));
+  };
 
-    return (
-        <>
-            { !isEmpty ? (
-                <span
-                    className={classes.span}
-                    onClick={handleState}
-                    onKeyDown={handleState}
-                    aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
-                >
-                  <ExpandedIcon 
-                    style={{ transform: expanded?.expandToc ? 'rotate(90deg)' : 'rotate(0)' }} 
-                    cursor='pointer'
-                  />
-                </span>
-            ) : null }
-        </>
-    );
+  return (
+    <>
+      {!isEmpty ? (
+        <Typography
+          component="span"
+          className={classes.span}
+          role="button"
+          tabIndex={0}
+          onClick={handleState}
+          onKeyDown={event => {
+            if (event.key === 'Enter' || event.key === ' ') handleState();
+          }}
+          aria-label={expanded?.expandToc ? 'collapse-toc' : 'expand-toc'}
+        >
+          <ExpandedIcon
+            style={{
+              transform: expanded?.expandToc ? 'rotate(90deg)' : 'rotate(0)',
+            }}
+            cursor="pointer"
+          />
+        </Typography>
+      ) : null}
+    </>
+  );
 };

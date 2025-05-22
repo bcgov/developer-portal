@@ -1,6 +1,5 @@
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
-import React from 'react';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 

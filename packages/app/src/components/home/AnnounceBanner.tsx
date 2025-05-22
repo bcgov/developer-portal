@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { IconButton, makeStyles, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import * as tokens from '@bcgov/design-tokens/js';

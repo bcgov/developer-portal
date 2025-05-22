@@ -1,7 +1,7 @@
 # From https://github.com/janus-idp/backstage-showcase/
 # Stage 1 - Build nodejs skeleton
 
-FROM registry.access.redhat.com/ubi9/nodejs-20 AS skeleton
+FROM registry.access.redhat.com/ubi9/nodejs-20:9.5-1746604787 AS skeleton
 USER 0
 
 RUN dnf install -y -q --allowerasing --nobest \
@@ -22,7 +22,7 @@ RUN chmod +x "$YARN"
 # Stage 2 - Install dependencies
 FROM skeleton AS deps
 
-COPY $EXTERNAL_SOURCE/package.json $EXTERNAL_SOURCE/yarn.lock ./
+COPY $EXTERNAL_SOURCE/package.json $EXTERNAL_SOURCE/yarn.lock $EXTERNAL_SOURCE/backstage.json ./
 COPY $EXTERNAL_SOURCE/packages/app/package.json ./packages/app/package.json
 COPY $EXTERNAL_SOURCE/packages/backend/package.json ./packages/backend/package.json
 COPY $EXTERNAL_SOURCE/plugins/ ./plugins/
@@ -42,7 +42,7 @@ RUN $YARN build:backend
 FROM skeleton AS cleanup
 
 # Copy the install dependencies from the build stage and context
-COPY --from=build $CONTAINER_SOURCE/yarn.lock $CONTAINER_SOURCE/package.json $CONTAINER_SOURCE/packages/backend/dist/skeleton.tar.gz ./
+COPY --from=build $CONTAINER_SOURCE/yarn.lock $CONTAINER_SOURCE/package.json $CONTAINER_SOURCE/backstage.json $CONTAINER_SOURCE/packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 
 # Copy the built packages from the build stage
@@ -58,7 +58,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
 RUN "$YARN" workspaces focus --all --production && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
-FROM registry.access.redhat.com/ubi9/nodejs-20-minimal AS runner
+FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:9.5-1746523564 AS runner
 USER 0
 
 # Env vars

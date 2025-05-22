@@ -42,7 +42,7 @@ jobs:
       - name: find location of global yarn cache
         id: yarn-cache
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(./.yarn/releases/yarn-4.4.1.cjs config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - name: cache global yarn cache
         uses: actions/cache@v4
@@ -54,7 +54,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: yarn install
-        run: yarn install --immutable
+        run: ./.yarn/releases/yarn-4.4.1.cjs install --immutable
       # End of yarn setup
 
       - name: 'Set release name'

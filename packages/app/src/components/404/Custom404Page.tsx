@@ -1,7 +1,18 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { Box, Button, Divider, Grid, Typography, makeStyles } from '@material-ui/core';
+import { useCallback, useEffect, useRef } from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Typography,
+  makeStyles,
+} from '@material-ui/core';
 import { Content, Page } from '@backstage/core-components';
-import { SearchBar, SearchContextProvider, SearchPagination } from '@backstage/plugin-search-react';
+import {
+  SearchBar,
+  SearchContextProvider,
+  SearchPagination,
+} from '@backstage/plugin-search-react';
 import { searchPlugin } from '@backstage/plugin-search';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { searchResultCustomList } from '../search/SearchResultCustomList';
@@ -35,7 +46,7 @@ const rootRouteRef = searchPlugin.routes.root;
 
 const rmTrailingSlash = (str: string) => {
   return str.replace(/\/{1,5}$/, '');
-}
+};
 
 export function Custom404Page() {
   const classes = useStyles();
@@ -62,7 +73,7 @@ export function Custom404Page() {
     // Using ref to get the current field value without waiting for a query debounce
     const query = searchBarRef.current?.value ?? '';
     navigate(`${searchRootRoute}?query=${query}`);
-  }, [navigate, searchBarRef]);
+  }, [navigate, searchBarRef, searchRootRoute]);
 
   return (
     <Page themeId="home">
@@ -80,11 +91,7 @@ export function Custom404Page() {
               />
             </Box>
 
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-            >
+            <Grid container justifyContent="space-between" alignItems="center">
               <Grid item>
                 <SearchPagination />
               </Grid>
@@ -107,8 +114,20 @@ export function Custom404Page() {
             </Grid>
             <Box pt={5}>
               <Typography variant="h6">
-                  <Link className={classes.link} to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}>Search Classic DevHub</Link>
-                  &nbsp;- please <Link className={classes.link} to="https://github.com/bcgov/developer-portal/issues">contact support</Link> if you think this is a bug
+                <Link
+                  className={classes.link}
+                  to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}
+                >
+                  Search Classic DevHub
+                </Link>
+                &nbsp;- please{' '}
+                <Link
+                  className={classes.link}
+                  to="https://github.com/bcgov/developer-portal/issues"
+                >
+                  contact support
+                </Link>{' '}
+                if you think this is a bug
               </Typography>
             </Box>
           </Box>
