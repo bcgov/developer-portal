@@ -114,13 +114,7 @@ export function Custom404Page() {
             </Grid>
             <Box pt={5}>
               <Typography variant="h6">
-                <Link
-                  className={classes.link}
-                  to={`https://classic.developer.gov.bc.ca/?q=${preFiltered.term}`}
-                >
-                  Search Classic DevHub
-                </Link>
-                &nbsp;- please{' '}
+                Please{' '}
                 <Link
                   className={classes.link}
                   to="https://github.com/bcgov/developer-portal/issues"
