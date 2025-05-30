@@ -24,6 +24,9 @@ concurrency:
 
 jobs:
   call-build-workflow:
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/build.yaml
 
   get-short-sha:
