@@ -1,5 +1,5 @@
 name: Build and update gitops repo
-
+permissions: {}
 env:
   TARGET_FILE: 'values.dev.yaml'
   WORKING_DIR: 'developer-portal'
@@ -31,7 +31,6 @@ jobs:
 
   update-gitops-file:
     runs-on: ubuntu-latest
-    permissions: {}
     needs: [call-build-workflow, get-short-sha]
 
     steps:
