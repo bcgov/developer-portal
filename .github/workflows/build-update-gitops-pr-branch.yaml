@@ -43,6 +43,9 @@ jobs:
 
   call-build-workflow:
     needs: get-build-mode
+    permissions:
+      contents: read
+      packages: write
     if: ${{ (needs.get-build-mode.outputs.SHOULD_BUILD == 'true') || (needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true') }}
     uses: ./.github/workflows/build.yaml
 
