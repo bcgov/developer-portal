@@ -1,19 +1,19 @@
 name: Get short sha
-
+permissions: {}
 on:
-    workflow_call:
-      outputs:
-        SHORT_SHA:
-          description: "The short sha value in the format sha-abc457"
-          value: ${{ jobs.sha.outputs.SHORT_SHA }}
+  workflow_call:
+    outputs:
+      SHORT_SHA:
+        description: 'The short sha value in the format sha-abc457'
+        value: ${{ jobs.sha.outputs.SHORT_SHA }}
 jobs:
   sha:
     runs-on: ubuntu-latest
     outputs:
       SHORT_SHA: ${{ steps.get_sha.outputs.GITHUB_SHA_SHORT }}
-    
+
     steps:
-      # This assumes that sha was used as a tag in the build job 
+      # This assumes that sha was used as a tag in the build job
       # See https://github.com/docker/metadata-action/issues/164 for discussion about the list
       # of tags returned from metadata-action and using github.sha
       - name: Get short sha

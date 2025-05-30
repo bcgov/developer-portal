@@ -31,6 +31,7 @@ jobs:
 
   update-gitops-file:
     runs-on: ubuntu-latest
+    permissions: {}
     needs: [call-build-workflow, get-short-sha]
 
     steps:

@@ -19,6 +19,7 @@ concurrency:
 jobs:
   get-build-mode:
     runs-on: ubuntu-latest
+    permissions: {}
     outputs:
       SHOULD_BUILD: ${{ steps.build_mode.outputs.SHOULD_BUILD }}
       SHOULD_BUILD_DEPLOY: ${{ steps.build_mode.outputs.SHOULD_BUILD_DEPLOY }}
@@ -58,6 +59,7 @@ jobs:
   update-gitops-pr-file:
     if: needs.get-build-mode.outputs.SHOULD_BUILD_DEPLOY == 'true'
     runs-on: ubuntu-latest
+    permissions: {}
     needs:
       [call-build-workflow, get-short-sha, get-pr-branch-name, get-build-mode]
 

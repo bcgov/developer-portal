@@ -1,19 +1,18 @@
 name: Get PR branch name
-
+permissions: {}
 on:
-    workflow_call:
-      outputs:
-        BRANCH_NAME:
-          description: "The branch name to use for the preview PR"
-          value: ${{ jobs.branch.outputs.BRANCH_NAME }}
+  workflow_call:
+    outputs:
+      BRANCH_NAME:
+        description: 'The branch name to use for the preview PR'
+        value: ${{ jobs.branch.outputs.BRANCH_NAME }}
 jobs:
   branch:
     runs-on: ubuntu-latest
     outputs:
       BRANCH_NAME: ${{ steps.get_branch_name.outputs.BRANCH_NAME }}
-    
+
     steps:
       - name: Get branch name
         id: get_branch_name
         run: echo "BRANCH_NAME=auto-deployment/developer-portal-pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
-
