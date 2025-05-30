@@ -1,5 +1,5 @@
 name: Delete gitops deployment branch
-
+permissions: {}
 on:
   pull_request:
     types: [unlabeled, closed]

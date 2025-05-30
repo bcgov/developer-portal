@@ -2,12 +2,11 @@
 # Create a pull request if the backstage-cli has an updated version
 
 name: 'Version Bump'
+permissions:
+  contents: write
+  pull-requests: write
 on:
   workflow_dispatch:
-
-  # Run at midnight every Monday
-  schedule:
-    - cron: '0 0 * * 1'
 
 env:
   HUSKY: 0
@@ -91,6 +90,8 @@ jobs:
       - name: 'Run backstage-cli versions command'
         if: ${{ steps.branch_created.outputs.CREATED_BRANCH == 1 }}
         run: yarn backstage-cli versions:bump --release 'main'
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: 'Check for changes'
         if: ${{ steps.branch_created.outputs.CREATED_BRANCH == 1 }}
