@@ -1,6 +1,6 @@
 {
-  "name": "backstage-plugin-scaffolder-backend-module-scaffolder-analytics",
-  "description": "The scaffolder-analytics module for @backstage/plugin-scaffolder-backend",
+  "name": "scaffolder-backend-module-snowplow",
+  "description": "The snowplow module for @backstage/plugin-scaffolder-backend",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",

@@ -1,6 +1,6 @@
 /***/
 /**
- * The scaffolder-analytics module for @backstage/plugin-scaffolder-backend.
+ * The snowplow module for @backstage/plugin-scaffolder-backend.
  *
  * @packageDocumentation
  */

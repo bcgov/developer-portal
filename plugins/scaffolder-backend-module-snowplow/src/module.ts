@@ -3,14 +3,14 @@ import {
   coreServices,
 } from '@backstage/backend-plugin-api';
 import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
-import { createAnalyticsAction } from './actions/analytics';
+import { createSnowplowAction } from './actions/snowplow';
 
 /**
  * A backend module that registers the action into the scaffolder
  */
 export const scaffolderModule = createBackendModule({
   pluginId: 'scaffolder',
-  moduleId: 'analytics-action',
+  moduleId: 'snowplow-action',
   register({ registerInit }) {
     registerInit({
       deps: {
@@ -18,7 +18,7 @@ export const scaffolderModule = createBackendModule({
         config: coreServices.rootConfig,
       },
       async init({ scaffolderActions, config }) {
-        scaffolderActions.addActions(createAnalyticsAction({ config }));
+        scaffolderActions.addActions(createSnowplowAction({ config }));
       },
     });
   },
