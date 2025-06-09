@@ -52,7 +52,7 @@
     "@roadiehq/scaffolder-backend-module-http-request": "^4.3.5",
     "@roadiehq/scaffolder-backend-module-utils": "^3.3.0",
     "app": "link:../app",
-    "backstage-plugin-scaffolder-backend-module-scaffolder-analytics": "^0.1.0",
+    "scaffolder-backend-module-snowplow": "^0.1.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
     "isolated-vm": "5.0.4",
