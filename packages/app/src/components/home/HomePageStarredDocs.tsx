@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { useAsync } from 'react-use';
@@ -9,8 +10,8 @@ import * as tokens from '@bcgov/design-tokens/js';
 import { BCGovHeaderText } from './HomeHeaderText';
 import { CardGroup, HomeInfoCard } from './CardComponents';
 import { useStarredEntities } from '@backstage/plugin-catalog-react';
-import React, { useEffect, useState } from 'react';
 
+// Default button text options for documentation cards
 const defaultButtonText = [
   'View Documentation',
   'See Details',
@@ -19,7 +20,7 @@ const defaultButtonText = [
   'Read Guide',
 ];
 
-// Mapping of entity names to specific button text
+// Mapping of entity names to specific button text for more context-aware CTAs
 const buttonTextMapping: Record<string, string> = {
   'aps-infra-platform-docs': 'Read the APS guide',
   'bc-developer-guide': 'Build a quality application',
@@ -44,43 +45,44 @@ const buttonTextMapping: Record<string, string> = {
 //   'public-cloud-techdocs': 'Learn about building and deploying applications through B.C. government AWS landing zone.',
 // };
 
+// Helper to get button text for a given entity, falling back to a random default
 const getButtonText = (entityName?: string) => {
-  // If entity name is provided and exists in mapping, use the mapped text
   if (entityName && buttonTextMapping[entityName]) {
     return buttonTextMapping[entityName];
   }
-  // Otherwise use a random default text
+
   return defaultButtonText[
     Math.floor(Math.random() * defaultButtonText.length)
   ];
 };
 
+// Helper to truncate long descriptions for card display
 const truncateDesc = (txt: string | undefined, maxLength: number) => {
   if (!txt) return 'No description available';
 
   return txt.length > maxLength ? `${txt.substring(0, maxLength)}...` : txt;
 };
 
+// Props for DocsContent component, which renders a group of docs cards
 interface DocsContentProps {
   entityLoader: (catalogApi: any) => Promise<any[]>;
   title: string;
   icon: React.ReactNode;
 }
 
+// Generic component for displaying a horizontal scrollable group of docs cards
 const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
   const catalogApi = useApi(catalogApiRef);
   const [scrollStep, setScrollStep] = useState<number>(320);
 
+  // Dynamically adjust scroll step based on window size for responsive design
   useEffect(() => {
     const updateScrollStep = () => {
       if (window.innerWidth < 600) {
-        // xs
         setScrollStep(300);
       } else if (window.innerWidth < 960) {
-        // sm
         setScrollStep(400);
       } else {
-        // md+
         setScrollStep(480);
       }
     };
@@ -90,11 +92,13 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
     return () => window.removeEventListener('resize', updateScrollStep);
   }, []);
 
+  // Load documentation entities asynchronously
   const docsEntities = useAsync(
     () => entityLoader(catalogApi),
     [catalogApi, entityLoader],
   ).value;
 
+  // If no docs, render nothing
   if (!docsEntities?.length) return null;
 
   return (
@@ -106,6 +110,7 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
       <div style={{ width: '100%' }}>
         <HorizontalScrollGrid scrollStep={scrollStep}>
           {docsEntities.map((entity: any, idx: number) => {
+            // Build the docs link using namespace, kind, and name
             const docsLink = `/docs/${
               entity.metadata.namespace || 'default'
             }/${entity.kind.toLowerCase()}/${entity.metadata.name}`;
@@ -122,6 +127,7 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
                     md: 460,
                   },
                 }}
+                // Margin logic for first and last cards for visual spacing
                 ml={
                   idx === 0
                     ? tokens.layoutMarginSmall
@@ -156,6 +162,7 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
   );
 };
 
+// List of priority docs to surface first in the library
 const priorityDocs = [
   'bc-developer-guide',
   'mobile-developer-guide',
@@ -163,6 +170,7 @@ const priorityDocs = [
   'public-cloud-techdocs',
 ];
 
+// Component for displaying all documentation cards, sorted by priority -> alphebetical entity name
 export const AllDocsContent = () => {
   return (
     <DocsContent
@@ -191,6 +199,7 @@ export const AllDocsContent = () => {
   );
 };
 
+// Component for displaying only starred documentation cards
 export const StarredDocsContent = () => {
   const { starredEntities } = useStarredEntities();
 

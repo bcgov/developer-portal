@@ -27,9 +27,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// Main homepage cards layout component
 export const HomePageCards = () => {
   const classes = useStyles();
 
+  // List of event cards to display (e.g., OpenShift training)
   const events = [
     {
       key: 'e1',
@@ -81,6 +83,7 @@ export const HomePageCards = () => {
     },
   ];
 
+  // List of developer community tools to display as cards
   const tools = [
     {
       key: 't1',
@@ -133,7 +136,6 @@ export const HomePageCards = () => {
         </ItemCardGrid>
       </CardGroup>
 
-      {/* slightly weird text format change when scroll grid is used?!?! */}
       <CardGroup>
         <BCGovHeaderText variant="h3" gutterBottom>
           Get support from the developer community

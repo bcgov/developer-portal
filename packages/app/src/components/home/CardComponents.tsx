@@ -13,6 +13,7 @@ import { ItemCardHeader, LinkProps } from '@backstage/core-components';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import * as tokens from '@bcgov/design-tokens/js';
 
+// Styled container for card title with icon and link
 export const CardTitleIcon = withStyles({
   root: {
     display: 'flex',
@@ -24,11 +25,13 @@ export const CardTitleIcon = withStyles({
   },
 })(Box);
 
+// Props for CardTitle component, which displays an icon and a link as the card title
 export interface CardTitleProps {
   icon: React.ReactNode;
   linkProps: LinkProps;
 }
 
+// CardTitle renders the icon and the clickable title link
 export const CardTitle = ({
   children,
   icon,
@@ -42,6 +45,7 @@ export const CardTitle = ({
   );
 };
 
+// Styled button for card actions, with custom hover and color effects
 export const CardLinkButton = withStyles({
   root: {
     paddingLeft: tokens.layoutPaddingNone,
@@ -69,6 +73,7 @@ export const CardLinkButton = withStyles({
   },
 })(Button);
 
+// CardButton renders a styled button with a right chevron and link
 export const CardButton = ({
   children,
   ...props
@@ -83,6 +88,7 @@ export const CardButton = ({
   );
 };
 
+// Header for the card, styled to remove background and padding
 export const HomePageCardHeader = withStyles({
   root: {
     backgroundImage: 'none',
@@ -90,12 +96,14 @@ export const HomePageCardHeader = withStyles({
   },
 })(ItemCardHeader);
 
+// Group container for cards, adds top padding
 export const CardGroup = withStyles({
   root: {
     paddingTop: tokens.layoutMarginXxxlarge,
   },
 })(Box);
 
+// Main card container with flex layout and hover effect
 export const HomePageCard = withStyles(theme => ({
   root: {
     display: 'flex',
@@ -111,15 +119,16 @@ export const HomePageCard = withStyles(theme => ({
   },
 }))(Card);
 
+// Props for HomeInfoCard, which displays a card with icon, title, description, and button
 interface HomeInfoCardProps {
   icon: React.ReactNode;
   title: string;
   linkProps: LinkProps;
   description: React.ReactNode;
   buttonText: string;
-  cardHeaderClass?: string;
 }
 
+// HomeInfoCard renders a card with a header, content, and action button
 export const HomeInfoCard = ({
   icon,
   title,
