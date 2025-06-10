@@ -9,7 +9,7 @@ import * as tokens from '@bcgov/design-tokens/js';
 import { BCGovHeaderText } from './HomeHeaderText';
 import { CardGroup, HomeInfoCard } from './CardComponents';
 import { useStarredEntities } from '@backstage/plugin-catalog-react';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const defaultButtonText = [
   'View Documentation',
@@ -63,39 +63,30 @@ const truncateDesc = (txt: string | undefined, maxLength: number) => {
 
 interface DocsContentProps {
   entityLoader: (catalogApi: any) => Promise<any[]>;
+  title: string;
   icon: React.ReactNode;
 }
 
-const DocsContent = ({ entityLoader, icon }: DocsContentProps) => {
+const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
   const catalogApi = useApi(catalogApiRef);
-  const [scrollStep, setScrollStep] = useState<number>(1200);
-  const gridContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollStep, setScrollStep] = useState<number>(320);
 
-  // Calculate scroll step based on card width - always scroll one card at a time
   useEffect(() => {
     const updateScrollStep = () => {
-      // Estimate card width based on viewport size
-      const getCardWidth = () => {
-        if (window.innerWidth < 600) return 300; // xs breakpoint
-        if (window.innerWidth < 960) return 390; // sm breakpoint
-        return 460; // md+ breakpoint
-      };
-
-      // Get margin width from tokens, fallback to 16px if not available
-      const marginWidth = parseInt(tokens.layoutMarginMedium, 10) || 16;
-
-      // Set scroll step to one card width plus margins
-      const cardScrollStep = getCardWidth() + marginWidth * 2;
-      setScrollStep(cardScrollStep);
+      if (window.innerWidth < 600) {
+        // xs
+        setScrollStep(300);
+      } else if (window.innerWidth < 960) {
+        // sm
+        setScrollStep(400);
+      } else {
+        // md+
+        setScrollStep(480);
+      }
     };
 
-    // Set initial scroll step
     updateScrollStep();
-
-    // Update on resize
     window.addEventListener('resize', updateScrollStep);
-
-    // Clean up
     return () => window.removeEventListener('resize', updateScrollStep);
   }, []);
 
@@ -107,54 +98,61 @@ const DocsContent = ({ entityLoader, icon }: DocsContentProps) => {
   if (!docsEntities?.length) return null;
 
   return (
-    <div ref={gridContainerRef} style={{ width: '100%' }}>
-      <HorizontalScrollGrid scrollStep={scrollStep}>
-        {docsEntities.map((entity: any, idx: number) => {
-          const docsLink = `/docs/${
-            entity.metadata.namespace || 'default'
-          }/${entity.kind.toLowerCase()}/${entity.metadata.name}`;
+    <CardGroup>
+      <BCGovHeaderText variant="h3" paragraph>
+        {title}
+      </BCGovHeaderText>
 
-          return (
-            <Box
-              display="flex"
-              sx={{
-                flex: '1 1 auto',
-                // More responsive sizing based on viewport width
-                minWidth: {
-                  xs: 'clamp(270px, 80vw, 320px)',
-                  sm: 'clamp(320px, 45vw, 390px)',
-                  md: 'clamp(350px, 30vw, 460px)',
-                },
-                maxWidth: 540,
-              }}
-              ml={
-                idx === 0 ? tokens.layoutMarginSmall : tokens.layoutMarginMedium
-              }
-              mr={
-                idx === docsEntities.length - 1
-                  ? tokens.layoutMarginSmall
-                  : tokens.layoutMarginMedium
-              }
-              mb={tokens.layoutMarginSmall}
-              mt={tokens.layoutMarginSmall}
-              key={entity.metadata.uid}
-            >
-              <HomeInfoCard
-                icon={icon}
-                title={entity.metadata.title || entity.metadata.name}
-                linkProps={{
-                  to: docsLink,
-                  title: entity.metadata.name,
-                  target: '_blank',
+      <div style={{ width: '100%' }}>
+        <HorizontalScrollGrid scrollStep={scrollStep}>
+          {docsEntities.map((entity: any, idx: number) => {
+            const docsLink = `/docs/${
+              entity.metadata.namespace || 'default'
+            }/${entity.kind.toLowerCase()}/${entity.metadata.name}`;
+
+            return (
+              <Box
+                display="flex"
+                sx={{
+                  flexShrink: 0,
+                  flexGrow: 0,
+                  width: {
+                    xs: 280,
+                    sm: 380,
+                    md: 460,
+                  },
                 }}
-                description={truncateDesc(entity.metadata.description, 100)}
-                buttonText={getButtonText(entity.metadata.name)}
-              />
-            </Box>
-          );
-        })}
-      </HorizontalScrollGrid>
-    </div>
+                ml={
+                  idx === 0
+                    ? tokens.layoutMarginSmall
+                    : tokens.layoutMarginMedium
+                }
+                mr={
+                  idx === docsEntities.length - 1
+                    ? tokens.layoutMarginSmall
+                    : tokens.layoutMarginMedium
+                }
+                mb={tokens.layoutMarginSmall}
+                mt={tokens.layoutMarginSmall}
+                key={entity.metadata.uid}
+              >
+                <HomeInfoCard
+                  icon={icon}
+                  title={entity.metadata.title || entity.metadata.name}
+                  linkProps={{
+                    to: docsLink,
+                    title: entity.metadata.name,
+                    target: '_blank',
+                  }}
+                  description={truncateDesc(entity.metadata.description, 100)}
+                  buttonText={getButtonText(entity.metadata.name)}
+                />
+              </Box>
+            );
+          })}
+        </HorizontalScrollGrid>
+      </div>
+    </CardGroup>
   );
 };
 
@@ -167,34 +165,29 @@ const priorityDocs = [
 
 export const AllDocsContent = () => {
   return (
-    <CardGroup>
-      <BCGovHeaderText variant="h3" paragraph>
-        Documentation library
-      </BCGovHeaderText>
+    <DocsContent
+      title="Documentation library"
+      icon={<DocsIcon />}
+      entityLoader={async (catalogApi: any) => {
+        const allEntities = await catalogApi.getEntities();
+        const docs = allEntities.items.filter(
+          (entity: any) =>
+            !!entity.metadata.annotations?.['backstage.io/techdocs-ref'],
+        );
 
-      <DocsContent
-        icon={<DocsIcon />}
-        entityLoader={async (catalogApi: any) => {
-          const allEntities = await catalogApi.getEntities();
-          const docs = allEntities.items.filter(
-            (entity: any) =>
-              !!entity.metadata.annotations?.['backstage.io/techdocs-ref'],
-          );
+        // Surface the 'classic' docs first. Is this actually worth doing?
+        docs.sort((a: any, b: any) => {
+          const aIdx = priorityDocs.indexOf(a.metadata.name);
+          const bIdx = priorityDocs.indexOf(b.metadata.name);
+          if (aIdx === -1 && bIdx === -1) return 0;
+          if (aIdx === -1) return 1;
+          if (bIdx === -1) return -1;
 
-          // Surface the 'classic' docs first. Is this actually worth doing?
-          docs.sort((a: any, b: any) => {
-            const aIdx = priorityDocs.indexOf(a.metadata.name);
-            const bIdx = priorityDocs.indexOf(b.metadata.name);
-            if (aIdx === -1 && bIdx === -1) return 0;
-            if (aIdx === -1) return 1;
-            if (bIdx === -1) return -1;
-
-            return aIdx - bIdx;
-          });
-          return docs;
-        }}
-      />
-    </CardGroup>
+          return aIdx - bIdx;
+        });
+        return docs;
+      }}
+    />
   );
 };
 
@@ -202,25 +195,20 @@ export const StarredDocsContent = () => {
   const { starredEntities } = useStarredEntities();
 
   return (
-    <CardGroup>
-      <BCGovHeaderText variant="h3" paragraph>
-        Starred documentation
-      </BCGovHeaderText>
+    <DocsContent
+      title="Starred documentation"
+      icon={<StarIcon />}
+      entityLoader={async (catalogApi: any) => {
+        if (!starredEntities.size) return [];
 
-      <DocsContent
-        icon={<StarIcon />}
-        entityLoader={async (catalogApi: any) => {
-          if (!starredEntities.size) return [];
-
-          return (
-            await catalogApi.getEntitiesByRefs({
-              entityRefs: [...starredEntities],
-            })
-          ).items.filter(
-            (e: any) => !!e.metadata.annotations?.['backstage.io/techdocs-ref'],
-          );
-        }}
-      />
-    </CardGroup>
+        return (
+          await catalogApi.getEntitiesByRefs({
+            entityRefs: [...starredEntities],
+          })
+        ).items.filter(
+          (e: any) => !!e.metadata.annotations?.['backstage.io/techdocs-ref'],
+        );
+      }}
+    />
   );
 };
