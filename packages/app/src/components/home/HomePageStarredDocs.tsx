@@ -3,7 +3,7 @@ import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { useAsync } from 'react-use';
 import { Box } from '@material-ui/core';
-import { HorizontalScrollGrid } from '@backstage/core-components';
+import { FixedHorizontalScrollGrid } from './FixedHorizontalScrollGrid';
 import StarIcon from '@material-ui/icons/Star';
 import DocsIcon from '@material-ui/icons/Description';
 import * as tokens from '@bcgov/design-tokens/js';
@@ -45,6 +45,13 @@ const buttonTextMapping: Record<string, string> = {
 //   'public-cloud-techdocs': 'Learn about building and deploying applications through B.C. government AWS landing zone.',
 // };
 
+// Card widths for each breakpoint
+const CARD_WIDTHS = { xs: 380, sm: 400, md: 460 };
+// Convert rem token to px
+const CARD_MARGIN = parseFloat(tokens.layoutMarginMedium) * 16; // px, used for scrollStep calculation
+// Screen breakpoints for responsive logic
+const SCREEN_BREAKPOINTS = { xs: 600, sm: 960 };
+
 // Helper to get button text for a given entity, falling back to a random default
 const getButtonText = (entityName?: string) => {
   if (entityName && buttonTextMapping[entityName]) {
@@ -73,17 +80,17 @@ interface DocsContentProps {
 // Generic component for displaying a horizontal scrollable group of docs cards
 const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
   const catalogApi = useApi(catalogApiRef);
-  const [scrollStep, setScrollStep] = useState<number>(320);
+  const [scrollStep, setScrollStep] = useState<number>(CARD_WIDTHS.xs);
 
   // Dynamically adjust scroll step based on window size for responsive design
   useEffect(() => {
     const updateScrollStep = () => {
-      if (window.innerWidth < 600) {
-        setScrollStep(300);
-      } else if (window.innerWidth < 960) {
-        setScrollStep(400);
+      if (window.innerWidth < SCREEN_BREAKPOINTS.xs) {
+        setScrollStep(CARD_WIDTHS.xs + CARD_MARGIN * 2);
+      } else if (window.innerWidth < SCREEN_BREAKPOINTS.sm) {
+        setScrollStep(CARD_WIDTHS.sm + CARD_MARGIN * 2);
       } else {
-        setScrollStep(480);
+        setScrollStep(CARD_WIDTHS.md + CARD_MARGIN * 2);
       }
     };
 
@@ -107,9 +114,12 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
         {title}
       </BCGovHeaderText>
 
-      <div style={{ width: '100%' }}>
-        <HorizontalScrollGrid scrollStep={scrollStep}>
-          {docsEntities.map((entity: any, idx: number) => {
+      {/* FixedHorizontalScrollGrid has a negative margin, account for that so cards sit flush with Events cards */}
+      <div
+        style={{ width: '100%', marginLeft: `-${tokens.layoutMarginSmall}` }}
+      >
+        <FixedHorizontalScrollGrid scrollStep={scrollStep}>
+          {docsEntities.map((entity: any) => {
             // Build the docs link using namespace, kind, and name
             const docsLink = `/docs/${
               entity.metadata.namespace || 'default'
@@ -122,24 +132,12 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
                   flexShrink: 0,
                   flexGrow: 0,
                   width: {
-                    xs: 280,
-                    sm: 380,
-                    md: 460,
+                    xs: CARD_WIDTHS.xs,
+                    sm: CARD_WIDTHS.sm,
+                    md: CARD_WIDTHS.md,
                   },
+                  m: `${tokens.layoutMarginSmall} ${tokens.layoutMarginMedium}`,
                 }}
-                // Margin logic for first and last cards for visual spacing
-                ml={
-                  idx === 0
-                    ? tokens.layoutMarginSmall
-                    : tokens.layoutMarginMedium
-                }
-                mr={
-                  idx === docsEntities.length - 1
-                    ? tokens.layoutMarginSmall
-                    : tokens.layoutMarginMedium
-                }
-                mb={tokens.layoutMarginSmall}
-                mt={tokens.layoutMarginSmall}
                 key={entity.metadata.uid}
               >
                 <HomeInfoCard
@@ -156,7 +154,7 @@ const DocsContent = ({ entityLoader, title, icon }: DocsContentProps) => {
               </Box>
             );
           })}
-        </HorizontalScrollGrid>
+        </FixedHorizontalScrollGrid>
       </div>
     </CardGroup>
   );
