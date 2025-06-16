@@ -23,6 +23,20 @@ stackoverflow:
     pagesize: 100
     site: stackoverflow
 
+search:
+  collators:
+    githubDiscussions:
+      url: https://github.com/my-org/my-repository # required
+      # schedule:
+      #   initialDelay: { seconds: 10 }
+      #   timeout: { minutes: 10 }
+      #   frequency: { minutes: 30 }
+      # cacheBase: file:///example/path/backstage/.cache
+      # clearCacheOnSuccess: false
+      # discussionsBatchSize: 50
+      # commentsBatchSize: 50
+      # repliesBatchSize: 50
+
 auth:
   environment: development
   providers:
