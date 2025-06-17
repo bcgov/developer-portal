@@ -29,5 +29,5 @@ backend.add(import('@backstage/plugin-permission-backend'));
 backend.add(import('./extensions/permissionsPolicyExtension'));
 
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
-backend.add(import('scaffolder-backend-module-snowplow'));
+backend.add(import('@app/scaffolder-backend-module-snowplow'));
 backend.start();

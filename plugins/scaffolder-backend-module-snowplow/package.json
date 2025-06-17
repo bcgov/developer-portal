@@ -1,5 +1,5 @@
 {
-  "name": "scaffolder-backend-module-snowplow",
+  "name": "@app/scaffolder-backend-module-snowplow",
   "description": "The snowplow module for @backstage/plugin-scaffolder-backend",
   "version": "0.1.0",
   "main": "src/index.ts",
@@ -31,7 +31,10 @@
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
-    "@backstage/plugin-scaffolder-node-test-utils": "backstage:^"
+    "@backstage/plugin-scaffolder-node-test-utils": "backstage:^",
+    "react": "^18.0.2",
+    "react-dom": "^18.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "files": [
     "dist"
