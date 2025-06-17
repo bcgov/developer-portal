@@ -24,14 +24,14 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
-    "@backstage/backend-plugin-api": "^1.0.1",
-    "@backstage/config": "^1.2.0",
-    "@backstage/plugin-scaffolder-node": "^0.5.0",
+    "@backstage/backend-plugin-api": "backstage:^",
+    "@backstage/config": "backstage:^",
+    "@backstage/plugin-scaffolder-node": "backstage:^",
     "@snowplow/node-tracker": "^4.5.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.28.2",
-    "@backstage/plugin-scaffolder-node-test-utils": "^0.1.14"
+    "@backstage/cli": "backstage:^",
+    "@backstage/plugin-scaffolder-node-test-utils": "backstage:^"
   },
   "files": [
     "dist"
