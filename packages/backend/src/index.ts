@@ -17,11 +17,16 @@ backend.add(
 backend.add(import('@roadiehq/scaffolder-backend-module-utils'));
 backend.add(import('@backstage/plugin-auth-backend'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
-backend.add(import('@backstage/plugin-search-backend'));
+backend.add(import('@backstage/plugin-search-backend/alpha')); // github-discussions module requires alpha version
 backend.add(import('@backstage/plugin-search-backend-module-pg'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(
   import('@backstage/plugin-search-backend-module-stack-overflow-collator'),
+);
+backend.add(
+  import(
+    '@backstage-community/plugin-search-backend-module-github-discussions'
+  ),
 );
 backend.add(import('@backstage/plugin-techdocs-backend'));
 
