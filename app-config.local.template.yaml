@@ -26,7 +26,7 @@ stackoverflow:
 search:
   collators:
     githubDiscussions:
-      url: https://github.com/my-org/my-repository # required
+      url: ${GITHUB_DISCUSSIONS_URL} # required
       # schedule:
       #   initialDelay: { seconds: 10 }
       #   timeout: { minutes: 10 }

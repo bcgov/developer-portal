@@ -29,8 +29,8 @@ search:
       filter:
         kind:
           ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User']
-    # githubDiscussions:
-    #   url: ${GITHUB_DISCUSSIONS_URL}
+    githubDiscussions:
+      url: ${GITHUB_DISCUSSIONS_URL}
 stackoverflow:
   baseUrl: ${STACK_OVERFLOW_URL}
   apiKey: ${STACK_OVERFLOW_API_KEY}
