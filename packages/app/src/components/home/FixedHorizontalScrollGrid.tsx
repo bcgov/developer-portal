@@ -26,6 +26,7 @@ import {
   useLayoutEffect,
   useRef,
   PropsWithChildren,
+  useCallback,
 } from 'react';
 
 const generateGradientStops = (themeType: 'dark' | 'light') => {
@@ -97,7 +98,7 @@ const useStyles = makeStyles(
       pointerEvents: 'none',
     },
     fadeLeft: {
-      left: -fadePadding,
+      left: -theme.spacing(5), // nudged further into the margin
       background: `linear-gradient(90deg, ${generateGradientStops(
         theme.palette.type,
       )})`,
@@ -113,12 +114,17 @@ const useStyles = makeStyles(
     },
     button: {
       position: 'absolute',
+      width: 60,
+      height: 60,
+      '& svg': {
+        fontSize: 36, // 25% larger than default 24px
+      },
     },
     buttonLeft: {
-      left: -theme.spacing(2),
+      left: -theme.spacing(6), // nudged further into the margin
     },
     buttonRight: {
-      right: -theme.spacing(2),
+      right: -theme.spacing(6), // nudged further into the margin
     },
   }),
   { name: 'BackstageHorizontalScrollGrid' },
@@ -161,48 +167,42 @@ function useScrollDistance(
   return [scrollLeft, scrollRight];
 }
 
-// Used to animate scrolling. Returns a single setScrollTarget function, when called with e.g. 200,
-// the element pointer to by the ref will be scrolled 200px forwards over time.
 function useSmoothScroll(
   ref: MutableRefObject<HTMLElement | undefined>,
-  speed: number,
-  minDistance: number,
 ) {
-  const [scrollTarget, setScrollTarget] = useState<number>(0);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<number>();
 
+  // Cleanup timeout on unmount
   useLayoutEffect(() => {
-    if (scrollTarget === 0) {
-      return;
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  return useCallback((distance: number) => {
+    const element = ref.current;
+    if (!element || isScrollingRef.current) return;
+
+    isScrollingRef.current = true;
+    
+    // Clear any existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
     }
 
-    const startTime = window.performance.now();
-    const id = requestAnimationFrame(frameTime => {
-      if (!ref.current) {
-        return;
-      }
-      const frameDuration = frameTime - startTime;
-      const scrollDistance = (Math.abs(scrollTarget) * frameDuration) / speed;
-      const cappedScrollDistance = Math.max(minDistance, scrollDistance);
-      const scrollAmount = cappedScrollDistance * Math.sign(scrollTarget);
-
-      const roundedScrollAmount = Math.round(scrollAmount);
-      ref.current.scrollBy({ left: roundedScrollAmount });
-
-      const newScrollTarget = scrollTarget - roundedScrollAmount;
-      if (Math.sign(scrollTarget) !== Math.sign(newScrollTarget)) {
-        setScrollTarget(0);
-      } else {
-        setScrollTarget(newScrollTarget);
-      }
+    element.scrollBy({ 
+      left: distance, 
+      behavior: 'smooth' 
     });
 
-    // TODO(freben): Remove this eslint exception later
-    // It's here because @types/react-router-dom v5 pulls in @types/react that have the wrong signature
-    // eslint-disable-next-line consistent-return
-    return () => cancelAnimationFrame(id);
-  }, [ref, scrollTarget, speed, minDistance]);
-
-  return setScrollTarget;
+    // Reset scrolling flag after animation completes
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 400);
+  }, [ref]);
 }
 
 /**
@@ -223,7 +223,7 @@ export function FixedHorizontalScrollGrid(props: PropsWithChildren<Props>) {
   const ref = useRef<HTMLElement>();
 
   const [scrollLeft, scrollRight] = useScrollDistance(ref);
-  const setScrollTarget = useSmoothScroll(ref, scrollSpeed, minScrollDistance);
+  const setScrollTarget = useSmoothScroll(ref);
 
   const handleScrollClick = (forwards: boolean) => {
     const el = ref.current;
