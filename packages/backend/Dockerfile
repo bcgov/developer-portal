@@ -58,7 +58,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
 RUN "$YARN" workspaces focus --all --production && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
-FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:9.6-1749489516 AS runner
+FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:9.6-1750862880 AS runner
 USER 0
 
 # Env vars
