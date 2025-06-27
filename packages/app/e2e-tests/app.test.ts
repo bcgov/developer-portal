@@ -118,3 +118,50 @@ test.describe('redirects are available', () => {
     expect(page.url()).toContain('/docs/default/component/'); // redirect to techdocs
   });
 });
+
+test.describe('techdoc-expandable-toc plugin', () => {
+  test('expand/collapse ToC and navigate to Contact Info', async ({
+    page,
+    browserName,
+  }) => {
+    // Skip this test when running webkit on localhost because techdocs
+    // don't render correctly in webkit on localhost.
+    test.skip(
+      browserName === 'webkit' && !process.env.PLAYWRIGHT_URL,
+      'Skipping webkit test on localhost',
+    );
+
+    // Test expanding and collapsing the ToC in the Mobile Developer Guide
+    // and navigating to the Contact Info section.
+    await page.goto(
+      '/docs/default/component/mobile-developer-guide/getting_started',
+    );
+
+    const contactLinkNotPresent = page.getByRole('link', {
+      name: /contact info/i,
+    });
+    await expect(contactLinkNotPresent).toHaveCount(0);
+
+    const expandButton = page.getByRole('button', { name: /expand-toc/i });
+    await expect(expandButton).toBeVisible();
+    await expandButton.click();
+
+    const contactInfoLink = page
+      .getByRole('link', { name: /contact info/i })
+      .first();
+    await expect(contactInfoLink).toBeVisible();
+
+    await contactInfoLink.click();
+
+    const contactInfoHeading = page.getByRole('heading', {
+      name: /contact info/i,
+    });
+    await expect(contactInfoHeading).toBeVisible();
+
+    const collapseButton = page.getByRole('button', { name: /collapse-toc/i });
+    await expect(collapseButton).toBeVisible();
+    await collapseButton.click();
+
+    await expect(contactInfoLink).not.toBeVisible();
+  });
+});

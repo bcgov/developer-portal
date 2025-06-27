@@ -1,7 +1,7 @@
 # From https://github.com/janus-idp/backstage-showcase/
 # Stage 1 - Build nodejs skeleton
 
-FROM registry.access.redhat.com/ubi9/nodejs-20:9.5-1746604787 AS skeleton
+FROM registry.access.redhat.com/ubi9/nodejs-20:9.6-1749604222 AS skeleton
 USER 0
 
 RUN dnf install -y -q --allowerasing --nobest \
@@ -58,7 +58,7 @@ COPY $EXTERNAL_SOURCE/app-config.yaml  \
 RUN "$YARN" workspaces focus --all --production && "$YARN" cache clean
 
 # Stage 5 - Build the runner image
-FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:9.5-1746523564 AS runner
+FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:9.6-1749489516 AS runner
 USER 0
 
 # Env vars

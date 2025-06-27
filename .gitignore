@@ -59,6 +59,9 @@ site
 # E2E test reports
 e2e-test-report/
 
+# Cache
+.cache/
+
 # vscode workspace
 *.code-workspace
 .vscode/*
