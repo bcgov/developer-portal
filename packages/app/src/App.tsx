@@ -29,7 +29,6 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { darkTheme, lightTheme } from '@backstage/theme';
 import { devExTheme } from './devex-theme';
-
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import HomePage from './components/home/HomePage';
 import { TocFix } from '@app/plugin-toc-fix2';
@@ -41,6 +40,7 @@ import { ProtectedPage } from './components/auth/ProtectedPage';
 import { CustomSignInPage } from './components/auth/CustomSignInPage';
 import { protectedRoutes, redirectRoutes } from './components/utils/routes';
 import { RequirePermission } from '@backstage/plugin-permission-react';
+import { TechdocsAccessibilityStyles } from '@app/plugin-techdocs-accessibility-styles';
 
 const github_auth_provider = {
   id: 'github-auth-provider',
@@ -129,6 +129,7 @@ const routes = (
         <TocFix />
         {/* <ExpandableNavigation /> */}
         <TechdocExpandableToc />
+        <TechdocsAccessibilityStyles />
         <Mermaid
           config={{ theme: 'forest', themeVariables: { lineColor: '#000000' } }}
         />
