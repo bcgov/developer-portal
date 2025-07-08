@@ -27,6 +27,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
     uses: ./.github/workflows/build.yaml
 
   get-short-sha:
