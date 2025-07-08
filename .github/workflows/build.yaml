@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,3 +54,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ env.CACHE_TAG }},mode=max
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          image-ref: '{{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}'
+          severity: CRITIICAL,HIGH,MEDIUM
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
