@@ -59,7 +59,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.32.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ steps.meta.outputs.version }}'
-          severity: CRITIICAL,HIGH,MEDIUM
+          #severity: CRITIICAL,HIGH,MEDIUM
           format: 'sarif'
           output: 'trivy-results.sarif'
 
