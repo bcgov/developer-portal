@@ -64,6 +64,13 @@ jobs:
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
 
+      - name: Check Trivy results
+        run: |
+          echo "Trivy results file size:"
+          ls -la trivy-results.sarif
+          echo "First 50 lines of results:"
+          head -50 trivy-results.sarif
+
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
