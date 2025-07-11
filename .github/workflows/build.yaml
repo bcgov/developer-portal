@@ -32,6 +32,7 @@ jobs:
           tags: |
             type=sha
             type=ref,event=pr
+            type=ref,event=branch
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -59,27 +60,10 @@ jobs:
         uses: aquasecurity/trivy-action@0.32.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ steps.meta.outputs.version }}'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          severity: 'CRITICAL,HIGH,MEDIUM'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
-
-      - name: Check Trivy results
-        run: |
-          run: |
-            echo "=== SARIF file content ==="
-            cat trivy-results.sarif
-            echo "=== Results count ==="
-            grep -c '"ruleId"' trivy-results.sarif || echo "No vulnerabilities found"
-
-      - name: Validate SARIF file
-        run: |
-          echo "=== Checking for results in SARIF ==="
-          if grep -q '"results":\s*\[\s*\]' trivy-results.sarif; then
-            echo "SARIF file contains empty results array - no vulnerabilities found"
-          else
-            echo "SARIF file contains results"
-          fi
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
