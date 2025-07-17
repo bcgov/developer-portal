@@ -61,8 +61,7 @@ jobs:
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ steps.meta.outputs.version }}'
           severity: 'CRITICAL,HIGH'
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
+          format: 'sarif'
           output: 'trivy-results.sarif'
 
       # To review results for a PR in the GitHub Security tab, filter for "pr:NUM tool:Trivy is:open"
