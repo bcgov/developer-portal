@@ -15,6 +15,7 @@ import {
   catalogConditions,
   createCatalogConditionalDecision,
 } from '@backstage/plugin-catalog-backend/alpha';
+import { githubDiscussionsReadPermission } from '@backstage-community/plugin-github-discussions-common';
 
 class CatalogPermissionPolicy implements PermissionPolicy {
   async handle(
@@ -29,6 +30,16 @@ class CatalogPermissionPolicy implements PermissionPolicy {
         }),
       );
     }
+
+    // Handle search discussions permissions
+    if (isPermission(request.permission, githubDiscussionsReadPermission)) {
+      if (user?.info?.userEntityRef !== 'user:default/guest') {
+        return { result: AuthorizeResult.ALLOW };
+      } else {
+        return { result: AuthorizeResult.DENY };
+      }
+    }
+
     return {
       result: AuthorizeResult.ALLOW,
     };
