@@ -72,7 +72,7 @@ jobs:
           ssh-private-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
 
       - name: Checkout CD repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ secrets.MANIFEST_REPO }}
           ssh-key: ${{ secrets.MANIFEST_REPO_DEPLOY_KEY }}
