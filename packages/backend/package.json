@@ -16,6 +16,7 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
+    "@app/scaffolder-backend-module-snowplow": "^0.1.0",
     "@backstage-community/plugin-stack-overflow-backend": "^0.2.22",
     "@backstage/backend-common": "^0.25.0",
     "@backstage/backend-defaults": "backstage:^",
