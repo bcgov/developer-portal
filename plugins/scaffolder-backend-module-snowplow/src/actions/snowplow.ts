@@ -31,50 +31,33 @@ export function createSnowplowAction(options: { config: Config }) {
 
   // For more information on how to define custom actions, see
   //   https://backstage.io/docs/features/software-templates/writing-custom-actions
-  return createTemplateAction<{
-    name: string;
-    ministry: string;
-    options?: string[];
-    platform?: string;
-    timeSaved: number;
-  }>({
+  return createTemplateAction({
     id: 'bcgov:snowplow:create',
     description:
       'Creates a Snowplow tracker from app-config fields to track a SelfDescribingEvent with user selections & input.',
     schema: {
       input: {
-        type: 'object',
-        required: ['name', 'ministry', 'timeSaved'],
-        properties: {
-          name: {
-            title: 'The template/wizard name',
-            description:
-              'This is the name of the template/wizard that was run.',
-            type: 'string',
-          },
-          ministry: {
-            title: 'The selected ministry',
+        name: z =>
+          z.string({
+            description: 'This is the name of the template/wizard that was run.',
+          }),
+        ministry: z =>
+          z.string({
             description: 'This is the ministry acronym selected by the user',
-            type: 'string',
-          },
-          options: {
-            title: 'The selected configuration options',
-            description: 'These are configuration options selected by the user',
-            type: 'array',
-            items: { type: 'string' },
-          },
-          platform: {
-            title: 'The selected platform',
-            description: 'This is the platform selected by the user',
-            type: 'string',
-          },
-          timeSaved: {
-            title: 'The time savings in minutes',
+          }),
+        options: z =>
+          z.array(z.string()).optional().describe(
+            'These are configuration options selected by the user',
+          ),
+        platform: z =>
+          z.string().optional().describe(
+            'This is the platform selected by the user',
+          ),
+        timeSaved: z =>
+          z.number({
             description:
               'This is the time savings in minutes. Akin to the backstage.io/time-saved value',
-            type: 'number',
-          },
-        },
+          }),
       },
     },
     async handler(ctx) {
