@@ -1,0 +1,14 @@
+name: Scheduled trivy scan
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 8 * * 1'
+
+jobs:
+  call-build-workflow:
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    uses: ./.github/workflows/build.yaml
