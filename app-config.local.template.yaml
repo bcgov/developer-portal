@@ -27,15 +27,17 @@ search:
   collators:
     githubDiscussions:
       url: ${GITHUB_DISCUSSIONS_URL} # required
-      # schedule:
-      #   initialDelay: { seconds: 10 }
-      #   timeout: { minutes: 10 }
-      #   frequency: { minutes: 30 }
+      # default settings
+      schedule:
+        initialDelay: { seconds: 10 }
+        timeout: { minutes: 10 }
+        frequency: { minutes: 30 }
+      # defaults to writing cache inside node_modules/github-discussions-fetcher
       # cacheBase: file:///example/path/backstage/.cache
-      # clearCacheOnSuccess: false
-      # discussionsBatchSize: 50
-      # commentsBatchSize: 50
-      # repliesBatchSize: 50
+      clearCacheOnSuccess: true
+      discussionsBatchSize: 100
+      commentsBatchSize: 100
+      repliesBatchSize: 100
 
 auth:
   environment: development

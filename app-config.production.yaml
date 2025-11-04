@@ -30,7 +30,18 @@ search:
         kind:
           ['API', 'Component', 'Domain', 'Group', 'Resource', 'System', 'User']
     githubDiscussions:
-      url: ${GITHUB_DISCUSSIONS_URL}
+      url: ${GITHUB_DISCUSSIONS_URL} # required
+      # default settings
+      schedule:
+        initialDelay: { seconds: 10 }
+        timeout: { minutes: 10 }
+        frequency: { minutes: 30 }
+      # defaults to writing cache inside node_modules/github-discussions-fetcher
+      # cacheBase: file:///example/path/backstage/.cache
+      clearCacheOnSuccess: true
+      discussionsBatchSize: 100
+      commentsBatchSize: 100
+      repliesBatchSize: 100
 stackoverflow:
   baseUrl: ${STACK_OVERFLOW_URL}
   apiKey: ${STACK_OVERFLOW_API_KEY}
