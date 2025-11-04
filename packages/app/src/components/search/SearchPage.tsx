@@ -18,10 +18,10 @@ import {
   DocsIcon,
   Header,
   Page,
+  GitHubIcon
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { StackOverflowIcon } from '@backstage-community/plugin-stack-overflow';
-import { GitHubSvgIcon } from '../utils/icons';
 import { searchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -79,7 +79,7 @@ const SearchPage = () => {
                 {
                   value: 'github-discussions',
                   name: 'Github Discussions',
-                  icon: <GitHubSvgIcon />,
+                  icon: <GitHubIcon />,
                 },
               ]}
             />

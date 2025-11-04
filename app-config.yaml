@@ -78,16 +78,18 @@ integrations:
 # search:
 #   collators:
 #     githubDiscussions:
-#       url: https://github.com/my-org/my-repository # required
+#       url: ${GITHUB_DISCUSSIONS_URL} # required
+#       # default settings
 #       schedule:
 #         initialDelay: { seconds: 10 }
 #         timeout: { minutes: 10 }
 #         frequency: { minutes: 30 }
-#       cacheBase: file:///example/path/backstage/.cache
-#       clearCacheOnSuccess: false
-#       discussionsBatchSize: 50
-#       commentsBatchSize: 50
-#       repliesBatchSize: 50
+#       # defaults to writing cache inside node_modules/github-discussions-fetcher
+#       # cacheBase: file:///example/path/backstage/.cache
+#       clearCacheOnSuccess: true
+#       discussionsBatchSize: 100
+#       commentsBatchSize: 100
+#       repliesBatchSize: 100
 
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.

@@ -10,8 +10,7 @@ import {
   StackOverflowIcon,
 } from '@backstage-community/plugin-stack-overflow';
 import { GithubDiscussionsSearchResultListItem } from '@backstage-community/plugin-github-discussions';
-import { CatalogIcon, DocsIcon } from '@backstage/core-components';
-import { GitHubSvgIcon } from '../utils/icons';
+import { CatalogIcon, DocsIcon, GitHubIcon } from '@backstage/core-components';
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
 import { ResultHighlight } from '@backstage/plugin-search-common/index';
 
@@ -68,7 +67,7 @@ const SearchResultCustomList = () => {
                     result={document}
                     highlight={highlight}
                     rank={rank}
-                    icon={<GitHubSvgIcon />}
+                    icon={<GitHubIcon />}
                   />
                 );
               default:
