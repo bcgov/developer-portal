@@ -12,7 +12,7 @@ import {
 import { GithubDiscussionsSearchResultListItem } from '@backstage-community/plugin-github-discussions';
 import { CatalogIcon, DocsIcon, GitHubIcon } from '@backstage/core-components';
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
-import { ResultHighlight } from '@backstage/plugin-search-common/index';
+import { ResultHighlight } from '@backstage/plugin-search-common';
 
 interface SearchResultItem {
   type: string;
@@ -21,7 +21,7 @@ interface SearchResultItem {
   rank?: number;
 }
 
-const SearchResultCustomList = () => {
+export const SearchResultCustomList = () => {
   return (
     <SearchResult>
       {({ results }) => (
@@ -86,5 +86,3 @@ const SearchResultCustomList = () => {
     </SearchResult>
   );
 };
-
-export const searchResultCustomList = <SearchResultCustomList />;
