@@ -18,10 +18,11 @@ import {
   DocsIcon,
   Header,
   Page,
+  GitHubIcon
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { StackOverflowIcon } from '@backstage-community/plugin-stack-overflow';
-import { searchResultCustomList } from './SearchResultCustomList';
+import { SearchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
   search: {
@@ -75,6 +76,11 @@ const SearchPage = () => {
                   name: 'Stack Overflow',
                   icon: <StackOverflowIcon />,
                 },
+                {
+                  value: 'github-discussions',
+                  name: 'Github Discussions',
+                  icon: <GitHubIcon />,
+                },
               ]}
             />
             <Paper className={classes.filters}>
@@ -115,7 +121,7 @@ const SearchPage = () => {
           </Grid>
           <Grid item xs={9}>
             <SearchPagination />
-            {searchResultCustomList}
+            <SearchResultCustomList />
           </Grid>
         </Grid>
       </Content>

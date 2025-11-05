@@ -75,6 +75,22 @@ integrations:
 #   baseUrl: ${STACK_OVERFLOW_URL}
 #   apiKey: ${STACK_OVERFLOW_API_KEY}
 
+# search:
+#   collators:
+#     githubDiscussions:
+#       url: ${GITHUB_DISCUSSIONS_URL} # required
+#       # default settings
+#       schedule:
+#         initialDelay: { seconds: 10 }
+#         timeout: { minutes: 10 }
+#         frequency: { minutes: 30 }
+#       # defaults to writing cache inside node_modules/github-discussions-fetcher
+#       # cacheBase: file:///example/path/backstage/.cache
+#       clearCacheOnSuccess: true
+#       discussionsBatchSize: 100
+#       commentsBatchSize: 100
+#       repliesBatchSize: 100
+
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.

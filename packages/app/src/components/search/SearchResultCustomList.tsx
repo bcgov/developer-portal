@@ -9,15 +9,25 @@ import {
   StackOverflowSearchResultListItem,
   StackOverflowIcon,
 } from '@backstage-community/plugin-stack-overflow';
-import { CatalogIcon, DocsIcon } from '@backstage/core-components';
+import { GithubDiscussionsSearchResultListItem } from '@backstage-community/plugin-github-discussions';
+import { CatalogIcon, DocsIcon, GitHubIcon } from '@backstage/core-components';
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
+import { ResultHighlight } from '@backstage/plugin-search-common';
 
-const SearchResultCustomList = () => {
+interface SearchResultItem {
+  type: string;
+  document: any;
+  highlight?: ResultHighlight;
+  rank?: number;
+}
+
+export const SearchResultCustomList = () => {
   return (
     <SearchResult>
       {({ results }) => (
         <List>
-          {results.map(({ type, document, highlight, rank }) => {
+          {results.map((result: SearchResultItem) => {
+            const { type, document, highlight, rank } = result;
             switch (type) {
               case 'software-catalog':
                 return (
@@ -45,7 +55,19 @@ const SearchResultCustomList = () => {
                   <StackOverflowSearchResultListItem
                     key={document.location}
                     result={document}
+                    highlight={highlight}
+                    rank={rank}
                     icon={<StackOverflowIcon />}
+                  />
+                );
+              case 'github-discussions':
+                return (
+                  <GithubDiscussionsSearchResultListItem
+                    key={document.location}
+                    result={document}
+                    highlight={highlight}
+                    rank={rank}
+                    icon={<GitHubIcon />}
                   />
                 );
               default:
@@ -64,5 +86,3 @@ const SearchResultCustomList = () => {
     </SearchResult>
   );
 };
-
-export const searchResultCustomList = <SearchResultCustomList />;

@@ -18,6 +18,7 @@
     "@app/plugin-expandable-toc": "0.0.0",
     "@app/plugin-toc-fix2": "0.0.0",
     "@backstage-community/plugin-github-actions": "^0.6.16",
+    "@backstage-community/plugin-github-discussions": "^0.7.0",
     "@backstage-community/plugin-stack-overflow": "^0.1.30",
     "@backstage-community/plugin-tech-radar": "^0.7.4",
     "@backstage/app-defaults": "backstage:^",

@@ -15,7 +15,7 @@ import {
 } from '@backstage/plugin-search-react';
 import { searchPlugin } from '@backstage/plugin-search';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { searchResultCustomList } from '../search/SearchResultCustomList';
+import { SearchResultCustomList } from '../search/SearchResultCustomList';
 import { useRouteRef } from '@backstage/core-plugin-api';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
@@ -109,7 +109,7 @@ export function Custom404Page() {
             </Grid>
             <Grid container direction="row">
               <Grid item xs={9}>
-                {searchResultCustomList}
+                <SearchResultCustomList />
               </Grid>
             </Grid>
             <Box pt={5}>

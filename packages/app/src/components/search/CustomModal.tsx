@@ -1,6 +1,6 @@
 /*
  * CustomModal.tsx is a customized version of the original SearchModal.tsx
- * The searchResultCustomList component is used rather than <SearchResult> element
+ * The SearchResultCustomList component is used rather than <SearchResult> element
  */
 
 /*
@@ -39,7 +39,7 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { searchResultCustomList } from './SearchResultCustomList';
+import { SearchResultCustomList } from './SearchResultCustomList';
 import {
   searchPlugin,
   SearchModalChildrenProps,
@@ -128,7 +128,7 @@ export const CustomModal = ({ toggleModal }: SearchModalChildrenProps) => {
         </Grid>
         <Divider />
         <Grid container direction="column">
-          <Grid item>{searchResultCustomList}</Grid>
+          <Grid item><SearchResultCustomList /></Grid>
         </Grid>
       </DialogContent>
       <DialogActions className={classes.dialogActionsContainer}>
