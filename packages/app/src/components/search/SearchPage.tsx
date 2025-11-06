@@ -21,7 +21,6 @@ import {
   GitHubIcon
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { StackOverflowIcon } from '@backstage-community/plugin-stack-overflow';
 import { SearchResultCustomList } from './SearchResultCustomList';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -70,11 +69,6 @@ const SearchPage = () => {
                   value: 'techdocs',
                   name: 'Documentation',
                   icon: <DocsIcon />,
-                },
-                {
-                  value: 'stack-overflow',
-                  name: 'Stack Overflow',
-                  icon: <StackOverflowIcon />,
                 },
                 {
                   value: 'github-discussions',

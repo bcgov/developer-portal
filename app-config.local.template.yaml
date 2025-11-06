@@ -16,13 +16,6 @@ integrations:
     - host: github.com
       token: ${GITHUB_TOKEN}
 
-stackoverflow:
-  baseUrl: https://stackoverflow.developer.gov.bc.ca/api/2.3
-  apiKey: ${STACK_OVERFLOW_API_KEY}
-  requestParams:
-    pagesize: 100
-    site: stackoverflow
-
 search:
   collators:
     githubDiscussions:
