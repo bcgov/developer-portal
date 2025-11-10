@@ -19,7 +19,6 @@ import {
 import {
   GitHubSvgIcon,
   RocketChatIcon,
-  StackOverFlowIcon,
 } from '../utils/icons';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
@@ -222,14 +221,6 @@ export const HomePageCards = () => {
   const tools = [
     {
       key: 't1',
-      url: 'https://stackoverflow.developer.gov.bc.ca',
-      label: 'Stack Overflow',
-      icon: <StackOverFlowIcon />,
-      buttonText: 'Ask a question',
-      desc: 'Ask, answer and discuss technical questions specific to the B.C. government on the popular Q & A platform.',
-    },
-    {
-      key: 't2',
       url: 'https://chat.developer.gov.bc.ca',
       label: 'RocketChat',
       icon: <RocketChatIcon />,
@@ -237,12 +228,20 @@ export const HomePageCards = () => {
       desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.',
     },
     {
-      key: 't3',
+      key: 't2',
       url: 'https://github.com/bcgov',
       label: 'GitHub',
       icon: <GitHubSvgIcon />,
       buttonText: 'Find code',
       desc: 'Work together on a web-based version control platform that enables developers to host, review and manage code repositories.',
+    },
+    {
+      key: 't3',
+      url: 'https://github.com/bcgov/bcgov-community-discussions',
+      label: 'Discussions',
+      icon: <GitHubSvgIcon />,
+      buttonText: 'Ask a question',
+      desc: 'Ask, answer and discuss technical questions specific to the B.C. government. Join the bcgov GitHub organization for access!',
     },
   ];
 
