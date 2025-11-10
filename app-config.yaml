@@ -71,9 +71,6 @@ integrations:
 # - host: ghe.example.net
 #   apiBaseUrl: https://ghe.example.net/api/v3
 #   token: ${GHE_TOKEN}
-# stackoverflow:
-#   baseUrl: ${STACK_OVERFLOW_URL}
-#   apiKey: ${STACK_OVERFLOW_API_KEY}
 
 # search:
 #   collators:

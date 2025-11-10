@@ -3146,45 +3146,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-stack-overflow-backend@npm:^0.2.22":
-  version: 0.2.24
-  resolution: "@backstage-community/plugin-stack-overflow-backend@npm:0.2.24"
-  dependencies:
-    "@backstage/plugin-search-backend-module-stack-overflow-collator": "npm:^0.2.0"
-    node-fetch: "npm:^2.6.7"
-    qs: "npm:^6.9.4"
-    winston: "npm:^3.2.1"
-  checksum: 10c0/f87e665a9714bd4366b874cbb8cb64564b33b75b80dc33d01ba9a084c6412e1c5e72ab3dff5a1e903fadb8f68ba38c9b11eb44bed136649d61ae3e60f3c688b9
-  languageName: node
-  linkType: hard
-
-"@backstage-community/plugin-stack-overflow@npm:^0.1.30":
-  version: 0.1.33
-  resolution: "@backstage-community/plugin-stack-overflow@npm:0.1.33"
-  dependencies:
-    "@backstage/config": "npm:^1.2.0"
-    "@backstage/core-components": "npm:^0.15.1"
-    "@backstage/core-plugin-api": "npm:^1.10.0"
-    "@backstage/frontend-plugin-api": "npm:^0.9.0"
-    "@backstage/plugin-home-react": "npm:^0.1.18"
-    "@backstage/plugin-search-common": "npm:^1.2.14"
-    "@backstage/plugin-search-react": "npm:^1.8.1"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@testing-library/jest-dom": "npm:^6.0.0"
-    "@types/react": "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
-    cross-fetch: "npm:^4.0.0"
-    lodash: "npm:^4.17.21"
-    qs: "npm:^6.9.4"
-    react-use: "npm:^17.2.4"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/73f704fea3fc8622edc0d33fa0ad93a14c6fe496e3936633ba11d07fba4b64d959a1ceddde1209fa064cb12075e07fa0a9249154b01a8b87e7589f9ff647a652
-  languageName: node
-  linkType: hard
-
 "@backstage-community/plugin-tech-radar@npm:^0.7.4":
   version: 0.7.11
   resolution: "@backstage-community/plugin-tech-radar@npm:0.7.11"
@@ -3241,7 +3202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-common@npm:^0.24.0, @backstage/backend-common@npm:^0.24.1":
+"@backstage/backend-common@npm:^0.24.0":
   version: 0.24.1
   resolution: "@backstage/backend-common@npm:0.24.1"
   dependencies:
@@ -5203,7 +5164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-home-react@npm:^0.1.18, @backstage/plugin-home-react@npm:^0.1.28":
+"@backstage/plugin-home-react@npm:^0.1.28":
   version: 0.1.28
   resolution: "@backstage/plugin-home-react@npm:0.1.28"
   dependencies:
@@ -6014,34 +5975,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-backend-module-stack-overflow-collator@backstage:^::backstage=1.40.1&npm=0.3.10, @backstage/plugin-search-backend-module-stack-overflow-collator@npm:^0.3.10":
-  version: 0.3.11
-  resolution: "@backstage/plugin-search-backend-module-stack-overflow-collator@npm:0.3.11"
-  dependencies:
-    "@backstage/backend-plugin-api": "npm:^1.4.1"
-    "@backstage/config": "npm:^1.3.3"
-    "@backstage/plugin-search-backend-node": "npm:^1.3.13"
-    "@backstage/plugin-search-common": "npm:^1.2.19"
-    qs: "npm:^6.9.4"
-  checksum: 10c0/0c045953e21690289fc3f43a1cccb2b3c215001e3f82eebe48ea65c2b3eb2c5d44f3e45a570bc44a14742afb1e9264a3a3cacaf793e912067d87c2d603e357e6
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-search-backend-module-stack-overflow-collator@npm:^0.2.0":
-  version: 0.2.1
-  resolution: "@backstage/plugin-search-backend-module-stack-overflow-collator@npm:0.2.1"
-  dependencies:
-    "@backstage/backend-common": "npm:^0.24.1"
-    "@backstage/backend-plugin-api": "npm:^0.8.1"
-    "@backstage/config": "npm:^1.2.0"
-    "@backstage/plugin-search-backend-node": "npm:^1.3.1"
-    "@backstage/plugin-search-common": "npm:^1.2.14"
-    node-fetch: "npm:^2.7.0"
-    qs: "npm:^6.9.4"
-  checksum: 10c0/de4770c1357d5288238893625bca5bfe17561b0ad1a0ced56bf71f70207b56789d3d231e25b9d5f3fa6e55fc33037b8113a8b0b8452b3c7f438b7975fda413c7
-  languageName: node
-  linkType: hard
-
 "@backstage/plugin-search-backend-module-techdocs@backstage:^::backstage=1.40.1&npm=0.4.3, @backstage/plugin-search-backend-module-techdocs@npm:^0.4.3, @backstage/plugin-search-backend-module-techdocs@npm:^0.4.4":
   version: 0.4.4
   resolution: "@backstage/plugin-search-backend-module-techdocs@npm:0.4.4"
@@ -6062,7 +5995,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-backend-node@backstage:^::backstage=1.40.1&npm=1.3.12, @backstage/plugin-search-backend-node@npm:^1.3.1, @backstage/plugin-search-backend-node@npm:^1.3.12, @backstage/plugin-search-backend-node@npm:^1.3.13":
+"@backstage/plugin-search-backend-node@backstage:^::backstage=1.40.1&npm=1.3.12, @backstage/plugin-search-backend-node@npm:^1.3.12, @backstage/plugin-search-backend-node@npm:^1.3.13":
   version: 1.3.13
   resolution: "@backstage/plugin-search-backend-node@npm:1.3.13"
   dependencies:
@@ -6122,7 +6055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-common@backstage:^::backstage=1.40.1&npm=1.2.18, @backstage/plugin-search-common@npm:^1.2.14, @backstage/plugin-search-common@npm:^1.2.18, @backstage/plugin-search-common@npm:^1.2.19":
+"@backstage/plugin-search-common@backstage:^::backstage=1.40.1&npm=1.2.18, @backstage/plugin-search-common@npm:^1.2.18, @backstage/plugin-search-common@npm:^1.2.19":
   version: 1.2.19
   resolution: "@backstage/plugin-search-common@npm:1.2.19"
   dependencies:
@@ -6142,7 +6075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-react@backstage:^::backstage=1.40.1&npm=1.9.1, @backstage/plugin-search-react@npm:^1.8.1, @backstage/plugin-search-react@npm:^1.9.1, @backstage/plugin-search-react@npm:^1.9.2":
+"@backstage/plugin-search-react@backstage:^::backstage=1.40.1&npm=1.9.1, @backstage/plugin-search-react@npm:^1.9.1, @backstage/plugin-search-react@npm:^1.9.2":
   version: 1.9.2
   resolution: "@backstage/plugin-search-react@npm:1.9.2"
   dependencies:
@@ -16487,7 +16420,6 @@ __metadata:
     "@app/plugin-toc-fix2": "npm:0.0.0"
     "@backstage-community/plugin-github-actions": "npm:^0.6.16"
     "@backstage-community/plugin-github-discussions": "npm:^0.7.0"
-    "@backstage-community/plugin-stack-overflow": "npm:^0.1.30"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.4"
     "@backstage/app-defaults": "backstage:^"
     "@backstage/catalog-model": "backstage:^"
@@ -17310,7 +17242,6 @@ __metadata:
   dependencies:
     "@app/scaffolder-backend-module-snowplow": "npm:^0.1.0"
     "@backstage-community/plugin-search-backend-module-github-discussions": "npm:^0.8.0"
-    "@backstage-community/plugin-stack-overflow-backend": "npm:^0.2.22"
     "@backstage/backend-common": "npm:^0.25.0"
     "@backstage/backend-defaults": "backstage:^"
     "@backstage/backend-plugin-api": "backstage:^"
@@ -17340,7 +17271,6 @@ __metadata:
     "@backstage/plugin-search-backend": "backstage:^"
     "@backstage/plugin-search-backend-module-catalog": "backstage:^"
     "@backstage/plugin-search-backend-module-pg": "backstage:^"
-    "@backstage/plugin-search-backend-module-stack-overflow-collator": "backstage:^"
     "@backstage/plugin-search-backend-module-techdocs": "backstage:^"
     "@backstage/plugin-search-backend-node": "backstage:^"
     "@backstage/plugin-techdocs-backend": "backstage:^"

@@ -21,9 +21,6 @@ backend.add(import('@backstage/plugin-search-backend/alpha')); // github-discuss
 backend.add(import('@backstage/plugin-search-backend-module-pg'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(
-  import('@backstage/plugin-search-backend-module-stack-overflow-collator'),
-);
-backend.add(
   import(
     '@backstage-community/plugin-search-backend-module-github-discussions'
   ),

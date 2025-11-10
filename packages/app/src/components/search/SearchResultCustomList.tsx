@@ -5,10 +5,6 @@ import {
 } from '@backstage/plugin-search-react';
 
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
-import {
-  StackOverflowSearchResultListItem,
-  StackOverflowIcon,
-} from '@backstage-community/plugin-stack-overflow';
 import { GithubDiscussionsSearchResultListItem } from '@backstage-community/plugin-github-discussions';
 import { CatalogIcon, DocsIcon, GitHubIcon } from '@backstage/core-components';
 import { TechDocsSearchResultCustomListItem } from './TechDocsSearchResultCustomListItem';
@@ -48,16 +44,6 @@ export const SearchResultCustomList = () => {
                     rank={rank}
                     asListItem
                     icon={<DocsIcon />}
-                  />
-                );
-              case 'stack-overflow':
-                return (
-                  <StackOverflowSearchResultListItem
-                    key={document.location}
-                    result={document}
-                    highlight={highlight}
-                    rank={rank}
-                    icon={<StackOverflowIcon />}
                   />
                 );
               case 'github-discussions':
