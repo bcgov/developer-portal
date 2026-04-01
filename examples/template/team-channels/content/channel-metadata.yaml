@@ -1,0 +1,12 @@
+team: ${{ values.team }}
+
+channels:
+  - type: ${{ values.type }}
+    name: ${{ values.name }}
+    address: ${{ values.address }}
+    purpose: ${{ values.purpose }}
+    status: ${{ values.status }}
+    visibility: ${{ values.visibility }}
+    migrated: ${{ values.migrated }}
+    prevName: ${{ values.prevName }}
+    service: ${{ values.service }}

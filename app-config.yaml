@@ -13,7 +13,7 @@ app:
       enabled: true
       collectorUrl: https://spm.apps.gov.bc.ca
   wizards:
-    enabled: false
+    enabled: true
 
 organization:
   name: BCDevExchange
@@ -120,6 +120,9 @@ techdocs:
 
 catalog:
   useUrlReadersSearch: true
+  locations:
+     - type: file
+       target: https://github.com/bcgov/developer-portal/blob/main/templates/team-channels/template.yaml
   providers:
     githubOrg:
       - id: production

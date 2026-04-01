@@ -1,0 +1,130 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+
+metadata:
+  name: team-channels-metadata
+  title: Team Channels Metadata
+  description: Collect and generate metadata for team communication channels (MS Teams / Rocket.Chat)
+  tags:
+    - devhub
+    - channels
+    - metadata
+
+spec:
+  owner: group:default/developer-experience
+  type: documentation
+
+  parameters:
+    - title: Team Channel Metadata
+      required:
+        - team
+        - type
+        - name
+        - address
+      properties:
+        team:
+          title: Team name
+          type: string
+          description: Backstage Group name (e.g. exchange-lab-developer-portal-team)
+
+        type:
+          title: Channel type
+          type: string
+          enum:
+            - msteams
+            - rocketchat
+
+        name:
+          title: Channel name
+          type: string
+
+        address:
+          title: Channel address
+          type: string
+          description: URL, email, or channel identifier
+
+        purpose:
+          title: Purpose
+          type: string
+          enum:
+            - support
+            - announcements
+            - alerts
+            - general
+
+        status:
+          title: Status
+          type: string
+          enum:
+            - active
+            - deprecated
+            - planned
+
+        visibility:
+          title: Visibility
+          type: string
+          enum:
+            - public
+            - internal
+            - private
+
+        migrated:
+          title: Migrated from another platform
+          type: boolean
+
+        prevName:
+          title: Previous channel name (if migrated)
+          type: string
+
+        service:
+          title: Related service (optional)
+          type: string
+          description: e.g. devhub, openshift, registry
+
+  steps:
+    - id: log-input
+      name: Log input
+      action: debug:log
+      input:
+        message: |
+          Team: ${{ parameters.team }}
+          Channel: ${{ parameters.name }}
+
+    - id: show-yaml
+      name: Show generated YAML
+      action: debug:log
+      input:
+        message: |
+          channels:
+            - type: ${{ parameters.type }}
+              name: ${{ parameters.name }}
+              address: ${{ parameters.address }}
+              purpose: ${{ parameters.purpose }}
+              status: ${{ parameters.status }}
+              visibility: ${{ parameters.visibility }}
+              migrated: ${{ parameters.migrated }}
+              prevName: ${{ parameters.prevName }}
+              service: ${{ parameters.service }}
+
+    - id: generate-yaml
+      name: Generate channel metadata YAML
+      action: fetch:template
+      input:
+        url: ./content
+        targetPath: ./output
+        values:
+          team: ${{ parameters.team }}
+          type: ${{ parameters.type }}
+          name: ${{ parameters.name }}
+          address: ${{ parameters.address }}
+          purpose: ${{ parameters.purpose }}
+          status: ${{ parameters.status }}
+          visibility: ${{ parameters.visibility }}
+          migrated: ${{ parameters.migrated }}
+          prevName: ${{ parameters.prevName }}
+          service: ${{ parameters.service }}
+
+  output:
+    text:
+      - title: Result
+        content: Team channel metadata generated successfully.
