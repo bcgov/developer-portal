@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import {
   GitHubSvgIcon,
-  RocketChatIcon,
+  MSTeamsIcon,
 } from '../utils/icons';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
@@ -221,11 +221,11 @@ export const HomePageCards = () => {
   const tools = [
     {
       key: 't1',
-      url: 'https://chat.developer.gov.bc.ca',
-      label: 'RocketChat',
-      icon: <RocketChatIcon />,
+      url: 'https://teams.microsoft.com/v2/', // TDOD: link to teams space when available
+      label: 'MS Teams',
+      icon: <MSTeamsIcon />,
       buttonText: 'Message teams',
-      desc: 'Connect on an open-source team communication app that offers real-time chat, file sharing and collaboration features.',
+      desc: 'Connect with developers across the B.C. government in the new Developer community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
     },
     {
       key: 't2',
