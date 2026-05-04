@@ -225,7 +225,7 @@ export const HomePageCards = () => {
       label: 'MS Teams',
       icon: <MSTeamsIcon />,
       buttonText: 'Message teams',
-      desc: 'Connect with developers across the B.C. government in the new Developer Community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
+      desc: 'Connect with developers across the B.C. government in the Developer Community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
     },
     {
       key: 't2',
