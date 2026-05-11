@@ -224,7 +224,9 @@ export const HomePageCards = () => {
       url: 'https://teams.microsoft.com/l/team/19%3A6bffce0ac7aa47a1ba9f6d9a7e898db9%40thread.tacv2/conversations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc', 
       label: 'MS Teams',
       icon: <MSTeamsIcon />,
-      buttonText: 'Message teams',
+      buttonText: 'Join the team',
+      secondaryUrl: 'https://bcgov.sharepoint.com/teams/Developercommunity',  
+      secondaryLinkText: 'Browse channel directory >',
       desc: 'Connect with developers across the B.C. government in the Developer Community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
     },
     {
