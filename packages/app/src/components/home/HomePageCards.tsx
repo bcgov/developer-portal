@@ -16,10 +16,7 @@ import {
   withStyles,
   Button,
 } from '@material-ui/core';
-import {
-  GitHubSvgIcon,
-  MSTeamsIcon,
-} from '../utils/icons';
+import { GitHubSvgIcon, MSTeamsIcon } from '../utils/icons';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link } from 'react-router-dom';
 import DocsIcon from '@material-ui/icons/Description';
@@ -221,11 +218,11 @@ export const HomePageCards = () => {
   const tools = [
     {
       key: 't1',
-      url: 'https://teams.microsoft.com/l/team/19%3A6bffce0ac7aa47a1ba9f6d9a7e898db9%40thread.tacv2/conversations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc', 
+      url: 'https://teams.microsoft.com/l/team/19%3A6bffce0ac7aa47a1ba9f6d9a7e898db9%40thread.tacv2/conversations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc',
       label: 'MS Teams',
       icon: <MSTeamsIcon />,
       buttonText: 'Join the team',
-      secondaryUrl: 'https://bcgov.sharepoint.com/teams/Developercommunity',  
+      secondaryUrl: 'https://bcgov.sharepoint.com/teams/Developercommunity',
       secondaryLinkText: 'Browse channel directory',
       desc: 'Connect with developers across the B.C. government in the Developer Community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
     },
@@ -352,21 +349,28 @@ export const HomePageCards = () => {
                 />
               </CardMedia>
               <CardContent>{t.desc}</CardContent>
-              <CardActions disableSpacing style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} >
-  <CardButton to={t.url} title={t.label} target="_blank">
-    {t.buttonText}
-  </CardButton>
+              <CardActions
+                disableSpacing
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <CardButton to={t.url} title={t.label} target="_blank">
+                  {t.buttonText}
+                </CardButton>
 
-  {t.secondaryUrl && t.secondaryLinkText && (
-    <CardButton
-      to={t.secondaryUrl}
-      title={t.secondaryLinkText}
-      target="_blank"
-    >
-      {t.secondaryLinkText}
-    </CardButton>
-  )}
-</CardActions>
+                {t.secondaryUrl && t.secondaryLinkText && (
+                  <CardButton
+                    to={t.secondaryUrl}
+                    title={t.secondaryLinkText}
+                    target="_blank"
+                  >
+                    {t.secondaryLinkText}
+                  </CardButton>
+                )}
+              </CardActions>
             </Card>
           ))}
         </ItemCardGrid>
