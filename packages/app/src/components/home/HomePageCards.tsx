@@ -226,7 +226,7 @@ export const HomePageCards = () => {
       icon: <MSTeamsIcon />,
       buttonText: 'Join the team',
       secondaryUrl: 'https://bcgov.sharepoint.com/teams/Developercommunity',  
-      secondaryLinkText: 'Browse channel directory >',
+      secondaryLinkText: 'Browse channel directory',
       desc: 'Connect with developers across the B.C. government in the Developer Community Microsoft Teams space. Join available channels to ask questions, share knowledge and collaborate on tools, platforms and services.',
     },
     {
@@ -352,11 +352,21 @@ export const HomePageCards = () => {
                 />
               </CardMedia>
               <CardContent>{t.desc}</CardContent>
-              <CardActions>
-                <CardButton to={t.url} title={t.label} target="_blank">
-                  {t.buttonText}
-                </CardButton>
-              </CardActions>
+              <CardActions disableSpacing style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} >
+  <CardButton to={t.url} title={t.label} target="_blank">
+    {t.buttonText}
+  </CardButton>
+
+  {t.secondaryUrl && t.secondaryLinkText && (
+    <CardButton
+      to={t.secondaryUrl}
+      title={t.secondaryLinkText}
+      target="_blank"
+    >
+      {t.secondaryLinkText}
+    </CardButton>
+  )}
+</CardActions>
             </Card>
           ))}
         </ItemCardGrid>
