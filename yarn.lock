@@ -6591,6 +6591,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bcgov/plugin-catalog-openapi@npm:0.2.11-main.bc7f58ec":
+  version: 0.2.11-main.bc7f58ec
+  resolution: "@bcgov/plugin-catalog-openapi@npm:0.2.11-main.bc7f58ec"
+  dependencies:
+    "@backstage/core-components": "npm:^0.17.3"
+    "@backstage/core-plugin-api": "npm:^1.10.9"
+    "@backstage/theme": "npm:^0.6.6"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@material-ui/core": "npm:^4.9.13"
+    "@material-ui/icons": "npm:^4.9.1"
+    "@material-ui/lab": "npm:^4.0.0-alpha.61"
+    react-use: "npm:^17.2.4"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/44fb75842c06000d492fe07d66bdf01032008256de154d9f081049889104a68598f212905d838295db3042ec0059a27cfb1da25fd49b3da262c21a56cfcc7a46
+  languageName: node
+  linkType: hard
+
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -16577,6 +16595,7 @@ __metadata:
     "@bcgov/design-tokens": "npm:^3.0.0"
     "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
     "@bcgov/plugin-catalog-dataset": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-openapi": "npm:0.2.11-main.bc7f58ec"
     "@internal/plugin-integration-toolkit": "workspace:^"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"

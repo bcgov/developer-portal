@@ -49,6 +49,7 @@
     "@bcgov/design-tokens": "^3.0.0",
     "@bcgov/plugin-catalog-common-bc-data-catalogue": "0.2.11-main.bc7f58ec",
     "@bcgov/plugin-catalog-dataset": "0.2.11-main.bc7f58ec",
+    "@bcgov/plugin-catalog-openapi": "0.2.11-main.bc7f58ec",
     "@internal/plugin-integration-toolkit": "workspace:^",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
