@@ -6555,39 +6555,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.6-main.59c9210c":
-  version: 0.2.6-main.59c9210c
-  resolution: "@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.6-main.59c9210c"
+"@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.11-main.bc7f58ec":
+  version: 0.2.11-main.bc7f58ec
+  resolution: "@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.11-main.bc7f58ec"
   dependencies:
     "@backstage/backend-plugin-api": "npm:^1.4.1"
     "@backstage/config": "npm:^1.3.2"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.6-main.59c9210c"
-  checksum: 10c0/32d073172b50b1c10610ff4c9afa8a29864c3c9cda615e5d418232ef9c85ba6a1965c22a2f37371c6f97a883a4da8698a2473562c4410f00729a8f2827051519
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+  checksum: 10c0/c8275af797ad7db4478fb2324ad4ea702ffb3d7c2d6f49ccaa7c0871d728e594d1d3b4a211004abbcc90f3294561ef04740f68d70b412da5f0803a16a37e8f0c
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.6-main.59c9210c":
-  version: 0.2.6-main.59c9210c
-  resolution: "@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.6-main.59c9210c"
-  checksum: 10c0/ae73ab33fea08b13553fec1b834cdb7e2bf1ed74b1d4a68668917553edf93394f0b33c5e0248850fdfe0c5eab31f6658bea5476158e7d96b730ee3fc080928de
+"@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.11-main.bc7f58ec":
+  version: 0.2.11-main.bc7f58ec
+  resolution: "@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.11-main.bc7f58ec"
+  checksum: 10c0/53fa92c715c36e4a5a0529861a86a0f7328b5996eeb7e5ffaf46b7be533849fcdea6a062f86f160dda86587631a875ae82cd29c71d36f4ddbdc05fa12d283556
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-dataset@npm:0.2.6-main.59c9210c":
-  version: 0.2.6-main.59c9210c
-  resolution: "@bcgov/plugin-catalog-dataset@npm:0.2.6-main.59c9210c"
+"@bcgov/plugin-catalog-dataset@npm:0.2.11-main.bc7f58ec":
+  version: 0.2.11-main.bc7f58ec
+  resolution: "@bcgov/plugin-catalog-dataset@npm:0.2.11-main.bc7f58ec"
   dependencies:
     "@backstage/core-components": "npm:^0.17.3"
     "@backstage/core-plugin-api": "npm:^1.10.9"
     "@backstage/theme": "npm:^0.6.6"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.6-main.59c9210c"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
     "@material-ui/core": "npm:^4.9.13"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
     react-use: "npm:^17.2.4"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/32787cfd1750337fa5195d0c1f5fd9d15fc301e2bcbfa390e713c43bdd1f17f6cda19b37de438f8f851bded34a4a73746078d68d99cc186bfa9c63a76da2113c
+  checksum: 10c0/742b580dc8fffe32718cb1ad5d548db83f7604083df87c018ce11b184561d460e24372294bb9d48291f198749a08cdf048a407b8933a83e679d195ee408a5016
   languageName: node
   linkType: hard
 
@@ -16575,8 +16575,8 @@ __metadata:
     "@backstage/theme": "backstage:^"
     "@bcgov/bc-sans": "npm:^2.0.0"
     "@bcgov/design-tokens": "npm:^3.0.0"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.6-main.59c9210c"
-    "@bcgov/plugin-catalog-dataset": "npm:0.2.6-main.59c9210c"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-dataset": "npm:0.2.11-main.bc7f58ec"
     "@internal/plugin-integration-toolkit": "workspace:^"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"
@@ -17420,8 +17420,8 @@ __metadata:
     "@backstage/plugin-search-backend-node": "backstage:^"
     "@backstage/plugin-techdocs-backend": "backstage:^"
     "@bcgov/csit-microcks-backend-backstage-plugin": "npm:0.1.1-main.c822a801"
-    "@bcgov/plugin-catalog-backend-module-bc-data-catalogue": "npm:0.2.6-main.59c9210c"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.6-main.59c9210c"
+    "@bcgov/plugin-catalog-backend-module-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^4.3.5"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^3.3.0"
     "@types/express": "npm:^4.17.6"
