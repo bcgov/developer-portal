@@ -6555,57 +6555,57 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.11-main.bc7f58ec":
-  version: 0.2.11-main.bc7f58ec
-  resolution: "@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.11-main.bc7f58ec"
+"@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa":
+  version: 0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa
+  resolution: "@bcgov/plugin-catalog-backend-module-bc-data-catalogue@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
   dependencies:
     "@backstage/backend-plugin-api": "npm:^1.4.1"
     "@backstage/config": "npm:^1.3.2"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
-  checksum: 10c0/c8275af797ad7db4478fb2324ad4ea702ffb3d7c2d6f49ccaa7c0871d728e594d1d3b4a211004abbcc90f3294561ef04740f68d70b412da5f0803a16a37e8f0c
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
+  checksum: 10c0/4ce55d2cdd08f91cca0a857650c41760ade74ec827bab72ff5880d78bcb9c745d86a4c9aa989c12f89b071250437aea440296e6e1f4b3f9838dfc1f18465799b
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.11-main.bc7f58ec":
-  version: 0.2.11-main.bc7f58ec
-  resolution: "@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.11-main.bc7f58ec"
-  checksum: 10c0/53fa92c715c36e4a5a0529861a86a0f7328b5996eeb7e5ffaf46b7be533849fcdea6a062f86f160dda86587631a875ae82cd29c71d36f4ddbdc05fa12d283556
+"@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa":
+  version: 0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa
+  resolution: "@bcgov/plugin-catalog-common-bc-data-catalogue@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
+  checksum: 10c0/b4166e9d6d5c7cd2f8941cca6ca43835fb4ac2fa15ef414d16905241bcde83c28caba4f91a9ab571ee1cd8f9565ae272c05f8d2d1afee5dec76dc562f0eaf4bf
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-dataset@npm:0.2.11-main.bc7f58ec":
-  version: 0.2.11-main.bc7f58ec
-  resolution: "@bcgov/plugin-catalog-dataset@npm:0.2.11-main.bc7f58ec"
+"@bcgov/plugin-catalog-dataset@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa":
+  version: 0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa
+  resolution: "@bcgov/plugin-catalog-dataset@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
   dependencies:
     "@backstage/core-components": "npm:^0.17.3"
     "@backstage/core-plugin-api": "npm:^1.10.9"
     "@backstage/theme": "npm:^0.6.6"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
     "@material-ui/core": "npm:^4.9.13"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
     react-use: "npm:^17.2.4"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/742b580dc8fffe32718cb1ad5d548db83f7604083df87c018ce11b184561d460e24372294bb9d48291f198749a08cdf048a407b8933a83e679d195ee408a5016
+  checksum: 10c0/5ef04d8c7b5be7476334b16c6b01362d066a2a6c40767324619c502ecc0b6e06adaebdf47d2d917e11e3f0a0a6f614ec98f8bf29929194ee90810e9601a33620
   languageName: node
   linkType: hard
 
-"@bcgov/plugin-catalog-openapi@npm:0.2.11-main.bc7f58ec":
-  version: 0.2.11-main.bc7f58ec
-  resolution: "@bcgov/plugin-catalog-openapi@npm:0.2.11-main.bc7f58ec"
+"@bcgov/plugin-catalog-openapi@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa":
+  version: 0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa
+  resolution: "@bcgov/plugin-catalog-openapi@npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
   dependencies:
     "@backstage/core-components": "npm:^0.17.3"
     "@backstage/core-plugin-api": "npm:^1.10.9"
     "@backstage/theme": "npm:^0.6.6"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
     "@material-ui/core": "npm:^4.9.13"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
     react-use: "npm:^17.2.4"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/44fb75842c06000d492fe07d66bdf01032008256de154d9f081049889104a68598f212905d838295db3042ec0059a27cfb1da25fd49b3da262c21a56cfcc7a46
+  checksum: 10c0/23b56f1715e0d0e9d64d1eb17f3b807fbf6449157964693638440cf20f05cd02f8f11fd95c0fd6f79fd74000f232f57b478723e400b132ec7e95031c7932ee7c
   languageName: node
   linkType: hard
 
@@ -16593,9 +16593,9 @@ __metadata:
     "@backstage/theme": "backstage:^"
     "@bcgov/bc-sans": "npm:^2.0.0"
     "@bcgov/design-tokens": "npm:^3.0.0"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
-    "@bcgov/plugin-catalog-dataset": "npm:0.2.11-main.bc7f58ec"
-    "@bcgov/plugin-catalog-openapi": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
+    "@bcgov/plugin-catalog-dataset": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
+    "@bcgov/plugin-catalog-openapi": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
     "@internal/plugin-integration-toolkit": "workspace:^"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"
@@ -17439,8 +17439,8 @@ __metadata:
     "@backstage/plugin-search-backend-node": "backstage:^"
     "@backstage/plugin-techdocs-backend": "backstage:^"
     "@bcgov/csit-microcks-backend-backstage-plugin": "npm:0.1.1-main.c822a801"
-    "@bcgov/plugin-catalog-backend-module-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
-    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.11-main.bc7f58ec"
+    "@bcgov/plugin-catalog-backend-module-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
+    "@bcgov/plugin-catalog-common-bc-data-catalogue": "npm:0.2.10-feature.aps-4600-use-built-in-api-entity.76f29cfa"
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^4.3.5"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^3.3.0"
     "@types/express": "npm:^4.17.6"

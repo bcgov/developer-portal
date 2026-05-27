@@ -20,6 +20,7 @@ import {
   EntitySwitch,
   EntityOrphanWarning,
   EntityProcessingErrorsPanel,
+  isApiType,
   isComponentType,
   isKind,
   hasCatalogProcessingErrors,
@@ -61,10 +62,12 @@ import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { EntitySecurityInsightsContent } from '@roadiehq/backstage-plugin-security-insights';
 
 import { CatalogDatasetPage } from '@bcgov/plugin-catalog-dataset';
-import { CatalogOpenApiPage } from '@bcgov/plugin-catalog-openapi';
-import { 
-  DATASET_KIND, 
-  OPENAPI_KIND 
+import {
+  CatalogOpenApiDetailsContent,
+} from '@bcgov/plugin-catalog-openapi';
+import {
+  DATASET_KIND,
+  OPENAPI_API_TYPE,
 } from '@bcgov/plugin-catalog-common-bc-data-catalogue';
 
 const techdocsContent = (
@@ -278,41 +281,79 @@ const componentPage = (
   </EntitySwitch>
 );
 
-const apiPage = (
+const apiOverviewContent = (
+  <Grid container spacing={3}>
+    {entityWarningContent}
+
+    <Grid item md={6}>
+      <EntityAboutCard />
+    </Grid>
+
+    <Grid item md={6} xs={12}>
+      <EntityCatalogGraphCard variant="gridItem" height={400} />
+    </Grid>
+
+    <Grid item md={4} xs={12}>
+      <EntityLinksCard />
+    </Grid>
+
+    <Grid container item md={12}>
+      <Grid item md={6}>
+        <EntityProvidingComponentsCard />
+      </Grid>
+
+      <Grid item md={6}>
+        <EntityConsumingComponentsCard />
+      </Grid>
+    </Grid>
+  </Grid>
+);
+
+const apiDefinitionContent = (
+  <Grid container spacing={3}>
+    <Grid item xs={12}>
+      <EntityApiDefinitionCard />
+    </Grid>
+  </Grid>
+);
+
+const defaultApiPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
-      <Grid container spacing={3}>
-        {entityWarningContent}
-        <Grid item md={6}>
-          <EntityAboutCard />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <EntityCatalogGraphCard variant="gridItem" height={400} />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <EntityLinksCard />
-        </Grid>
-        <Grid container item md={12}>
-          <Grid item md={6}>
-            <EntityProvidingComponentsCard />
-          </Grid>
-          <Grid item md={6}>
-            <EntityConsumingComponentsCard />
-          </Grid>
-        </Grid>
-      </Grid>
+      {apiOverviewContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/definition" title="Definition">
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <EntityApiDefinitionCard />
-        </Grid>
-      </Grid>
+      {apiDefinitionContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
 
+const openApiApiPage = (
+  <EntityLayout>
+    <EntityLayout.Route path="/" title="Details">
+      <CatalogOpenApiDetailsContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/definition" title="Definition">
+      {apiDefinitionContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/catalog" title="Catalog">
+      {apiOverviewContent}
+    </EntityLayout.Route>
+  </EntityLayout>
+);
+
+const apiPage = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isApiType(OPENAPI_API_TYPE)}>
+      {openApiApiPage}
+    </EntitySwitch.Case>
+
+    <EntitySwitch.Case>{defaultApiPage}</EntitySwitch.Case>
+  </EntitySwitch>
+);
 const userPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
@@ -423,7 +464,6 @@ export const entityPage = (
     <EntitySwitch.Case if={isKind('system')} children={systemPage} />
     <EntitySwitch.Case if={isKind('domain')} children={domainPage} />
     <EntitySwitch.Case if={isKind(DATASET_KIND)} children={<CatalogDatasetPage />} />
-    <EntitySwitch.Case if={isKind(OPENAPI_KIND)} children={<CatalogOpenApiPage />} />
 
     <EntitySwitch.Case>{defaultEntityPage}</EntitySwitch.Case>
   </EntitySwitch>
