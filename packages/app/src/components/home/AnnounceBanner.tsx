@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 export enum AnnouncementIds {
   Wizards = 0,
   Discussions,
+  RelayLaunch,
   // add new announcement ids here
 }
 

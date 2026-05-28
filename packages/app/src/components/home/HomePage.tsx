@@ -71,10 +71,9 @@ const HomePage = () => {
     <Page themeId="home">
       <GlobalStyle />
       <Content>
-        <AnnounceBanner id={AnnouncementIds.Discussions} title="Search GitHub Discussions">
+        <AnnounceBanner id={AnnouncementIds.RelayLaunch} title="Enable Webhooks in Teams">
           <Typography>
-            <Link to="/settings">Sign In</Link>
-            {' '}to enable searching GitHub Discussions directly from DevHub
+            by following the steps in our <Link to="/docs/default/component/bc-developer-guide/webhooks/msteams-webhooks">onboarding guide</Link>
           </Typography>
         </AnnounceBanner>
 
