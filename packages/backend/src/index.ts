@@ -1,6 +1,25 @@
 import { createBackend } from '@backstage/backend-defaults';
+import { rootHttpRouterServiceFactory } from '@backstage/backend-defaults/rootHttpRouter';
 
 const backend = createBackend();
+
+backend.add(
+  rootHttpRouterServiceFactory({
+    configure({ app, applyDefaults }) {
+      if (process.env.ROBOTS_INDEX !== 'true') {
+        app.use((_req, res, next) => {
+          res.setHeader(
+            'X-Robots-Tag',
+            'noindex, nofollow',
+          );
+          next();
+        });
+      }
+      applyDefaults();
+    },
+  }),
+);
+
 backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
 backend.add(import('@backstage/plugin-catalog-backend'));
