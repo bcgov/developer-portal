@@ -6,7 +6,7 @@ const backend = createBackend();
 backend.add(
   rootHttpRouterServiceFactory({
     configure({ app, applyDefaults }) {
-      if (process.env.ROBOTS_INDEX !== 'true') {
+      if (process.env.ROBOTS_INDEX?.toLowerCase()?.trim() !== 'true') {
         app.use((_req, res, next) => {
           res.setHeader(
             'X-Robots-Tag',
