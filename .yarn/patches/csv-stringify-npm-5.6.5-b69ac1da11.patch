@@ -1,0 +1,31 @@
+diff --git a/lib/index.js b/lib/index.js
+index c309ff9fe8bc36a87d26e77f8d483e2b28038441..1b08b85650bd72a522d75738d5362774e5f60f1f 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -6,7 +6,11 @@ Please look at the [project documentation](https://csv.js.org/stringify/) for
+ additional information.
+ */
+ 
+-const { Transform } = require('stream')
++// Patched for bcgov/developer-portal: Backstage 1.52's default bundler (Rspack)
++// resolves bare `require('stream')` to a built-in stub that omits `Transform`,
++// crashing the CatalogPage chunk ("Class extends value undefined"). Importing
++// the userland polyfill directly resolves correctly under both Rspack and webpack.
++const { Transform } = require('stream-browserify')
+ const bom_utf8 = Buffer.from([239, 187, 191])
+ 
+ class Stringifier extends Transform {
+diff --git a/package.json b/package.json
+index d2335a536571c4b0812af4c0d8b38e1b471de2fa..9cf0d20cd71f45a5667ec782f8993c2323e74afc 100644
+--- a/package.json
++++ b/package.json
+@@ -27,6 +27,9 @@
+       "level": "ignore"
+     }
+   },
++  "dependencies": {
++    "stream-browserify": "^3.0.0"
++  },
+   "devDependencies": {
+     "@babel/cli": "^7.14.8",
+     "@babel/core": "^7.15.0",
