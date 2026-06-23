@@ -53,7 +53,8 @@
   "resolutions": {
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "isolated-vm": "6.0.2"
+    "isolated-vm": "6.0.2",
+    "csv-stringify@npm:^5.6.5": "patch:csv-stringify@npm%3A5.6.5#~/.yarn/patches/csv-stringify-npm-5.6.5-b69ac1da11.patch"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
