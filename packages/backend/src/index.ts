@@ -37,6 +37,7 @@ backend.add(import('@roadiehq/scaffolder-backend-module-utils'));
 backend.add(import('@backstage/plugin-auth-backend'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-search-backend/alpha')); // github-discussions module requires alpha version
+backend.add(import('@backstage/plugin-search-backend-module-catalog'));
 backend.add(import('@backstage/plugin-search-backend-module-pg'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(

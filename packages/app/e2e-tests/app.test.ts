@@ -45,6 +45,20 @@ test.describe('Login not needed to access non-protected pages', () => {
     await expect(page.getByText('Search')).toBeVisible();
   });
 
+  test('software catalog search filter is available', async ({ page }) => {
+    const searchResponse = page.waitForResponse(response => {
+      const url = response.url();
+      return (
+        url.includes('/api/search/query') && url.includes('software-catalog')
+      );
+    });
+
+    await page.goto('/search?query=&types%5B%5D=software-catalog');
+
+    await expect(page.getByText('Software Catalog')).toBeVisible();
+    expect((await searchResponse).status()).toBeLessThan(400);
+  });
+
   test('api-docs are available', async ({ page }) => {
     await page.goto('/api-docs');
     await expect(
