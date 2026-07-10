@@ -87,9 +87,9 @@ __metadata:
     "@backstage/dev-utils": "backstage:^"
     "@backstage/test-utils": "backstage:^"
     "@backstage/theme": "backstage:^"
-    "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
+    "@mui/material": "npm:^5.0.0"
     "@snowplow/browser-plugin-link-click-tracking": "npm:^3.15.0"
     "@snowplow/browser-plugin-site-tracking": "npm:^3.23.1"
     "@snowplow/browser-tracker": "npm:^3.15.0"
@@ -122,9 +122,9 @@ __metadata:
     "@backstage/plugin-techdocs-react": "backstage:^"
     "@backstage/test-utils": "backstage:^"
     "@backstage/theme": "backstage:^"
-    "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
+    "@mui/material": "npm:^5.0.0"
     "@react-hookz/web": "npm:^25.1.1"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^5.10.1"
@@ -153,9 +153,9 @@ __metadata:
     "@backstage/plugin-techdocs-react": "backstage:^"
     "@backstage/test-utils": "backstage:^"
     "@backstage/theme": "backstage:^"
-    "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
+    "@mui/material": "npm:^5.0.0"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^5.10.1"
     "@testing-library/react": "npm:^16.3.0"
@@ -8934,7 +8934,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.12.2":
+"@mui/material@npm:^5.0.0, @mui/material@npm:^5.12.2":
   version: 5.18.0
   resolution: "@mui/material@npm:5.18.0"
   dependencies:
@@ -16184,10 +16184,10 @@ __metadata:
     "@backstage/theme": "backstage:^"
     "@bcgov/bc-sans": "npm:^2.0.0"
     "@bcgov/design-tokens": "npm:^3.0.0"
-    "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"
     "@material-ui/lab": "npm:^4.0.0-alpha.61"
     "@material-ui/styles": "npm:^4.11.5"
+    "@mui/material": "npm:^5.0.0"
     "@playwright/test": "npm:^1.32.3"
     "@roadiehq/backstage-plugin-security-insights": "npm:^3.3.1"
     "@snowplow/browser-plugin-link-click-tracking": "npm:^3.15.0"
