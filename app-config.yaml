@@ -1,5 +1,5 @@
 app:
-  title: B.C. government DevHub
+  title: B.C. government DevHub Renovate
   baseUrl: http://localhost:3000
   support:
     url: 'https://github.com/bcgov/developer-portal/issues'
