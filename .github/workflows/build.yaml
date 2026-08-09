@@ -22,7 +22,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
           # Always generate latest tag (https://github.com/docker/metadata-action#latest-tag)
