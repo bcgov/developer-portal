@@ -19,6 +19,16 @@ catalog:
       rules:
         - allow: [Component]
 search:
+  pg:
+    highlightOptions:
+      useHighlight: true
+      maxWords: 22
+      minWords: 10
+      maxFragments: 2
+      # PostgreSQL trims ordinary spaces around this option; non-breaking
+      # spaces preserve visual separation between fragments in the UI.
+      fragmentDelimiter: "\u00a0\u00a0...\u00a0\u00a0"
+    normalization: 1
   collators:
     catalog:
       schedule: # same options as in SchedulerServiceTaskScheduleDefinition
